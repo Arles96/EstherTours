@@ -1,30 +1,19 @@
 // Fill the DB with example data on startup
 
 import { Meteor } from 'meteor/meteor';
-// import Links from '../../api/links/links';
+import { Accounts } from 'meteor/accounts-base';
 
 Meteor.startup(() => {
-  // if the Links collection is empty
-  /* if (Links.find().count() === 0) {
-    const data = [
-      {
-        title: 'Do the Tutorial',
-        url: 'https://www.meteor.com/try'
-      },
-      {
-        title: 'Follow the Guide',
-        url: 'http://guide.meteor.com'
-      },
-      {
-        title: 'Read the Docs',
-        url: 'https://docs.meteor.com'
-      },
-      {
-        title: 'Discussions',
-        url: 'https://forums.meteor.com'
+  if (!Accounts.findUserByEmail('prueba@gmail.com')) {
+    Accounts.createUser({
+      email: 'prueba@gmail.com',
+      password: 'Hola1234',
+      profile: {
+        firstName: 'Prueba 1',
+        lastName: 'Prueba 2',
+        blocked: false,
+        createAt: new Date()
       }
-    ];
-
-    data.forEach(link => Links.insert(link));
-  } */
+    });
+  }
 });

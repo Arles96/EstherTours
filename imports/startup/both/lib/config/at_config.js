@@ -11,6 +11,7 @@ const submitHook = function (error, state) {
       Router.go('/');
     } else if (state === 'signIn') {
       toastr.success('Has iniciado sesión');
+      Router.go('/dashboard');
     }
   } else {
     toastr.error('Error en correo o contraseña.');
