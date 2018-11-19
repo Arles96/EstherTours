@@ -1,8 +1,10 @@
 import { Router } from 'meteor/iron:router';
 
-// Import needed templates
+// Import layouts
 import '../../ui/layouts/body/body';
-import '../../ui/pages/home/home';
+
+// import pages
+import '../../ui/pages/account/account';
 import '../../ui/pages/not-found/not-found';
 
 Router.configure({
@@ -12,5 +14,5 @@ Router.configure({
 
 Router.route('/', {
   name: 'home',
-  template: 'App_home'
+  template: 'signIn'
 });

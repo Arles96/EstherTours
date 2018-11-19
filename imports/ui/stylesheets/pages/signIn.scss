@@ -1,0 +1,47 @@
+.wallpaper {
+  background-image: url('/img/orangeWallpaper.jpg');
+  height: 100vh;
+}
+
+.component {
+  margin-top: 5vmin;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.fa-arrow-left {
+  margin: 5%;
+  color: #272727;
+}
+
+.fa-arrow-left:hover{
+  color: #f0ca00;
+  cursor: pointer;
+}
+
+.user-icon {
+  width: 30%;
+  height: 30%;
+}
+
+.loginButton {
+  background: rgba(229,94,10,1);
+  background: -moz-linear-gradient(-45deg, rgba(229,94,10,1) 0%, rgba(255,166,0,1) 100%);
+  background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(229,94,10,1)), color-stop(100%, rgba(255,166,0,1)));
+  background: -webkit-linear-gradient(-45deg, rgba(229,94,10,1) 0%, rgba(255,166,0,1) 100%);
+  background: -o-linear-gradient(-45deg, rgba(229,94,10,1) 0%, rgba(255,166,0,1) 100%);
+  background: -ms-linear-gradient(-45deg, rgba(229,94,10,1) 0%, rgba(255,166,0,1) 100%);
+  background: linear-gradient(135deg, rgba(229,94,10,1) 0%, rgba(255,166,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e55e0a', endColorstr='#ffa600', GradientType=1 );
+  color: white;
+}
+.loginButton:hover {
+  background: rgba(255,166,0,1);
+  background: -moz-linear-gradient(-45deg, rgba(255,166,0,1) 0%, rgba(229,94,10,1) 100%);
+  background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(255,166,0,1)), color-stop(100%, rgba(229,94,10,1)));
+  background: -webkit-linear-gradient(-45deg, rgba(255,166,0,1) 0%, rgba(229,94,10,1) 100%);
+  background: -o-linear-gradient(-45deg, rgba(255,166,0,1) 0%, rgba(229,94,10,1) 100%);
+  background: -ms-linear-gradient(-45deg, rgba(255,166,0,1) 0%, rgba(229,94,10,1) 100%);
+  background: linear-gradient(135deg, rgba(255,166,0,1) 0%, rgba(229,94,10,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa600', endColorstr='#e55e0a', GradientType=1 );
+  color: white;
+}
