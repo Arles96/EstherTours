@@ -1,5 +1,5 @@
 import { Router } from 'meteor/iron:router';
-import { isLogin, isNotLogin } from './validations';
+import { isLoggedIn, isNotLoggedIn } from './validations';
 // Import layouts
 import '../../ui/layouts/body/body';
 import '../../ui/layouts/bodyAdmin/bodyAdmin';
@@ -18,7 +18,7 @@ Router.route('/', {
   name: 'home',
   template: 'signIn',
   onBeforeAction: function () {
-    isNotLogin(this);
+    isNotLoggedIn(this);
   }
 });
 
@@ -27,6 +27,6 @@ Router.route('/dashboard', {
   layoutTemplate: 'bodyAdmin',
   template: 'initialDashboard',
   onBeforeAction: function () {
-    isLogin(this);
+    isLoggedIn(this);
   }
 });

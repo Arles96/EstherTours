@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-export const isNotLogin = self => {
+export const isNotLoggedIn = self => {
   if (!Meteor.user()) {
     self.next();
   } else {
@@ -8,7 +8,7 @@ export const isNotLogin = self => {
   }
 };
 
-export const isLogin = self => {
+export const isLoggedIn = self => {
   if (Meteor.user()) {
     self.next();
   } else {
