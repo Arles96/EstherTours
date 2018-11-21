@@ -1,0 +1,10 @@
+<template name="bodyAdmin" >
+{{>dashboardNavbar}}
+<div id="wrapper">
+  {{>leftMenu}}
+  <div id="content-wrapper" style="height: 90vh; overflow-y: auto;">
+    {{>yield}}
+  </div>
+</div>
+{{>scripts}}
+</template>

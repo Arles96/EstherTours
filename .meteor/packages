@@ -24,3 +24,6 @@ aldeed:collection2@3.0.0
 aldeed:autoform
 fourseven:scss
 seba:minifiers-autoprefixer
+useraccounts:unstyled
+aldeed:template-extension
+accounts-password
