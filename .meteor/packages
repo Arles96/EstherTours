@@ -27,3 +27,4 @@ seba:minifiers-autoprefixer
 useraccounts:unstyled
 aldeed:template-extension
 accounts-password
+useraccounts:iron-routing
