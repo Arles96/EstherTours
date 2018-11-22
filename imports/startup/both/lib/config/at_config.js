@@ -10,7 +10,6 @@ const submitHook = function (error, state) {
       toastr.success('Contraseña guardada exitosamente');
       Router.go('/');
     } else if (state === 'signIn') {
-      toastr.success('Has iniciado sesión');
       Router.go('/dashboard');
     }
   } else {

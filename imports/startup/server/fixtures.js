@@ -4,13 +4,13 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
 Meteor.startup(() => {
-  if (!Accounts.findUserByEmail('prueba@gmail.com')) {
+  if (!Accounts.findUserByEmail('arles.cerrato@gmail.com')) {
     Accounts.createUser({
-      email: 'prueba@gmail.com',
+      email: 'arles.cerrato@gmail.com',
       password: 'Hola1234',
       profile: {
-        firstName: 'Prueba 1',
-        lastName: 'Prueba 2',
+        firstName: 'Arles',
+        lastName: 'Cerrato',
         blocked: false,
         createAt: new Date()
       }
