@@ -17,6 +17,11 @@ const ProfileUserSchema = new SimpleSchema({
     label: 'Primer Apellido',
     regEx: RegExObj.names
   },
+  email: {
+    type: String,
+    label: 'Correo',
+    regEx: RegExObj.email
+  },
   role: {
     type: String,
     label: 'Rol',
