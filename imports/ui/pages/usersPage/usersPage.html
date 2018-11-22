@@ -1,3 +1,27 @@
 <template name="usersPage" >
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i> Usuarios
+    </div>
+    <div class="card-body">
+      <!-- Add Button -->
+      <div class="form-group">
+        <button id="myButton" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+          Agregar Usuario
+        </button>
+      </div>
+      <div class="table-responsive">
+        {{> tabular table=TabularTables.Users class="table table-hover table-bordered"}}
+      </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    {{>addUserModal}}
+  </div>
+</template>
 
+<template name="showInfoUser" >
+  <th class="text-centerx" >
+    <i class="fas fa-eye mr-2" style="cursor: pointer;" data-toggle="modal" data-target="#infoModal"></i>
+    <i class="fas fa-lock" style="cursor: pointer"></i>
+  </th>
 </template>

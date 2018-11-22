@@ -18,16 +18,24 @@ TabularTables.Users = new Tabular.Table({
   },
   columns: [
     {
+      class: 'text-center',
       data: 'profile.firstName',
       title: 'Primer Nombre'
     },
     {
+      class: 'text-center',
       data: 'profile.lastName',
       title: 'Primer Apellido'
     },
     {
+      class: 'text-center',
       data: 'emails[0].address',
       title: 'Correo'
+    },
+    {
+      class: 'text-center',
+      data: 'roles[0]',
+      title: 'Rol'
     },
     {
       class: 'text-center',
@@ -40,3 +48,5 @@ TabularTables.Users = new Tabular.Table({
     }
   ]
 });
+
+export default TabularTables;

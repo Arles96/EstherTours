@@ -20,21 +20,24 @@ const ProfileUserSchema = new SimpleSchema({
   role: {
     type: String,
     label: 'Rol',
-    options: function () {
-      return [
-        {
-          value: admin,
-          label: admin
-        },
-        {
-          value: operator,
-          label: operator
-        },
-        {
-          value: consultant,
-          label: consultant
-        }
-      ];
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: function () {
+        return [
+          {
+            value: admin,
+            label: admin
+          },
+          {
+            value: operator,
+            label: operator
+          },
+          {
+            value: consultant,
+            label: consultant
+          }
+        ];
+      }
     }
   }
 }, { check: check, tracker: Tracker });

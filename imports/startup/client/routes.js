@@ -10,6 +10,7 @@ import '../../ui/layouts/bodyAdmin/bodyAdmin';
 import '../../ui/pages/account/account';
 import '../../ui/pages/not-found/not-found';
 import '../../ui/pages/initialDashboard/initialDashboard';
+import '../../ui/pages/usersPage/usersPage';
 
 /**
  *Función para listar en el componente breadcrumb
