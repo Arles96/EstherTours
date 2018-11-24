@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
+    "dev": "meteor --settings settings.json",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "lint": "npm run lint:js",
     "lint:eslint": "eslint --ignore-path .eslintignore",

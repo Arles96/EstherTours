@@ -31,7 +31,9 @@ Template.overrideAtError.helpers({
     } else if (displayName === 'Password (again): Minimum required length: 6') {
       return 'Confirmar Contraseña deben tener como mínimo 6 caracteres. ';
     } else if (displayName === 'Password (again): Contraseñas no coincide') {
-      return 'Contraseñas no coincide';
+      return 'Contraseñas no coinciden';
+    } else if (displayName === 'Token expired') {
+      return 'Token expirado';
     } else {
       return displayName;
     }
