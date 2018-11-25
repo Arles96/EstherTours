@@ -1,5 +1,7 @@
 import { Router } from 'meteor/iron:router';
-import { isLoggedIn, isNotLoggedIn } from './validations';
+import { Session } from 'meteor/session';
+import { isLoggedIn, isNotLoggedIn, isAdmin } from './validations';
+
 // Import layouts
 import '../../ui/layouts/body/body';
 import '../../ui/layouts/bodyAdmin/bodyAdmin';
@@ -8,12 +10,27 @@ import '../../ui/layouts/bodyAdmin/bodyAdmin';
 import '../../ui/pages/account/account';
 import '../../ui/pages/not-found/not-found';
 import '../../ui/pages/initialDashboard/initialDashboard';
+import '../../ui/pages/usersPage/usersPage';
 
+/**
+ *Función para listar en el componente breadcrumb
+ * @param {Array} list
+ */
+function listBreadcrumb (list) {
+  Session.set('listBreadcrum', list);
+}
+
+/**
+ * Configuración de la página 404
+ */
 Router.configure({
   layoutTemplate: 'App_body',
   notFoundTemplate: 'App_notFound'
 });
 
+/**
+ * Ruta de iniciar sesión
+ */
 Router.route('/', {
   name: 'home',
   template: 'signIn',
@@ -22,11 +39,15 @@ Router.route('/', {
   }
 });
 
+/**
+ * Ruta de la página principal del dashboard
+ */
 Router.route('/dashboard', {
   name: 'dashboard',
   layoutTemplate: 'bodyAdmin',
   template: 'initialDashboard',
   onBeforeAction: function () {
+    listBreadcrumb(['Visión General']);
     isLoggedIn(this);
   }
 });
@@ -65,5 +86,18 @@ Router.route('/reset-password/:token', {
       AccountsTemplates.paramToken = this.params.token;
       this.next();
     }
+  }
+});
+
+/**
+ * Rutas para Usuarios
+ */
+Router.route('/users', {
+  name: 'users',
+  template: 'usersPage',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Usuarios']);
+    isAdmin(this);
   }
 });

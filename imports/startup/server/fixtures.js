@@ -2,10 +2,11 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import { admin } from '../../api/roles/roles';
 
 Meteor.startup(() => {
   if (!Accounts.findUserByEmail('arles.cerrato@gmail.com')) {
-    Accounts.createUser({
+    const id = Accounts.createUser({
       email: 'arles.cerrato@gmail.com',
       password: 'Hola1234',
       profile: {
@@ -15,5 +16,6 @@ Meteor.startup(() => {
         createAt: new Date()
       }
     });
+    Roles.addUsersToRoles(id, admin);
   }
 });

@@ -1,0 +1,113 @@
+
+
+.dataTables_wrapper {
+  @extend .row;
+  margin: 1em;
+  align-items: center;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+  color: #333;
+}
+
+.dataTables_length {
+  @extend .col-6;
+  @extend .form-inline;
+}
+
+.dataTables_length > label > select {
+  @extend .form-control;
+  @extend .form-control-sm;
+  margin-left: 1.5px;
+  margin-right: 1.5px;
+}
+
+/* Search Bar */
+
+.dataTables_filter {
+  @extend .col-6;
+  text-align: right;
+}
+
+.dataTables_filter > label {
+  text-align: left;
+}
+
+.dataTables_filter > label > input {
+  @extend .form-control;
+}
+
+/* Pagination */
+.dataTables_paginate {
+  width: 63%;
+  align-items: center;
+  justify-content: center;
+  margin: .5em auto;
+  padding-top: 0.25em;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+  cursor: default;
+  color: #666 !important;
+  border: 1px solid transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  box-sizing: border-box;
+  display: inline-block;
+  min-width: 1.5em;
+  padding: 0.5em 1em;
+  margin-left: 2px;
+  text-align: center;
+  text-decoration: none !important;
+  cursor: pointer;
+  color: #333 !important;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+  float: right;
+  text-align: right;
+  padding-top: 0.25em;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: #333 !important;
+  border: 1px solid #979797;
+  background-color: white;
+  background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  box-sizing: border-box;
+  display: inline-block;
+  min-width: 1.5em;
+  padding: 0.5em 1em;
+  margin-left: 2px;
+  text-align: center;
+  text-decoration: none !important;
+  cursor: pointer;
+  color: #333 !important;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+/*
+.paginate_button {
+  @extend .page-item;
+  @extend .page-link;
+}
+
+.dataTables_paginate > span {
+  @extend .dataTables_paginate;
+} */
+
+/* Info */
+
+.dataTables_info {
+  display: block !important;
+  width: 100%;
+}

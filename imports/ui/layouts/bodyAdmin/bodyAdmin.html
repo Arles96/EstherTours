@@ -3,7 +3,10 @@
 <div id="wrapper">
   {{>leftMenu}}
   <div id="content-wrapper" style="height: 90vh; overflow-y: auto;">
-    {{>yield}}
+    <div class="container-fluid">
+      {{>breadcrumb}}
+      {{>yield}}
+    </div>
   </div>
 </div>
 {{>scripts}}
