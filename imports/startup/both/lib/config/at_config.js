@@ -8,10 +8,12 @@ const submitHook = function (error, state) {
       toastr.success('Por favor revise su correo');
     } else if (state === 'resetPwd') {
       toastr.success('Contraseña guardada exitosamente');
-      Router.go('/');
+      Router.go('/dashboard');
     } else if (state === 'signIn') {
       Router.go('/dashboard');
     }
+  } else if (error !== undefined && state === 'resetPwd') {
+    toastr.error('Error al resetear tu contraseña.');
   } else {
     toastr.error('Error en correo o contraseña.');
   }
