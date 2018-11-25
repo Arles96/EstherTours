@@ -25,6 +25,7 @@ Meteor.methods({
         Email.send({
           from: 'aulio.maldonado@gmail.com',
           to: doc.email,
+          subject: 'Creación de Usuario',
           text: `Te han creado un usuario en la plataform de Esther Tours y tu contraseña es ${password}`
         });
       }), 0);

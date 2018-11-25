@@ -1,0 +1,28 @@
+<template name="showInfoUserModal" >
+  <div class="modal fade" id="showInfoUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregando Usuario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- Cuerpo del Modal (Agregar Usuario) -->
+        <div class="modal-body">
+          {{#autoForm
+            id="showInfoUser"
+            schema=UserProfileSchema
+            type="normal"
+            doc=user
+          }}
+            {{>afQuickField name="firstName" readonly='true' }}
+            {{>afQuickField name="lastName" readonly='true' }}
+            {{>afQuickField name="email" readonly='true' }}
+            {{>afQuickField name="role" readonly='true' }}
+          {{/autoForm}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

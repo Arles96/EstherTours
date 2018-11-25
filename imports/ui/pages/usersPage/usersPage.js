@@ -1,8 +1,10 @@
 import './usersPage.html';
 import './addUserModal';
+import './showInfoUser';
 import { Meteor } from 'meteor/meteor';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
+import { Session } from 'meteor/session';
 
 Template.usersPage.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -43,6 +45,9 @@ Template.showInfoUser.helpers({
 });
 
 Template.showInfoUser.events({
+  'click .showInfo': function () {
+    Session.set('idUserInfo', this._id);
+  },
   'click .lock': function () {
     const id = this._id;
     Swal({
