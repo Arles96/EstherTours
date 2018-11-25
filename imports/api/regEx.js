@@ -2,7 +2,7 @@
 import SimpleSchema from 'simpl-schema';
 
 const RegExObj = {
-  names: /(?=.*[a-z])(?=.*[A-Z])/,
+  names: /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/,
   email: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
   isNumber: /^-?\d+\.?\d*$/,
@@ -10,9 +10,9 @@ const RegExObj = {
 };
 
 const RegExMessages = [
-  { exp: RegExObj.names, msg: 'Nombre invalido' },
-  { exp: RegExObj.email, msg: 'Correo inválido' },
-  { exp: RegExObj.password, msg: 'Contraseña inválida. Debe ser mayor de 6 caracteres, tener al menos una mayúscula y un numero' },
+  { exp: RegExObj.names, msg: 'invalido, solo debe contener letras.' },
+  { exp: RegExObj.email, msg: 'inválido' },
+  { exp: RegExObj.password, msg: 'inválida. Debe ser mayor de 6 caracteres, tener al menos una mayúscula y un numero' },
   { exp: RegExObj.isNumber, msg: 'inválido. Ingresar número de identidad sin guiones u otros caracteres' },
   { exp: RegExObj.phone, msg: 'inválido' }
 ];
