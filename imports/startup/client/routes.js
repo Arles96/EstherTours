@@ -11,6 +11,7 @@ import '../../ui/pages/account/account';
 import '../../ui/pages/not-found/not-found';
 import '../../ui/pages/initialDashboard/initialDashboard';
 import '../../ui/pages/usersPage/usersPage';
+import '../../ui/pages/hotel/addHoteles';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -99,5 +100,19 @@ Router.route('/users', {
   onBeforeAction: function () {
     listBreadcrumb(['Usuarios']);
     isAdmin(this);
+  }
+});
+
+/**
+ * Rutas para hoteles
+ */
+Router.route('/addHoteles', {
+  name: 'addHoteles',
+  template: 'addHoteles',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar hoteles']);
+    isLoggedIn(this);
+    // isAdmin(this);
   }
 });
