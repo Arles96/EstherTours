@@ -1,0 +1,48 @@
+<template name="addRenters" >
+  <div class="card mb-3" >
+    <div class="card-header" >
+      <i class="fas fa-user"></i> Agregar Arrendadora
+    </div>
+    <div class="card-body">
+      {{#autoForm
+        id="addRentersForms"
+        schema=RentersSchema
+        type="method"
+        meteormethod="addRenter"
+      }}
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="name"}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="email" }}
+        </div>
+        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="telephone" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="street" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="municipality" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="department" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          {{>afQuickField name="services" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+          {{>afQuickField name="paymentMethods" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+          {{>afQuickField name="money" }}
+        </div>
+      </div>
+      <div class="text-center mt-2" >
+        <button type="submit" class="btn btn-primary w-75" >Agregar</button>
+      </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
