@@ -1,0 +1,296 @@
+<template name="addRestaurant">
+
+  <div id="content-wrapper" style="overflow-y: auto;" >
+    <div class="container-fluid">
+      <!-- DataTables Example -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-table"></i>
+          Agregando Establecimiento Restaurante</div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Nombre</label>
+                  <input type="text" class="form-control" placeholder="Comidas, S.A.">
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Correo electrónico</label>
+                  <input type="email" class="form-control" placeholder="Correo electrónico">
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Calle</label>
+                  <input type="text" class="form-control" placeholder="Calle">
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Ciudad</label>
+                  <input type="text" class="form-control" placeholder="Ciudad">
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Municipio</label>
+                  <input type="text" class="form-control" placeholder="Municipio">
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Departamento</label>
+                  <select class="form-control" >
+                    <option>Atlántida</option>
+                    <option>Choluteca</option>
+                    <option>Colón</option>
+                    <option>Comayagua</option>
+                    <option>Copán</option>
+                    <option>Cortés</option>
+                    <option>El Paraíso</option>
+                    <option>Francisco Morazán</option>
+                    <option>Gracias a Dios</option>
+                    <option>Intibucá</option>
+                    <option>Islas de la Bahía</option>
+                    <option>La Paz</option>
+                    <option>Lempira</option>
+                    <option>Ocotepeque</option>
+                    <option>Olancho</option>
+                    <option>Santa Bárbara</option>
+                    <option>Valle</option>
+                    <option>Yoro</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Teléfono</label>
+                  <input type="text" class="form-control" placeholder="Teléfono">
+                </div>
+              </div>
+              
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <label for="Categorización">Categorización</label>
+                <p class="clasificacion">
+                  <input class="radio-start" id="radio1" type="radio" name="estrellas" value="5"><!--
+                  --><label class="label-start" for="radio1">★</label><!--
+                  --><input class="radio-start" id="radio2" type="radio" name="estrellas" value="4"><!--
+                  --><label class="label-start" for="radio2">★</label><!--
+                  --><input class="radio-start" id="radio3" type="radio" name="estrellas" value="3"><!--
+                  --><label class="label-start" for="radio3">★</label><!--
+                  --><input class="radio-start" id="radio4" type="radio" name="estrellas" value="2"><!--
+                  --><label class="label-start" for="radio4">★</label><!--
+                  --><input class="radio-start" id="radio5" type="radio" name="estrellas" value="1"><!--
+                  --><label class="label-start" for="radio5">★</label>
+                </p>
+              </div>
+
+                <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                  <div class="form-group">
+                    <label>Número de Mesas</label>
+                    <input type="number" class="form-control" placeholder="25">
+                  </div>
+                </div>
+              <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                  <label>Número de Sillas</label>
+                  <input type="number" class="form-control" placeholder="100">
+                </div>
+              </div>
+              <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                  <label>Número de Butacas</label>
+                  <input type="number" class="form-control" placeholder="100">
+                </div>
+              </div>
+              <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-group">
+                  <label>Capacidad</label>
+                  <input type="number" class="form-control" placeholder="500">
+                </div>
+              </div>
+              <div class="form-check form-check-inline col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    Barra
+                  </label>
+                </div>
+              </div>
+              <div class="form-check form-check-inline col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    Facilidades
+                  </label>
+                </div>
+              </div>
+              <div class="form-check form-check-inline col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    Sala de Espera
+                  </label>
+                </div>
+              </div>
+              
+              <hr>
+
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Métodos de Pago</div>
+                  <ul class="list-group">
+                    <li class="list-group-item autoform-array-item">
+                      <div>
+                        <div class="autoform-remove-item-wrap">
+                          <button type="button" class="btn btn-primary autoform-remove-item">-</button>
+                        </div>
+                        <div class="ml-5 autoform-array-item-body">
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                              <div class="form-group" data-required="true">
+                                <label for="T5emRya3DcTQbSpjX" class="control-label">Método de Pago</label>
+                                <input type="text" name="contacts.0.name" placeholder="Método de Pago" id="T5emRya3DcTQbSpjX" required="" data-schema-key="contacts.0.name" class="form-control">
+                                <span class="help-block"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">+</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!--Currency Autoform-->
+              <div class="col-12 mt-2 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Moneda</div>
+                  <ul class="list-group">
+                    <li class="list-group-item autoform-array-item">
+                      <div>
+                        <div class="autoform-remove-item-wrap">
+                          <button type="button" class="btn btn-primary autoform-remove-item">-</button>
+                        </div>
+                        <div class="ml-5 autoform-array-item-body">
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                              <div class="form-group" data-required="true">
+                                <label for="T5emRya3DcTQbSpjX" class="control-label">Moneda</label>
+                                <input type="text" name="contacts.0.name" placeholder="Moneda" id="T5emRya3DcTQbSpjX" required="" data-schema-key="contacts.0.name" class="form-control">
+                                <span class="help-block"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">+</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!--Menage Autoform-->
+              <div class="col-12 mt-2 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Menaje</div>
+                  <ul class="list-group">
+                    <li class="list-group-item autoform-array-item">
+                      <div>
+                        <div class="autoform-remove-item-wrap">
+                          <button type="button" class="btn btn-primary autoform-remove-item">-</button>
+                        </div>
+                        <div class="ml-5 autoform-array-item-body">
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                              <div class="form-group" data-required="true">
+                                <label for="T5emRya3DcTQbSpjX" class="control-label">Menaje</label>
+                                <input type="text" name="contacts.0.name" placeholder="Menaje" id="T5emRya3DcTQbSpjX" required="" data-schema-key="contacts.0.name" class="form-control">
+                                <span class="help-block"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">+</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!--Ambiance Autoform-->
+              <div class="col-12 mt-2 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Ambiente</div>
+                  <ul class="list-group">
+                    <li class="list-group-item autoform-array-item">
+                      <div>
+                        <div class="autoform-remove-item-wrap">
+                          <button type="button" class="btn btn-primary autoform-remove-item">-</button>
+                        </div>
+                        <div class="ml-5 autoform-array-item-body">
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                              <div class="form-group" data-required="true">
+                                <label for="T5emRya3DcTQbSpjX" class="control-label">Ambiente</label>
+                                <input type="text" name="contacts.0.name" placeholder="Ambiente" id="T5emRya3DcTQbSpjX" required="" data-schema-key="contacts.0.name" class="form-control">
+                                <span class="help-block"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">+</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-12 mt-2 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Menú</div>
+                  <ul class="list-group">
+                    <li class="list-group-item autoform-array-item">
+                      <div>
+                        <div class="autoform-remove-item-wrap">
+                          <button type="button" class="btn btn-primary autoform-remove-item">-</button>
+                        </div>
+                        <div class="ml-5 autoform-array-item-body">
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                              <div class="form-group" data-required="true">
+                                <label for="T5emRya3DcTQbSpjX" class="control-label">Descripción</label>
+                                <input type="text" name="contacts.0.name" placeholder="Menú" id="T5emRya3DcTQbSpjX" required="" data-schema-key="contacts.0.name" class="form-control">
+                                <span class="help-block"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">+</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-12 mt-4 text-center col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <button type="submit" class="btn pt-3 pb-3 w-75 btn-success" >Guardar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+</template>

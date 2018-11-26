@@ -11,6 +11,7 @@ import '../../ui/pages/account/account';
 import '../../ui/pages/not-found/not-found';
 import '../../ui/pages/initialDashboard/initialDashboard';
 import '../../ui/pages/usersPage/usersPage';
+import '../../ui/pages/addRestaurant/addRestaurant';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -98,6 +99,19 @@ Router.route('/users', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Usuarios']);
+    isAdmin(this);
+  }
+});
+
+/**
+ * Rutas para Restaurantes
+*/
+Router.route('/addRestaurant', {
+  name: 'restaurants',
+  template: 'addRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar Restaurante']);
     isAdmin(this);
   }
 });
