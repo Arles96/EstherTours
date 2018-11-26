@@ -1,6 +1,8 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
-import { isLoggedIn, isNotLoggedIn, isAdmin } from './validations';
+import {
+  isLoggedIn, isNotLoggedIn, isAdmin, isOperator
+} from './validations';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -11,7 +13,7 @@ import '../../ui/pages/account/account';
 import '../../ui/pages/not-found/not-found';
 import '../../ui/pages/initialDashboard/initialDashboard';
 import '../../ui/pages/usersPage/usersPage';
-import '../../ui/pages/hotel/addHoteles';
+import '../../ui/pages/addHotels/addHotels';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -106,13 +108,13 @@ Router.route('/users', {
 /**
  * Rutas para hoteles
  */
-Router.route('/addHoteles', {
-  name: 'addHoteles',
-  template: 'addHoteles',
+Router.route('/addHotels', {
+  name: 'addHotels',
+  template: 'addHotels',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar hoteles']);
-    isLoggedIn(this);
-    // isAdmin(this);
+    isAdmin(this);
+    // isOperator(this);
   }
 });

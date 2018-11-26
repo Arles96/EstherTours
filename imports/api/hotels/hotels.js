@@ -1,11 +1,14 @@
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
+import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 
 SimpleSchema.extendOptions(['autoform']);
 
-const ProfileHotelsSchema = new SimpleSchema({
+const Hotels = new Mongo.Collection('hotels');
+
+const HotelSchema = new SimpleSchema({
   code: {
     type: String,
     label: 'Codigo',
@@ -41,33 +44,48 @@ const ProfileHotelsSchema = new SimpleSchema({
     label: 'Categorización',
     regEx: RegExObj.names
   },
-  money: {
+  coin: {
     type: Array,
-    label: 'Moneda',
-    regEx: RegExObj.names
+    label: 'Monedas aceptadas'
+  },
+  'coin.$': {
+    type: String,
+    label: 'Moneda'
   },
   services: {
     type: Array,
-    label: 'Servicios',
-    regEx: RegExObj.names
+    label: 'Servicios'
+  },
+  'services.$': {
+    type: String,
+    label: 'Servicios'
   },
   paymentsMethod: {
     type: Array,
-    label: 'Metodos de pago',
-    regEx: RegExObj.names
+    label: 'Metodos de pago'
+  },
+  'paymentsMethod.$': {
+    type: String,
+    label: 'Metodos de pago'
   },
   informationsAB: {
     type: Array,
-    label: 'Información A y B',
-    regEx: RegExObj.names
+    label: 'Información A y B'
+  },
+  'informationsAB.$': {
+    type: String,
+    label: 'Información A y B'
   },
   activities: {
     type: Array,
-    label: 'Actividades',
-    regEx: RegExObj.names
+    label: 'Actividades'
+  },
+  'activities.$': {
+    type: String,
+    label: 'Actividades'
   }
 }, { check: check, tracker: Tracker });
 
-ProfileHotelsSchema.messageBox.messages(messages);
+HotelSchema.messageBox.messages(messages);
 
-export default ProfileHotelsSchema;
+export { HotelSchema, Hotels };
