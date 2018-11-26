@@ -47,6 +47,19 @@ const ProfileRestaurantSchema = new SimpleSchema({
       }
     }
   },
+  contacts: {
+    type: Array,
+    optional: true
+  },
+  'contacts.$': {
+    type: Object
+  },
+  'contacts.$.name': {
+    type: String
+  },
+  'contacts.$.phone': {
+    type: String
+  },
   rating: {
     type: Number,
     label: 'Categorización',
