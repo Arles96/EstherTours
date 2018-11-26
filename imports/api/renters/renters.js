@@ -3,25 +3,30 @@ import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
 import departments from '../departments/departments';
+import { messages, RegExObj } from '../regEx';
 
 const Renters = new Mongo.Collection('renters');
 
 const RentersSchema = new SimpleSchema({
   name: {
     type: String,
-    label: 'Nombre'
+    label: 'Nombre',
+    regEx: RegExObj.lettersAndNumbers
   },
   email: {
     type: String,
-    label: 'Correo'
+    label: 'Correo',
+    regEx: RegExObj.email
   },
   street: {
     type: String,
-    label: 'Calle'
+    label: 'Calle',
+    regEx: RegExObj.lettersAndNumbers
   },
   municipality: {
     type: String,
-    label: 'Municipio'
+    label: 'Municipio',
+    regEx: RegExObj.lettersAndNumbers
   },
   department: {
     type: String,
@@ -33,30 +38,36 @@ const RentersSchema = new SimpleSchema({
   },
   telephone: {
     type: String,
-    label: 'Teléfono'
+    label: 'Teléfono',
+    regEx: RegExObj.phone
   },
   services: {
     type: Array,
     label: 'Información de Servicios'
   },
   'services.$': {
-    type: String
+    type: String,
+    regEx: RegExObj.lettersAndNumbers
   },
   paymentMethods: {
     type: Array,
     label: 'Métodos de Pago'
   },
   'paymentMethods.$': {
-    type: String
+    type: String,
+    regEx: RegExObj.lettersAndNumbers
   },
   money: {
     type: Array,
     label: 'Monedas'
   },
   'money.$': {
-    type: String
+    type: String,
+    regEx: RegExObj.lettersAndNumbers
   }
 }, { check: check, tracker: Tracker });
+
+RentersSchema.messageBox.messages(messages);
 
 export {
   Renters,
