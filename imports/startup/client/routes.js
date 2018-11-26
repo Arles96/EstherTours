@@ -17,6 +17,7 @@ import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/addRestaurant/addRestaurant';
 import '../../ui/pages/renters/addRenters';
+import '../../ui/pages/renters/listRenters';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -162,6 +163,19 @@ Router.route('/add-renters', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Arrendadora']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para listar Arrendadoras
+ */
+Router.route('/list-renters', {
+  name: 'listRenters',
+  template: 'listRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Arrendadoras']);
     isOperator(this);
   }
 });

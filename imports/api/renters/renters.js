@@ -7,6 +7,8 @@ import { messages, RegExObj } from '../regEx';
 
 const Renters = new Mongo.Collection('renters');
 
+SimpleSchema.extendOptions(['autoform']);
+
 const RentersSchema = new SimpleSchema({
   name: {
     type: String,
@@ -20,13 +22,17 @@ const RentersSchema = new SimpleSchema({
   },
   street: {
     type: String,
-    label: 'Calle',
-    regEx: RegExObj.lettersAndNumbers
+    label: 'Calle'
   },
   municipality: {
     type: String,
     label: 'Municipio',
-    regEx: RegExObj.lettersAndNumbers
+    regEx: RegExObj.names
+  },
+  city: {
+    type: String,
+    label: 'Ciudad',
+    regEx: RegExObj.names
   },
   department: {
     type: String,
@@ -46,24 +52,21 @@ const RentersSchema = new SimpleSchema({
     label: 'Información de Servicios'
   },
   'services.$': {
-    type: String,
-    regEx: RegExObj.lettersAndNumbers
+    type: String
   },
   paymentMethods: {
     type: Array,
     label: 'Métodos de Pago'
   },
   'paymentMethods.$': {
-    type: String,
-    regEx: RegExObj.lettersAndNumbers
+    type: String
   },
   money: {
     type: Array,
     label: 'Monedas'
   },
   'money.$': {
-    type: String,
-    regEx: RegExObj.lettersAndNumbers
+    type: String
   }
 }, { check: check, tracker: Tracker });
 

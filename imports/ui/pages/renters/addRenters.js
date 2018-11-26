@@ -6,7 +6,7 @@ Template.addRenters.helpers({
   RentersSchema: () => RentersSchema
 });
 
-AutoForm.addHooks('addUserForm', {
+AutoForm.addHooks('addRentersForms', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha creado el registro de la arrendadora exitosamente.');
   },
