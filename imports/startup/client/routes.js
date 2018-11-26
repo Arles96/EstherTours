@@ -130,7 +130,7 @@ Router.route('/update-profile', {
  */
 Router.route('/change-password', {
   name: 'changePassword',
-  template: 'changePassword',
+  template: 'changePasswordPage',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Cambiando Contraseña']);
