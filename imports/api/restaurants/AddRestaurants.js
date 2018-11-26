@@ -7,7 +7,7 @@ import { messages, RegExObj } from '../regEx';
 SimpleSchema.extendOptions(['autoform']);
 const Restaurants = new Mongo.Collection('restaurants');
 
-const ProfileRestaurantSchema = new SimpleSchema({
+const RestaurantSchema = new SimpleSchema({
   name: {
     type: String,
     label: 'Nombre del Restaurante',
@@ -40,24 +40,30 @@ const ProfileRestaurantSchema = new SimpleSchema({
   department: {
     type: String,
     label: 'Departamento',
-    options: ['Atlántida', 'Choluteca', 'Colón', 'Comayagua', 'Copán', 'Cortés', 'El Paraíso', 'Francisco Morazán', 'Gracias a Dios', 'Intibucá', 'Islas de la Bahía', 'La Paz', 'Lempira', 'Ocotepeque', 'Olancho', 'Santa Bárbara', 'Valle', 'Yoro'],
     autoform: {
       afFieldInput: {
-        firstOption: '(Elija un Departamento...)'
+        options: ['Atlántida', 'Choluteca', 'Colón', 'Comayagua', 'Copán', 'Cortés', 'El Paraíso', 'Francisco Morazán', 'Gracias a Dios', 'Intibucá', 'Islas de la Bahía', 'La Paz', 'Lempira', 'Ocotepeque', 'Olancho', 'Santa Bárbara', 'Valle', 'Yoro']
       }
     }
   },
-  contacts: {
+  paymentMethods: {
     type: Array,
     optional: true
   },
-  'contacts.$': {
+  'paymentMethods.$': {
     type: Object
   },
-  'contacts.$.name': {
+  'paymentMethods.$.name': {
     type: String
   },
-  'contacts.$.phone': {
+  menu: {
+    type: Array,
+    optional: true
+  },
+  'menu.$': {
+    type: Object
+  },
+  'menu.$.name': {
     type: String
   },
   rating: {
@@ -67,6 +73,6 @@ const ProfileRestaurantSchema = new SimpleSchema({
   }
 }, { check: check, tracker: Tracker });
 
-ProfileRestaurantSchema.messageBox.messages(messages);
+RestaurantSchema.messageBox.messages(messages);
 
-export default ProfileRestaurantSchema;
+export { RestaurantSchema, Restaurants };

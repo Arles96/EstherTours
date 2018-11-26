@@ -1,18 +1,14 @@
 import { Meteor } from 'meteor/meteor';
-import { Accounts } from 'meteor/accounts-base';
 import { Email } from 'meteor/email';
-import { Random } from 'meteor/random';
-import RestaurantProfileSchema from './profileRestaurants';
-import { admin } from '../roles/roles';
+import { RestaurantSchema, Restaurants } from './AddRestaurants';
+import { operator } from '../roles/roles';
 
 Meteor.methods({
-  insertUser: function (doc) {
-    if (Roles.userIsInRole(Meteor.userId(), admin)) {
-      RestaurantProfileSchema.validate(doc);
-      const password = Random.id(9);
-      const user = Accounts.createUser({
+  insertRestaurant: function (doc) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      RestaurantSchema.validate(doc);
+      const user = Restaurants.createUser({
         email: doc.email,
-        password: password,
         profile: {
           firstName: doc.firstName,
           lastName: doc.lastName,
@@ -34,10 +30,10 @@ Meteor.methods({
     }
   },
   actionBlockedUser: function (doc) {
-    if (!Roles.userIsInRole(doc._id, admin)) {
+    if (!Roles.userIsInRole(doc._id, operator)) {
       Meteor.users.update({ _id: doc._id }, { $set: { 'profile.blocked': doc.blocked } });
     } else {
-      throw new Meteor.Error('Error, no se puede bloquear a un administrador global');
+      throw new Meteor.Error('Error, no se puede bloquear a un operatoristrador global');
     }
   }
 });

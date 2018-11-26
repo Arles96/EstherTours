@@ -1,6 +1,8 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
-import { isLoggedIn, isNotLoggedIn, isAdmin } from './validations';
+import {
+  isLoggedIn, isNotLoggedIn, isAdmin, isOperator
+} from './validations';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -112,6 +114,6 @@ Router.route('/addRestaurant', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Restaurante']);
-    isAdmin(this);
+    isOperator(this);
   }
 });
