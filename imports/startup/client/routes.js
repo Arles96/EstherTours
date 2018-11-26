@@ -1,7 +1,11 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
+<<<<<<< HEAD
   isLoggedIn, isNotLoggedIn, isAdmin, isOperator
+=======
+  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
+>>>>>>> 4a90d6db5fafe03eb857ffcdb41de9463283ebe7
 } from './validations';
 
 // Import layouts
@@ -14,6 +18,10 @@ import '../../ui/pages/not-found/not-found';
 import '../../ui/pages/initialDashboard/initialDashboard';
 import '../../ui/pages/usersPage/usersPage';
 import '../../ui/pages/addHotels/addHotels';
+import '../../ui/pages/updateProfile/updateProfile';
+import '../../ui/pages/changePassword/changePassword';
+import '../../ui/pages/addRestaurant/addRestaurant';
+import '../../ui/pages/renters/addRenters';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -71,6 +79,9 @@ Router.route('/verify-email/:token', {
   }
 });
 
+/**
+ * Ruta que se muestra cuando el usuario olvido su contraseña
+ */
 AccountsTemplates.configureRoute('forgotPwd', {
   name: 'forgotPwd',
   template: 'forgotPwd',
@@ -78,6 +89,9 @@ AccountsTemplates.configureRoute('forgotPwd', {
   redirect: '/'
 });
 
+/**
+ * Ruta para resetear la contraseña
+ */
 Router.route('/reset-password/:token', {
   name: 'reset',
   layoutTemplate: 'App_body',
@@ -106,6 +120,7 @@ Router.route('/users', {
 });
 
 /**
+<<<<<<< HEAD
  * Rutas para hoteles
  */
 Router.route('/addHotels', {
@@ -116,5 +131,56 @@ Router.route('/addHotels', {
     listBreadcrumb(['Agregar hoteles']);
     isAdmin(this);
     // isOperator(this);
+  }
+});
+/*
+ * Ruta para actualizar el primer nombre y primer apellido
+ */
+Router.route('/update-profile', {
+  name: 'updateProfile',
+  template: 'updateProfile',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Actualizando Perfil']);
+    isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta para cambiar la contraseña del usuario
+ */
+Router.route('/change-password', {
+  name: 'changePassword',
+  template: 'changePasswordPage',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Cambiando Contraseña']);
+    isLoggedIn2(this);
+  }
+});
+
+/*
+ * Rutas para Restaurantes
+*/
+Router.route('/addRestaurant', {
+  name: 'restaurants',
+  template: 'addRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar Restaurante']);
+    isAdmin(this);
+  }
+});
+
+/**
+ * Ruta para agregar Arrendadoras
+ */
+Router.route('/add-renters', {
+  name: 'addRenters',
+  template: 'addRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar Arrendadora']);
+    isOperator(this);
   }
 });

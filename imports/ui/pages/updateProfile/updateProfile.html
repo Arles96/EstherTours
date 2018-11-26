@@ -1,0 +1,22 @@
+<template name="updateProfile" >
+  <div class="card mb-3" >
+    <div class="card-header" >
+      <i class="fas fa-user"></i> Actualizar Perfil
+    </div>
+    <div class="card-body">
+      {{#autoForm
+        id="updateProfileForm"
+        schema=UpdateProfileSchema
+        type="method"
+        meteormethod="updateProfile"
+        doc=user
+      }}
+      {{>afQuickField name="firstName"}}
+      {{>afQuickField name="lastName" }}
+      <div class="text-center" >
+        <button type="submit" class="btn btn-primary w-75" >Actualizar</button>
+      </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
