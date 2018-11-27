@@ -5,3 +5,6 @@ import '../../api/users/method';
 
 // Api de arrendadoras
 import '../../api/renters/method';
+
+// Api de arrendadoras
+import '../../api/hotels/method';

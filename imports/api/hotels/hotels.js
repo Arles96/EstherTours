@@ -2,7 +2,7 @@ import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
-// import { messages, RegExObj } from '../regEx';
+import { messages, RegExObj } from '../regEx';
 import departments from '../departments/departments';
 
 SimpleSchema.extendOptions(['autoform']);
@@ -12,18 +12,18 @@ const Hotels = new Mongo.Collection('hotels');
 const HotelSchema = new SimpleSchema({
   name: {
     type: String,
-    label: 'Nombre'
-    // regEx: RegExObj.names
+    label: 'Nombre',
+    regEx: RegExObj.names
   },
   street: {
     type: String,
-    label: 'Calle'
-    // regEx: RegExObj.names
+    label: 'Calle',
+    regEx: RegExObj.names
   },
   municipality: {
     type: String,
-    label: 'Municipio'
-    // regEx: RegExObj.names
+    label: 'Municipio',
+    regEx: RegExObj.names
   },
   departament: {
     type: String,
@@ -35,13 +35,13 @@ const HotelSchema = new SimpleSchema({
   },
   phone: {
     type: String,
-    label: 'Teléfono'
-    // regEx: RegExObj.phone
+    label: 'Teléfono',
+    regEx: RegExObj.phone
   },
   categorization: {
     type: Number,
-    label: 'Categorización'
-    // regEx: RegExObj.names
+    label: 'Categorización',
+    regEx: RegExObj.names
   },
   coin: {
     type: Array,
@@ -85,6 +85,6 @@ const HotelSchema = new SimpleSchema({
   }
 }, { check: check, tracker: Tracker });
 
-// HotelSchema.messageBox.messages(messages);
+HotelSchema.messageBox.messages(messages);
 
 export { HotelSchema, Hotels };

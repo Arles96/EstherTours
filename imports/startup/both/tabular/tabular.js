@@ -2,6 +2,7 @@ import Tabular from 'meteor/aldeed:tabular';
 import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 import { Renters } from '../../../api/renters/renters';
+import { Hotels } from '../../../api/hotels/hotels';
 
 const TabularTables = {};
 
@@ -90,6 +91,75 @@ TabularTables.Renters = new Tabular.Table({
         }, cell);
       }
     } */
+  ]
+});
+
+TabularTables.Hotels = new Tabular.Table({
+  name: 'Hotels',
+  collection: Hotels,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  columns: [
+    {
+      class: 'text-center',
+      data: 'name',
+      title: 'Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'street',
+      title: 'Calle'
+    },
+    {
+      class: 'text-center',
+      data: 'municipality',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'departament',
+      title: 'Departamento'
+    },
+    {
+      class: 'text-center',
+      data: 'phone',
+      title: 'Teléfono'
+    },
+    {
+      class: 'text-center',
+      data: 'categorization',
+      title: 'Categorización'
+    },
+    {
+      class: 'text-center',
+      data: 'coin',
+      title: 'Monedas aceptadas'
+    },
+    {
+      class: 'text-center',
+      data: 'services',
+      title: 'Servicios'
+    },
+    {
+      class: 'text-center',
+      data: 'paymentsMethod',
+      title: 'Metodos de pago'
+    },
+    {
+      class: 'text-center',
+      data: 'informationsAB',
+      title: 'Información A y B'
+    },
+    {
+      class: 'text-center',
+      data: 'activities',
+      title: 'Actividades'
+    }
   ]
 });
 

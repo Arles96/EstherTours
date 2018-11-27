@@ -13,12 +13,13 @@ import '../../ui/pages/account/account';
 import '../../ui/pages/not-found/not-found';
 import '../../ui/pages/initialDashboard/initialDashboard';
 import '../../ui/pages/usersPage/usersPage';
-import '../../ui/pages/addHotels/addHotels';
 import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/addRestaurant/addRestaurant';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
+import '../../ui/pages/hotel/addHotels';
+import '../../ui/pages/hotel/listHotels';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -116,19 +117,6 @@ Router.route('/users', {
   }
 });
 
-/**
- * Rutas para hoteles
- */
-Router.route('/addHotels', {
-  name: 'addHotels',
-  template: 'addHotels',
-  layoutTemplate: 'bodyAdmin',
-  onBeforeAction: function () {
-    listBreadcrumb(['Agregar hoteles']);
-    isAdmin(this);
-    // isOperator(this);
-  }
-});
 /*
  * Ruta para actualizar el primer nombre y primer apellido
  */
@@ -191,5 +179,32 @@ Router.route('/list-renters', {
   onBeforeAction: function () {
     listBreadcrumb(['Listar Arrendadoras']);
     isOperator(this);
+  }
+});
+
+/**
+ * Ruta para agregar hoteles
+ */
+Router.route('/add-hotels', {
+  name: 'addHotels',
+  template: 'addHotels',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar hoteles']);
+    isAdmin(this);
+    // isOperator(this);
+  }
+});
+
+/**
+ * Ruta para listar hoteles
+ */
+Router.route('/list-hotels', {
+  name: 'listHotels',
+  template: 'listHotels',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Hoteles']);
+    isAdmin(this);
   }
 });
