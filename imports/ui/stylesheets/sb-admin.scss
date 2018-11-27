@@ -393,3 +393,27 @@ body.sidebar-toggled footer.sticky-footer {
 .glyphicon-plus:before {
   content: "\2b";
 }
+
+.categorization{
+  margin-top: -13px;
+  label{ color:grey;}
+  input[type = "radio"]{ display:none;}
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  label:hover{color:orange;}
+  label:hover ~ label{color:orange;}
+  input[type = "radio"]:checked ~ label{color:orange;}
+  p {
+    text-align: center;
+  }
+  label {
+    font-size: 30px;
+  }
+  label:hover, label:hover ~ label {
+  color: orange;
+  }
+
+  input[type="radio"]:checked ~ label {
+    color: orange;
+  }
+}
