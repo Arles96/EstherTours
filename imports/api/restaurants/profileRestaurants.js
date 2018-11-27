@@ -1,11 +1,11 @@
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
-import { Mongo } from 'meteor/mongo';
+// import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 
 SimpleSchema.extendOptions(['autoform']);
-const Restaurants = new Mongo.Collection('restaurants');
+// const Restaurants = new Mongo.Collection('restaurants');
 
 const ProfileRestaurantSchema = new SimpleSchema({
   name: {

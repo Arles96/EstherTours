@@ -3,17 +3,22 @@ import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
 import departments from '../departments/departments';
+import { messages, RegExObj } from '../regEx';
 
 const Renters = new Mongo.Collection('renters');
+
+SimpleSchema.extendOptions(['autoform']);
 
 const RentersSchema = new SimpleSchema({
   name: {
     type: String,
-    label: 'Nombre'
+    label: 'Nombre',
+    regEx: RegExObj.lettersAndNumbers
   },
   email: {
     type: String,
-    label: 'Correo'
+    label: 'Correo',
+    regEx: RegExObj.email
   },
   street: {
     type: String,
@@ -21,7 +26,13 @@ const RentersSchema = new SimpleSchema({
   },
   municipality: {
     type: String,
-    label: 'Municipio'
+    label: 'Municipio',
+    regEx: RegExObj.names
+  },
+  city: {
+    type: String,
+    label: 'Ciudad',
+    regEx: RegExObj.names
   },
   department: {
     type: String,
@@ -33,7 +44,8 @@ const RentersSchema = new SimpleSchema({
   },
   telephone: {
     type: String,
-    label: 'Teléfono'
+    label: 'Teléfono',
+    regEx: RegExObj.phone
   },
   services: {
     type: Array,
@@ -57,6 +69,8 @@ const RentersSchema = new SimpleSchema({
     type: String
   }
 }, { check: check, tracker: Tracker });
+
+RentersSchema.messageBox.messages(messages);
 
 export {
   Renters,
