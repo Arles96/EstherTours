@@ -52,21 +52,24 @@ const RentersSchema = new SimpleSchema({
     label: 'Información de Servicios'
   },
   'services.$': {
-    type: String
+    type: String,
+    regEx: RegExObj.lettersAndNumbers
   },
   paymentMethods: {
     type: Array,
     label: 'Métodos de Pago'
   },
   'paymentMethods.$': {
-    type: String
+    type: String,
+    regEx: RegExObj.lettersAndNumbers
   },
   money: {
     type: Array,
     label: 'Monedas'
   },
   'money.$': {
-    type: String
+    type: String,
+    regEx: RegExObj.lettersAndNumbers
   }
 }, { check: check, tracker: Tracker });
 
