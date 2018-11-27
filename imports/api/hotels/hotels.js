@@ -39,9 +39,19 @@ const HotelSchema = new SimpleSchema({
     regEx: RegExObj.phone
   },
   categorization: {
-    type: Number,
+    type: String,
+    optional: true,
     label: 'Categorización',
-    regEx: RegExObj.names
+    autoform: {
+      readonly: true,
+      omit: true,
+      afFieldInput: {
+        type: 'hidden'
+      },
+      afFormGroup: {
+        label: false
+      }
+    }
   },
   coin: {
     type: Array,

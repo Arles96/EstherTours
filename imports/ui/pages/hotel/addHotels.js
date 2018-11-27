@@ -1,9 +1,17 @@
 import './addHotels.html';
 import toastr from 'toastr';
+import { Session } from 'meteor/session';
 import { HotelSchema } from '../../../api/hotels/hotels';
 
 Template.addHotels.helpers({
-  HotelSchema: () => HotelSchema
+  HotelSchema: () => HotelSchema,
+  categorization: () => Session.get('categorization')
+});
+
+Template.addHotels.events({
+  'change .categorization [type=radio]' (event) {
+    Session.set('categorization', event.currentTarget.value);
+  }
 });
 
 AutoForm.addHooks('addHotelsForm', {
