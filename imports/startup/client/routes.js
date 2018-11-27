@@ -1,11 +1,7 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
-<<<<<<< HEAD
-  isLoggedIn, isNotLoggedIn, isAdmin, isOperator
-=======
   isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
->>>>>>> 4a90d6db5fafe03eb857ffcdb41de9463283ebe7
 } from './validations';
 
 // Import layouts
@@ -120,7 +116,6 @@ Router.route('/users', {
 });
 
 /**
-<<<<<<< HEAD
  * Rutas para hoteles
  */
 Router.route('/addHotels', {
