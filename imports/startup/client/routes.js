@@ -13,14 +13,15 @@ import '../../ui/pages/account/account';
 import '../../ui/pages/not-found/not-found';
 import '../../ui/pages/initialDashboard/initialDashboard';
 import '../../ui/pages/usersPage/usersPage';
-import '../../ui/pages/addRestaurant/addRestaurant';
+import '../../ui/pages/restaurants/addRestaurant';
+import '../../ui/pages/restaurants/listRestaurants';
 
 /**
  *Función para listar en el componente breadcrumb
  * @param {Array} list
  */
 function listBreadcrumb (list) {
-  Session.set('listBreadcrum', list);
+  Session.set('listBreadcrumb', list);
 }
 
 /**
@@ -109,11 +110,21 @@ Router.route('/users', {
  * Rutas para Restaurantes
 */
 Router.route('/addRestaurant', {
-  name: 'restaurants',
+  name: 'addRestaurants',
   template: 'addRestaurant',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Restaurante']);
+    isOperator(this);
+  }
+});
+
+Router.route('/listRestaurants', {
+  name: 'listRestaurants',
+  template: 'listRestaurants',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Restaurantes']);
     isOperator(this);
   }
 });
