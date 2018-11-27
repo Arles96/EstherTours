@@ -1,6 +1,8 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
-import { isLoggedIn, isNotLoggedIn, isAdmin } from './validations';
+import {
+  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2
+} from './validations';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -11,6 +13,8 @@ import '../../ui/pages/account/account';
 import '../../ui/pages/not-found/not-found';
 import '../../ui/pages/initialDashboard/initialDashboard';
 import '../../ui/pages/usersPage/usersPage';
+import '../../ui/pages/updateProfile/updateProfile';
+import '../../ui/pages/changePassword/changePassword';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -68,6 +72,9 @@ Router.route('/verify-email/:token', {
   }
 });
 
+/**
+ * Ruta que se muestra cuando el usuario olvido su contraseña
+ */
 AccountsTemplates.configureRoute('forgotPwd', {
   name: 'forgotPwd',
   template: 'forgotPwd',
@@ -75,6 +82,9 @@ AccountsTemplates.configureRoute('forgotPwd', {
   redirect: '/'
 });
 
+/**
+ * Ruta para resetear la contraseña
+ */
 Router.route('/reset-password/:token', {
   name: 'reset',
   layoutTemplate: 'App_body',
@@ -99,5 +109,31 @@ Router.route('/users', {
   onBeforeAction: function () {
     listBreadcrumb(['Usuarios']);
     isAdmin(this);
+  }
+});
+
+/**
+ * Ruta para actualizar el primer nombre y primer apellido
+ */
+Router.route('/update-profile', {
+  name: 'updateProfile',
+  template: 'updateProfile',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Actualizando Perfil']);
+    isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta para cambiar la contraseña del usuario
+ */
+Router.route('/change-password', {
+  name: 'changePassword',
+  template: 'changePasswordPage',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Cambiando Contraseña']);
+    isLoggedIn2(this);
   }
 });
