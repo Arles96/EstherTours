@@ -15,7 +15,7 @@ Template.updateProfile.helpers({
 
 AutoForm.addHooks('updateProfileForm', {
   onSuccess: function (formtype, result) {
-    toastr.success('Se ha actualizo el perfil del usuario exitosamente.');
+    toastr.success('Se ha actualizado su perfil del usuario exitosamente.');
   },
   onError: function (formtype, error) {
     toastr.error(error);
