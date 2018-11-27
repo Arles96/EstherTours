@@ -191,8 +191,7 @@ Router.route('/add-hotels', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar hoteles']);
-    isAdmin(this);
-    // isOperator(this);
+    isOperator(this);
   }
 });
 
@@ -205,6 +204,6 @@ Router.route('/list-hotels', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Listar Hoteles']);
-    isAdmin(this);
+    isOperator(this);
   }
 });
