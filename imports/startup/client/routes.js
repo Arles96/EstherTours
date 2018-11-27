@@ -1,7 +1,7 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
-  isLoggedIn, isNotLoggedIn, isAdmin, isOperator
+  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
 } from './validations';
 
 // Import layouts
@@ -15,6 +15,10 @@ import '../../ui/pages/initialDashboard/initialDashboard';
 import '../../ui/pages/usersPage/usersPage';
 import '../../ui/pages/restaurants/addRestaurant';
 import '../../ui/pages/restaurants/listRestaurants';
+import '../../ui/pages/updateProfile/updateProfile';
+import '../../ui/pages/changePassword/changePassword';
+import '../../ui/pages/renters/addRenters';
+import '../../ui/pages/renters/listRenters';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -72,6 +76,9 @@ Router.route('/verify-email/:token', {
   }
 });
 
+/**
+ * Ruta que se muestra cuando el usuario olvido su contraseña
+ */
 AccountsTemplates.configureRoute('forgotPwd', {
   name: 'forgotPwd',
   template: 'forgotPwd',
@@ -79,6 +86,9 @@ AccountsTemplates.configureRoute('forgotPwd', {
   redirect: '/'
 });
 
+/**
+ * Ruta para resetear la contraseña
+ */
 Router.route('/reset-password/:token', {
   name: 'reset',
   layoutTemplate: 'App_body',
@@ -107,6 +117,32 @@ Router.route('/users', {
 });
 
 /**
+ * Ruta para actualizar el primer nombre y primer apellido
+ */
+Router.route('/update-profile', {
+  name: 'updateProfile',
+  template: 'updateProfile',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Actualizando Perfil']);
+    isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta para cambiar la contraseña del usuario
+ */
+Router.route('/change-password', {
+  name: 'changePassword',
+  template: 'changePasswordPage',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Cambiando Contraseña']);
+    isLoggedIn2(this);
+  }
+});
+
+/*
  * Rutas para Restaurantes
 */
 Router.route('/addRestaurant', {
@@ -125,6 +161,32 @@ Router.route('/listRestaurants', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Listar Restaurantes']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para agregar Arrendadoras
+ */
+Router.route('/add-renters', {
+  name: 'addRenters',
+  template: 'addRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar Arrendadora']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para listar Arrendadoras
+ */
+Router.route('/list-renters', {
+  name: 'listRenters',
+  template: 'listRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Arrendadoras']);
     isOperator(this);
   }
 });

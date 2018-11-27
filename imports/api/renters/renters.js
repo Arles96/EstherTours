@@ -5,11 +5,11 @@ import { Mongo } from 'meteor/mongo';
 import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
 
-const Restaurants = new Mongo.Collection('restaurants');
+const Renters = new Mongo.Collection('renters');
 
 SimpleSchema.extendOptions(['autoform']);
 
-const RestaurantSchema = new SimpleSchema({
+const RentersSchema = new SimpleSchema({
   name: {
     type: String,
     label: 'Nombre',
@@ -52,84 +52,30 @@ const RestaurantSchema = new SimpleSchema({
     label: 'Información de Servicios'
   },
   'services.$': {
-    type: String
+    type: String,
+    regEx: RegExObj.lettersAndNumbers
   },
   paymentMethods: {
     type: Array,
     label: 'Métodos de Pago'
   },
   'paymentMethods.$': {
-    type: String
+    type: String,
+    regEx: RegExObj.lettersAndNumbers
   },
   money: {
     type: Array,
     label: 'Monedas'
   },
   'money.$': {
-    type: String
-  },
-  menages: {
-    type: Array,
-    label: 'Menajes',
-    required: false
-  },
-  'menages.$': {
-    type: String
-  },
-  ambience: {
-    type: Array,
-    label: 'Ambiente',
-    required: false
-  },
-  'ambience.$': {
-    type: String
-  },
-  menu: {
-    type: Array,
-    label: 'Menu',
-    required: false
-  },
-  'menu.$': {
-    type: String
-  },
-  numbersTables: {
-    type: Number,
-    label: 'N. de Mesas',
-    regEx: RegExObj.isNumber
-  },
-  numbersChairs: {
-    type: Number,
-    label: 'N. de Sillas',
-    regEx: RegExObj.isNumber
-  },
-  numbersChairsBabies: {
-    type: Number,
-    label: 'N. de Sillas para Bebés',
-    regEx: RegExObj.isNumber
-  },
-  maxPersonCapacity: {
-    type: Number,
-    label: 'Capacidad Máxima de Personas',
-    regEx: RegExObj.Number
-  },
-  facilityPeople: {
-    type: Boolean,
-    label: 'Facilidades para Discapacitados'
-  },
-  bar: {
-    type: Boolean,
-    label: 'Barra'
-  },
-  waitingRoom: {
-    type: Boolean,
-    label: 'Sala de Espera'
+    type: String,
+    regEx: RegExObj.lettersAndNumbers
   }
-
 }, { check: check, tracker: Tracker });
 
-RestaurantSchema.messageBox.messages(messages);
+RentersSchema.messageBox.messages(messages);
 
 export {
-  RestaurantSchema,
-  Restaurants
+  Renters,
+  RentersSchema
 };

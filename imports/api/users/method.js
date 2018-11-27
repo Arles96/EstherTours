@@ -4,6 +4,7 @@ import { Email } from 'meteor/email';
 import { Random } from 'meteor/random';
 import UserProfileSchema from './profileUsers';
 import { admin } from '../roles/roles';
+import UpdateProfileSchema from './updateProfile';
 
 Meteor.methods({
   insertUser: function (doc) {
@@ -38,6 +39,19 @@ Meteor.methods({
       Meteor.users.update({ _id: doc._id }, { $set: { 'profile.blocked': doc.blocked } });
     } else {
       throw new Meteor.Error('Error, no se puede bloquear a un administrador global');
+    }
+  },
+  updateProfile: function (doc) {
+    if (Meteor.user()) {
+      UpdateProfileSchema.validate(doc);
+      Meteor.users.update({ _id: Meteor.userId() }, {
+        $set: {
+          'profile.firstName': doc.firstName,
+          'profile.lastName': doc.lastName
+        }
+      });
+    } else {
+      throw new Meteor.Error('Permiso Denegado.');
     }
   }
 });

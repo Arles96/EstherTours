@@ -11,6 +11,6 @@ AutoForm.addHooks('addRestaurantForms', {
     toastr.success('Se ha creado el registro del restaurante exitosamente.');
   },
   onError: function (formtype, error) {
-    toastr.error(error);
+    toastr.error(error, 'something');
   }
 });

@@ -43,3 +43,9 @@ Template.registerHelper('isOperator', () => Roles.userIsInRole(Meteor.userId(), 
  * Esta función se usa en Blaze
  */
 Template.registerHelper('isConsultant', () => Roles.userIsInRole(Meteor.userId(), consultant));
+
+/**
+ * Validación para saber si el usuario inicio sesión
+ * Esta función se usa en Blaze
+ */
+Template.registerHelper('isLoggedIn', () => Meteor.user());
