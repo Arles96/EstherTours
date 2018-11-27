@@ -42,6 +42,21 @@ const RestaurantSchema = new SimpleSchema({
       options: () => departments
     }
   },
+  categorization: {
+    type: String,
+    optional: true,
+    label: 'Categorización',
+    autoform: {
+      readonly: true,
+      omit: true,
+      afFieldInput: {
+        type: 'hidden'
+      },
+      afFormGroup: {
+        label: false
+      }
+    }
+  },
   telephone: {
     type: String,
     label: 'Teléfono',
