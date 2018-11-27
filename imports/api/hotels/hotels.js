@@ -20,6 +20,11 @@ const HotelSchema = new SimpleSchema({
     label: 'Calle',
     regEx: RegExObj.names
   },
+  city: {
+    type: String,
+    label: 'Ciudad',
+    regEx: RegExObj.names
+  },
   municipality: {
     type: String,
     label: 'Municipio',

@@ -117,6 +117,11 @@ TabularTables.Hotels = new Tabular.Table({
     },
     {
       class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
       data: 'municipality',
       title: 'Municipio'
     },
@@ -129,36 +134,6 @@ TabularTables.Hotels = new Tabular.Table({
       class: 'text-center',
       data: 'phone',
       title: 'Teléfono'
-    },
-    {
-      class: 'text-center',
-      data: 'categorization',
-      title: 'Categorización'
-    },
-    {
-      class: 'text-center',
-      data: 'coin',
-      title: 'Monedas aceptadas'
-    },
-    {
-      class: 'text-center',
-      data: 'services',
-      title: 'Servicios'
-    },
-    {
-      class: 'text-center',
-      data: 'paymentsMethod',
-      title: 'Metodos de pago'
-    },
-    {
-      class: 'text-center',
-      data: 'informationsAB',
-      title: 'Información A y B'
-    },
-    {
-      class: 'text-center',
-      data: 'activities',
-      title: 'Actividades'
     }
   ]
 });
