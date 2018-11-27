@@ -5,7 +5,7 @@ const RegExObj = {
   names: /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/,
   email: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   password: /^[a-zA-Z\d]{6,}$/,
-  lettersAndNumbers: /^[A-Za-z0-9\s]+$/g,
+  lettersAndNumbers: /(?=.*[a-z])(?=.*[A-Z])/,
   isNumber: /^-?\d+\.?\d*$/,
   phone: SimpleSchema.RegEx.Phone
 };

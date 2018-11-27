@@ -42,6 +42,21 @@ const RentersSchema = new SimpleSchema({
       options: () => departments
     }
   },
+  categorization: {
+    type: String,
+    optional: true,
+    label: 'Categorización',
+    autoform: {
+      readonly: true,
+      omit: true,
+      afFieldInput: {
+        type: 'hidden'
+      },
+      afFormGroup: {
+        label: false
+      }
+    }
+  },
   telephone: {
     type: String,
     label: 'Teléfono',
@@ -52,21 +67,24 @@ const RentersSchema = new SimpleSchema({
     label: 'Información de Servicios'
   },
   'services.$': {
-    type: String
+    type: String,
+    regEx: RegExObj.lettersAndNumbers
   },
   paymentMethods: {
     type: Array,
     label: 'Métodos de Pago'
   },
   'paymentMethods.$': {
-    type: String
+    type: String,
+    regEx: RegExObj.lettersAndNumbers
   },
   money: {
     type: Array,
     label: 'Monedas'
   },
   'money.$': {
-    type: String
+    type: String,
+    regEx: RegExObj.lettersAndNumbers
   }
 }, { check: check, tracker: Tracker });
 
