@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Renters, RentersSchema } from './renters';
+import { FleetRenter, FleetRenterSchema } from './fleetRenter';
 
 Meteor.methods({
   addRenter: function (doc) {
@@ -13,5 +14,9 @@ Meteor.methods({
     Renters.update({ _id: _id }, {
       $set: data
     });
+  },
+  addFleetRenter: function (doc) {
+    FleetRenterSchema.validate(doc);
+    FleetRenter.insert(doc);
   }
 });

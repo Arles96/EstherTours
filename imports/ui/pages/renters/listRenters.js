@@ -1,4 +1,6 @@
 import './listRenters.html';
+import '../../components/addFleetRenter/addFleetRenter';
+import { Session } from 'meteor/session';
 
 Template.listRenters.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -27,4 +29,10 @@ Template.listRenters.onCreated(() => {
       }
     }
   });
+});
+
+Template.showButtonRenters.events({
+  'click .addFleetRenter': function () {
+    Session.set('idRenter', this._id);
+  }
 });
