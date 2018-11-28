@@ -13,10 +13,16 @@
 </template>
 
 <template name="showButtonRenters" >
-  <td class="text-center">
-    <i class="far fa-eye"></i>
-    <i class="far fa-edit"></i>
-    <i class="fas fa-plus"></i>
-    <i class="far fa-trash-alt"></i>
-  </td>
+  <a style="text-decoration: none;" href="/show-renter/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+    <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+  </a>
+  <a style="text-decoration: none;" href="/edit-renter/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+    <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
+  </a>
+  <span data-toggle="tooltip" data-placement="top" title="Agregar Flota" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="fas fa-plus mr-2" data-toggle="modal" data-target="#showInfoUser"></i>
+  </span>
+  <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+    <i style="cursor: pointer;" data-id="{{_id}}" class="far fa-trash-alt"></i>
+  </span>
 </template>

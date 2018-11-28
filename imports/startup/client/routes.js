@@ -179,3 +179,17 @@ Router.route('/list-renters', {
     isOperator(this);
   }
 });
+
+/**
+ * Listar de actualizar los datos de una arrendadora
+ */
+
+Router.route('/edit-renter/:id', {
+  name: 'editRenter',
+  template: 'editRenter',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    console.log(this.req)
+    return Meteor.subscribe('renter.one');
+  }
+});
