@@ -18,5 +18,9 @@ Meteor.methods({
   addFleetRenter: function (doc) {
     FleetRenterSchema.validate(doc);
     FleetRenter.insert(doc);
+  },
+  deleteRenter: function (id) {
+    Renters.remove({ _id: id });
+    FleetRenter.remove({ idRenter: id });
   }
 });

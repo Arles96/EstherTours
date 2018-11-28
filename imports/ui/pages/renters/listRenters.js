@@ -1,6 +1,10 @@
 import './listRenters.html';
 import '../../components/addFleetRenter/addFleetRenter';
 import { Session } from 'meteor/session';
+import toastr from 'toastr';
+import { Meteor } from 'meteor/meteor';
+import Swal from 'sweetalert2';
+import { Renters } from '../../../api/renters/renters';
 
 Template.listRenters.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -34,5 +38,25 @@ Template.listRenters.onCreated(() => {
 Template.showButtonRenters.events({
   'click .addFleetRenter': function () {
     Session.set('idRenter', this._id);
+  },
+  'click .deleteRenter': function () {
+    const id = this._id;
+    const renter = Renters.findOne({ _id: id });
+    Swal({
+      title: 'Eliminar Registro de Arrendadora',
+      text: `Esta seguro de eliminar este registro de ${renter.name}`,
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('deleteRenter', id, (error, result) => {
+          if (error) {
+            toastr.error('Error al eliminar el registro.');
+          } else {
+            toastr.success('Se ha eliminado el registro.');
+          }
+        });
+      }
+    });
   }
 });
