@@ -233,6 +233,7 @@ Router.route('/list-hotels', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Listar Hoteles']);
+<<<<<<< HEAD
     isOperator(this);
 =======
  * Ruta para mostrar la información de la arrendadora seleccionada para el operador
@@ -258,5 +259,9 @@ Router.route('/show-renter/:id', {
       renter: Renters.findOne({ _id: id })
     };
 >>>>>>> 617dd2f12e639fbf7d867f577fd88206413e401d
+=======
+    // isOperator(this);
+    isAdmin(this);
+>>>>>>> 64d67f9cd71898d641e483420cc440e7a0ed9d51
   }
 });
