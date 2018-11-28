@@ -204,6 +204,7 @@ Router.route('/list-hotels', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Listar Hoteles']);
-    isOperator(this);
+    // isOperator(this);
+    isAdmin(this);
   }
 });

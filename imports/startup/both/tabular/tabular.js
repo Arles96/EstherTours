@@ -134,6 +134,15 @@ TabularTables.Hotels = new Tabular.Table({
       class: 'text-center',
       data: 'phone',
       title: 'Teléfono'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function blockAndShowUsers (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showInfoHotel, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
     }
   ]
 });

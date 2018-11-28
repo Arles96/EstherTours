@@ -5,12 +5,12 @@ import { HotelSchema } from '../../../api/hotels/hotels';
 
 Template.addHotels.helpers({
   HotelSchema: () => HotelSchema,
-  categorization: () => Session.get('categorization')
+  categorization: () => Session.get('hotelCategorization')
 });
 
 Template.addHotels.events({
-  'change .categorization [type=radio]' (event) {
-    Session.set('categorization', event.currentTarget.value);
+  'change .hotelCategorization [type=radio]' (event) {
+    Session.set('hotelCategorization', event.currentTarget.value);
   }
 });
 
