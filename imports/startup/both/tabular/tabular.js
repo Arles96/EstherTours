@@ -124,16 +124,7 @@ TabularTables.Restaurants = new Tabular.Table({
       class: 'text-center',
       data: 'department',
       title: 'Departamento'
-    }/* ,
-    {
-      class: 'text-center',
-      createdCell: Meteor.isClient && function blockAndShowUsers (cell, cellData, rowData) {
-        return Blaze.renderWithData(Template.showInfoUser, {
-          _id: rowData._id,
-          slug: rowData.slug
-        }, cell);
-      }
-    } */
+    }
   ]
 });
 
