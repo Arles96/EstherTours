@@ -3,6 +3,7 @@ import { Session } from 'meteor/session';
 import {
   isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
 } from './validations';
+import { Renters } from '../../api/renters/renters';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -18,6 +19,7 @@ import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/addRestaurant/addRestaurant';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
+import '../../ui/pages/renters/editRenter';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -189,7 +191,17 @@ Router.route('/edit-renter/:id', {
   template: 'editRenter',
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
-    console.log(this.req)
-    return Meteor.subscribe('renter.one');
+    const { id } = this.params;
+    return Meteor.subscribe('renter.one', id);
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Arrendadoras', 'Actualizando Información de Arrendadora']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      renter: Renters.findOne({ _id: id })
+    };
   }
 });
