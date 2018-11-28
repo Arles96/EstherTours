@@ -30,3 +30,4 @@ accounts-password@1.5.1
 useraccounts:iron-routing
 alanning:roles
 aldeed:tabular
+dburles:collection-helpers

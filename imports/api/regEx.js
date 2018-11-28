@@ -23,6 +23,7 @@ const messages = {
   en: {
     exceedWithdrawLimit: ({ label }) => `${label} excede el limite`,
     passwordMismatch: 'Contraseñas no coinciden',
+    lessZero: 'No puede ser menor que cero.',
     required: ({ label }) => `Se requiere ${label}`,
     minString: ({ label, min }) => `${label} debe tener como mínimo ${min} caracteres`,
     maxString: ({ label, max }) => `${label} no puede exceder de ${max} caracteres`,
