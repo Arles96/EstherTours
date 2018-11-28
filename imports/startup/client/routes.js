@@ -1,7 +1,7 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
-  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2
+  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
 } from './validations';
 
 // Import layouts
@@ -15,6 +15,9 @@ import '../../ui/pages/initialDashboard/initialDashboard';
 import '../../ui/pages/usersPage/usersPage';
 import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
+import '../../ui/pages/addRestaurant/addRestaurant';
+import '../../ui/pages/renters/addRenters';
+import '../../ui/pages/renters/listRenters';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -135,5 +138,44 @@ Router.route('/change-password', {
   onBeforeAction: function () {
     listBreadcrumb(['Cambiando Contraseña']);
     isLoggedIn2(this);
+  }
+});
+
+/*
+ * Rutas para Restaurantes
+*/
+Router.route('/addRestaurant', {
+  name: 'restaurants',
+  template: 'addRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar Restaurante']);
+    isAdmin(this);
+  }
+});
+
+/**
+ * Ruta para agregar Arrendadoras
+ */
+Router.route('/add-renters', {
+  name: 'addRenters',
+  template: 'addRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar Arrendadora']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para listar Arrendadoras
+ */
+Router.route('/list-renters', {
+  name: 'listRenters',
+  template: 'listRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Arrendadoras']);
+    isOperator(this);
   }
 });

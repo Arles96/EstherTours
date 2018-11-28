@@ -373,3 +373,51 @@ body.sidebar-toggled footer.sticky-footer {
     width: calc(100% - 90px);
   }
 }
+
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.glyphicon-minus:before {
+  content: "\2212" !important;
+}
+
+.glyphicon-plus:before {
+  content: "\2b";
+}
+
+/*
+  css para las estrellas
+*/
+
+.categorization{
+  margin-top: -13px;
+  label{ color:grey;}
+  input[type = "radio"]{ display:none;}
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  label:hover{color:orange;}
+  label:hover ~ label{color:orange;}
+  input[type = "radio"]:checked ~ label{color:orange;}
+  p {
+    text-align: center;
+  }
+  label {
+    font-size: 30px;
+  }
+  label:hover, label:hover ~ label {
+  color: orange;
+  }
+
+  input[type="radio"]:checked ~ label {
+    color: orange;
+  }
+}
