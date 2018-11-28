@@ -59,7 +59,7 @@
                 <label for="">
                   <b>Categorización:</b>
                 </label>
-                <p>{{categorization}}</p>
+                <p>{{categorization}} estrellas </p>
               </div>
             </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -99,13 +99,13 @@
         {{/with}}
         <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <h4 class="text-center mt-3">Flota de {{renter.name}}</h4>
+          <div>
+            <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addFleetRenter" >
+              Agregar
+            </button>
+          </div>
+          {{> tabular table=TabularTables.FleetRenter class="table table-hover table-bordered"}}
           {{#if isOperator}}
-            <div>
-              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addFleetRenter" >
-                Agregar
-              </button>
-            </div>
-            {{> tabular table=TabularTables.FleetRenter class="table table-hover table-bordered"}}
             {{>addFleetRenter}}
             {{>editFleetRenter}}
           {{/if}}
@@ -113,16 +113,19 @@
       </div>
     </div>
   </div>
+  {{>infoFleetRenter}}
 </template>
 
 <template name="showButtonFleetRenters" >
   <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
-    <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+    <i style="cursor: pointer;" data-id="{{_id}}" class="infoFleetRenter far fa-eye mr-2" data-toggle="modal" data-target="#infoFleetRenter" ></i>
   </span>
-  <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
-    <i style="cursor: pointer;" class="editFleetRenter far fa-edit mr-2" data-toggle="modal" data-target="#editFleetRenter"></i>
-  </span>
-  <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
-    <i style="cursor: pointer;" data-id="{{_id}}" class="deleteFleetRenter far fa-trash-alt"></i>
-  </span>
+  {{#if isOperator}}
+    <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="infoFleetRenter far fa-edit mr-2" data-toggle="modal" data-target="#editFleetRenter"></i>
+    </span>
+    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="deleteFleetRenter far fa-trash-alt"></i>
+    </span>
+  {{/if}}
 </template>

@@ -1,5 +1,6 @@
 import './showInfoRenter.html';
 import '../../components/addFleetRenter/addFleetRenter';
+import '../../components/infoFleetRenter/infoFleetRenter';
 import './editFleetRenter';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
@@ -56,7 +57,7 @@ Template.showButtonFleetRenters.events({
       }
     });
   },
-  'click .editFleetRenter': function () {
+  'click .infoFleetRenter': function () {
     Session.set('fleetRenter', FleetRenter.findOne({ _id: this._id }));
   }
 });

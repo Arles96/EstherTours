@@ -220,6 +220,7 @@ Router.route('/show-renter/:id', {
   onBeforeAction: function () {
     const { id } = this.params;
     const renter = Renters.findOne({ _id: id });
+    Session.set('idRenter', id);
     listBreadcrumb(['Listar Arrendadoras', `Mostrando Información de ${renter.name}`]);
     isOperator(this);
   },

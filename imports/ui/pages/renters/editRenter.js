@@ -4,12 +4,13 @@ import { Session } from 'meteor/session';
 import { RentersSchema } from '../../../api/renters/renters';
 
 Template.editRenter.helpers({
-  RentersSchema: () => RentersSchema
+  RentersSchema: () => RentersSchema,
+  categorization: () => Session.get('editRenterCategorization')
 });
 
 Template.editRenter.events({
   'change .categorization [type=radio]' (event) {
-    Session.set('categorization', event.currentTarget.value);
+    Session.set('editRenterCategorization', event.currentTarget.value);
   }
 });
 

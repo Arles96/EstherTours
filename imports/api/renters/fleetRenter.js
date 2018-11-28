@@ -3,6 +3,7 @@ import { Tracker } from 'meteor/tracker';
 import SimpleSchema from 'simpl-schema';
 import { Mongo } from 'meteor/mongo';
 import { messages } from '../regEx';
+import { Renters } from './renters';
 
 const FleetRenter = new Mongo.Collection('renterFleet');
 
@@ -57,6 +58,12 @@ const FleetRenterSchema = new SimpleSchema({
 }, { check: check, tracker: Tracker });
 
 FleetRenterSchema.messageBox.messages(messages);
+
+FleetRenter.helpers({
+  getRenterName: function () {
+    return Renters.findOne({ _id: this.idRenter }).name;
+  }
+});
 
 export {
   FleetRenter,
