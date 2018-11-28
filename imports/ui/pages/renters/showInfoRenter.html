@@ -1,0 +1,101 @@
+<template name="showInfoRenter" >
+  <div class="card mb-3" >
+    <div class="card-header" >
+        <i class="fas fa-home"></i> Mostrando datos de {{renter.name}}
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {{#with renter}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Correo Electrónico:</b>
+                {{email}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Teléfono:</b>
+                {{telephone}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Calle:</b>
+                {{street}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Ciudad:</b>
+                {{city}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Municipio:</b>
+                {{municipality}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Departamento:</b>
+                {{department}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Servicios:</b>
+              </label>
+              <ul>
+                {{#each services}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Métodos de Pago:</b>
+              </label>
+              <ul>
+                {{#each paymentMethods}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="form-group">
+              <label for=""><b>Monedas:</b></label>
+              <ul>
+                {{#each money }}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        {{/with}}
+        <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <h4 class="text-center">Flota de {{renter.name}}</h4>
+          {{#if isOperator}}
+            {{> tabular table=TabularTables.Renters class="table table-hover table-bordered"}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

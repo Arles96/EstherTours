@@ -20,6 +20,7 @@ import '../../ui/pages/addRestaurant/addRestaurant';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
 import '../../ui/pages/renters/editRenter';
+import '../../ui/pages/renters/showInfoRenter';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -183,9 +184,8 @@ Router.route('/list-renters', {
 });
 
 /**
- * Listar de actualizar los datos de una arrendadora
+ * Ruta de actualizar los datos de una arrendadora
  */
-
 Router.route('/edit-renter/:id', {
   name: 'editRenter',
   template: 'editRenter',
@@ -196,6 +196,31 @@ Router.route('/edit-renter/:id', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Arrendadoras', 'Actualizando Información de Arrendadora']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      renter: Renters.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para mostrar la información de la arrendadora seleccionada para el operador
+ */
+Router.route('/show-renter/:id', {
+  name: 'showInfoRenter',
+  template: 'showInfoRenter',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('renter.one', id);
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const renter = Renters.findOne({ _id: id });
+    listBreadcrumb(['Listar Arrendadoras', `Mostrando Información de ${renter.name}`]);
     isOperator(this);
   },
   data: function () {
