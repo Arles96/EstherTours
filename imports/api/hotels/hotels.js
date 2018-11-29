@@ -12,13 +12,11 @@ const Hotels = new Mongo.Collection('hotels');
 const HotelSchema = new SimpleSchema({
   name: {
     type: String,
-    label: 'Nombre',
-    regEx: RegExObj.names
+    label: 'Nombre'
   },
   street: {
     type: String,
-    label: 'Calle',
-    regEx: RegExObj.names
+    label: 'Calle'
   },
   city: {
     type: String,
@@ -47,7 +45,6 @@ const HotelSchema = new SimpleSchema({
   },
   categorization: {
     type: String,
-    optional: true,
     label: 'Categorización',
     autoform: {
       readonly: true,
@@ -98,7 +95,7 @@ const HotelSchema = new SimpleSchema({
   },
   'activities.$': {
     type: String,
-    label: 'Actividades'
+    label: 'Actividad'
   }
 }, { check: check, tracker: Tracker });
 

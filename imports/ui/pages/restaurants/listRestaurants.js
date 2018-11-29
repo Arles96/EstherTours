@@ -1,6 +1,6 @@
-import './listHotels.html';
+import './listRestaurants.html';
 
-Template.listHotels.onCreated(() => {
+Template.listRestaurants.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
       sLengthMenu: 'Mostrar _MENU_ registros',
@@ -28,3 +28,4 @@ Template.listHotels.onCreated(() => {
     }
   });
 });
+  
