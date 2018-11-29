@@ -70,7 +70,7 @@ const GuideSchema = new SimpleSchema({
     min: 8,
     max: 8
   },
-  licence: {
+  license: {
     type: String,
     label: 'Licencia',
     autoform: {
