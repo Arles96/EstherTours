@@ -42,7 +42,7 @@ const RestaurantSchema = new SimpleSchema({
       options: () => departments
     }
   },
-  categorization: {
+  rating: {
     type: String,
     optional: true,
     label: 'Categorización',
