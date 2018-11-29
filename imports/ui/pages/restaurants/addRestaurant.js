@@ -1,5 +1,6 @@
 import './addRestaurant.html';
 import toastr from 'toastr';
+import { Session } from 'meteor/session';
 import { RestaurantSchema } from '../../../api/restaurants/restaurants';
 
 Template.addRestaurant.helpers({
