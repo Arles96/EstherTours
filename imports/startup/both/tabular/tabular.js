@@ -2,6 +2,7 @@ import Tabular from 'meteor/aldeed:tabular';
 import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 import { Renters } from '../../../api/renters/renters';
+import { Restaurants } from '../../../api/restaurants/restaurants';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
 
 const TabularTables = {};
@@ -129,6 +130,40 @@ TabularTables.FleetRenter = new Tabular.Table({
           slug: rowData.slug
         }, cell);
       }
+    }
+  ]
+});
+
+TabularTables.Restaurants = new Tabular.Table({
+  name: 'Restaurants',
+  collection: Restaurants,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  columns: [
+    {
+      class: 'text-center',
+      data: 'name',
+      title: 'Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'municipality',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'department',
+      title: 'Departamento'
     }
   ]
 });

@@ -12,8 +12,7 @@ SimpleSchema.extendOptions(['autoform']);
 const RentersSchema = new SimpleSchema({
   name: {
     type: String,
-    label: 'Nombre',
-    regEx: RegExObj.lettersAndNumbers
+    label: 'Nombre'
   },
   email: {
     type: String,
@@ -70,7 +69,6 @@ const RentersSchema = new SimpleSchema({
   },
   'services.$': {
     type: String,
-    regEx: RegExObj.lettersAndNumbers,
     label: 'Servicio'
   },
   paymentMethods: {
@@ -79,8 +77,7 @@ const RentersSchema = new SimpleSchema({
   },
   'paymentMethods.$': {
     type: String,
-    regEx: RegExObj.lettersAndNumbers,
-    label: 'Métodos de Pago'
+    label: 'Método de Pago'
   },
   money: {
     type: Array,
@@ -88,7 +85,6 @@ const RentersSchema = new SimpleSchema({
   },
   'money.$': {
     type: String,
-    regEx: RegExObj.lettersAndNumbers,
     label: 'Moneda'
   }
 }, { check: check, tracker: Tracker });
