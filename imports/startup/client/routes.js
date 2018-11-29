@@ -20,6 +20,8 @@ import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
+import '../../ui/pages/hotel/addHotels';
+import '../../ui/pages/hotel/listHotels';
 import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
 import '../../ui/pages/guide/addGuide';
@@ -121,7 +123,7 @@ Router.route('/users', {
   }
 });
 
-/**
+/*
  * Ruta para actualizar el primer nombre y primer apellido
  */
 Router.route('/update-profile', {
@@ -197,6 +199,19 @@ Router.route('/list-renters', {
 });
 
 /**
+ * Ruta para agregar hoteles
+ */
+Router.route('/add-hotels', {
+  name: 'addHotels',
+  template: 'addHotels',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar hoteles']);
+    isOperator(this);
+  }
+});
+
+/**
  * Ruta de actualizar los datos de una arrendadora
  */
 Router.route('/edit-renter/:id', {
@@ -216,6 +231,19 @@ Router.route('/edit-renter/:id', {
     return {
       renter: Renters.findOne({ _id: id })
     };
+  }
+});
+
+/**
+ * Ruta para listar hoteles
+ */
+Router.route('/list-hotels', {
+  name: 'listHotels',
+  template: 'listHotels',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Hoteles']);
+    isOperator(this);
   }
 });
 

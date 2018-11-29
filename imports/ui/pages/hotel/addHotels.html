@@ -1,0 +1,266 @@
+<template name="addHotels">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Agregar Hoteles
+    </div>
+    <div class="card-body">
+      {{#autoForm
+        id="addHotelsForm"
+        schema=HotelSchema
+        type="method"
+        meteormethod="insertHotel"
+      }}
+        {{>afQuickField name="name" }}
+        {{>afQuickField name="street" }}
+        {{>afQuickField name="city" }}
+        {{>afQuickField name="municipality" }}
+        {{>afQuickField name="departament" }}
+        {{>afQuickField name="phone" }}
+        
+        <div class="form-group mt-1">
+          <label class="mb-3">Categorización</label>
+          <fieldset id="group">
+            <p class="categorization">
+              <input id="categorization1" name="group" value="5" type="radio">
+              <label for="categorization1">★</label>
+              <input id="categorization2" name="group" value="4" type="radio">
+              <label for="categorization2">★</label>
+              <input id="categorization3" name="group" value="3" type="radio">
+              <label for="categorization3">★</label>
+              <input id="categorization4" name="group" value="2" type="radio">
+              <label for="categorization4">★</label>
+              <input id="categorization5" name="group" value="1" type="radio">
+              <label for="categorization5">★</label>
+            </p>
+          </fieldset>
+        </div>
+        {{>afQuickField name="categorization" value=categorization }}
+
+        {{>afQuickField name="coin" }}
+        {{>afQuickField name="services" }}
+        {{>afQuickField name="paymentsMethod" }}
+        {{>afQuickField name="informationsAB" }}
+        {{>afQuickField name="activities" }}
+
+        <div class="text-center">
+          <button type="submit" class="btn mx-auto btn-primary w-75" >Agregar</button>
+        </div>
+      {{/autoForm}}
+
+      <!-- form>
+        <div class="form-group">
+          <div class="form-label-group">
+            <input type="text" id="inputCodigo" class="form-control" placeholder="Codigo" required="required" autofocus="autofocus">
+            <label for="inputCodigo">Codigo</label>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header">Direccion</div>
+          <div class="card-body">
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="text" id="inputDep" class="form-control" placeholder="Departamento" required="required" autofocus="autofocus">
+                <label for="inputDep">Departamento</label>
+              </div>
+              <div class="form-label-group">
+                  <input type="text" id="inputMun" class="form-control" placeholder="Municipio" required="required" autofocus="autofocus">
+                  <label for="inputMun">Municipio</label>
+              </div>
+              <div class="form-label-group">
+                  <input type="text" id="inputCiudad" class="form-control" placeholder="Ciudad" required="required" autofocus="autofocus">
+                  <label for="inputCiudad">Ciudad</label>
+              </div>
+              <div class="form-label-group">
+                  <input type="text" id="inputCalle" class="form-control" placeholder="Calle" required="required" autofocus="autofocus">
+                  <label for="inputCalle">Calle</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label-group">
+            <input type="text" id="inputEstablecimiento" class="form-control" placeholder="Nombre de establecimiento" required="required" autofocus="autofocus">
+            <label for="inputEstablecimiento">Nombre de establecimiento</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label-group">
+            <input type="text" id="inputTelefono" class="form-control" placeholder="Telefono" required="required" autofocus="autofocus">
+            <label for="inputTelefono">Telefono</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label-group">
+            <input type="text" id="inputEmail" class="form-control" placeholder="Email" required="required" autofocus="autofocus">
+            <label for="inputEmail">Email</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label-group">
+            <label for="inputCategorizacion">Categorizacion</label>
+            <img src="./img/star_se.svg">
+            <img src="./img/star_se.svg"> 
+            <img src="./img/star_se.svg"> 
+            <img src="./img/star_se.svg"> 
+            <img src="./img/star_un.svg"> 
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label-group">
+            <input type="text" id="inputEstablecimiento" class="form-control" placeholder="Tipo de alojamiento" required="required" autofocus="autofocus">
+            <label for="inputEstablecimiento">Tipo de alojamiento</label>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header">Monedas</div>
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item">
+                  <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">-</button>
+              </li>
+              <li class="list-group-item autoform-array-item">
+                <div>
+                  <div class="autoform-array-item-body">
+                    <div class="panel panel-default">
+
+                      <div class="panel-body">
+                          <div class="form-label-group">
+                            <input type="text" id="inputMoneda" class="form-control" placeholder="Nombre" required="required" autofocus="autofocus">
+                            <label for="inputMoneda">Nombre de la moneda</label>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">+</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header">Servicios</div>
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item">
+                  <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">-</button>
+              </li>
+              <li class="list-group-item autoform-array-item">
+                <div>
+                  <div class="autoform-array-item-body">
+                    <div class="panel panel-default">
+
+                      <div class="panel-body">
+                          <div class="form-label-group">
+                            <input type="text" id="inputService" class="form-control" placeholder="Servicio" required="required" autofocus="autofocus">
+                            <label for="inputService">Nombre del servicio</label>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">+</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header">Metodos de pago</div>
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item">
+                  <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">-</button>
+              </li>
+              <li class="list-group-item autoform-array-item">
+                <div>
+                  <div class="autoform-array-item-body">
+                    <div class="panel panel-default">
+
+                      <div class="panel-body">
+                          <div class="form-label-group">
+                            <input type="text" id="inputService" class="form-control" placeholder="Servicio" required="required" autofocus="autofocus">
+                            <label for="inputService">Nombre del servicio</label>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">+</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header">Informacion A y B</div>
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item">
+                  <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">-</button>
+              </li>
+              <li class="list-group-item autoform-array-item">
+                <div>
+                  <div class="autoform-array-item-body">
+                    <div class="panel panel-default">
+
+                      <div class="panel-body">
+                          <div class="form-label-group">
+                            <input type="text" id="inputInfoAB" class="form-control" placeholder="Informacion AB" required="required" autofocus="autofocus">
+                            <label for="inputInfoAB">Informacion</label>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">+</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header">Actividades</div>
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item">
+                  <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">-</button>
+              </li>
+              <li class="list-group-item autoform-array-item">
+                <div>
+                  <div class="autoform-array-item-body">
+                    <div class="panel panel-default">
+
+                      <div class="panel-body">
+                          <div class="form-label-group">
+                            <input type="text" id="inputInfoAB" class="form-control" placeholder="Informacion AB" required="required" autofocus="autofocus">
+                            <label for="inputInfoAB">Nombre de la actividad</label>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="contacts">+</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <a class="btn btn-primary btn-block" href="">Submit</a>
+      </form-->
+    </div>
+  </div>
+<!-- /.container-fluid -->
+</template>
