@@ -60,7 +60,9 @@ const RentersSchema = new SimpleSchema({
   telephone: {
     type: String,
     label: 'Teléfono',
-    regEx: RegExObj.phone
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
   },
   services: {
     type: Array,
@@ -89,6 +91,8 @@ const RentersSchema = new SimpleSchema({
 }, { check: check, tracker: Tracker });
 
 RentersSchema.messageBox.messages(messages);
+
+Renters.attachSchema(RentersSchema);
 
 export {
   Renters,

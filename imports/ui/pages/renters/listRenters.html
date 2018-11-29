@@ -8,6 +8,22 @@
         {{> tabular table=TabularTables.Renters class="table table-hover table-bordered"}}
       </div>
     </div>
+    {{>addFleetRenter}}
     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
   </div>
+</template>
+
+<template name="showButtonRenters" >
+  <a style="text-decoration: none;" href="/show-renter/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+    <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+  </a>
+  <a style="text-decoration: none;" href="/edit-renter/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+    <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
+  </a>
+  <span data-toggle="tooltip" data-placement="top" title="Agregar Flota" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="addFleetRenter fas fa-plus mr-2" data-toggle="modal" data-target="#addFleetRenter"></i>
+  </span>
+  <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+    <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRenter far fa-trash-alt"></i>
+  </span>
 </template>

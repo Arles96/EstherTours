@@ -1,12 +1,14 @@
-import './listRenters.html';
+import './showInfoRenter.html';
 import '../../components/addFleetRenter/addFleetRenter';
-import { Session } from 'meteor/session';
+import '../../components/infoFleetRenter/infoFleetRenter';
+import './editFleetRenter';
 import toastr from 'toastr';
-import { Meteor } from 'meteor/meteor';
 import Swal from 'sweetalert2';
-import { Renters } from '../../../api/renters/renters';
+import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
+import { FleetRenter } from '../../../api/renters/fleetRenter';
 
-Template.listRenters.onCreated(() => {
+Template.showInfoRenter.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
       sLengthMenu: 'Mostrar _MENU_ registros',
@@ -35,28 +37,33 @@ Template.listRenters.onCreated(() => {
   });
 });
 
-Template.showButtonRenters.events({
-  'click .addFleetRenter': function () {
-    Session.set('idRenter', this._id);
-  },
-  'click .deleteRenter': function () {
+Template.showInfoRenter.helpers({
+  selector: function () {
+    return { idRenter: Session.get('idRenter') };
+  }
+});
+
+Template.showButtonFleetRenters.events({
+  'click .deleteFleetRenter': function () {
     const id = this._id;
-    const renter = Renters.findOne({ _id: id });
     Swal({
-      title: 'Eliminar Registro de Arrendadora',
-      text: `Esta seguro de eliminar este registro de ${renter.name}`,
+      title: 'Eliminar Flota',
+      text: 'Esta seguro de eliminar este registro.',
       cancelButtonText: 'Cancelar',
       showCancelButton: true
     }).then(res => {
       if (res.value) {
-        Meteor.call('deleteRenter', id, (error, result) => {
+        Meteor.call('deleteFleetRenter', id, (error, result) => {
           if (error) {
             toastr.error('Error al eliminar el registro.');
           } else {
-            toastr.success('Se ha eliminado el registro.');
+            toastr.success('Se eliminó el registro exitósamente.');
           }
         });
       }
     });
+  },
+  'click .infoFleetRenter': function () {
+    Session.set('fleetRenter', FleetRenter.findOne({ _id: this._id }));
   }
 });
