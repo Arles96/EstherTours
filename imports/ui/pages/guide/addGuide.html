@@ -1,0 +1,83 @@
+<template name="addGuide" >
+  <div class="card mb-3" >
+    <div class="card-header" >
+      <i class="fas fa-home"></i> Agregar Guías
+    </div>
+    <div class="card-body">
+      {{#autoForm
+        id="addGuideForms"
+        schema=GuideSchema
+        type="method"
+        meteormethod="insertGuide"
+      }}
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="name"}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="email" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="street" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="city" }}
+          </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="municipality" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="department" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="destination" }}
+        </div>
+        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="licence" }}
+        </div>
+        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="telephone" }}
+        </div>
+        <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="form-group mt-1">
+            <label class="mb-3">Categorización</label>
+            <fieldset id="group">
+              <p class="categorization">
+                <input id="categorization1" name="group" value="5" type="radio">
+                <label for="categorization1">★</label>
+                <input id="categorization2" name="group" value="4" type="radio">
+                <label for="categorization2">★</label>
+                <input id="categorization3" name="group" value="3" type="radio">
+                <label for="categorization3">★</label>
+                <input id="categorization4" name="group" value="2" type="radio">
+                <label for="categorization4">★</label>
+                <input id="categorization5" name="group" value="1" type="radio">
+                <label for="categorization5">★</label>
+              </p>
+            </fieldset>
+          </div>
+          {{>afQuickField name="categorization" value=categorization }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          {{>afQuickField name="services" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+          {{>afQuickField name="paymentMethods" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+          {{>afQuickField name="money" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+          {{>afQuickField name="languages" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+          {{>afQuickField name="creditCards" }}
+        </div>
+      </div>
+      <div class="text-center mt-2" >
+        <button type="submit" class="btn btn-primary w-75" >Agregar</button>
+      </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>

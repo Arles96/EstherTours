@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { Renters } from '../../../api/renters/renters';
 import { Restaurants } from '../../../api/restaurants/restaurants';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
+import { Guide } from '../../../api/guide/guide';
 
 const TabularTables = {};
 
@@ -148,6 +149,45 @@ TabularTables.Restaurants = new Tabular.Table({
     {
       class: 'text-center',
       data: 'name',
+      title: 'Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'municipality',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'department',
+      title: 'Departamento'
+    }
+  ]
+});
+
+TabularTables.Guides = new Tabular.Table({
+  name: 'Guides',
+  collection: Guide,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  columns: [
+    {
+      class: 'text-center',
+      data: 'name',
+      title: 'Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'destination',
       title: 'Nombre'
     },
     {
