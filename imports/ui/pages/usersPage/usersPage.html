@@ -21,7 +21,7 @@
 </template>
 
 <template name="showInfoUser" >
-  <th class="text-centerx" >
+  <th class="text-center" >
     <i class="fas fa-eye mr-2 showInfo" data-id="{{_id}}" style="cursor: pointer;" data-toggle="modal" data-target="#showInfoUser"></i>
     {{#if (isBlocked _id)}}
       <i class="fas fa-lock unlock" data-id="{{_id}}" style="cursor: pointer" data-toggle="tooltip" data-placement="top" title="Desbloquear"></i>

@@ -1,14 +1,15 @@
-<template name="addRenters" >
+<template name="editRenter" >
   <div class="card mb-3" >
     <div class="card-header" >
-      <i class="fas fa-home"></i> Agregar Arrendadora
+        <i class="fas fa-home"></i> Actualizar Arrendadora
     </div>
     <div class="card-body">
       {{#autoForm
-        id="addRentersForms"
+        id="editRentersForms"
         schema=RentersSchema
-        type="method"
-        meteormethod="addRenter"
+        type="method-update"
+        meteormethod="editRenter"
+        doc=renter
       }}
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -63,7 +64,7 @@
         </div>
       </div>
       <div class="text-center mt-2" >
-        <button type="submit" class="btn btn-primary w-75" >Agregar</button>
+        <button type="submit" class="btn btn-primary w-75" >Actualizar</button>
       </div>
       {{/autoForm}}
     </div>

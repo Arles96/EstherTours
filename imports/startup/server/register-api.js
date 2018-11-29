@@ -8,3 +8,4 @@ import '../../api/renters/method';
 
 // API de restaurantes
 import '../../api/restaurants/method';
+import '../../api/renters/server/publications';
