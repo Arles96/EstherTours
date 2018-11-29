@@ -1,16 +1,15 @@
-import './addTransportationEstablishment.html';
+import './addTransportationEstablishments.html';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
-import TransportationEstablishmentSchema from '../../../api/TransportationEstablishment/TransportationEstablishment';
+import { TransportationEstablishmentSchema } from '../../../api/TransportationEstablishment/TransportationEstablishment';
 
-
-Template.addTransportationEstablishment.helpers({
+Template.addTransportationEstablishments.helpers({
   TransportationEstablishmentSchema: () => TransportationEstablishmentSchema,
   categorization: () => Session.get('categorization')
 });
 
-Template.addTransportationEstablishment.events({
-  'change .categorization [type=radio]'(event) {
+Template.addTransportationEstablishments.events({
+  'change .categorization [type=radio]' (event) {
     Session.set('categorization', event.currentTarget.value);
   }
 });

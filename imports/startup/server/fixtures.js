@@ -2,20 +2,20 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import { admin } from '../../api/roles/roles';
+import { operator } from '../../api/roles/roles';
 
 Meteor.startup(() => {
-  if (!Accounts.findUserByEmail('anagomez98@unitec.edu')) {
+  if (!Accounts.findUserByEmail('cj@gmail.com')) {
     const id = Accounts.createUser({
-      email: 'anagomez98@unitec.edu',
+      email: 'cj@gmail.com',
       password: 'holaa',
       profile: {
-        firstName: 'Ana',
-        lastName: 'Gomez',
+        firstName: 'CJ',
+        lastName: 'Alvarez',
         blocked: false,
         createAt: new Date()
       }
     });
-    Roles.addUsersToRoles(id, admin);
+    Roles.addUsersToRoles(id, operator);
   }
 });

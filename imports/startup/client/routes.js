@@ -18,6 +18,7 @@ import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/addRestaurant/addRestaurant';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
+import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -176,6 +177,19 @@ Router.route('/list-renters', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Listar Arrendadoras']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para agregar Establecimientos de trasporte
+ */
+Router.route('/add-transportation-establishment', {
+  name: 'addTransportationEstablishments',
+  template: 'addTransportationEstablishments',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar Establecimiento de trasporte']);
     isOperator(this);
   }
 });
