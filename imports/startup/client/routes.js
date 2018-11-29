@@ -231,3 +231,7 @@ Router.route('/show-renter/:id', {
     };
   }
 });
+
+/**
+ * Ruta para agregar información de Guias
+ */
