@@ -90,6 +90,8 @@ const RentersSchema = new SimpleSchema({
 
 RentersSchema.messageBox.messages(messages);
 
+Renters.attachSchema(RentersSchema);
+
 export {
   Renters,
   RentersSchema
