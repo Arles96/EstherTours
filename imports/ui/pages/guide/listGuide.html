@@ -11,3 +11,15 @@
     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
   </div>
 </template>
+
+<template name="showButtonsGuide" >
+  <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
+    <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+  </span>
+  <a style="text-decoration: none;" href="/edit-guide/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+    <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
+  </a>
+  <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+    <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRenter far fa-trash-alt"></i>
+  </span>
+</template>
