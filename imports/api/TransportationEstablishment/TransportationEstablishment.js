@@ -46,7 +46,7 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   phone: {
     type: String,
     label: 'Teléfono',
-    regEx: RegExObj.phone
+    regEx: RegExObj.isNumber
   },
   type: {
     type: String,
