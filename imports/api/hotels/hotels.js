@@ -41,7 +41,9 @@ const HotelSchema = new SimpleSchema({
   phone: {
     type: String,
     label: 'Teléfono',
-    regEx: RegExObj.phone
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
   },
   categorization: {
     type: String,
