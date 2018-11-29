@@ -3,6 +3,7 @@ import { Session } from 'meteor/session';
 import {
   isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
 } from './validations';
+import { Renters } from '../../api/renters/renters';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -18,6 +19,8 @@ import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/addRestaurant/addRestaurant';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
+import '../../ui/pages/renters/editRenter';
+import '../../ui/pages/renters/showInfoRenter';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -177,5 +180,54 @@ Router.route('/list-renters', {
   onBeforeAction: function () {
     listBreadcrumb(['Listar Arrendadoras']);
     isOperator(this);
+  }
+});
+
+/**
+ * Ruta de actualizar los datos de una arrendadora
+ */
+Router.route('/edit-renter/:id', {
+  name: 'editRenter',
+  template: 'editRenter',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('renter.one', id);
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Arrendadoras', 'Actualizando Información de Arrendadora']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      renter: Renters.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para mostrar la información de la arrendadora seleccionada para el operador
+ */
+Router.route('/show-renter/:id', {
+  name: 'showInfoRenter',
+  template: 'showInfoRenter',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('renter.one', id);
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const renter = Renters.findOne({ _id: id });
+    Session.set('idRenter', id);
+    listBreadcrumb(['Listar Arrendadoras', `Mostrando Información de ${renter.name}`]);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      renter: Renters.findOne({ _id: id })
+    };
   }
 });
