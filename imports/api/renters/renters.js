@@ -60,7 +60,9 @@ const RentersSchema = new SimpleSchema({
   telephone: {
     type: String,
     label: 'Teléfono',
-    regEx: RegExObj.phone
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
   },
   services: {
     type: Array,

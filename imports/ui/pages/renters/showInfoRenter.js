@@ -37,6 +37,12 @@ Template.showInfoRenter.onCreated(() => {
   });
 });
 
+Template.showInfoRenter.helpers({
+  selector: function () {
+    return { idRenter: Session.get('idRenter') };
+  }
+});
+
 Template.showButtonFleetRenters.events({
   'click .deleteFleetRenter': function () {
     const id = this._id;
