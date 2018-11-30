@@ -126,7 +126,7 @@ const GuideSchema = new SimpleSchema({
   creditCards: {
     type: Array,
     optional: true,
-    label: 'Tarjetas de Crédito'
+    label: 'Tarjetas de Crédito (Opcional)'
   },
   'creditCards.$': {
     type: String,

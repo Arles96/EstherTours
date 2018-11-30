@@ -1,6 +1,8 @@
 import './listGuide.html';
+import '../../components/infoGuideModal/infoGuideModal';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
+import { Session } from 'meteor/session';
 import { Guide } from '../../../api/guide/guide';
 
 Template.listGuide.onCreated(() => {
@@ -53,6 +55,6 @@ Template.showButtonsGuide.events({
     });
   },
   'click .infoGuide': function () {
-    Session.set('idGuide', Guide.findOne({ _id: this._id }));
+    Session.set('guide', Guide.findOne({ _id: this._id }));
   }
 });

@@ -224,6 +224,11 @@ TabularTables.Guides = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
+  extraFields: [
+    'email', 'street', 'telephone',
+    'license', 'categorization', 'services',
+    'paymentMethods', 'money', 'languages', 'creditCards'
+  ],
   columns: [
     {
       class: 'text-center',

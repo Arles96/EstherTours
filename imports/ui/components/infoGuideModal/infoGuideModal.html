@@ -10,22 +10,89 @@
         </div>
         <div class="modal-body">
           {{#with Guide}}
-          <div class="form-group">
-            <label for=""><b>Total de Flota:</b> {{total}}</label>
-          </div>
-          <div class="form-group">
-            <label for=""><b>Tipo:</b> {{type}}</label>
-          </div>
-          <div class="form-group">
-            <label for=""><b>Tarifa:</b> {{rate}}</label>
-          </div>
-          <div class="form-group">
-            <label for=""><b>Menaje:</b></label>
-            <ul>
-              {{#each menage}}
-                <li>{{this}}</li>
-              {{/each}}
-            </ul>
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Nombre:</b> {{name}}</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Correo:</b> {{email}}</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Destino:</b> {{destination}}</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Teléfono:</b> {{telephone}}</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Calle:</b> {{street}}</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Ciudad:</b> {{city}}</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Departamento:</b> {{department}}</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Licencia:</b> {{license}}</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Información de Servicios:</b></label>
+                <ul>
+                  {{#each services}}
+                    <li>{{this}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Métodos de Pago:</b></label>
+                <ul>
+                  {{#each paymentMethods}}
+                    <li>{{this}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Monedas:</b></label>
+                <ul>
+                  {{#each money}}
+                    <li>{{this}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+            {{#if creditCards }}
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Tarjetas de Crédito:</b></label>
+                <ul>
+                  {{#each creditCards}}
+                    <li>{{this}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+            {{/if}}
           </div>
           {{/with}}
         </div>
