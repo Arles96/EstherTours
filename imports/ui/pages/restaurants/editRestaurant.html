@@ -2,7 +2,7 @@
     <div class="card mb-3">
       <div class="card-header">
         <i class="fas fa-table"></i>
-        Agregando Restaurante
+        Editando Restaurante
       </div>
       <div class="card-body">
         {{#autoForm
@@ -10,7 +10,7 @@
           schema=RestaurantSchema
           type="method-update"
           meteormethod="editRestaurant"
-          doc=renter
+          doc=restaurant
         }}
         <div class="row">
   
@@ -93,7 +93,7 @@
             </div>
         </div>
         <div class="text-center mt-2" >
-          <button type="submit" class="btn btn-primary w-75" >Agregar</button>
+          <button type="submit" class="btn btn-primary w-75" >Actualizar</button>
         </div>
           {{/autoForm}}
       </div>
