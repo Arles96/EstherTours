@@ -15,7 +15,7 @@ const RegExMessages = [
   { exp: RegExObj.email, msg: 'inválido' },
   { exp: RegExObj.lettersAndNumbers, msg: 'inválido' },
   { exp: RegExObj.password, msg: 'inválida. Debe ser mayor de 6 caracteres, tener al menos una mayúscula y un numero' },
-  { exp: RegExObj.isNumber, msg: 'inválido. Ingresar número de identidad sin guiones u otros caracteres' },
+  { exp: RegExObj.isNumber, msg: 'inválido. Solo debe contener numeros.' },
   { exp: RegExObj.phone, msg: 'inválido' }
 ];
 
@@ -23,6 +23,7 @@ const messages = {
   en: {
     exceedWithdrawLimit: ({ label }) => `${label} excede el limite`,
     passwordMismatch: 'Contraseñas no coinciden',
+    lessZero: 'No puede ser menor que cero.',
     required: ({ label }) => `Se requiere ${label}`,
     minString: ({ label, min }) => `${label} debe tener como mínimo ${min} caracteres`,
     maxString: ({ label, max }) => `${label} no puede exceder de ${max} caracteres`,

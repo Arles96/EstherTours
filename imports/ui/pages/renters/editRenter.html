@@ -1,21 +1,15 @@
-<<<<<<< HEAD
-<template name="addRenters">
-  <div class="card mb-3">
-    <div class="card-header">
-      <i class="fas fa-user"></i> Agregar Arrendadora
-=======
-<template name="addRenters" >
+<template name="editRenter" >
   <div class="card mb-3" >
     <div class="card-header" >
-      <i class="fas fa-home"></i> Agregar Arrendadora
->>>>>>> ec1e561753d8940e5248e7fc99d1d5fca4442313
+        <i class="fas fa-home"></i> Actualizar Arrendadora
     </div>
     <div class="card-body">
       {{#autoForm
-      id="addRentersForms"
-      schema=RentersSchema
-      type="method"
-      meteormethod="addRenter"
+        id="editRentersForms"
+        schema=RentersSchema
+        type="method-update"
+        meteormethod="editRenter"
+        doc=renter
       }}
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -28,15 +22,15 @@
           {{>afQuickField name="street" }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="city" }}
-        </div>
+            {{>afQuickField name="city" }}
+          </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="municipality" }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="department" }}
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="telephone" }}
         </div>
         <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
@@ -69,8 +63,8 @@
           {{>afQuickField name="money" }}
         </div>
       </div>
-      <div class="text-center mt-2">
-        <button type="submit" class="btn btn-primary w-75">Agregar</button>
+      <div class="text-center mt-2" >
+        <button type="submit" class="btn btn-primary w-75" >Actualizar</button>
       </div>
       {{/autoForm}}
     </div>

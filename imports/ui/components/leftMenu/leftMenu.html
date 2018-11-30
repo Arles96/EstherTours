@@ -2,7 +2,7 @@
   <!-- Sidebar -->
   <ul class="sidebar navbar-nav">
     <li class="nav-item active">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="/">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span>
       </a>
@@ -12,12 +12,6 @@
       <a class="nav-link" href="/users">
         <i class="fas fa-fw fa-table"></i>
         <span>Usuarios</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/addRestaurant">
-        <i class="fas fa-plus"></i>
-        <span>Agregar Restaurante</span>
-      </a>
     </li>
     {{/if}}
     {{#if isLoggedIn}}
@@ -38,6 +32,17 @@
       <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-fw fa-folder"></i>
+        <span>Restaurantes</s34-agregar-y-listar-establecimiento-de-transportepan>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <a class="dropdown-item" href="/addRestaurant">Agregar Restaurante</a>
+        <a class="dropdown-item" href="/listRestaurants">Listar Restaurantes</a>
+      </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-fw fa-folder"></i>
         <span>Arrendadoras</span>
       </a>
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -46,6 +51,7 @@
       </div>
     </li>
     {{/if}}
+    {{#if isOperator}}
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
@@ -59,5 +65,20 @@
         -->
       </div>
     </li>
+  </ul>
+  {{/if}}
+  {{#if isOperator}}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false">
+      <i class="fas fa-fw fa-folder"></i>
+      <span>Hoteles</span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+      <a class="dropdown-item" href="/add-hotels">Agregar hoteles</a>
+      <a class="dropdown-item" href="/list-hotels">Tabla de Hoteles</a>
+    </div>
+  </li>
+  {{/if}}
   </ul>
 </template>

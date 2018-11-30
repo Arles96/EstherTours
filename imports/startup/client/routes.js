@@ -3,6 +3,7 @@ import { Session } from 'meteor/session';
 import {
   isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
 } from './validations';
+import { Renters } from '../../api/renters/renters';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -13,19 +14,27 @@ import '../../ui/pages/account/account';
 import '../../ui/pages/not-found/not-found';
 import '../../ui/pages/initialDashboard/initialDashboard';
 import '../../ui/pages/usersPage/usersPage';
+import '../../ui/pages/restaurants/addRestaurant';
+import '../../ui/pages/restaurants/listRestaurants';
 import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
-import '../../ui/pages/addRestaurant/addRestaurant';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
+<<<<<<< HEAD
 import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
+=======
+import '../../ui/pages/hotel/addHotels';
+import '../../ui/pages/hotel/listHotels';
+import '../../ui/pages/renters/editRenter';
+import '../../ui/pages/renters/showInfoRenter';
+>>>>>>> ec1e561753d8940e5248e7fc99d1d5fca4442313
 
 /**
  *Función para listar en el componente breadcrumb
  * @param {Array} list
  */
 function listBreadcrumb (list) {
-  Session.set('listBreadcrum', list);
+  Session.set('listBreadcrumb', list);
 }
 
 /**
@@ -116,7 +125,7 @@ Router.route('/users', {
   }
 });
 
-/**
+/*
  * Ruta para actualizar el primer nombre y primer apellido
  */
 Router.route('/update-profile', {
@@ -146,12 +155,22 @@ Router.route('/change-password', {
  * Rutas para Restaurantes
 */
 Router.route('/addRestaurant', {
-  name: 'restaurants',
+  name: 'addRestaurants',
   template: 'addRestaurant',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Restaurante']);
-    isAdmin(this);
+    isOperator(this);
+  }
+});
+
+Router.route('/listRestaurants', {
+  name: 'listRestaurants',
+  template: 'listRestaurants',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Restaurantes']);
+    isOperator(this);
   }
 });
 
@@ -182,6 +201,7 @@ Router.route('/list-renters', {
 });
 
 /**
+<<<<<<< HEAD
  * Ruta para agregar Establecimientos de trasporte
  */
 Router.route('/add-transportation-establishment', {
@@ -193,3 +213,78 @@ Router.route('/add-transportation-establishment', {
     isOperator(this);
   }
 });
+=======
+ * Ruta para agregar hoteles
+ */
+Router.route('/add-hotels', {
+  name: 'addHotels',
+  template: 'addHotels',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar hoteles']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta de actualizar los datos de una arrendadora
+ */
+Router.route('/edit-renter/:id', {
+  name: 'editRenter',
+  template: 'editRenter',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('renter.one', id);
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Arrendadoras', 'Actualizando Información de Arrendadora']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      renter: Renters.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para listar hoteles
+ */
+Router.route('/list-hotels', {
+  name: 'listHotels',
+  template: 'listHotels',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Hoteles']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para mostrar la información de la arrendadora seleccionada para el operador
+ */
+Router.route('/show-renter/:id', {
+  name: 'showInfoRenter',
+  template: 'showInfoRenter',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('renter.one', id);
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const renter = Renters.findOne({ _id: id });
+    Session.set('idRenter', id);
+    listBreadcrumb(['Listar Arrendadoras', `Mostrando Información de ${renter.name}`]);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      renter: Renters.findOne({ _id: id })
+    };
+  }
+});
+>>>>>>> ec1e561753d8940e5248e7fc99d1d5fca4442313
