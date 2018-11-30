@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { Renters } from '../../../api/renters/renters';
 import { Hotels } from '../../../api/hotels/hotels';
 import { Restaurants } from '../../../api/restaurants/restaurants';
+import { restaurantOffers } from '../../../api/restaurants/restaurantOffers';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
 import { Guide } from '../../../api/guide/guide';
 
@@ -171,6 +172,46 @@ TabularTables.Restaurants = new Tabular.Table({
       class: 'text-center',
       createdCell: Meteor.isClient && function showButtonsRestaurant (cell, cellData, rowData) {
         return Blaze.renderWithData(Template.showButtonRestaurant, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
+  ]
+});
+
+TabularTables.restaurantOffers = new Tabular.Table({
+  name: 'restaurantOffers',
+  collection: restaurantOffers,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  columns: [
+    {
+      class: 'text-center',
+      data: 'typeFood',
+      title: 'Tipo de Comida'
+    },
+    {
+      class: 'text-center',
+      data: 'dishName',
+      title: 'Nombre del Plato'
+    },
+    {
+      class: 'text-center',
+      data: 'price',
+      title: 'Precio'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonRestaurantOffers (cell, cellData, rowData)
+      // eslint-disable-next-line brace-style
+      {
+        return Blaze.renderWithData(Template.showButtonRestaurantOffers, {
           _id: rowData._id,
           slug: rowData.slug
         }, cell);

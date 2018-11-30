@@ -212,7 +212,7 @@ Router.route('/show-restaurant/:id', {
   onBeforeAction: function () {
     const { id } = this.params;
     const restaurant = Restaurants.findOne({ _id: id });
-    Session.set('idRestaurant', id);
+    Session.set('restaurantOffers', id);
     listBreadcrumb(['Listar Restaurantes', `Mostrando Información de ${restaurant.name}`]);
     isOperator(this);
   },

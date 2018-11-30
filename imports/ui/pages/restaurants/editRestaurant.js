@@ -5,7 +5,7 @@ import { RestaurantSchema } from '../../../api/restaurants/restaurants';
 
 Template.editRestaurant.helpers({
   RestaurantSchema: () => RestaurantSchema,
-  categorization: () => Session.get('editRestaurantRating')
+  rating: () => Session.get('editRestaurantRating')
 });
 
 Template.editRestaurant.events({
@@ -17,9 +17,10 @@ Template.editRestaurant.events({
 AutoForm.addHooks('editRestaurantsForms', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha actualizado el registro del restaurante exitosamente.');
-    Router.go('/list-renters');
+    Router.go('/listRestaurants');
   },
   onError: function (formtype, error) {
+    console.log(error);
     toastr.error(error);
   }
 });

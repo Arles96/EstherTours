@@ -5,15 +5,16 @@ import { restaurantOffersSchema } from '../../../api/restaurants/restaurantOffer
 
 Template.editRestaurantOffer.helpers({
   restaurantOffersSchema: () => restaurantOffersSchema,
-  fleetRenter: () => Session.get('fleetRenter')
+  restaurantOffers: () => Session.get('restaurantOffers')
 });
 
-AutoForm.addHooks('editFleetForm', {
+AutoForm.addHooks('editOffersForm', {
   onSuccess: function (formtype, result) {
-    toastr.success('Se ha actualizado los datos de la flota exitosamente.');
+    toastr.success('Se ha actualizado los datos de la oferta exitosamente.');
     $('#editRestaurantOffer').modal('hide');
   },
   onError: function (formtype, error) {
+    console.log(error);
     toastr.error(error);
   }
 });
