@@ -12,9 +12,20 @@
   </div>
 </template>
 
-<template name="showInfoHotel" >
-  <th class="text-center" >
-    <i class="fas fa-window-close mr-2 showInfo" data-id="{{_id}}" style="cursor: pointer;" data-toggle="modal" data-target="#showInfoHotel"></i>
-    <i class="fas fa-window-close mr-2 showInfo" data-id="{{_id}}" style="cursor: pointer;" data-toggle="modal" data-target="#showInfoHotel"></i>
-  </th>
+<template name="showButtonHotels" >
+  <a style="text-decoration: none;" href="/show-hotel/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+    <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+  </a>
+  <a style="text-decoration: none;" href="/edit-hotel/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+    <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
+  </a>
+  <span data-toggle="tooltip" data-placement="top" title="Agregar habitación" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="addRoomHotel fas fa-plus mr-2" data-toggle="modal" data-target="#addRoomHotel"></i>
+  </span>
+  <span data-toggle="tooltip" data-placement="top" title="Agregar tarifa" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="addRoomHotel fas fa-plus mr-2" data-toggle="modal" data-target="#addRateHotel"></i>
+  </span>
+  <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+    <i style="cursor: pointer;" data-id="{{_id}}" class="deleteHotel far fa-trash-alt"></i>
+  </span>
 </template>

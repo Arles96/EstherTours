@@ -4,6 +4,7 @@ import {
   isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
 } from './validations';
 import { Renters } from '../../api/renters/renters';
+import { Hotels } from '../../api/hotels/hotels';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -19,13 +20,12 @@ import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/addRestaurant/addRestaurant';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
-<<<<<<< HEAD
 import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/listHotels';
-=======
 import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
->>>>>>> 617dd2f12e639fbf7d867f577fd88206413e401d
+import '../../ui/pages/hotel/showInfoHotel';
+import '../../ui/pages/hotel/editHotel';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -158,7 +158,7 @@ Router.route('/addRestaurant', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Restaurante']);
-    isAdmin(this);
+    isOperator(this);
   }
 });
 
@@ -189,7 +189,6 @@ Router.route('/list-renters', {
 });
 
 /**
-<<<<<<< HEAD
  * Ruta para agregar hoteles
  */
 Router.route('/add-hotels', {
@@ -199,7 +198,10 @@ Router.route('/add-hotels', {
   onBeforeAction: function () {
     listBreadcrumb(['Agregar hoteles']);
     isOperator(this);
-=======
+  }
+});
+
+/**
  * Ruta de actualizar los datos de una arrendadora
  */
 Router.route('/edit-renter/:id', {
@@ -219,12 +221,10 @@ Router.route('/edit-renter/:id', {
     return {
       renter: Renters.findOne({ _id: id })
     };
->>>>>>> 617dd2f12e639fbf7d867f577fd88206413e401d
   }
 });
 
 /**
-<<<<<<< HEAD
  * Ruta para listar hoteles
  */
 Router.route('/list-hotels', {
@@ -233,9 +233,11 @@ Router.route('/list-hotels', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Listar Hoteles']);
-<<<<<<< HEAD
     isOperator(this);
-=======
+  }
+});
+
+/**
  * Ruta para mostrar la información de la arrendadora seleccionada para el operador
  */
 Router.route('/show-renter/:id', {
@@ -258,10 +260,54 @@ Router.route('/show-renter/:id', {
     return {
       renter: Renters.findOne({ _id: id })
     };
->>>>>>> 617dd2f12e639fbf7d867f577fd88206413e401d
-=======
-    // isOperator(this);
-    isAdmin(this);
->>>>>>> 64d67f9cd71898d641e483420cc440e7a0ed9d51
+  }
+});
+
+/**
+ * Ruta de actualizar los datos de un hotel
+ */
+Router.route('/edit-hotel/:id', {
+  name: 'editHotel',
+  template: 'editHotel',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('hotel.one', id);
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Hoteles', 'Actualizando Información de Hotel']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      hotel: Hotels.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para mostrar la información del hotel seleccionado para el operador
+ */
+Router.route('/show-hotel/:id', {
+  name: 'showInfoHotel',
+  template: 'showInfoHotel',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('hotel.one', id);
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const hotel = Hotels.findOne({ _id: id });
+    Session.set('idHotel', id);
+    listBreadcrumb(['Listar Hoteles', `Mostrando Información de ${hotel.name}`]);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      hotel: Hotels.findOne({ _id: id })
+    };
   }
 });
