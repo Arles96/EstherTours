@@ -15,3 +15,4 @@ import '../../api/restaurants/server/publications';
 
 // Api de guías
 import '../../api/guide/method';
+import '../../api/guide/server/publication';

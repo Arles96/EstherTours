@@ -29,6 +29,8 @@ import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
+import '../../ui/pages/guide/editGuide';
+import { Guide } from '../../api/guide/guide';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -348,5 +350,25 @@ Router.route('/list-guide', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Guías']);
     isOperator(this);
+  }
+});
+
+Router.route('/edit-guide/:id', {
+  name: 'editGuide',
+  template: 'editGuide',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('guide.one', id);
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Guías', 'Actualizando Información de Guías']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      guide: Guide.findOne({ _id: id })
+    };
   }
 });
