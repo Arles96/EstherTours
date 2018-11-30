@@ -224,6 +224,11 @@ TabularTables.Guides = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
+  extraFields: [
+    'email', 'street', 'telephone',
+    'license', 'categorization', 'services',
+    'paymentMethods', 'money', 'languages', 'creditCards'
+  ],
   columns: [
     {
       class: 'text-center',
@@ -249,6 +254,15 @@ TabularTables.Guides = new Tabular.Table({
       class: 'text-center',
       data: 'department',
       title: 'Departamento'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsGuide (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonsGuide, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
     }
   ]
 });

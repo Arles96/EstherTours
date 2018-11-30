@@ -14,3 +14,4 @@ import '../../api/restaurants/method';
 
 // Api de guías
 import '../../api/guide/method';
+import '../../api/guide/server/publication';
