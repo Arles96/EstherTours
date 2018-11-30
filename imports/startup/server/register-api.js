@@ -7,5 +7,8 @@ import '../../api/users/method';
 import '../../api/renters/method';
 import '../../api/renters/server/publications';
 
+// Api de hoteles
+import '../../api/hotels/method';
+
 // API de restaurantes
 import '../../api/restaurants/method';

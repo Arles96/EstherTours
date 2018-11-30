@@ -99,12 +99,14 @@
         {{/with}}
         <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <h4 class="text-center mt-3">Flota de {{renter.name}}</h4>
-          <div>
-            <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addFleetRenter" >
-              Agregar
-            </button>
-          </div>
-          {{> tabular table=TabularTables.FleetRenter class="table table-hover table-bordered"}}
+          {{#if isOperator}}
+            <div>
+              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addFleetRenter" >
+                Agregar
+              </button>
+            </div>
+          {{/if}}
+          {{> tabular table=TabularTables.FleetRenter selector=selector class="table table-hover table-bordered"}}
           {{#if isOperator}}
             {{>addFleetRenter}}
             {{>editFleetRenter}}

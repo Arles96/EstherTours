@@ -60,28 +60,33 @@ const RestaurantSchema = new SimpleSchema({
   telephone: {
     type: String,
     label: 'Teléfono',
-    regEx: RegExObj.phone
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
   },
   services: {
     type: Array,
     label: 'Información de Servicios'
   },
   'services.$': {
-    type: String
+    type: String,
+    label: 'Servicio'
   },
   paymentMethods: {
     type: Array,
     label: 'Métodos de Pago'
   },
   'paymentMethods.$': {
-    type: String
+    type: String,
+    label: 'Método de pago'
   },
   money: {
     type: Array,
     label: 'Monedas'
   },
   'money.$': {
-    type: String
+    type: String,
+    label: 'Moneda'
   },
   menages: {
     type: Array,
@@ -89,7 +94,8 @@ const RestaurantSchema = new SimpleSchema({
     required: false
   },
   'menages.$': {
-    type: String
+    type: String,
+    label: 'Menaje'
   },
   ambience: {
     type: Array,
@@ -110,6 +116,7 @@ const RestaurantSchema = new SimpleSchema({
   numbersTables: {
     type: Number,
     label: 'N. de Mesas',
+    regEx: RegExObj.isNumber,
     custom: function () {
       if (this.value < 0) {
         return 'lessZero';
@@ -120,6 +127,7 @@ const RestaurantSchema = new SimpleSchema({
   numbersChairs: {
     type: Number,
     label: 'N. de Sillas',
+    regEx: RegExObj.isNumber,
     custom: function () {
       if (this.value < 0) {
         return 'lessZero';
@@ -130,6 +138,7 @@ const RestaurantSchema = new SimpleSchema({
   numbersChairsBabies: {
     type: Number,
     label: 'N. de Sillas para Bebés',
+    regEx: RegExObj.isNumber,
     custom: function () {
       if (this.value < 0) {
         return 'lessZero';
@@ -140,6 +149,7 @@ const RestaurantSchema = new SimpleSchema({
   maxPersonCapacity: {
     type: Number,
     label: 'Capacidad Máxima de Personas',
+    regEx: RegExObj.isNumber,
     custom: function () {
       if (this.value < 0) {
         return 'lessZero';

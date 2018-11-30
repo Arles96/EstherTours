@@ -10,13 +10,13 @@ Template.addRestaurant.helpers({
 
 Template.addRestaurant.events({
   'change .categorization [type=radio]' (event) {
-    Session.set('rating', event.currentTarget.value);
+    Session.set('editRating', event.currentTarget.value);
   }
 });
 
 AutoForm.addHooks('addRestaurantsForms', {
   onSuccess: function (formtype, result) {
-    toastr.success('Se ha creado el registro del restaurante exitosamente.');
+    toastr.success('Se ha actualizado el registro del restaurante exitosamente.');
   },
   onError: function (formtype, error) {
     toastr.error(error);

@@ -2,39 +2,33 @@ import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
-import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
-
-const Renters = new Mongo.Collection('renters');
+import departments from '../departments/departments';
 
 SimpleSchema.extendOptions(['autoform']);
 
-const RentersSchema = new SimpleSchema({
+const Hotels = new Mongo.Collection('hotels');
+
+const HotelSchema = new SimpleSchema({
   name: {
     type: String,
-    label: 'Nombre',
-    regEx: RegExObj.lettersAndNumbers
-  },
-  email: {
-    type: String,
-    label: 'Correo',
-    regEx: RegExObj.email
+    label: 'Nombre'
   },
   street: {
     type: String,
     label: 'Calle'
-  },
-  municipality: {
-    type: String,
-    label: 'Municipio',
-    regEx: RegExObj.names
   },
   city: {
     type: String,
     label: 'Ciudad',
     regEx: RegExObj.names
   },
-  department: {
+  municipality: {
+    type: String,
+    label: 'Municipio',
+    regEx: RegExObj.names
+  },
+  departament: {
     type: String,
     label: 'Departamento',
     autoform: {
@@ -42,9 +36,15 @@ const RentersSchema = new SimpleSchema({
       options: () => departments
     }
   },
+  phone: {
+    type: String,
+    label: 'Teléfono',
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
+  },
   categorization: {
     type: String,
-    optional: true,
     label: 'Categorización',
     autoform: {
       readonly: true,
@@ -57,44 +57,48 @@ const RentersSchema = new SimpleSchema({
       }
     }
   },
-  telephone: {
+  coin: {
+    type: Array,
+    label: 'Monedas aceptadas'
+  },
+  'coin.$': {
     type: String,
-    label: 'Teléfono',
-    regEx: RegExObj.isNumber,
-    min: 8,
-    max: 8
+    label: 'Moneda'
   },
   services: {
     type: Array,
-    label: 'Información de Servicios'
+    label: 'Servicios'
   },
   'services.$': {
     type: String,
-    label: 'Servicio'
+    label: 'Servicios'
   },
-  paymentMethods: {
+  paymentsMethod: {
     type: Array,
-    label: 'Métodos de Pago'
+    label: 'Metodos de pago'
   },
-  'paymentMethods.$': {
+  'paymentsMethod.$': {
     type: String,
-    label: 'Método de Pago'
+    label: 'Metodos de pago'
   },
-  money: {
+  informationsAB: {
     type: Array,
-    label: 'Monedas'
+    label: 'Información A y B'
   },
-  'money.$': {
+  'informationsAB.$': {
     type: String,
-    label: 'Moneda'
+    label: 'Información A y B'
+  },
+  activities: {
+    type: Array,
+    label: 'Actividades'
+  },
+  'activities.$': {
+    type: String,
+    label: 'Actividad'
   }
 }, { check: check, tracker: Tracker });
 
-RentersSchema.messageBox.messages(messages);
+HotelSchema.messageBox.messages(messages);
 
-Renters.attachSchema(RentersSchema);
-
-export {
-  Renters,
-  RentersSchema
-};
+export { HotelSchema, Hotels };
