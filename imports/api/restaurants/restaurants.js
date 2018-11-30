@@ -44,7 +44,6 @@ const RestaurantSchema = new SimpleSchema({
   },
   rating: {
     type: String,
-    optional: true,
     label: 'Categorización',
     autoform: {
       readonly: true,
