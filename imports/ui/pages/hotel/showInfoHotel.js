@@ -1,4 +1,5 @@
 import './showInfoHotel.html';
+import '../../components/addRoomHotel/addRoomHotel';
 import '../../components/addRateHotel/addRateHotel';
 import '../../components/infoRoomHotel/infoRoomHotel';
 import '../../components/infoRateHotel/infoRateHotel';
@@ -44,7 +45,7 @@ Template.showButtonRoomHotel.events({
   'click .deleteRoomHotel': function () {
     const id = this._id;
     Swal({
-      title: 'Eliminar Flota',
+      title: 'Eliminar Habitación',
       text: 'Esta seguro de eliminar este registro.',
       cancelButtonText: 'Cancelar',
       showCancelButton: true
@@ -63,7 +64,7 @@ Template.showButtonRoomHotel.events({
   'click .deleteRateHotel': function () {
     const id = this._id;
     Swal({
-      title: 'Eliminar Flota',
+      title: 'Eliminar Tarifa',
       text: 'Esta seguro de eliminar este registro.',
       cancelButtonText: 'Cancelar',
       showCancelButton: true
@@ -84,5 +85,11 @@ Template.showButtonRoomHotel.events({
   },
   'click .infoRateHotel': function () {
     Session.set('rateHotel', RateHotel.findOne({ _id: this._id }));
+  }
+});
+
+Template.showInfoHotel.helpers({
+  selector: function () {
+    return { idHotel: Session.get('idHotel') };
   }
 });

@@ -8,7 +8,7 @@ Template.editRoomHotel.helpers({
   roomHotel: () => Session.get('roomHotel')
 });
 
-AutoForm.addHooks('editRoomHotel', {
+AutoForm.addHooks('editRoomForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha actualizado los datos de la habitación exitosamente.');
     $('#editRoomHotel').modal('hide');

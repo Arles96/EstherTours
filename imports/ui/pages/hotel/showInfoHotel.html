@@ -117,11 +117,13 @@
         {{/with}}
         <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <h4 class="text-center mt-3">Habitaciones de {{hotel.name}}</h4>
+          {{#if isOperator}}
           <div>
             <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addRoomHotel" >
               Agregar
             </button>
           </div>
+          {{/if}}
           {{> tabular table=TabularTables.RoomHotel class="table table-hover table-bordered"}}
           {{#if isOperator}}
             {{>addRoomHotel}}
@@ -131,11 +133,13 @@
         {{>infoRoomHotel}}
         <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <h4 class="text-center mt-3">Tarifas de {{hotel.name}}</h4>
+          {{#if isOperator}}
           <div>
             <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addRateHotel" >
               Agregar
             </button>
           </div>
+          {{/if}}
           {{> tabular table=TabularTables.RateHotel class="table table-hover table-bordered"}}
           {{#if isOperator}}
             {{>addRateHotel}}

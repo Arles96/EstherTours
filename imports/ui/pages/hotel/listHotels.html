@@ -8,6 +8,8 @@
         {{> tabular table=TabularTables.Hotels class="table table-hover table-bordered"}}
       </div>
     </div>
+    {{>addRoomHotel}}
+    {{>addRateHotel}}
     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
   </div>
 </template>
@@ -20,10 +22,10 @@
     <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
   </a>
   <span data-toggle="tooltip" data-placement="top" title="Agregar habitación" >
-      <i style="cursor: pointer;" data-id="{{_id}}" class="addRoomHotel fas fa-plus mr-2" data-toggle="modal" data-target="#addRoomHotel"></i>
+      <i style="cursor: pointer;" data-id="{{_id}}" class="addRoomHotel fas fa-door-open mr-2" data-toggle="modal" data-target="#addRoomHotel"></i>
   </span>
   <span data-toggle="tooltip" data-placement="top" title="Agregar tarifa" >
-      <i style="cursor: pointer;" data-id="{{_id}}" class="addRoomHotel fas fa-plus mr-2" data-toggle="modal" data-target="#addRateHotel"></i>
+      <i style="cursor: pointer;" data-id="{{_id}}" class="addRoomHotel fas fa-money-check mr-2" data-toggle="modal" data-target="#addRateHotel"></i>
   </span>
   <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
     <i style="cursor: pointer;" data-id="{{_id}}" class="deleteHotel far fa-trash-alt"></i>

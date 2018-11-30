@@ -8,7 +8,7 @@ Template.addRoomHotel.helpers({
   idHotel: () => Session.get('idHotel')
 });
 
-AutoForm.addHooks('addRoomHotel', {
+AutoForm.addHooks('addRoomForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha agregado la habitación exitosamente.');
   },

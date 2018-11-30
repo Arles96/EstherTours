@@ -28,4 +28,3 @@ Template.listRestaurants.onCreated(() => {
     }
   });
 });
-  

@@ -1,4 +1,4 @@
-<template name="addRoomHotel" >
+<template name="addRoomHotel">
   <div class="modal fade" id="addRoomHotel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
           {{#autoForm
-            id="addRoomHotel"
+            id="addRoomForm"
             schema=RoomHotelSchema
             type= "method"
             meteormethod="addRoomHotel"

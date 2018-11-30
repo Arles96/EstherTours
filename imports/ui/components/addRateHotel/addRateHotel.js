@@ -8,7 +8,7 @@ Template.addRateHotel.helpers({
   idHotel: () => Session.get('idHotel')
 });
 
-AutoForm.addHooks('addRateHotel', {
+AutoForm.addHooks('addRateForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha agregado la tarifa exitosamente.');
   },

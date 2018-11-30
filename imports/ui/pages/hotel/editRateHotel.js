@@ -8,7 +8,7 @@ Template.editRateHotel.helpers({
   rateHotel: () => Session.get('rateHotel')
 });
 
-AutoForm.addHooks('editRateHotel', {
+AutoForm.addHooks('editRateForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha actualizado los datos de la tarifa exitosamente.');
     $('#editRateHotel').modal('hide');
