@@ -6,6 +6,7 @@ import { Hotels } from '../../../api/hotels/hotels';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
+import { Restaurants } from '../../../api/restaurants/restaurants';
 
 const TabularTables = {};
 
@@ -132,6 +133,40 @@ TabularTables.FleetRenter = new Tabular.Table({
           slug: rowData.slug
         }, cell);
       }
+    }
+  ]
+});
+
+TabularTables.Restaurants = new Tabular.Table({
+  name: 'Restaurants',
+  collection: Restaurants,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  columns: [
+    {
+      class: 'text-center',
+      data: 'name',
+      title: 'Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'municipality',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'department',
+      title: 'Departamento'
     }
   ]
 });

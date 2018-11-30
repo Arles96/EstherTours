@@ -60,7 +60,9 @@ const RentersSchema = new SimpleSchema({
   telephone: {
     type: String,
     label: 'Teléfono',
-    regEx: RegExObj.phone
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
   },
   services: {
     type: Array,
@@ -68,7 +70,7 @@ const RentersSchema = new SimpleSchema({
   },
   'services.$': {
     type: String,
-    regEx: RegExObj.lettersAndNumbers
+    label: 'Servicio'
   },
   paymentMethods: {
     type: Array,
@@ -76,7 +78,7 @@ const RentersSchema = new SimpleSchema({
   },
   'paymentMethods.$': {
     type: String,
-    regEx: RegExObj.lettersAndNumbers
+    label: 'Método de Pago'
   },
   money: {
     type: Array,
@@ -84,7 +86,7 @@ const RentersSchema = new SimpleSchema({
   },
   'money.$': {
     type: String,
-    regEx: RegExObj.lettersAndNumbers
+    label: 'Moneda'
   }
 }, { check: check, tracker: Tracker });
 

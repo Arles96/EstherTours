@@ -2,7 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import { admin } from '../../api/roles/roles';
+import { operator } from '../../api/roles/roles';
 
 Meteor.startup(() => {
   if (!Accounts.findUserByEmail('dario@unitec.edu')) {
@@ -16,6 +16,6 @@ Meteor.startup(() => {
         createAt: new Date()
       }
     });
-    Roles.addUsersToRoles(id, admin);
+    Roles.addUsersToRoles(id, operator);
   }
 });
