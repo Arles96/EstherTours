@@ -60,6 +60,7 @@ const GuideSchema = new SimpleSchema({
     type: String,
     label: 'Departamento',
     autoform: {
+      firstOption: '(Seleccione Uno)',
       options: () => department
     }
   },
