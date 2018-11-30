@@ -20,14 +20,12 @@ import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
-<<<<<<< HEAD
 import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
-=======
+import '../../ui/pages/TransportationEstablishment/listTransportationEstablishments';
 import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/listHotels';
 import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
->>>>>>> ec1e561753d8940e5248e7fc99d1d5fca4442313
 
 /**
  *Función para listar en el componente breadcrumb
@@ -201,7 +199,6 @@ Router.route('/list-renters', {
 });
 
 /**
-<<<<<<< HEAD
  * Ruta para agregar Establecimientos de trasporte
  */
 Router.route('/add-transportation-establishment', {
@@ -209,11 +206,25 @@ Router.route('/add-transportation-establishment', {
   template: 'addTransportationEstablishments',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Agregar Establecimiento de trasporte']);
+    listBreadcrumb(['Agregar trasporte']);
     isOperator(this);
   }
 });
-=======
+
+/**
+ * Ruta para listar Establecimientos de trasporte
+ */
+Router.route('/list-transportation-establishment', {
+  name: 'listTransportationEstablishments',
+  template: 'listTransportationEstablishments',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Lista de trasportes']);
+    isOperator(this);
+  }
+});
+
+/*
  * Ruta para agregar hoteles
  */
 Router.route('/add-hotels', {
@@ -287,4 +298,3 @@ Router.route('/show-renter/:id', {
     };
   }
 });
->>>>>>> ec1e561753d8940e5248e7fc99d1d5fca4442313

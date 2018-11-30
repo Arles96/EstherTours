@@ -2,13 +2,10 @@ import Tabular from 'meteor/aldeed:tabular';
 import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 import { Renters } from '../../../api/renters/renters';
-<<<<<<< HEAD
 import { TransportationEstablishments } from '../../../api/TransportationEstablishment/TransportationEstablishment';
-=======
 import { Hotels } from '../../../api/hotels/hotels';
 import { Restaurants } from '../../../api/restaurants/restaurants';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
->>>>>>> ec1e561753d8940e5248e7fc99d1d5fca4442313
 
 const TabularTables = {};
 
