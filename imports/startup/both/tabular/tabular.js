@@ -233,7 +233,7 @@ TabularTables.Guides = new Tabular.Table({
     {
       class: 'text-center',
       data: 'destination',
-      title: 'Nombre'
+      title: 'Destino'
     },
     {
       class: 'text-center',
