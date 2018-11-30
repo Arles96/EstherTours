@@ -1,0 +1,13 @@
+<template name="listGuide" >
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i> Tabla de Guías
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        {{> tabular table=TabularTables.Guides class="table table-hover table-bordered"}}
+      </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+  </div>
+</template>

@@ -1,6 +1,6 @@
-import './listRestaurants.html';
+import './listGuide.html';
 
-Template.listRestaurants.onCreated(() => {
+Template.listGuide.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
       sLengthMenu: 'Mostrar _MENU_ registros',

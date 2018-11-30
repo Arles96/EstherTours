@@ -2,14 +2,37 @@ import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
-import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
+import department from '../departments/departments';
 
-const Renters = new Mongo.Collection('renters');
+const Guide = new Mongo.Collection('guide');
 
 SimpleSchema.extendOptions(['autoform']);
 
-const RentersSchema = new SimpleSchema({
+const licences = [
+  {
+    label: 'Licencia o certificación general',
+    value: 'Licencia o certificación general'
+  },
+  {
+    label: 'Licencia local',
+    value: 'Licencia local'
+  },
+  {
+    label: 'Licencia nacional',
+    value: 'Licencia nacional'
+  },
+  {
+    label: 'Licencia regional',
+    value: 'Licencia regional'
+  }
+];
+
+const GuideSchema = new SimpleSchema({
+  destination: {
+    type: String,
+    label: 'Destino'
+  },
   name: {
     type: String,
     label: 'Nombre'
@@ -23,22 +46,35 @@ const RentersSchema = new SimpleSchema({
     type: String,
     label: 'Calle'
   },
-  municipality: {
-    type: String,
-    label: 'Municipio',
-    regEx: RegExObj.names
-  },
   city: {
     type: String,
     label: 'Ciudad',
+    regEx: RegExObj.names
+  },
+  municipality: {
+    type: String,
+    label: 'Municipio',
     regEx: RegExObj.names
   },
   department: {
     type: String,
     label: 'Departamento',
     autoform: {
-      firstOption: '(Seleccione Uno)',
-      options: () => departments
+      options: () => department
+    }
+  },
+  telephone: {
+    type: String,
+    label: 'Teléfono',
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
+  },
+  license: {
+    type: String,
+    label: 'Licencia',
+    autoform: {
+      options: () => licences
     }
   },
   categorization: {
@@ -54,13 +90,6 @@ const RentersSchema = new SimpleSchema({
         label: false
       }
     }
-  },
-  telephone: {
-    type: String,
-    label: 'Teléfono',
-    regEx: RegExObj.isNumber,
-    min: 8,
-    max: 8
   },
   services: {
     type: Array,
@@ -85,14 +114,29 @@ const RentersSchema = new SimpleSchema({
   'money.$': {
     type: String,
     label: 'Moneda'
+  },
+  languages: {
+    type: Array,
+    label: 'Lenguajes'
+  },
+  'languages.$': {
+    type: String,
+    label: 'Lenguaje'
+  },
+  creditCards: {
+    type: Array,
+    optional: true,
+    label: 'Tarjetas de Crédito'
+  },
+  'creditCards.$': {
+    type: String,
+    label: 'Tarjeta de crédito'
   }
 }, { check: check, tracker: Tracker });
 
-RentersSchema.messageBox.messages(messages);
-
-Renters.attachSchema(RentersSchema);
+GuideSchema.messageBox.messages(messages);
 
 export {
-  Renters,
-  RentersSchema
+  Guide,
+  GuideSchema
 };
