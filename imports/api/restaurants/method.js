@@ -12,8 +12,8 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       const data = doc.modifier.$set;
       const { _id } = doc;
-      restaurantOffersSchema.validate(data);
-      restaurantOffers.update({ _id: _id }, {
+      RestaurantSchema.validate(data);
+      Restaurants.update({ _id: _id }, {
         $set: data
       });
     } else {
