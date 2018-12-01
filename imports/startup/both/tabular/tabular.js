@@ -6,6 +6,8 @@ import { Hotels } from '../../../api/hotels/hotels';
 import { Restaurants } from '../../../api/restaurants/restaurants';
 import { restaurantOffers } from '../../../api/restaurants/restaurantOffers';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
+import { RoomHotel } from '../../../api/hotels/roomhotel';
+import { RateHotel } from '../../../api/hotels/ratehotel';
 import { Guide } from '../../../api/guide/guide';
 
 const TabularTables = {};
@@ -261,6 +263,93 @@ TabularTables.Hotels = new Tabular.Table({
       class: 'text-center',
       data: 'phone',
       title: 'Teléfono'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsHotels (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonHotels, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
+  ]
+});
+
+TabularTables.RoomHotel = new Tabular.Table({
+  name: 'RoomHotel',
+  collection: RoomHotel,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: ['menage', 'idHotel'],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'price',
+      title: 'Precio'
+    },
+    {
+      class: 'text-center',
+      data: 'type',
+      title: 'Tipo'
+    },
+    {
+      class: 'text-center',
+      data: 'extraBed',
+      title: 'Cantidad de camas extra'
+    },
+    {
+      class: 'text-center',
+      data: 'roomSize',
+      title: 'Tamaño de la habitación'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonRoomHotel (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonRoomHotel, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
+  ]
+});
+
+TabularTables.RateHotel = new Tabular.Table({
+  name: 'RateHotel',
+  collection: RateHotel,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: ['idHotel'],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'price',
+      title: 'Precio'
+    },
+    {
+      class: 'text-center',
+      data: 'type',
+      title: 'Tipo'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonRateHotel (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonRateHotel, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
     }
   ]
 });

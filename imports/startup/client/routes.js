@@ -4,6 +4,7 @@ import {
   isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
 } from './validations';
 import { Renters } from '../../api/renters/renters';
+import { Hotels } from '../../api/hotels/hotels';
 import { Restaurants } from '../../api/restaurants/restaurants';
 
 // Import layouts
@@ -27,6 +28,8 @@ import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/listHotels';
 import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
+import '../../ui/pages/hotel/showInfoHotel';
+import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
@@ -328,8 +331,32 @@ Router.route('/show-renter/:id', {
 });
 
 /**
+ * Ruta de actualizar los datos de un hotel
+ */
+Router.route('/edit-hotel/:id', {
+  name: 'editHotel',
+  template: 'editHotel',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('hotel.one', id);
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Hoteles', 'Actualizando Información de Hotel']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      hotel: Hotels.findOne({ _id: id })
+    };
+  }
+});
+
+/**
  * Ruta para agregar información de Guias
  */
+
 Router.route('/add-guide', {
   name: 'addGuide',
   template: 'addGuide',
@@ -337,6 +364,32 @@ Router.route('/add-guide', {
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Guía']);
     isOperator(this);
+  }
+});
+
+/**
+ * Ruta para mostrar la información del hotel seleccionado para el operador
+ */
+Router.route('/show-hotel/:id', {
+  name: 'showInfoHotel',
+  template: 'showInfoHotel',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('hotel.one', id);
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const hotel = Hotels.findOne({ _id: id });
+    Session.set('idHotel', id);
+    listBreadcrumb(['Listar Hoteles', `Mostrando Información de ${hotel.name}`]);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      hotel: Hotels.findOne({ _id: id })
+    };
   }
 });
 

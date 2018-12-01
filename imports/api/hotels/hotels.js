@@ -101,4 +101,6 @@ const HotelSchema = new SimpleSchema({
 
 HotelSchema.messageBox.messages(messages);
 
+Hotels.attachSchema(HotelSchema);
+
 export { HotelSchema, Hotels };

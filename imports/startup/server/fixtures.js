@@ -5,13 +5,13 @@ import { Accounts } from 'meteor/accounts-base';
 import { operator } from '../../api/roles/roles';
 
 Meteor.startup(() => {
-  if (!Accounts.findUserByEmail('anagmar98@gmail.com')) {
+  if (!Accounts.findUserByEmail('dario@unitec.edu')) {
     const id = Accounts.createUser({
-      email: 'anagmar98@gmail.com',
-      password: 'holaa',
+      email: 'dario@unitec.edu',
+      password: 'hola',
       profile: {
-        firstName: 'Ana',
-        lastName: 'Gomez',
+        firstName: 'Dario',
+        lastName: 'Mendoza',
         blocked: false,
         createAt: new Date()
       }

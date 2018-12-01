@@ -1,0 +1,181 @@
+<template name="showInfoHotel" >
+  <div class="card mb-3" >
+    <div class="card-header" >
+        <i class="fas fa-home"></i> Mostrando datos de {{hotel.name}}
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {{#with hotel}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Calle:</b>
+                {{street}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Ciudad:</b>
+                {{city}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Municipio:</b>
+                {{municipality}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Departamento:</b>
+                {{departament}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Teléfono:</b>
+                {{phone}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Categorización:</b>
+              </label>
+              <p>{{categorization}} estrellas </p>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Monedas aceptadas:</b>
+              </label>
+              <ul>
+                {{#each coin}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Servicios:</b>
+              </label>
+              <ul>
+                {{#each services}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Métodos de Pago:</b>
+              </label>
+              <ul>
+                {{#each paymentsMethod}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Información A y B:</b>
+              </label>
+              <ul>
+                {{#each informationsAB }}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Actividades:</b>
+              </label>
+              <ul>
+                {{#each activities }}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        {{/with}}
+        <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <h4 class="text-center mt-3">Habitaciones de {{hotel.name}}</h4>
+          {{#if isOperator}}
+          <div>
+            <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addRoomHotel" >
+              Agregar
+            </button>
+          </div>
+          {{/if}}
+          {{> tabular table=TabularTables.RoomHotel class="table table-hover table-bordered"}}
+          {{#if isOperator}}
+            {{>addRoomHotel}}
+            {{>editRoomHotel}}
+          {{/if}}
+        </div>
+        {{>infoRoomHotel}}
+        <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <h4 class="text-center mt-3">Tarifas de {{hotel.name}}</h4>
+          {{#if isOperator}}
+          <div>
+            <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addRateHotel" >
+              Agregar
+            </button>
+          </div>
+          {{/if}}
+          {{> tabular table=TabularTables.RateHotel class="table table-hover table-bordered"}}
+          {{#if isOperator}}
+            {{>addRateHotel}}
+            {{>editRateHotel}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{>infoRateHotel}}
+</template>
+
+<template name="showButtonRoomHotel" >
+  <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
+    <i style="cursor: pointer;" data-id="{{_id}}" class="infoRoomHotel far fa-eye mr-2" data-toggle="modal" data-target="#infoRoomHotel" ></i>
+  </span>
+  {{#if isOperator}}
+    <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="infoRoomHotel far fa-edit mr-2" data-toggle="modal" data-target="#editRoomHotel"></i>
+    </span>
+    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRoomHotel far fa-trash-alt"></i>
+    </span>
+  {{/if}}
+</template>
+
+<template name="showButtonRateHotel" >
+    <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="infoRateHotel far fa-eye mr-2" data-toggle="modal" data-target="#infoRateHotel" ></i>
+    </span>
+    {{#if isOperator}}
+      <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="infoRateHotel far fa-edit mr-2" data-toggle="modal" data-target="#editRateHotel"></i>
+      </span>
+      <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRateHotel far fa-trash-alt"></i>
+      </span>
+    {{/if}}
+  </template>

@@ -1,4 +1,11 @@
 import './listHotels.html';
+import '../../components/addRoomHotel/addRoomHotel';
+import '../../components/addRateHotel/addRateHotel';
+import { Session } from 'meteor/session';
+import toastr from 'toastr';
+import { Meteor } from 'meteor/meteor';
+import Swal from 'sweetalert2';
+import { Hotels } from '../../../api/hotels/hotels';
 
 Template.listHotels.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -27,4 +34,33 @@ Template.listHotels.onCreated(() => {
       }
     }
   });
+});
+
+Template.showButtonHotels.events({
+  'click .addRoomHotel': function () {
+    Session.set('idHotel', this._id);
+  },
+  'click .addRateHotel': function () {
+    Session.set('idHotel', this._id);
+  },
+  'click .deleteHotel': function () {
+    const id = this._id;
+    const hotel = Hotels.findOne({ _id: id });
+    Swal({
+      title: 'Eliminar Registro de Hotel',
+      text: `Esta seguro de eliminar este registro de ${hotel.name}`,
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('deleteHotel', id, (error, result) => {
+          if (error) {
+            toastr.error('Error al eliminar el registro.');
+          } else {
+            toastr.success('Se ha eliminado el registro.');
+          }
+        });
+      }
+    });
+  }
 });
