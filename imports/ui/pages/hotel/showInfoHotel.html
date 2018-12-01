@@ -124,7 +124,7 @@
             </button>
           </div>
           {{/if}}
-          {{> tabular table=TabularTables.RoomHotel class="table table-hover table-bordered"}}
+          {{> tabular table=TabularTables.RoomHotel selector=selector class="table table-hover table-bordered"}}
           {{#if isOperator}}
             {{>addRoomHotel}}
             {{>editRoomHotel}}
@@ -140,7 +140,7 @@
             </button>
           </div>
           {{/if}}
-          {{> tabular table=TabularTables.RateHotel class="table table-hover table-bordered"}}
+          {{> tabular table=TabularTables.RateHotel selector=selector class="table table-hover table-bordered"}}
           {{#if isOperator}}
             {{>addRateHotel}}
             {{>editRateHotel}}
