@@ -54,7 +54,6 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   categorization: {
     type: String,
-    optional: true,
     label: 'Categorización',
     autoform: {
       readonly: true,
