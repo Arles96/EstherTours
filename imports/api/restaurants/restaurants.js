@@ -89,8 +89,7 @@ const RestaurantSchema = new SimpleSchema({
   },
   menages: {
     type: Array,
-    label: 'Menajes',
-    required: false
+    label: 'Menajes'
   },
   'menages.$': {
     type: String,
@@ -98,16 +97,14 @@ const RestaurantSchema = new SimpleSchema({
   },
   ambience: {
     type: Array,
-    label: 'Ambiente',
-    required: false
+    label: 'Ambiente'
   },
   'ambience.$': {
     type: String
   },
   menu: {
     type: Array,
-    label: 'Menu',
-    required: false
+    label: 'Menu'
   },
   'menu.$': {
     type: String
