@@ -9,7 +9,7 @@ Template.addHotels.helpers({
 });
 
 Template.addHotels.events({
-  'change .hotelCategorization [type=radio]' (event) {
+  'change .categorization [type=radio]' (event) {
     Session.set('hotelCategorization', event.currentTarget.value);
   }
 });
