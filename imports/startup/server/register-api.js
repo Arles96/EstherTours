@@ -1,4 +1,3 @@
-// Register your apis here
 
 // Api de usuario
 import '../../api/users/method';
@@ -13,3 +12,7 @@ import '../../api/hotels/server/publications';
 
 // API de restaurantes
 import '../../api/restaurants/method';
+
+// Api de guías
+import '../../api/guide/method';
+import '../../api/guide/server/publication';

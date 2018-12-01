@@ -27,6 +27,10 @@ import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
 import '../../ui/pages/hotel/showInfoHotel';
 import '../../ui/pages/hotel/editHotel';
+import '../../ui/pages/guide/addGuide';
+import '../../ui/pages/guide/listGuide';
+import '../../ui/pages/guide/editGuide';
+import { Guide } from '../../api/guide/guide';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -168,7 +172,7 @@ Router.route('/listRestaurants', {
   template: 'listRestaurants',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Listar Restaurantes']);
+    listBreadcrumb(['Tabla de Restaurantes']);
     isOperator(this);
   }
 });
@@ -194,7 +198,7 @@ Router.route('/list-renters', {
   template: 'listRenters',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Listar Arrendadoras']);
+    listBreadcrumb(['Tabla de Arrendadoras']);
     isOperator(this);
   }
 });
@@ -298,6 +302,20 @@ Router.route('/edit-hotel/:id', {
 });
 
 /**
+ * Ruta para agregar información de Guias
+ */
+
+Router.route('/add-guide', {
+  name: 'addGuide',
+  template: 'addGuide',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar Guía']);
+    isOperator(this);
+  }
+});
+
+/**
  * Ruta para mostrar la información del hotel seleccionado para el operador
  */
 Router.route('/show-hotel/:id', {
@@ -313,12 +331,44 @@ Router.route('/show-hotel/:id', {
     const hotel = Hotels.findOne({ _id: id });
     Session.set('idHotel', id);
     listBreadcrumb(['Listar Hoteles', `Mostrando Información de ${hotel.name}`]);
-    isOperator(this);
   },
   data: function () {
     const { id } = this.params;
     return {
       hotel: Hotels.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para listar los guías
+ */
+Router.route('/list-guide', {
+  name: 'listGuide',
+  template: 'listGuide',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de Guías']);
+    isOperator(this);
+  }
+});
+
+Router.route('/edit-guide/:id', {
+  name: 'editGuide',
+  template: 'editGuide',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('guide.one', id);
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Guías', 'Actualizando Información de Guías']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      guide: Guide.findOne({ _id: id })
     };
   }
 });
