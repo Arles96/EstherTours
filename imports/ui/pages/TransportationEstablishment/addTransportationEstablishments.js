@@ -5,12 +5,12 @@ import { TransportationEstablishmentSchema } from '../../../api/TransportationEs
 
 Template.addTransportationEstablishments.helpers({
   TransportationEstablishmentSchema: () => TransportationEstablishmentSchema,
-  categorization: () => Session.get('categorization')
+  categorization: () => Session.get('transportCategorization')
 });
 
 Template.addTransportationEstablishments.events({
   'change .categorization [type=radio]' (event) {
-    Session.set('categorization', event.currentTarget.value);
+    Session.set('transportCategorization', event.currentTarget.value);
   }
 });
 
