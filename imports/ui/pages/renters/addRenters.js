@@ -5,12 +5,12 @@ import { RentersSchema } from '../../../api/renters/renters';
 
 Template.addRenters.helpers({
   RentersSchema: () => RentersSchema,
-  categorization: () => Session.get('renterCategorization')
+  categorization: () => Session.get('categorization')
 });
 
 Template.addRenters.events({
   'change .categorization [type=radio]' (event) {
-    Session.set('renterCategorization', event.currentTarget.value);
+    Session.set('categorization', event.currentTarget.value);
   }
 });
 

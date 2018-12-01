@@ -24,6 +24,8 @@ import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
+import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
+import '../../ui/pages/TransportationEstablishment/listTransportationEstablishments';
 import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/listHotels';
 import '../../ui/pages/renters/editRenter';
@@ -256,6 +258,32 @@ Router.route('/list-renters', {
 });
 
 /**
+ * Ruta para agregar Establecimientos de trasporte
+ */
+Router.route('/add-transportation-establishment', {
+  name: 'addTransportationEstablishments',
+  template: 'addTransportationEstablishments',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar trasporte']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para listar Establecimientos de trasporte
+ */
+Router.route('/list-transportation-establishment', {
+  name: 'listTransportationEstablishments',
+  template: 'listTransportationEstablishments',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Lista de trasportes']);
+    isOperator(this);
+  }
+});
+
+/*
  * Ruta para agregar hoteles
  */
 Router.route('/add-hotels', {

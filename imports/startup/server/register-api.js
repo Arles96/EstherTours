@@ -14,6 +14,9 @@ import '../../api/hotels/server/publications';
 import '../../api/restaurants/method';
 import '../../api/restaurants/server/publications';
 
+// API de restaurantes
+import '../../api/TransportationEstablishment/method';
+
 // Api de guías
 import '../../api/guide/method';
 import '../../api/guide/server/publication';
