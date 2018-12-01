@@ -61,6 +61,12 @@ Template.showButtonRoomHotel.events({
       }
     });
   },
+  'click .infoRoomHotel': function () {
+    Session.set('roomHotel', RoomHotel.findOne({ _id: this._id }));
+  }
+});
+
+Template.showButtonRateHotel.events({
   'click .deleteRateHotel': function () {
     const id = this._id;
     Swal({
@@ -79,9 +85,6 @@ Template.showButtonRoomHotel.events({
         });
       }
     });
-  },
-  'click .infoRoomHotel': function () {
-    Session.set('roomHotel', RoomHotel.findOne({ _id: this._id }));
   },
   'click .infoRateHotel': function () {
     Session.set('rateHotel', RateHotel.findOne({ _id: this._id }));

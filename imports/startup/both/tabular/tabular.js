@@ -293,8 +293,8 @@ TabularTables.RateHotel = new Tabular.Table({
     },
     {
       class: 'text-center',
-      createdCell: Meteor.isClient && function showButtonsRateHotel (cell, cellData, rowData) {
-        return Blaze.renderWithData(Template.showButtonsRateHotel, {
+      createdCell: Meteor.isClient && function showButtonRateHotel (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonRateHotel, {
           _id: rowData._id,
           slug: rowData.slug
         }, cell);
