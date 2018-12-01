@@ -190,6 +190,7 @@ TabularTables.restaurantOffers = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
+  extraFields: ['idRestaurant'],
   columns: [
     {
       class: 'text-center',
