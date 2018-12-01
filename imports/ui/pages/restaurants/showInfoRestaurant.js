@@ -1,12 +1,14 @@
-import './listRestaurants.html';
+import './showInfoRestaurant.html';
 import '../../components/addRestaurantOffer/addRestaurantOffer';
-import { Session } from 'meteor/session';
+import '../../components/infoRestaurantOffer/infoRestaurantOffer';
+import './editRestaurantOffer';
 import toastr from 'toastr';
-import { Meteor } from 'meteor/meteor';
 import Swal from 'sweetalert2';
-import { Restaurants } from '../../../api/restaurants/restaurants';
+import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
+import { restaurantOffers } from '../../../api/restaurants/restaurantOffers';
 
-Template.listRestaurants.onCreated(() => {
+Template.showInfoRestaurant.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
       sLengthMenu: 'Mostrar _MENU_ registros',
@@ -35,28 +37,33 @@ Template.listRestaurants.onCreated(() => {
   });
 });
 
-Template.showButtonRestaurant.events({
-  'click .addRestaurantOffer': function () {
-    Session.set('idRestaurant', this._id);
-  },
-  'click .deleteRestaurant': function () {
+Template.showInfoRestaurant.helpers({
+  selector: function () {
+    return { idRestaurant: Session.get('idRestaurant') };
+  }
+});
+
+Template.showButtonRestaurantOffers.events({
+  'click .deleteRestaurantOffer': function () {
     const id = this._id;
-    const rest = Restaurants.findOne({ _id: id });
     Swal({
-      title: 'Eliminar Registro de Restaurante',
-      text: `Esta seguro de eliminar este registro de ${rest.name}`,
+      title: 'Eliminar Oferta',
+      text: 'Esta seguro de eliminar este registro.',
       cancelButtonText: 'Cancelar',
       showCancelButton: true
     }).then(res => {
       if (res.value) {
-        Meteor.call('deleteRestaurant', id, (error, result) => {
+        Meteor.call('deleteRestaurantOffer', id, (error, result) => {
           if (error) {
             toastr.error('Error al eliminar el registro.');
           } else {
-            toastr.success('Se ha eliminado el registro.');
+            toastr.success('Se eliminó el registro exitósamente.');
           }
         });
       }
     });
+  },
+  'click .infoRestaurantOffer': function () {
+    Session.set('restaurantOffers', restaurantOffers.findOne({ _id: this._id }));
   }
 });

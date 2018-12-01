@@ -5,6 +5,7 @@ import {
 } from './validations';
 import { Renters } from '../../api/renters/renters';
 import { Hotels } from '../../api/hotels/hotels';
+import { Restaurants } from '../../api/restaurants/restaurants';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -17,6 +18,8 @@ import '../../ui/pages/initialDashboard/initialDashboard';
 import '../../ui/pages/usersPage/usersPage';
 import '../../ui/pages/restaurants/addRestaurant';
 import '../../ui/pages/restaurants/listRestaurants';
+import '../../ui/pages/restaurants/editRestaurant';
+import '../../ui/pages/restaurants/showInfoRestaurant';
 import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
@@ -174,6 +177,55 @@ Router.route('/listRestaurants', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Restaurantes']);
     isOperator(this);
+  }
+});
+
+/**
+ * Ruta de actualizar los datos de un restaurante
+ */
+Router.route('/edit-restaurant/:id', {
+  name: 'editRestaurant',
+  template: 'editRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('restaurant.one', id);
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Restaurantes', 'Actualizando Información de Restaurante']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      restaurant: Restaurants.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para mostrar la información de un restaurante seleccionado para el operador
+ */
+Router.route('/show-restaurant/:id', {
+  name: 'showInfoRestaurant',
+  template: 'showInfoRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('restaurant.one', id);
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const restaurant = Restaurants.findOne({ _id: id });
+    Session.set('idRestaurant', id);
+    listBreadcrumb(['Listar Restaurantes', `Mostrando Información de ${restaurant.name}`]);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      restaurant: Restaurants.findOne({ _id: id })
+    };
   }
 });
 
