@@ -172,6 +172,7 @@ const RestaurantSchema = new SimpleSchema({
 }, { check: check, tracker: Tracker });
 
 RestaurantSchema.messageBox.messages(messages);
+Restaurants.attachSchema(RestaurantSchema);
 
 export {
   RestaurantSchema,

@@ -12,6 +12,7 @@ import '../../api/hotels/server/publications';
 
 // API de restaurantes
 import '../../api/restaurants/method';
+import '../../api/restaurants/server/publications';
 
 // Api de guías
 import '../../api/guide/method';
