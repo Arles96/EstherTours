@@ -75,6 +75,7 @@ const GuideSchema = new SimpleSchema({
     type: String,
     label: 'Licencia',
     autoform: {
+      firstOption: '(Seleccione Uno)',
       options: () => licences
     }
   },
