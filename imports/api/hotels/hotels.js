@@ -14,6 +14,11 @@ const HotelSchema = new SimpleSchema({
     type: String,
     label: 'Nombre'
   },
+  email: {
+    type: String,
+    optional: true,
+    label: 'Correo (Opcional)'
+  },
   street: {
     type: String,
     label: 'Calle'
