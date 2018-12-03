@@ -8,6 +8,22 @@
         {{> tabular table=TabularTables.TransportationEstablishments class="table table-hover table-bordered"}}
       </div>
     </div>
+    {{>addFleetTransportationEstablishment}}
     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
   </div>
+</template>
+
+<template name="showButtonTransportationEstablishments" >
+  <a style="text-decoration: none;" href="/show-TransportationEstablishment/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+    <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+  </a>
+  <a style="text-decoration: none;" href="/edit-TransportationEstablishment/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+    <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
+  </a>
+  <span data-toggle="tooltip" data-placement="top" title="Agregar Flota" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="addFleetTransportationEstablishment fas fa-plus mr-2" data-toggle="modal" data-target="#addFleetTransportationEstablishment"></i>
+  </span>
+  <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+    <i style="cursor: pointer;" data-id="{{_id}}" class="deleteTransportationEstablishment far fa-trash-alt"></i>
+  </span>
 </template>

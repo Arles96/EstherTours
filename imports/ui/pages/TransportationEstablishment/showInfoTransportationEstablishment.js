@@ -1,12 +1,14 @@
-import './listTransportationEstablishments.html';
+import './showInfoTransportationEstablishment.html';
 import '../../components/addFleetTransportationEstablishment/addFleetTransportationEstablishment';
-import { Session } from 'meteor/session';
+import '../../components/infoFleetTransportationEstablishment/infoFleetTransportationEstablishment';
+import './editFleetTransportationEstablishment';
 import toastr from 'toastr';
-import { Meteor } from 'meteor/meteor';
 import Swal from 'sweetalert2';
-import { TransportationEstablishments } from '../../../api/TransportationEstablishment/TransportationEstablishment';
+import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
+import { FleetTransportationEstablishment } from '../../../api/TransportationEstablishment/FleetTransportationEstablishment';
 
-Template.listTransportationEstablishments.onCreated(() => {
+Template.showInfoTransportationEstablishment.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
       sLengthMenu: 'Mostrar _MENU_ registros',
@@ -35,28 +37,33 @@ Template.listTransportationEstablishments.onCreated(() => {
   });
 });
 
-Template.showButtonTransportationEstablishments.events({
-  'click .addFleetTransportationEstablishment': function () {
-    Session.set('idTransportationEstablishment', this._id);
-  },
-  'click .deleteTransportationEstablishment': function () {
+Template.showInfoTransportationEstablishment.helpers({
+  selector: function () {
+    return { idTransportationEstablishment: Session.get('idTransportationEstablishment') };
+  }
+});
+
+Template.showButtonFleetTransportationEstablishments.events({
+  'click .deleteFleetTransportationEstablishment': function () {
     const id = this._id;
-    const TransportationEstablishment = TransportationEstablishments.findOne({ _id: id });
     Swal({
-      title: 'Eliminar Registro de Arrendadora',
-      text: `Esta seguro de eliminar este registro de ${TransportationEstablishment.name}`,
+      title: 'Eliminar Flota',
+      text: 'Esta seguro de eliminar este registro.',
       cancelButtonText: 'Cancelar',
       showCancelButton: true
     }).then(res => {
       if (res.value) {
-        Meteor.call('deleteTransportationEstablishment', id, (error, result) => {
+        Meteor.call('deleteFleetTransportationEstablishment', id, (error, result) => {
           if (error) {
             toastr.error('Error al eliminar el registro.');
           } else {
-            toastr.success('Se ha eliminado el registro.');
+            toastr.success('Se eliminó el registro exitósamente.');
           }
         });
       }
     });
+  },
+  'click .infoFleetTransportationEstablishment': function () {
+    Session.set('fleetTransportationEstablishment', FleetTransportationEstablishment.findOne({ _id: this._id }));
   }
 });

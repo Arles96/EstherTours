@@ -4,6 +4,7 @@ import {
   isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
 } from './validations';
 import { Renters } from '../../api/renters/renters';
+import { TransportationEstablishments } from '../../api/TransportationEstablishment/TransportationEstablishment';
 import { Hotels } from '../../api/hotels/hotels';
 import { Restaurants } from '../../api/restaurants/restaurants';
 
@@ -26,6 +27,8 @@ import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
 import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/listTransportationEstablishments';
+import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstablishment';
+import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
 import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/listHotels';
 import '../../ui/pages/renters/editRenter';
@@ -280,6 +283,55 @@ Router.route('/list-transportation-establishment', {
   onBeforeAction: function () {
     listBreadcrumb(['Lista de trasportes']);
     isOperator(this);
+  }
+});
+
+/**
+ * Ruta para mostrar la información de la arrendadora seleccionada para el operador
+ */
+Router.route('/show-TransportationEstablishment/:id', {
+  name: 'showInfoTransportationEstablishment',
+  template: 'showInfoTransportationEstablishment',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('TransportationEstablishment.one', id);
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const TransportationEstablishment = TransportationEstablishments.findOne({ _id: id });
+    Session.set('idTransportationEstablishment', id);
+    listBreadcrumb(['Listar Arrendadoras', `Mostrando Información de ${TransportationEstablishment.name}`]);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      TransportationEstablishment: TransportationEstablishments.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta de actualizar los datos de un transporte
+ */
+Router.route('/edit-TransportationEstablishment/:id', {
+  name: 'editTransportationEstablishment',
+  template: 'editTransportationEstablishment',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('TransportationEstablishment.one', id);
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Transportes', 'Actualizando Información de Transporte']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      TransportationEstablishment: TransportationEstablishments.findOne({ _id: id })
+    };
   }
 });
 

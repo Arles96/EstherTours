@@ -46,7 +46,9 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   phone: {
     type: String,
     label: 'Teléfono',
-    regEx: RegExObj.isNumber
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
   },
   type: {
     type: String,
@@ -72,7 +74,7 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   'paymentMethods.$': {
     type: String,
-    regEx: RegExObj.lettersAndNumbers
+    label: 'Método de Pago'
   },
   money: {
     type: Array,
@@ -80,11 +82,13 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   'money.$': {
     type: String,
-    regEx: RegExObj.lettersAndNumbers
+    label: 'Moneda'
   }
 }, { check: check, tracker: Tracker });
 
 TransportationEstablishmentSchema.messageBox.messages(messages);
+
+TransportationEstablishments.attachSchema(TransportationEstablishmentSchema);
 
 export {
   TransportationEstablishments,
