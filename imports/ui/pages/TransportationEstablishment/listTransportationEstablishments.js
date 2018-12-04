@@ -1,5 +1,6 @@
 import './listTransportationEstablishments.html';
 import '../../components/addFleetTransportationEstablishment/addFleetTransportationEstablishment';
+import '../../components/addRouteTransportationEstablishment/addRouteTransportationEstablishment';
 import { Session } from 'meteor/session';
 import toastr from 'toastr';
 import { Meteor } from 'meteor/meteor';
@@ -39,11 +40,14 @@ Template.showButtonTransportationEstablishments.events({
   'click .addFleetTransportationEstablishment': function () {
     Session.set('idTransportationEstablishment', this._id);
   },
+  'click .addRouteTransportationEstablishment': function () {
+    Session.set('idTransportationEstablishment', this._id);
+  },
   'click .deleteTransportationEstablishment': function () {
     const id = this._id;
     const TransportationEstablishment = TransportationEstablishments.findOne({ _id: id });
     Swal({
-      title: 'Eliminar Registro de Arrendadora',
+      title: 'Eliminar Registro de Transporte',
       text: `Esta seguro de eliminar este registro de ${TransportationEstablishment.name}`,
       cancelButtonText: 'Cancelar',
       showCancelButton: true

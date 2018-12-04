@@ -281,7 +281,7 @@ Router.route('/list-transportation-establishment', {
   template: 'listTransportationEstablishments',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Lista de trasportes']);
+    listBreadcrumb(['Lista de transportes']);
     isOperator(this);
   }
 });
@@ -301,7 +301,7 @@ Router.route('/show-TransportationEstablishment/:id', {
     const { id } = this.params;
     const TransportationEstablishment = TransportationEstablishments.findOne({ _id: id });
     Session.set('idTransportationEstablishment', id);
-    listBreadcrumb(['Listar Arrendadoras', `Mostrando Información de ${TransportationEstablishment.name}`]);
+    listBreadcrumb(['Lista de transportes', `Mostrando Información de ${TransportationEstablishment.name}`]);
     isOperator(this);
   },
   data: function () {
@@ -324,7 +324,7 @@ Router.route('/edit-TransportationEstablishment/:id', {
     return Meteor.subscribe('TransportationEstablishment.one', id);
   },
   onBeforeAction: function () {
-    listBreadcrumb(['Listar Transportes', 'Actualizando Información de Transporte']);
+    listBreadcrumb(['Lista de transportes', 'Actualizando Información de Transporte']);
     isOperator(this);
   },
   data: function () {

@@ -24,9 +24,9 @@ const FleetTransportationEstablishmentSchema = new SimpleSchema({
       }
     }
   },
-  total: {
+  capacity: {
     type: Number,
-    label: 'Total de Flota',
+    label: 'Capacidad de Flota',
     custom: function () {
       if (this.value < 0) {
         return 'lessZero';
@@ -47,14 +47,6 @@ const FleetTransportationEstablishmentSchema = new SimpleSchema({
       }
       return 1;
     }
-  },
-  menage: {
-    type: Array,
-    label: 'Menajes de la Flota'
-  },
-  'menage.$': {
-    type: String,
-    label: 'Menaje de la Flota'
   }
 }, { check: check, tracker: Tracker });
 

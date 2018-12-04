@@ -10,7 +10,6 @@ Template.addFleetTransportationEstablishment.helpers({
 
 AutoForm.addHooks('addTransportationEstablishmentFleetForm', {
   onSuccess: function (formtype, result) {
-    console.log(Session.get('fleetTransportationEstablishment'));
     toastr.success('Se ha agregado la flota exitosamente.');
   },
   onError: function (formtype, error) {

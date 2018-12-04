@@ -2,11 +2,15 @@ import './showInfoTransportationEstablishment.html';
 import '../../components/addFleetTransportationEstablishment/addFleetTransportationEstablishment';
 import '../../components/infoFleetTransportationEstablishment/infoFleetTransportationEstablishment';
 import './editFleetTransportationEstablishment';
+import '../../components/addRouteTransportationEstablishment/addRouteTransportationEstablishment';
+import '../../components/infoRouteTransportationEstablishment/infoRouteTransportationEstablishment';
+import './editRouteTransportationEstablishment';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { FleetTransportationEstablishment } from '../../../api/TransportationEstablishment/FleetTransportationEstablishment';
+import { RouteTransportationEstablishment } from '../../../api/TransportationEstablishment/RouteTransportationEstablishment';
 
 Template.showInfoTransportationEstablishment.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -65,5 +69,30 @@ Template.showButtonFleetTransportationEstablishments.events({
   },
   'click .infoFleetTransportationEstablishment': function () {
     Session.set('fleetTransportationEstablishment', FleetTransportationEstablishment.findOne({ _id: this._id }));
+  }
+});
+
+Template.showButtonRouteTransportationEstablishments.events({
+  'click .deleteRouteTransportationEstablishment': function () {
+    const id = this._id;
+    Swal({
+      title: 'Eliminar Flota',
+      text: 'Esta seguro de eliminar este registro.',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('deleteRouteTransportationEstablishment', id, (error, result) => {
+          if (error) {
+            toastr.error('Error al eliminar el registro.');
+          } else {
+            toastr.success('Se eliminó el registro exitósamente.');
+          }
+        });
+      }
+    });
+  },
+  'click .infoRouteTransportationEstablishment': function () {
+    Session.set('routeTransportationEstablishment', RouteTransportationEstablishment.findOne({ _id: this._id }));
   }
 });
