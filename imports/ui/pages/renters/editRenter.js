@@ -5,7 +5,15 @@ import { RentersSchema } from '../../../api/renters/renters';
 
 Template.editRenter.helpers({
   RentersSchema: () => RentersSchema,
-  categorization: () => Session.get('editRenterCategorization')
+  categorization: () => Session.get('editRenterCategorization'),
+  textCategorization: function (text) {
+    Session.set('editRenterCategorization', text);
+    return 'Categorización';
+  },
+  loadStars: function (stars) {
+    console.log(stars);
+    $(`#categorization${stars}`).css('color: orange');
+  }
 });
 
 Template.editRenter.events({
