@@ -4,6 +4,7 @@ import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 import department from '../departments/departments';
+// import municipalities from '../municipalities/municipality';
 
 const Guide = new Mongo.Collection('guide');
 

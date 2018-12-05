@@ -4,6 +4,7 @@ import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 import departments from '../departments/departments';
+// import municipalities from '../municipalities/municipality';
 
 SimpleSchema.extendOptions(['autoform']);
 
