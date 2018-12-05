@@ -85,4 +85,31 @@ const money = [
   }
 ];
 
-export default money;
+const paymentMethods = [
+  {
+    label: 'Efectivo',
+    value: 'Efectivo'
+  },
+  {
+    label: 'Pago en línea',
+    value: 'Paypal'
+  },
+  {
+    label: 'Cheque',
+    value: 'Cheque'
+  },
+  {
+    label: 'Visa',
+    value: 'Visa'
+  },
+  {
+    label: 'MasterCard',
+    value: 'MasterCard'
+  },
+  {
+    label: 'Amex',
+    value: 'Amex'
+  }
+];
+
+export { money, paymentMethods };
