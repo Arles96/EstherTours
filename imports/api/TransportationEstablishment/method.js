@@ -5,5 +5,8 @@ Meteor.methods({
   addTransportationEstablishment: function (doc) {
     TransportationEstablishmentSchema.validate(doc);
     TransportationEstablishments.insert(doc);
+  },
+  findTransport: function (doc) {
+    console.log(doc);
   }
 });
