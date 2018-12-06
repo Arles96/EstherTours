@@ -35,6 +35,7 @@ import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
+import '../../ui/pages/guideConsult/guideConsult';
 import { Guide } from '../../api/guide/guide';
 
 /**
@@ -451,5 +452,18 @@ Router.route('/edit-guide/:id', {
     return {
       guide: Guide.findOne({ _id: id })
     };
+  }
+});
+
+/**
+ * Ruta para realizar la consulta de guía.
+ */
+Router.route('/guide-consult', {
+  name: 'guideConsult',
+  template: 'guideConsult',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consultando Guías']);
+    isLoggedIn2(this);
   }
 });
