@@ -1,15 +1,15 @@
-<template name="editRenter" >
-  <div class="card mb-3" >
-    <div class="card-header" >
-        <i class="fas fa-home"></i> Actualizar Arrendadora
+<template name="editRenter">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-home"></i> Actualizar Arrendadora
     </div>
     <div class="card-body">
       {{#autoForm
-        id="editRentersForms"
-        schema=RentersSchema
-        type="method-update"
-        meteormethod="editRenter"
-        doc=renter
+      id="editRentersForms"
+      schema=RentersSchema
+      type="method-update"
+      meteormethod="editRenter"
+      doc=renter
       }}
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -22,8 +22,8 @@
           {{>afQuickField name="street" }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="city" }}
-          </div>
+          {{>afQuickField name="city" }}
+        </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="municipality" }}
         </div>
@@ -39,20 +39,20 @@
             <fieldset id="group">
               <p class="categorization">
                 <input id="categorization1" name="group" value="5" type="radio">
-                <label for="categorization1">★</label>
+                <label id="_categorization1" for="categorization1">★</label>
                 <input id="categorization2" name="group" value="4" type="radio">
-                <label for="categorization2">★</label>
+                <label id="_categorization2" for="categorization2">★</label>
                 <input id="categorization3" name="group" value="3" type="radio">
-                <label for="categorization3">★</label>
+                <label id="_categorization3" for="categorization3">★</label>
                 <input id="categorization4" name="group" value="2" type="radio">
-                <label for="categorization4">★</label>
+                <label id="_categorization4" for="categorization4">★</label>
                 <input id="categorization5" name="group" value="1" type="radio">
-                <label for="categorization5">★</label>
+                <label id="_categorization5" for="categorization5">★</label>
               </p>
             </fieldset>
-            {{loadStars renter.categorization }}
           </div>
-          {{>afQuickField name="categorization" value=categorization }}
+          {{>afQuickField name="categorization" value="categorization" }}
+          {{loadStars renter.categorization }}
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           {{>afQuickField name="services" }}
@@ -64,8 +64,8 @@
           {{>afQuickField name="money" }}
         </div>
       </div>
-      <div class="text-center mt-2" >
-        <button type="submit" class="btn btn-primary w-75" >Actualizar</button>
+      <div class="text-center mt-2">
+        <button type="submit" class="btn btn-primary w-75">Actualizar</button>
       </div>
       {{/autoForm}}
     </div>

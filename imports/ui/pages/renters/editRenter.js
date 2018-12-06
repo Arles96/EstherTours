@@ -11,8 +11,7 @@ Template.editRenter.helpers({
     return 'Categorización';
   },
   loadStars: function (stars) {
-    console.log(stars);
-    $(`#categorization${stars}`).css('color: orange');
+    $('p label').css('color: orange');
   }
 });
 
