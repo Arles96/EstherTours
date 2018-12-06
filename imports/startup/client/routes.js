@@ -261,27 +261,27 @@ Router.route('/list-renters', {
 });
 
 /**
- * Ruta para agregar Establecimientos de trasporte
+ * Ruta para agregar Establecimientos de transporte
  */
 Router.route('/add-transportation-establishment', {
   name: 'addTransportationEstablishments',
   template: 'addTransportationEstablishments',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Agregar trasporte']);
+    listBreadcrumb(['Agregar Transporte']);
     isOperator(this);
   }
 });
 
 /**
- * Ruta para listar Establecimientos de trasporte
+ * Ruta para listar Establecimientos de transporte
  */
 Router.route('/list-transportation-establishment', {
   name: 'listTransportationEstablishments',
   template: 'listTransportationEstablishments',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Lista de transportes']);
+    listBreadcrumb(['Tabla Transporte']);
     isOperator(this);
   }
 });

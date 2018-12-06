@@ -2,7 +2,7 @@ import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import SimpleSchema from 'simpl-schema';
 import { Mongo } from 'meteor/mongo';
-import { messages } from '../regEx';
+import { messages, RegExObj } from '../regEx';
 import { TransportationEstablishments } from './TransportationEstablishment';
 
 const FleetTransportationEstablishment = new Mongo.Collection('FleetTransportationEstablishment');
@@ -32,7 +32,8 @@ const FleetTransportationEstablishmentSchema = new SimpleSchema({
         return 'lessZero';
       }
       return 1;
-    }
+    },
+    regEx: RegExObj.isNumber
   },
   type: {
     type: String,
@@ -46,7 +47,8 @@ const FleetTransportationEstablishmentSchema = new SimpleSchema({
         return 'lessZero';
       }
       return 1;
-    }
+    },
+    regEx: RegExObj.isNumber
   }
 }, { check: check, tracker: Tracker });
 
