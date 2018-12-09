@@ -16,7 +16,6 @@ Template.findTransport.events({
 
 AutoForm.addHooks('findTransportForm', {
   onSuccess: function (formtype, result) {
-    toastr.success('Se ha agregado el establecimiento de transporte exitosamente.');
     Session.set('resultFindTransport', result);
     Router.go('resultTransport');
   },
