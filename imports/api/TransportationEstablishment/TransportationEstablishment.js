@@ -4,6 +4,7 @@ import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
 import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
+import { money, paymentMethods } from '../money/money';
 
 const TransportationEstablishments = new Mongo.Collection('TransportationEstablishments');
 
@@ -68,11 +69,16 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   paymentMethods: {
     type: Array,
-    label: 'Métodos de Pago'
+    label: 'Métodos de Pago',
+    max: paymentMethods.length
   },
   'paymentMethods.$': {
     type: String,
-    regEx: RegExObj.lettersAndNumbers
+    regEx: RegExObj.lettersAndNumbers,
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    }
   },
   money: {
     type: Array,
@@ -80,7 +86,11 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   'money.$': {
     type: String,
-    regEx: RegExObj.lettersAndNumbers
+    regEx: RegExObj.lettersAndNumbers,
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => money
+    }
   }
 }, { check: check, tracker: Tracker });
 
