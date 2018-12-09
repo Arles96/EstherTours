@@ -4,6 +4,7 @@ import {
   isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator, isConsultant
 } from './validations';
 import { Renters } from '../../api/renters/renters';
+import { TransportationEstablishments } from '../../api/TransportationEstablishment/TransportationEstablishment';
 import { Hotels } from '../../api/hotels/hotels';
 import { Restaurants } from '../../api/restaurants/restaurants';
 import { Guide } from '../../api/guide/guide';
@@ -27,6 +28,8 @@ import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
 import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/listTransportationEstablishments';
+import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstablishment';
+import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
 import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/listHotels';
 import '../../ui/pages/renters/editRenter';
@@ -259,28 +262,77 @@ Router.route('/list-renters', {
 });
 
 /**
- * Ruta para agregar Establecimientos de trasporte
+ * Ruta para agregar Establecimientos de transporte
  */
 Router.route('/add-transportation-establishment', {
   name: 'addTransportationEstablishments',
   template: 'addTransportationEstablishments',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Agregar trasporte']);
+    listBreadcrumb(['Agregar Transporte']);
     isOperator(this);
   }
 });
 
 /**
- * Ruta para listar Establecimientos de trasporte
+ * Ruta para listar Establecimientos de transporte
  */
 Router.route('/list-transportation-establishment', {
   name: 'listTransportationEstablishments',
   template: 'listTransportationEstablishments',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Lista de trasportes']);
+    listBreadcrumb(['Tabla Transporte']);
     isOperator(this);
+  }
+});
+
+/**
+ * Ruta para mostrar la información de la arrendadora seleccionada para el operador
+ */
+Router.route('/show-TransportationEstablishment/:id', {
+  name: 'showInfoTransportationEstablishment',
+  template: 'showInfoTransportationEstablishment',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('TransportationEstablishment.one', id);
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const TransportationEstablishment = TransportationEstablishments.findOne({ _id: id });
+    Session.set('idTransportationEstablishment', id);
+    listBreadcrumb(['Lista de transportes', `Mostrando Información de ${TransportationEstablishment.name}`]);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      TransportationEstablishment: TransportationEstablishments.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta de actualizar los datos de un transporte
+ */
+Router.route('/edit-TransportationEstablishment/:id', {
+  name: 'editTransportationEstablishment',
+  template: 'editTransportationEstablishment',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('TransportationEstablishment.one', id);
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Lista de transportes', 'Actualizando Información de Transporte']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      TransportationEstablishment: TransportationEstablishments.findOne({ _id: id })
+    };
   }
 });
 

@@ -92,19 +92,25 @@ const paymentMethods = [
   },
   {
     label: 'Pago en línea',
-    value: 'Paypal'
+    value: 'Pago en línea'
   },
   {
     label: 'Cheque',
     value: 'Cheque'
   },
   {
-    label: 'Visa',
-    value: 'Visa'
-  },
+    label: 'Trajeta de crédito',
+    value: 'Trajeta de crédito'
+  }
+];
+const creditCards = [
   {
     label: 'MasterCard',
     value: 'MasterCard'
+  },
+  {
+    label: 'Visa',
+    value: 'Visa'
   },
   {
     label: 'Amex',
@@ -112,4 +118,4 @@ const paymentMethods = [
   }
 ];
 
-export { money, paymentMethods };
+export { money, paymentMethods, creditCards };

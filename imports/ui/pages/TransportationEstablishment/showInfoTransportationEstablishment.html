@@ -1,0 +1,159 @@
+<template name="showInfoTransportationEstablishment" >
+  <div class="card mb-3" >
+    <div class="card-header" >
+        <i class="fas fa-home"></i> Mostrando datos de {{TransportationEstablishment.name}}
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {{#with TransportationEstablishment}}
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Correo Electrónico:</b>
+              {{email}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Teléfono:</b>
+              {{phone}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Calle:</b>
+              {{street}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Ciudad:</b>
+              {{city}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Municipio:</b>
+              {{town}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Departamento:</b>
+              {{department}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Tipo de transporte:</b>
+              {{type}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Categorización:</b>
+            </label>
+            <p>{{categorization}} estrellas </p>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Métodos de Pago:</b>
+            </label>
+            <ul>
+              {{#each paymentMethods}}
+              <li>{{this}}</li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for=""><b>Monedas:</b></label>
+            <ul>
+              {{#each money }}
+              <li>{{this}}</li>
+              {{/each}} 
+            </ul>
+          </div>
+        </div>
+        {{/with}}
+        <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <h4 class="text-center mt-3">Flota de {{TransportationEstablishment.name}}</h4>
+          {{#if isOperator}}
+            <div>
+              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addFleetTransportationEstablishment" >
+                Agregar
+              </button>
+            </div>
+          {{/if}}
+          {{> tabular table=TabularTables.FleetTransportationEstablishment selector=selector class="table table-hover table-bordered"}}
+          {{#if isOperator}}
+            {{>addFleetTransportationEstablishment}}
+            {{>editFleetTransportationEstablishment}}
+          {{/if}}
+        </div>
+        <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <h4 class="text-center mt-3">Rutas para {{TransportationEstablishment.name}}</h4>
+          {{#if isOperator}}
+            <div>
+              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addRouteTransportationEstablishment" >
+                Agregar
+              </button>
+            </div>
+          {{/if}}
+          {{> tabular table=TabularTables.RouteTransportationEstablishment selector=selector class="table table-hover table-bordered"}}
+          {{#if isOperator}}
+            {{>addRouteTransportationEstablishment}}
+            {{>editRouteTransportationEstablishment}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{>infoFleetTransportationEstablishment}}
+  {{>infoRouteTransportationEstablishment}}
+</template>
+
+<template name="showButtonFleetTransportationEstablishments" >
+  <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
+    <i style="cursor: pointer;" data-id="{{_id}}" class="infoFleetTransportationEstablishment far fa-eye mr-2" data-toggle="modal" data-target="#infoFleetTransportationEstablishment" ></i>
+  </span>
+  {{#if isOperator}}
+    <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="infoFleetTransportationEstablishment far fa-edit mr-2" data-toggle="modal" data-target="#editFleetTransportationEstablishment"></i>
+    </span>
+    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="deleteFleetTransportationEstablishment far fa-trash-alt"></i>
+    </span>
+  {{/if}}
+</template>
+
+<template name="showButtonRouteTransportationEstablishments" >
+    <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="infoRouteTransportationEstablishment far fa-eye mr-2" data-toggle="modal" data-target="#infoRouteTransportationEstablishment" ></i>
+    </span>
+    {{#if isOperator}}
+      <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="infoRouteTransportationEstablishment far fa-edit mr-2" data-toggle="modal" data-target="#editRouteTransportationEstablishment"></i>
+      </span>
+      <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRouteTransportationEstablishment far fa-trash-alt"></i>
+      </span>
+    {{/if}}
+  </template>
