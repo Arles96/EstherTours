@@ -5,18 +5,20 @@ import TransportConsultSchema from '../../../api/TransportationEstablishment/tra
 
 Template.findTransport.helpers({
   TransportConsultSchema: () => TransportConsultSchema,
-  categorization: () => Session.get('transportCategorization')
+  categorization: () => Session.get('findTransportCategorization')
 });
 
 Template.findTransport.events({
   'change .categorization [type=radio]' (event) {
-    Session.set('transportCategorization', event.currentTarget.value);
+    Session.set('findTransportCategorization', event.currentTarget.value);
   }
 });
 
 AutoForm.addHooks('findTransportForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha agregado el establecimiento de transporte exitosamente.');
+    Session.set('resultFindTransport', result);
+    Router.go('resultTransport');
   },
   onError: function (formtype, error) {
     toastr.error(error);

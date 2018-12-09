@@ -46,12 +46,6 @@ const TransportConsultSchema = new SimpleSchema({
     },
     optional: true
   },
-  phone: {
-    type: String,
-    label: 'Teléfono',
-    regEx: RegExObj.isNumber,
-    optional: true
-  },
   type: {
     type: String,
     label: 'Tipo de transporte',
