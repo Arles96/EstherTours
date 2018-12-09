@@ -47,7 +47,9 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   phone: {
     type: String,
     label: 'Teléfono',
-    regEx: RegExObj.isNumber
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
   },
   type: {
     type: String,
@@ -95,6 +97,8 @@ const TransportationEstablishmentSchema = new SimpleSchema({
 }, { check: check, tracker: Tracker });
 
 TransportationEstablishmentSchema.messageBox.messages(messages);
+
+TransportationEstablishments.attachSchema(TransportationEstablishmentSchema);
 
 export {
   TransportationEstablishments,
