@@ -102,12 +102,18 @@ const paymentMethods = [
 
 const creditCards = [
   {
-    label: 'Visa',
-    value: 'Visa'
-  },
+    label: 'Trajeta de crédito',
+    value: 'Trajeta de crédito'
+  }
+];
+const creditCards = [
   {
     label: 'MasterCard',
     value: 'MasterCard'
+  },
+  {
+    label: 'Visa',
+    value: 'Visa'
   },
   {
     label: 'Amex',
