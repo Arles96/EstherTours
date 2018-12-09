@@ -1,12 +1,30 @@
+/* eslint-disable prefer-template */
+/* eslint-disable no-param-reassign */
 import { Meteor } from 'meteor/meteor';
 import { RestaurantSchema, Restaurants } from './restaurants';
 import { restaurantOffers, restaurantOffersSchema } from './restaurantOffers';
+import RestaurantConsultSchema from './restaurantConsult';
 import { operator } from '../roles/roles';
 
 Meteor.methods({
   addRestaurant: function (doc) {
     RestaurantSchema.validate(doc);
     Restaurants.insert(doc);
+  },
+  consultRestaurant: function (doc) {
+    RestaurantConsultSchema.validate(doc);
+    if (doc.name) {
+      doc.name = new RegExp('.*' + doc.name + '.*', 'i');
+    }
+    if (doc.street) {
+      doc.street = new RegExp('.*' + doc.street + '.*', 'i');
+    }
+    if (doc.city) {
+      doc.city = new RegExp('.*' + doc.city + '.*', 'i');
+    }
+    console.log(Restaurants.find(doc).fetch());
+    console.log('-----------------------------');
+    return Restaurants.find(doc).fetch();
   },
   editRestaurant: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {

@@ -1,7 +1,7 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
-  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
+  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator, isConsultant
 } from './validations';
 import { Renters } from '../../api/renters/renters';
 import { Hotels } from '../../api/hotels/hotels';
@@ -20,6 +20,7 @@ import '../../ui/pages/restaurants/addRestaurant';
 import '../../ui/pages/restaurants/listRestaurants';
 import '../../ui/pages/restaurants/editRestaurant';
 import '../../ui/pages/restaurants/showInfoRestaurant';
+import '../../ui/pages/restaurantConsults/consultRestaurant';
 import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
@@ -172,6 +173,16 @@ Router.route('/addRestaurant', {
   }
 });
 
+Router.route('/consult-restaurant', {
+  name: 'consult-restaurant',
+  template: 'consultRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de Restaurante']);
+    isConsultant(this);
+  }
+});
+
 Router.route('/listRestaurants', {
   name: 'listRestaurants',
   template: 'listRestaurants',
@@ -228,6 +239,16 @@ Router.route('/show-restaurant/:id', {
     return {
       restaurant: Restaurants.findOne({ _id: id })
     };
+  }
+});
+
+Router.route('/show-restaurantResult', {
+  name: 'showInfoRestaurantResult',
+  template: 'showInfoRestaurantResult',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de Restaurantes']);
+    isConsultant(this);
   }
 });
 

@@ -1,21 +1,20 @@
 // Fill the DB with example data on startup
+/* import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
+import { consultant } from '../../api/roles/roles'; */
 
-import { Meteor } from 'meteor/meteor';
-/* import { Accounts } from 'meteor/accounts-base';
-import { operator } from '../../api/roles/roles'; */
-
-Meteor.startup(() => {
-  /* if (!Accounts.findUserByEmail('cj@gmail.com')) {
+/* Meteor.startup(() => {
+  if (!Accounts.findUserByEmail('anamaradiaga@hotmail.com')) {
     const id = Accounts.createUser({
-      email: 'cj@gmail.com',
+      email: 'anamaradiaga@hotmail.com',
       password: 'holaa',
       profile: {
-        firstName: 'CJ',
-        lastName: 'Alvarez',
+        firstName: 'Ana',
+        lastName: 'Gomez',
         blocked: false,
         createAt: new Date()
       }
     });
-    Roles.addUsersToRoles(id, operator);
-  } */
-});
+    Roles.addUsersToRoles(id, consultant);
+  }
+}); */

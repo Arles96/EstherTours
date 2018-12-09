@@ -20,7 +20,6 @@ AutoForm.addHooks('editRestaurantsForms', {
     Router.go('/listRestaurants');
   },
   onError: function (formtype, error) {
-    console.log(error);
     toastr.error(error);
   }
 });
