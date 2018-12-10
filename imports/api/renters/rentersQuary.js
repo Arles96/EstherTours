@@ -58,14 +58,6 @@ const RentersQuarySchema = new SimpleSchema({
       }
     }
   },
-  telephone: {
-    type: String,
-    label: 'Teléfono',
-    regEx: RegExObj.isNumber,
-    min: 8,
-    max: 8,
-    optional: true
-  },
   services: {
     type: Array,
     label: 'Información de Servicios',
