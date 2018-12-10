@@ -26,6 +26,8 @@ import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
 import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/listHotels';
+import '../../ui/pages/hotelQuery/hotelQuery';
+import '../../ui/pages/hotelQuery/showQueryHotel';
 import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
 import '../../ui/pages/hotel/showInfoHotel';
@@ -389,6 +391,31 @@ Router.route('/show-hotel/:id', {
     const { id } = this.params;
     return {
       hotel: Hotels.findOne({ _id: id })
+    };
+  }
+});
+
+Router.route('/hotel-query', {
+  name: 'hotelQuery',
+  template: 'hotelQuery',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de hoteles']);
+    isOperator(this);
+  }
+});
+
+Router.route('/show-query-hotel', {
+  name: 'showQueryHotel',
+  template: 'showQueryHotel',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de hoteles']);
+    isOperator(this);
+  },
+  data: function () {
+    return {
+      hotel: Session.get('hotelQueryDoc').docVals
     };
   }
 });
