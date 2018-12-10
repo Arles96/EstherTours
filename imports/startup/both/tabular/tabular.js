@@ -7,6 +7,8 @@ import { Hotels } from '../../../api/hotels/hotels';
 import { Restaurants } from '../../../api/restaurants/restaurants';
 import { restaurantOffers } from '../../../api/restaurants/restaurantOffers';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
+import { FleetTransportationEstablishment } from '../../../api/TransportationEstablishment/FleetTransportationEstablishment';
+import { RouteTransportationEstablishment } from '../../../api/TransportationEstablishment/RouteTransportationEstablishment';
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
 import { Guide } from '../../../api/guide/guide';
@@ -354,6 +356,7 @@ TabularTables.RateHotel = new Tabular.Table({
     }
   ]
 });
+
 TabularTables.TransportationEstablishments = new Tabular.Table({
   name: 'TransportationEstablishments',
   collection: TransportationEstablishments,
@@ -384,16 +387,107 @@ TabularTables.TransportationEstablishments = new Tabular.Table({
       class: 'text-center',
       data: 'department',
       title: 'Departamento'
-    }/* ,
+    },
     {
       class: 'text-center',
-      createdCell: Meteor.isClient && function blockAndShowUsers (cell, cellData, rowData) {
-        return Blaze.renderWithData(Template.showInfoUser, {
+      createdCell: Meteor.isClient && function showButtonsTransportationEstablishments
+      (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonTransportationEstablishments, {
           _id: rowData._id,
           slug: rowData.slug
         }, cell);
       }
-    } */
+    }
+  ]
+});
+
+TabularTables.FleetTransportationEstablishment = new Tabular.Table({
+  name: 'FleetTransportationEstablishment',
+  collection: FleetTransportationEstablishment,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: ['idTransportationEstablishment'],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'type',
+      title: 'Tipo'
+    },
+    {
+      class: 'text-center',
+      data: 'rate',
+      title: 'Tarifa'
+    },
+    {
+      class: 'text-center',
+      data: 'capacity',
+      title: 'Capacidad'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonFleetTransportationEstablishments
+      (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonFleetTransportationEstablishments, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
+  ]
+});
+
+TabularTables.RouteTransportationEstablishment = new Tabular.Table({
+  name: 'RouteTransportationEstablishment',
+  collection: RouteTransportationEstablishment,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: ['idTransportationEstablishment', 'description'],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'type',
+      title: 'Tipo'
+    },
+    {
+      class: 'text-center',
+      data: 'department',
+      title: 'Departamento'
+    },
+    {
+      class: 'text-center',
+      data: 'town',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'street',
+      title: 'Calle'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonRouteTransportationEstablishments
+      (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonRouteTransportationEstablishments, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
   ]
 });
 

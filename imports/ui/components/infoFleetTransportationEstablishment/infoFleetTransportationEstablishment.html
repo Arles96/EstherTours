@@ -1,0 +1,30 @@
+<template name="infoFleetTransportationEstablishment" >
+  <div class="modal fade" id="infoFleetTransportationEstablishment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Mostrando Flota</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{#with fleetTransportationEstablishment}}
+          <div class="form-group">
+            <label for=""><b>Tarifa:</b> {{rate}}</label>
+          </div>
+          <div class="form-group">
+            <label for=""><b>Capacidad de Flota:</b> {{capacity}}</label>
+          </div>
+          <div class="form-group">
+            <label for=""><b>Tipo:</b> {{type}}</label>
+          </div>
+          {{/with}}
+        </div>
+        <div class="modal-footer text-center">
+          <button type="button" class="btn btn-danger w-100" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
