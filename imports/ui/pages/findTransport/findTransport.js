@@ -16,6 +16,7 @@ Template.findTransport.events({
 
 AutoForm.addHooks('findTransportForm', {
   onSuccess: function (formtype, result) {
+    Session.set('findTransportCategorization', undefined);
     Session.set('resultFindTransport', result);
     Router.go('resultTransport');
   },
