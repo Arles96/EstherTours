@@ -101,21 +101,17 @@
           <h4 class="text-center mt-3">Flota de {{renter.name}}</h4>
           {{#if isOperator}}
             <div>
-              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addFleetRenter" >
+              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addRenter" >
                 Agregar
               </button>
             </div>
           {{/if}}
-          {{> tabular table=TabularTables.FleetRenter selector=selector class="table table-hover table-bordered"}}
-          {{#if isOperator}}
-            {{>addFleetRenter}}
-            {{>editFleetRenter}}
-          {{/if}}
+          {{> tabular table=TabularTables.renter selector=selector class="table table-hover table-bordered"}}
         </div>
       </div>
     </div>
   </div>
-  {{>infoFleetRenter}}
+
 </template>
 
 <template name="showButtonFleetRenters" >
