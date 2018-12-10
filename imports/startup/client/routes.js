@@ -243,8 +243,8 @@ Router.route('/show-restaurant/:id', {
 });
 
 Router.route('/show-restaurantResult', {
-  name: 'showInfoRestaurantResult',
-  template: 'showInfoRestaurantResult',
+  name: 'listRestaurantResults',
+  template: 'listRestaurantResults',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Restaurantes']);

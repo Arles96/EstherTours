@@ -1,7 +1,7 @@
 import './consultRestaurant.html';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
-//import { Router } from 'meteor/iron:router';
+import { Router } from 'meteor/iron:router';
 import RestaurantConsultSchema from '../../../api/restaurants/restaurantConsult';
 
 Template.consultRestaurant.helpers({
@@ -18,6 +18,8 @@ Template.consultRestaurant.events({
 AutoForm.addHooks('consultRestaurantsForms', {
   onSuccess: function (formtype, result) {
     toastr.success('Buscando...');
+    Session.set('restaurantQuery', result);
+    Router.go('/show-restaurantResult');
   },
   onError: function (formtype, error) {
     toastr.error(error);
