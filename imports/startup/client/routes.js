@@ -1,11 +1,12 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
-  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
+  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator, isConsultant
 } from './validations';
 import { Renters } from '../../api/renters/renters';
 import { Hotels } from '../../api/hotels/hotels';
 import { Restaurants } from '../../api/restaurants/restaurants';
+import { Guide } from '../../api/guide/guide';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -35,8 +36,8 @@ import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
-import '../../ui/pages/guideConsult/guideConsult';
-import { Guide } from '../../api/guide/guide';
+import '../../ui/pages/findGuide/findGuide';
+import '../../ui/pages/resultGuide/resultGuide';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -456,14 +457,27 @@ Router.route('/edit-guide/:id', {
 });
 
 /**
- * Ruta para realizar la consulta de guía.
+ * Ruta para el formulario de consultas de establecimientos de transporte
  */
-Router.route('/guide-consult', {
-  name: 'guideConsult',
-  template: 'guideConsult',
+Router.route('/find-guide', {
+  name: 'findGuide',
+  template: 'findGuide',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Consultando Guías']);
+    listBreadcrumb(['Formulario Consulta Guía']);
     isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta para mostrar los resultados de la busqueda de guías
+ */
+Router.route('/result-find-guide', {
+  name: 'resultGuide',
+  template: 'resultGuide',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Guía', 'Resultado Consulta Guía']);
+    isConsultant(this);
   }
 });

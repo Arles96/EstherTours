@@ -1,14 +1,14 @@
-<template name="guideConsult" >
+<template name="findGuide" >
   <div class="card mb-3" >
     <div class="card-header" >
       <i class="fas fa-home"></i> Consulta de Guías
     </div>
     <div class="card-body">
       {{#autoForm
-        id="guideConsultForms"
+        id="findGuideForm"
         schema=GuideConsultSchema
         type="method"
-        meteormethod="searchGuide"
+        meteormethod="findGuide"
       }}
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
