@@ -23,6 +23,7 @@ import '../../ui/pages/restaurants/listRestaurants';
 import '../../ui/pages/restaurants/editRestaurant';
 import '../../ui/pages/restaurants/showInfoRestaurant';
 import '../../ui/pages/restaurantConsults/consultRestaurant';
+import '../../ui/pages/restaurantConsults/listRestaurantResults';
 import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
@@ -224,35 +225,13 @@ Router.route('/edit-restaurant/:id', {
 /**
  * Ruta para mostrar la información de un restaurante seleccionado para el operador
  */
-Router.route('/show-restaurant/:id', {
-  name: 'showInfoRestaurant',
-  template: 'showInfoRestaurant',
-  layoutTemplate: 'bodyAdmin',
-  waitOn: function () {
-    const { id } = this.params;
-    return Meteor.subscribe('restaurant.one', id);
-  },
-  onBeforeAction: function () {
-    const { id } = this.params;
-    const restaurant = Restaurants.findOne({ _id: id });
-    Session.set('idRestaurant', id);
-    listBreadcrumb(['Listar Restaurantes', `Mostrando Información de ${restaurant.name}`]);
-    isOperator(this);
-  },
-  data: function () {
-    const { id } = this.params;
-    return {
-      restaurant: Restaurants.findOne({ _id: id })
-    };
-  }
-});
 
 Router.route('/show-restaurantResult', {
   name: 'listRestaurantResults',
   template: 'listRestaurantResults',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Tabla de Restaurantes']);
+    listBreadcrumb(['Formulario Consulta Restaurante', 'Resultado Consulta Restaurante']);
     isConsultant(this);
   }
 });

@@ -11,13 +11,13 @@ Template.consultRestaurant.helpers({
 
 Template.consultRestaurant.events({
   'change .categorization [type=radio]' (event) {
-    Session.set('rating', event.currentTarget.value);
+    Session.set('findRestaurantRating', event.currentTarget.value);
   }
 });
 
 AutoForm.addHooks('consultRestaurantsForms', {
   onSuccess: function (formtype, result) {
-    toastr.success('Buscando...');
+    Session.set('findRestaurantRating', undefined);
     Session.set('restaurantQuery', result);
     Router.go('/show-restaurantResult');
   },

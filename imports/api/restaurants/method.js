@@ -13,18 +13,51 @@ Meteor.methods({
   },
   consultRestaurant: function (doc) {
     RestaurantConsultSchema.validate(doc);
-    if (doc.name) {
-      doc.name = new RegExp('.*' + doc.name + '.*', 'i');
+    const query = JSON.parse(JSON.stringify(doc));
+    if (query.name) {
+      const regStr = query.name.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.name = { $regex: regex };
     }
-    if (doc.street) {
-      doc.street = new RegExp('.*' + doc.street + '.*', 'i');
+    if (query.email) {
+      const regStr = query.email.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.email = { $regex: regex };
     }
-    if (doc.city) {
-      doc.city = new RegExp('.*' + doc.city + '.*', 'i');
+    if (query.street) {
+      const regStr = query.street.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.street = { $regex: regex };
     }
-    console.log(Restaurants.find(doc).fetch());
-    console.log('-----------------------------');
-    return Restaurants.find(doc).fetch();
+    if (query.city) {
+      const regStr = query.city.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.city = { $regex: regex };
+    }
+    if (query.municipality) {
+      const regStr = query.municipality.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.municipality = { $regex: regex };
+    }
+    if (query.paymentMethods) {
+      query.paymentMethods = { $in: query.query };
+    }
+    if (query.money) {
+      query.money = { $in: query.money };
+    }
+    if (query.ambience) {
+      query.ambience = { $in: query.ambience };
+    }
+    if (query.menu) {
+      query.menu = { $in: query.menu };
+    }
+    if (query.money) {
+      query.money = { $in: query.money };
+    }
+    if (query.menages) {
+      query.menages = { $in: query.menages };
+    }
+    return { doc, query };
   },
   editRestaurant: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {

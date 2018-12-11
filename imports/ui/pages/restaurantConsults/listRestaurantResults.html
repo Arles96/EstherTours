@@ -1,13 +1,278 @@
 <template name="listRestaurantResults" >
     <div class="card mb-3">
-        <div class="card-header">
-        <i class="fas fa-table"></i> Tabla de Restaurantes
+      <div class="card-header">
+        <i class="fas fa-table"></i> Resultado de busqueda de Restaurante
+      </div>
+      <div class="card-body">
+        <div>
+          <h4 class="text-center mb-4">Datos Ingresados</h4>
+          <div class="row">
+            {{#with data}}
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>Nombre:</b>
+                    {{#if name}}
+                      {{name}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>Correo Electrónico:</b>
+                    {{#if email}}
+                      {{email}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>Calle:</b>
+                    {{#if street}}
+                      {{street}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>Ciudad:</b>
+                    {{#if city }}
+                      {{city}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>Municipio:</b>
+                    {{#if municipality}}
+                      {{municipality}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>Departamento:</b>
+                    {{#if department}}
+                      {{department}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>No. de Mesas:</b>
+                    {{#if numbersTables }}
+                      {{numbersTables}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>No. de Sillas:</b>
+                    {{#if numbersChairs }}
+                      {{numbersChairs}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>No. Sillas de Bebé:</b>
+                    {{#if numbersChairsBabies }}
+                      {{numbersChairsBabies}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>Barra:</b>
+                    {{#if bar }}
+                      {{bar}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>Facilidades P/ Personas con Discapacidad:</b>
+                    {{#if facilityPeople }}
+                      {{facilityPeople}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>Capacidad de Alojamiento:</b>
+                    {{#if maxPersonCapacity }}
+                      {{maxPersonCapacity}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>Sala de Espera:</b>
+                    {{#if waitingRoom }}
+                      {{waitingRoom}}
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>Categorización:</b>
+                    {{#if rating}}
+                      {{rating}} estrellas
+                    {{else}}
+                      No ingresó dato.
+                    {{/if}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for="">
+                    <b>Métodos de Pago:</b>
+                  </label>
+                  {{#if paymentMethods }}
+                    <ul>
+                      {{#each paymentMethods}}
+                      <li>{{this}}</li>
+                      {{/each}}
+                    </ul>
+                  {{else}}
+                    <p>No ingresó dato.</p>
+                  {{/if}}
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for=""><b>Monedas:</b></label>
+                  {{#if money }}
+                    <ul>
+                      {{#each money }}
+                      <li>{{this}}</li>
+                      {{/each}}
+                    </ul>
+                  {{else}}
+                    <p>No ingresó dato.</p>
+                  {{/if}}
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for=""><b>Menú:</b></label>
+                  {{#if menu }}
+                    <ul>
+                      {{#each menu }}
+                      <li>{{this}}</li>
+                      {{/each}}
+                    </ul>
+                  {{else}}
+                    <p>No ingresó dato.</p>
+                  {{/if}}
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for=""><b>Servicios:</b></label>
+                  {{#if services }}
+                    <ul>
+                      {{#each services }}
+                      <li>{{this}}</li>
+                      {{/each}}
+                    </ul>
+                  {{else}}
+                    <p>No ingresó dato.</p>
+                  {{/if}}
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for=""><b>Menajes:</b></label>
+                  {{#if menages }}
+                    <ul>
+                      {{#each menages }}
+                      <li>{{this}}</li>
+                      {{/each}}
+                    </ul>
+                  {{else}}
+                    <p>No ingresó dato.</p>
+                  {{/if}}
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <label for=""><b>Ambiente:</b></label>
+                  {{#if ambience }}
+                    <ul>
+                      {{#each ambience }}
+                      <li>{{this}}</li>
+                      {{/each}}
+                    </ul>
+                  {{else}}
+                    <p>No ingresó dato.</p>
+                  {{/if}}
+                </div>
+              </div>
+            {{/with}}
+          </div>
         </div>
-        <div class="card-body">
         <div class="table-responsive">
-            {{> tabular table=TabularTables.restaurantOffers selector=selector class="table table-hover table-bordered"}}
+          {{#if query }}
+            {{> tabular table=TabularTables.Restaurants selector=query class="table table-hover table-bordered"}}
+          {{else}}
+            {{> tabular table=TabularTables.Restaurants class="table table-hover table-bordered"}}
+          {{/if}}
         </div>
-        </div>
-        <div class="card-footer small text-muted">Actualizado ayer a las 11:59 PM</div>
+      </div>
+      <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
-</template>
+  </template>

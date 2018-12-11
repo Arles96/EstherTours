@@ -31,7 +31,6 @@ Template.listRestaurantResults.onCreated(() => {
 });
 
 Template.listRestaurantResults.helpers({
-  selector: function () {
-    return { restaurantQuery: Session.get('restaurantQuery') };
-  }
+  data: () => Session.get('restaurantQuery').doc,
+  query: () => Session.get('restaurantQuery').query
 });
