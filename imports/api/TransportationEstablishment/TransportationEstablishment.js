@@ -10,11 +10,25 @@ const TransportationEstablishments = new Mongo.Collection('TransportationEstabli
 
 SimpleSchema.extendOptions(['autoform']);
 
+const types = [
+  {
+    value: 'Terrestre',
+    label: 'Terrestre'
+  },
+  {
+    value: 'Aérea',
+    label: 'Aérea'
+  },
+  {
+    value: 'Marítima',
+    label: 'Marítima'
+  }
+];
+
 const TransportationEstablishmentSchema = new SimpleSchema({
   name: {
     type: String,
-    label: 'Nombre',
-    regEx: RegExObj.lettersAndNumbers
+    label: 'Nombre'
   },
   email: {
     type: String,
@@ -23,8 +37,7 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   street: {
     type: String,
-    label: 'Calle',
-    regEx: RegExObj.lettersAndNumbers
+    label: 'Calle'
   },
   city: {
     type: String,
@@ -53,7 +66,11 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   type: {
     type: String,
-    label: 'Tipo de transporte'
+    label: 'Tipo de transporte',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => types
+    }
   },
   categorization: {
     type: String,
@@ -72,27 +89,24 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   paymentMethods: {
     type: Array,
     label: 'Métodos de Pago',
-    max: paymentMethods.length
-  },
-  'paymentMethods.$': {
-    type: String,
-    regEx: RegExObj.lettersAndNumbers,
     autoform: {
       firstOption: '(Seleccione Uno)',
       options: () => paymentMethods
     }
   },
+  'paymentMethods.$': {
+    type: String
+  },
   money: {
     type: Array,
-    label: 'Monedas'
-  },
-  'money.$': {
-    type: String,
-    regEx: RegExObj.lettersAndNumbers,
+    label: 'Monedas',
     autoform: {
       firstOption: '(Seleccione Uno)',
       options: () => money
     }
+  },
+  'money.$': {
+    type: String
   }
 }, { check: check, tracker: Tracker });
 
