@@ -4,7 +4,7 @@ import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
 import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
-import { paymentMethods } from '../money/money';
+import { paymentMethods, money } from '../money/money';
 // import municipalities from '../municipalities/municipality';
 
 const Restaurants = new Mongo.Collection('restaurants');
@@ -87,7 +87,11 @@ const RestaurantSchema = new SimpleSchema({
   },
   money: {
     type: Array,
-    label: 'Monedas'
+    label: 'Monedas',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => money
+    }
   },
   'money.$': {
     type: String,
