@@ -9,14 +9,14 @@ Template.editGuide.helpers({
   categorization: () => Session.get('editGuideCategorization'),
   municipalities: department => {
     if (department) {
-      Session.set('firstOptionMunicipalityGuide', '(Seleccione uno)');
+      Session.set('firstOptionMunicipalityEditGuide', '(Seleccione uno)');
       return municipalities[department];
     } else {
-      Session.set('firstOptionMunicipalityGuide', '(Seleccione Departamento)');
+      Session.set('firstOptionMunicipalityEditGuide', '(Seleccione Departamento)');
       return [];
     }
   },
-  firstOption: () => Session.get('firstOptionMunicipalityGuide')
+  firstOption: () => Session.get('firstOptionMunicipalityEditGuide')
 });
 
 Template.editGuide.events({
