@@ -1,11 +1,7 @@
-import './listGuide.html';
-import '../../components/infoGuideModal/infoGuideModal';
-import toastr from 'toastr';
-import Swal from 'sweetalert2';
+import './resultTransport.html';
 import { Session } from 'meteor/session';
-import { Guide } from '../../../api/guide/guide';
 
-Template.listGuide.onCreated(() => {
+Template.resultTransport.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
       sLengthMenu: 'Mostrar _MENU_ registros',
@@ -34,28 +30,7 @@ Template.listGuide.onCreated(() => {
   });
 });
 
-Template.showButtonsGuide.events({
-  'click .deleteGuide': function () {
-    const id = this._id;
-    Swal({
-      title: 'Eliminar Guía',
-      text: 'Esta seguro de eliminar este registro.',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      focusCancel: true
-    }).then(res => {
-      if (res.value) {
-        Meteor.call('deleteGuide', id, (error, result) => {
-          if (error) {
-            toastr.error('Error al eliminar el registro.');
-          } else {
-            toastr.success('Se eliminó el registro exitósamente.');
-          }
-        });
-      }
-    });
-  },
-  'click .infoGuide': function () {
-    Session.set('guide', Guide.findOne({ _id: this._id }));
-  }
+Template.resultTransport.helpers({
+  data: () => Session.get('resultFindTransport').doc,
+  query: () => Session.get('resultFindTransport').query
 });

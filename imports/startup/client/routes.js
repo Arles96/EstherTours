@@ -7,6 +7,7 @@ import { Renters } from '../../api/renters/renters';
 import { TransportationEstablishments } from '../../api/TransportationEstablishment/TransportationEstablishment';
 import { Hotels } from '../../api/hotels/hotels';
 import { Restaurants } from '../../api/restaurants/restaurants';
+import { Guide } from '../../api/guide/guide';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -39,7 +40,8 @@ import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
-import { Guide } from '../../api/guide/guide';
+import '../../ui/pages/findTransport/findTransport';
+import '../../ui/pages/resultTransport/resultTransport';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -323,7 +325,7 @@ Router.route('/show-TransportationEstablishment/:id', {
     const TransportationEstablishment = TransportationEstablishments.findOne({ _id: id });
     Session.set('idTransportationEstablishment', id);
     listBreadcrumb(['Lista de transportes', `Mostrando Información de ${TransportationEstablishment.name}`]);
-    isOperator(this);
+    isLoggedIn2(this);
   },
   data: function () {
     const { id } = this.params;
@@ -524,5 +526,31 @@ Router.route('/edit-guide/:id', {
     return {
       guide: Guide.findOne({ _id: id })
     };
+  }
+});
+
+/**
+ * Ruta para el formulario de consultas de establecimientos de transporte
+ */
+Router.route('/find-transport', {
+  name: 'findTransport',
+  template: 'findTransport',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Transporte']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para mostrar los resultados de la busqueda de establecimientos de transporte
+ */
+Router.route('/result-find-transport', {
+  name: 'resultTransport',
+  template: 'resultTransport',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Transporte', 'Resultado Consulta Transporte']);
+    isConsultant(this);
   }
 });

@@ -46,7 +46,8 @@ Template.showButtonRestaurant.events({
       title: 'Eliminar Registro de Restaurante',
       text: `Esta seguro de eliminar este registro de ${rest.name}`,
       cancelButtonText: 'Cancelar',
-      showCancelButton: true
+      showCancelButton: true,
+      focusCancel: true
     }).then(res => {
       if (res.value) {
         Meteor.call('deleteRestaurant', id, (error, result) => {

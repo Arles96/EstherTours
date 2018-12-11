@@ -4,6 +4,8 @@ import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 import department from '../departments/departments';
+// import municipalities from '../municipalities/municipality';
+import { paymentMethods } from '../money/money';
 
 const Guide = new Mongo.Collection('guide');
 
@@ -75,6 +77,7 @@ const GuideSchema = new SimpleSchema({
     type: String,
     label: 'Licencia',
     autoform: {
+      firstOption: '(Seleccione Uno)',
       options: () => licences
     }
   },
@@ -102,7 +105,11 @@ const GuideSchema = new SimpleSchema({
   },
   paymentMethods: {
     type: Array,
-    label: 'Métodos de Pago'
+    label: 'Métodos de Pago',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    }
   },
   'paymentMethods.$': {
     type: String,

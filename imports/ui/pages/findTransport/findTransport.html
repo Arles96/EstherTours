@@ -1,38 +1,38 @@
-<template name="addRenters" >
-  <div class="card mb-3" >
-    <div class="card-header" >
-      <i class="fas fa-home"></i> Agregar Arrendadora
+<template name="findTransport" >
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i> Consultando Establecimientos de Transporte
     </div>
     <div class="card-body">
       {{#autoForm
-      id="addRentersForms"
-      schema=RentersSchema
+      id="findTransportForm"
+      schema=TransportConsultSchema
       type="method"
-      meteormethod="addRenter"
+      meteormethod="findTransport"
       }}
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="name"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="email" }}
+          {{>afQuickField name="email"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="street" }}
+          {{>afQuickField name="street"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="city" }}
+          {{>afQuickField name="city"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="municipality" }}
+          {{>afQuickField name="town"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="department" }}
+          {{>afQuickField name="department"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="telephone" }}
+          {{>afQuickField name="type"}}
         </div>
-        <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
           <div class="form-group mt-1">
             <label class="mb-3">Categorización</label>
             <fieldset id="group">
@@ -52,9 +52,6 @@
           </div>
           {{>afQuickField name="categorization" value=categorization }}
         </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-          {{>afQuickField name="services" }}
-        </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
           {{>afQuickField name="paymentMethods" }}
         </div>
@@ -62,8 +59,8 @@
           {{>afQuickField name="money" }}
         </div>
       </div>
-      <div class="col-12 mt-4 text-center col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <button type="submit" class="btn w-75 btn-primary" >Guardar</button>
+      <div class="text-center mt-2">
+        <button type="submit" class="btn btn-primary w-75">Consultar</button>
       </div>
       {{/autoForm}}
     </div>
