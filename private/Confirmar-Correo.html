@@ -1,0 +1,74 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{subject}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      display: flex;
+      align-content: center;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .confrimEmailTable {
+      margin: auto;
+      width: 60vw;
+      background: #162169;
+      border: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class="confrimEmailTable">
+    <tbody>
+      <!-- Logotipo. -->
+      <tr>
+        <td>
+          <img src="http://v2.esthertours.com/wp-content/uploads/2018/07/luno2.png" alt="esthertours" width="100%">
+        </td>
+      </tr>
+      <!-- Imagen de relleno. -->
+      <tr>
+        <td>
+          <img src="http://esthertours.com/wp-content/uploads/2018/06/imagen-portada-C.jpg" width="100%" tabindex="0">
+        </td>
+      </tr>
+      <tr style="background: #ffffff">
+        <td style="padding: 0px 40px 0px 40px">
+          <h2 style="font-weight:bold">¡Hola, {{firstname}}!</h2>
+          <p>Lo primero que necesitamos es validar tu dirección de email, así te daremos la
+            mejor atención.</p>
+          <p>Recibirás notificaciones directamente por este medio.</p>
+
+          <!-- Bot[on. -->
+          <div style="display: flex;align-content: center;">
+            <a style="margin: auto; background:#ffeb3b; color:rgb(0, 0, 53);padding:15px 20px;border-radius:5px" href={{token}}
+              target="_blank">Confirmar mi correo</a>
+          </div>
+          <br>
+          <h4 style="margin:0">¿El botón no funciona?</h4>
+          <br>
+          <p style="margin:0">Intenta ingresar aquí: <a style="color:#4d4d4d" href={{token}}
+              target="_blank" data-saferedirecturl={{token}}>{{token}}</a>
+          </p>
+
+          <p>¡Gracias por unirte a la mejor plataforma de viajes!</p>
+
+          <p><b>- Equipo <span class="il">Esther Tours</span></b></p>
+          <p style="font-size:14px;padding:5px 10px;background:#f6f6f6">Al confirmar tu
+            correo,
+            nos estás autorizando para enviarte notificaciones via email.</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+
+</html>

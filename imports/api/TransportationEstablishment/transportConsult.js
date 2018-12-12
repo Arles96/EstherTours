@@ -3,14 +3,29 @@ import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
+import { money, paymentMethods } from '../money/money';
 
 SimpleSchema.extendOptions(['autoform']);
+
+const types = [
+  {
+    value: 'Terrestre',
+    label: 'Terrestre'
+  },
+  {
+    value: 'Aérea',
+    label: 'Aérea'
+  },
+  {
+    value: 'Marítima',
+    label: 'Marítima'
+  }
+];
 
 const TransportConsultSchema = new SimpleSchema({
   name: {
     type: String,
     label: 'Nombre',
-    regEx: RegExObj.lettersAndNumbers,
     optional: true
   },
   email: {
@@ -22,7 +37,6 @@ const TransportConsultSchema = new SimpleSchema({
   street: {
     type: String,
     label: 'Calle',
-    regEx: RegExObj.lettersAndNumbers,
     optional: true
   },
   city: {
@@ -49,6 +63,10 @@ const TransportConsultSchema = new SimpleSchema({
   type: {
     type: String,
     label: 'Tipo de transporte',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => types
+    },
     optional: true
   },
   categorization: {
@@ -69,20 +87,26 @@ const TransportConsultSchema = new SimpleSchema({
   paymentMethods: {
     type: Array,
     label: 'Métodos de Pago',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    },
     optional: true
   },
   'paymentMethods.$': {
-    type: String,
-    regEx: RegExObj.lettersAndNumbers
+    type: String
   },
   money: {
     type: Array,
     label: 'Monedas',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => money
+    },
     optional: true
   },
   'money.$': {
-    type: String,
-    regEx: RegExObj.lettersAndNumbers
+    type: String
   }
 }, { check: check, tracker: Tracker });
 

@@ -103,6 +103,7 @@ const paymentMethods = [
     value: 'Trajeta de crédito'
   }
 ];
+
 const creditCards = [
   {
     label: 'MasterCard',

@@ -2,17 +2,27 @@ import './editRenter.html';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { RentersSchema } from '../../../api/renters/renters';
+import municipalities from '../../../api/municipalities/municipality';
 
 Template.editRenter.helpers({
   RentersSchema: () => RentersSchema,
   categorization: () => Session.get('editRenterCategorization'),
+  municipalities: department => {
+    if (department) {
+      Session.set('firstOptionMunicipalityEditRenter', '(Seleccione uno)');
+      return municipalities[department];
+    } else {
+      Session.set('firstOptionMunicipalityEditRenter', '(Seleccione Departamento)');
+      return [];
+    }
+  },
+  firstOption: () => Session.get('firstOptionMunicipalityEditRenter'),
   textCategorization: function (text) {
     Session.set('editRenterCategorization', text);
     return 'Categorización';
   },
   loadStars: function (stars) {
-    console.log(stars);
-    $(`#categorization${stars}`).css('color: orange');
+    $('p label').css('color: orange');
   }
 });
 
