@@ -4,8 +4,7 @@ import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 import departments from '../departments/departments';
-import { paymentMethods } from '../money/money';
-// import municipalities from '../municipalities/municipality';
+import { paymentMethods, money } from '../money/money';
 
 SimpleSchema.extendOptions(['autoform']);
 
@@ -66,7 +65,11 @@ const HotelSchema = new SimpleSchema({
   },
   coin: {
     type: Array,
-    label: 'Monedas aceptadas'
+    label: 'Monedas aceptadas',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => money
+    }
   },
   'coin.$': {
     type: String,
