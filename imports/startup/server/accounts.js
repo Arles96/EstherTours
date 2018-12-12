@@ -1,8 +1,13 @@
 import { Meteor } from 'meteor/meteor';
+import { SSR } from 'meteor/meteorhacks:ssr';
 
 if (!process.env.MAIL_URL) {
   process.env.MAIL_URL = Meteor.settings.private.smtp;
 }
+
+SSR.compileTemplate('resetPassword', Assets.getText('Cambiar-Contraseña.html'));
+SSR.compileTemplate('confirmEmail', Assets.getText('Confirmar-Correo.html'));
+SSR.compileTemplate('userData', Assets.getText('Datos-Usuario.html'));
 
 Accounts.urls.verifyEmail = function setVerifyEmailUrl (token) {
   return Meteor.absoluteUrl(`verify-email/${token}`);
@@ -17,10 +22,16 @@ Accounts.emailTemplates.from = 'Esther Tours <aulio.maldonado@gmail.com>';
 
 Accounts.emailTemplates.verifyEmail = {
   subject () {
-    return 'Activate your account now';
+    return 'Confirmar correo';
   },
-  html (user, url) {
-    return `Hey user! verify this email by following this link ${url}`;
+  text (user, url) {
+    const html = SSR.render('confirmEmail',
+      {
+        subject: 'Confirmar correo.',
+        firstname: `${user.firstname}`,
+        token: `${url}`
+      });
+    return html;
   }
 };
 
@@ -29,7 +40,13 @@ Accounts.emailTemplates.resetPassword = {
     return 'Reseteando tu contraseña';
   },
   text (user, url) {
-    return `Hola, para restablecer su contraseña, haga clic en este enlace ${url}`;
+    const html = SSR.render('resetPassword',
+      {
+        subject: 'Cambiar contraseña.',
+        firstname: `${user.firstname}`,
+        token: `${url}`
+      });
+    return html;
   }
 };
 
