@@ -7,7 +7,6 @@ if (!process.env.MAIL_URL) {
 
 SSR.compileTemplate('resetPassword', Assets.getText('Cambiar-Contraseña.html'));
 SSR.compileTemplate('confirmEmail', Assets.getText('Confirmar-Correo.html'));
-SSR.compileTemplate('userData', Assets.getText('Datos-Usuario.html'));
 
 Accounts.urls.verifyEmail = function setVerifyEmailUrl (token) {
   return Meteor.absoluteUrl(`verify-email/${token}`);
@@ -24,7 +23,7 @@ Accounts.emailTemplates.verifyEmail = {
   subject () {
     return 'Confirmar correo';
   },
-  text (user, url) {
+  html (user, url) {
     const html = SSR.render('confirmEmail',
       {
         subject: 'Confirmar correo.',
@@ -39,7 +38,7 @@ Accounts.emailTemplates.resetPassword = {
   subject () {
     return 'Reseteando tu contraseña';
   },
-  text (user, url) {
+  html (user, url) {
     const html = SSR.render('resetPassword',
       {
         subject: 'Cambiar contraseña.',
