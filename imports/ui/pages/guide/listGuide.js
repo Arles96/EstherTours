@@ -54,7 +54,7 @@ Template.showButtonsGuide.events({
       }
     });
   },
-  'click .infoGuide': function () {
+  'click .infoGuideModal': function () {
     Session.set('guide', Guide.findOne({ _id: this._id }));
   }
 });
