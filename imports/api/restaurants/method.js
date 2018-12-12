@@ -29,15 +29,18 @@ Meteor.methods({
       const regex = new RegExp(regStr, 'i');
       query.street = { $regex: regex };
     }
+    if (query.municipality) {
+      const regStr = query.municipality.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.municipality = { $regex: regex };
+    }
     if (query.city) {
       const regStr = query.city.split(/ /).join('|');
       const regex = new RegExp(regStr, 'i');
       query.city = { $regex: regex };
     }
-    if (query.municipality) {
-      const regStr = query.municipality.split(/ /).join('|');
-      const regex = new RegExp(regStr, 'i');
-      query.municipality = { $regex: regex };
+    if (query.services) {
+      query.services = { $in: query.services };
     }
     if (query.paymentMethods) {
       query.paymentMethods = { $in: query.query };
@@ -45,18 +48,16 @@ Meteor.methods({
     if (query.money) {
       query.money = { $in: query.money };
     }
+    if (query.menages) {
+      query.menages = { $in: query.menages };
+    }
     if (query.ambience) {
       query.ambience = { $in: query.ambience };
     }
     if (query.menu) {
       query.menu = { $in: query.menu };
     }
-    if (query.money) {
-      query.money = { $in: query.money };
-    }
-    if (query.menages) {
-      query.menages = { $in: query.menages };
-    }
+    console.log(query);
     return { doc, query };
   },
   editRestaurant: function (doc) {

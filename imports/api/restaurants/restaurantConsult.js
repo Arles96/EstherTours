@@ -173,18 +173,39 @@ const RestaurantConsultSchema = new SimpleSchema({
   },
   facilityPeople: {
     type: Boolean,
-    label: 'Facilidades para Discapacitados',
-    optional: true
+    label: 'Facilidad de Acceso',
+    optional: true,
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => [
+        { value: true, label: 'Si' },
+        { value: false, label: 'No' }
+      ]
+    }
   },
   bar: {
     type: Boolean,
     label: 'Barra',
-    optional: true
+    optional: true,
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => [
+        { value: true, label: 'Si' },
+        { value: false, label: 'No' }
+      ]
+    }
   },
   waitingRoom: {
     type: Boolean,
     label: 'Sala de Espera',
-    optional: true
+    optional: true,
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => [
+        { value: true, label: 'Si' },
+        { value: false, label: 'No' }
+      ]
+    }
   }
 
 }, { check: check, tracker: Tracker });
