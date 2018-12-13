@@ -2,10 +2,21 @@ import './findGuide.html';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import GuideConsultSchema from '../../../api/guide/guideConsult';
+import municipalities from '../../../api/municipalities/municipality';
 
 Template.findGuide.helpers({
   GuideConsultSchema: () => GuideConsultSchema,
-  categorization: () => Session.get('findGuideCategorization')
+  categorization: () => Session.get('findGuideCategorization'),
+  municipalities: department => {
+    if (department) {
+      Session.set('firstOptionConsultMunicipalityGuide', '(Seleccione uno)');
+      return municipalities[department];
+    } else {
+      Session.set('firstOptionConsultMunicipalityGuide', '(Seleccione Departamento)');
+      return [];
+    }
+  },
+  firstOption: () => Session.get('firstOptionConsultMunicipalityGuide')
 });
 
 Template.findGuide.events({
