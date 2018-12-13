@@ -2,10 +2,21 @@ import './addRestaurant.html';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { RestaurantSchema } from '../../../api/restaurants/restaurants';
+import municipalities from '../../../api/municipalities/municipality';
 
 Template.addRestaurant.helpers({
   RestaurantSchema: () => RestaurantSchema,
-  rating: () => Session.get('rating')
+  rating: () => Session.get('rating'),
+  municipalities: department => {
+    if (department) {
+      Session.set('firstOptionMunicipalityRestaurant', '(Seleccione uno)');
+      return municipalities[department];
+    } else {
+      Session.set('firstOptionMunicipalityRestaurant', '(Seleccione Departamento)');
+      return [];
+    }
+  },
+  firstOption: () => Session.get('firstOptionMunicipalityRestaurant')
 });
 
 Template.addRestaurant.events({

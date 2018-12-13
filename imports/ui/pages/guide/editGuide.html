@@ -22,13 +22,13 @@
           {{>afQuickField name="street" }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="city" }}
-          </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="municipality" }}
+          {{>afQuickField name="city" }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="department" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue name="department") ) }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="destination" }}
@@ -59,24 +59,24 @@
           </div>
           {{>afQuickField name="categorization" value=categorization }}
         </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
+          {{>afQuickField name="paymentMethods" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
+          {{>afQuickField name="money" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
+          {{>afQuickField name="languages" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
+          {{>afQuickField name="creditCards" }}
+        </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           {{>afQuickField name="services" }}
         </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
-          {{>afQuickField name="paymentMethods" }}
-        </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
-          {{>afQuickField name="money" }}
-        </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
-          {{>afQuickField name="languages" }}
-        </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
-          {{>afQuickField name="creditCards" }}
-        </div>
       </div>
       <div class="text-center mt-2" >
-        <button type="submit" class="btn btn-primary w-75" >Agregar</button>
+        <button type="submit" class="btn btn-primary w-75" >Actualizar</button>
       </div>
       {{/autoForm}}
     </div>

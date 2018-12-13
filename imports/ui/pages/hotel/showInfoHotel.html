@@ -1,11 +1,23 @@
 <template name="showInfoHotel" >
   <div class="card mb-3" >
     <div class="card-header" >
-        <i class="fas fa-home"></i> Mostrando datos de {{hotel.name}}
+        <i class="fas fa-home"></i> Mostrando datos de <b>{{hotel.name}}</b>
     </div>
     <div class="card-body">
       <div class="row">
         {{#with hotel}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Correo:</b>
+                {{#if email}}
+                  {{email}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </label>
+            </div>
+          </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">

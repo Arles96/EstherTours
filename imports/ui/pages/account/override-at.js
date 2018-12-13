@@ -34,6 +34,8 @@ Template.overrideAtError.helpers({
       return 'Contraseñas no coinciden';
     } else if (displayName === 'Token expired') {
       return 'Token expirado';
+    } else if (displayName === 'User not found') {
+      return 'Este correo no existe';
     } else {
       return displayName;
     }
