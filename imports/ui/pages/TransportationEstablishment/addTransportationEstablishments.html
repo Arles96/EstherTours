@@ -8,6 +8,7 @@
       id="addTransportationEstablishmentForm"
       schema=TransportationEstablishmentSchema
       type="method"
+      doc=TransportationEstablishment
       meteormethod="addTransportationEstablishment"
       }}
       <div class="row">
@@ -24,10 +25,10 @@
           {{>afQuickField name="city"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="town"}}
+          {{>afQuickField name="department"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="department"}}
+          {{>afQuickField name="town" firstOption=firstOption options=(municipalities (afFieldValue name="department") ) }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="phone"}}

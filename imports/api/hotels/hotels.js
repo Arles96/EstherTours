@@ -4,6 +4,7 @@ import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 import departments from '../departments/departments';
+import { paymentMethods, money } from '../money/money';
 
 SimpleSchema.extendOptions(['autoform']);
 
@@ -13,6 +14,11 @@ const HotelSchema = new SimpleSchema({
   name: {
     type: String,
     label: 'Nombre'
+  },
+  email: {
+    type: String,
+    optional: true,
+    label: 'Correo (Opcional)'
   },
   street: {
     type: String,
@@ -59,7 +65,11 @@ const HotelSchema = new SimpleSchema({
   },
   coin: {
     type: Array,
-    label: 'Monedas aceptadas'
+    label: 'Monedas aceptadas',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => money
+    }
   },
   'coin.$': {
     type: String,
@@ -75,7 +85,11 @@ const HotelSchema = new SimpleSchema({
   },
   paymentsMethod: {
     type: Array,
-    label: 'Metodos de pago'
+    label: 'Metodos de pago',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    }
   },
   'paymentsMethod.$': {
     type: String,
