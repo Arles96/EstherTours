@@ -127,5 +127,11 @@
       </div>
     </div>
   </div>
-  {{> tabular table=TabularTables.Hotels selector=selector class="table table-hover table-bordered"}}
+  {{> tabular table=TabularTables.HotelsQuery selector=selector class="table table-hover table-bordered"}}
+</template>
+
+<template name="showButtonQueryHotels" >
+  <a style="text-decoration: none;" href="/show-hotel/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+    <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+  </a>
 </template>

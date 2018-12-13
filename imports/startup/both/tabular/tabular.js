@@ -276,6 +276,59 @@ TabularTables.Hotels = new Tabular.Table({
   ]
 });
 
+TabularTables.HotelsQuery = new Tabular.Table({
+  name: 'HotelsQuery',
+  collection: Hotels,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  columns: [
+    {
+      class: 'text-center',
+      data: 'name',
+      title: 'Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'street',
+      title: 'Calle'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'municipality',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'departament',
+      title: 'Departamento'
+    },
+    {
+      class: 'text-center',
+      data: 'phone',
+      title: 'Teléfono'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsHotels (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonQueryHotels, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
+  ]
+});
+
 TabularTables.RoomHotel = new Tabular.Table({
   name: 'RoomHotel',
   collection: RoomHotel,

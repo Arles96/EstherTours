@@ -129,53 +129,33 @@ Meteor.methods({
       docVals.categorization += "estrellas"
     
     if (doc.coin) {
-      var newArr = [];
-      for(i = 0; i < doc.coin.length; i++)
-        newArr[i] = new RegExp('.*' + doc.coin[i] + '.*');
-      doc.coin = {$in : []}
-      doc.coin.$in = newArr
+      doc.coin = {$in : doc.coin};
     } else {
-      docVals.coin = "No definido." 
+      docVals.coin = ["No definido."];
     }
 
     if (doc.services) {
-      var newArr = [];
-      for(i = 0; i < doc.services.length; i++)
-        newArr[i] = new RegExp('.*' + doc.services[i] + '.*');
-      doc.services = {$in : []}
-      doc.services.$in = newArr
+      doc.services = {$in : doc.services};
     } else {
-      docVals.services = "No definido." 
+      docVals.services = ["No definido."];
     }
 
     if (doc.paymentsMethod){
-      var newArr = [];
-      for(i = 0; i < doc.paymentsMethod.length; i++)
-        newArr[i] = new RegExp('.*' + doc.paymentsMethod[i] + '.*');
-      doc.paymentsMethod = {$in : []}
-      doc.paymentsMethod.$in = newArr
+      doc.paymentsMethod = {$in : doc.paymentsMethod};
     } else {
-      docVals.paymentsMethod = "No definido." 
+      docVals.paymentsMethod = ["No definido."]
     }
 
     if (doc.informationsAB){
-      var newArr = [];
-      for(i = 0; i < doc.informationsAB.length; i++)
-        newArr[i] = new RegExp('.*' + doc.informationsAB[i] + '.*');
-      doc.informationsAB = {$in : []}
-      doc.informationsAB.$in = newArr
+      doc.informationsAB = {$in : doc.informationsAB};
     } else {
-      docVals.informationsAB = "No definido." 
+      docVals.informationsAB = ["No definido."];
     }
 
     if (doc.activities){
-      var newArr = [];
-      for(i = 0; i < doc.activities.length; i++)
-        newArr[i] = new RegExp('.*' + doc.activities[i] + '.*');
-      doc.activities = {$in : []}
-      doc.activities.$in = newArr
+      doc.activities = {$in : doc.activities};
     } else {
-      docVals.activities = "No definido." 
+      docVals.activities = ["No definido."];
     }
 
     console.log(doc);
