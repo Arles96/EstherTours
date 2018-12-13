@@ -3,6 +3,8 @@ import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
+import { paymentMethods, money } from '../money/money';
+import municipalities from '../municipalities/municipality';
 
 SimpleSchema.extendOptions(['autoform']);
 
@@ -27,8 +29,10 @@ const RestaurantConsultSchema = new SimpleSchema({
   municipality: {
     type: String,
     label: 'Municipio',
-    regEx: RegExObj.names,
-    optional: true
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => municipalities
+    }
   },
   city: {
     type: String,
@@ -81,18 +85,23 @@ const RestaurantConsultSchema = new SimpleSchema({
   },
   paymentMethods: {
     type: Array,
-    label: 'Métodos de Pago',
-    optional: true
+    label: 'Formas de Pago',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    }
   },
   'paymentMethods.$': {
     type: String,
-    label: 'Método de pago',
-    optional: true
+    label: 'Formas de Pago'
   },
   money: {
     type: Array,
     label: 'Monedas',
-    optional: true
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => money
+    }
   },
   'money.$': {
     type: String,

@@ -3,10 +3,21 @@ import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { Router } from 'meteor/iron:router';
 import RestaurantConsultSchema from '../../../api/restaurants/restaurantConsult';
+import municipalities from '../../../api/municipalities/municipality';
 
 Template.consultRestaurant.helpers({
   RestaurantConsultSchema: () => RestaurantConsultSchema,
-  rating: () => Session.get('rating')
+  rating: () => Session.get('rating'),
+  municipalities: department => {
+    if (department) {
+      Session.set('firstOptionMunicipalityRestaurant', '(Seleccione uno)');
+      return municipalities[department];
+    } else {
+      Session.set('firstOptionMunicipalityRestaurant', '(Seleccione Departamento)');
+      return [];
+    }
+  },
+  firstOption: () => Session.get('firstOptionMunicipalityRestaurant')
 });
 
 Template.consultRestaurant.events({

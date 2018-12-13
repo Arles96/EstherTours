@@ -5,7 +5,7 @@ import { Mongo } from 'meteor/mongo';
 import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
 import { paymentMethods, money } from '../money/money';
-// import municipalities from '../municipalities/municipality';
+import municipalities from '../municipalities/municipality';
 
 const Restaurants = new Mongo.Collection('restaurants');
 
@@ -29,7 +29,10 @@ const RestaurantSchema = new SimpleSchema({
   municipality: {
     type: String,
     label: 'Municipio',
-    regEx: RegExObj.names
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => municipalities
+    }
   },
   city: {
     type: String,
@@ -75,11 +78,15 @@ const RestaurantSchema = new SimpleSchema({
   },
   paymentMethods: {
     type: Array,
-    label: 'Métodos de Pago'
+    label: 'Formas de Pago',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    }
   },
   'paymentMethods.$': {
     type: String,
-    label: 'Método de pago'
+    label: 'Formas de Pago'
   },
   money: {
     type: Array,
