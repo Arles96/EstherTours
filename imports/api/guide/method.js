@@ -54,11 +54,6 @@ Meteor.methods({
       const regex = new RegExp(regStr, 'i');
       query.city = { $regex: regex };
     }
-    if (query.town) {
-      const regStr = query.town.split(/ /).join('|');
-      const regex = new RegExp(regStr, 'i');
-      query.town = { $regex: regex };
-    }
     if (query.destination) {
       const regStr = query.destination.split(/ /).join('|');
       const regex = new RegExp(regStr, 'i');
