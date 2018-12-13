@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
+import { paymentMethods, money } from '../money/money';
 
 SimpleSchema.extendOptions(['autoform']);
 
@@ -60,18 +61,19 @@ const RentersQuarySchema = new SimpleSchema({
   },
   services: {
     type: Array,
-    label: 'Información de Servicios',
-    optional: true
+    label: 'Información de Servicios'
   },
   'services.$': {
     type: String,
-    label: 'Servicio',
-    optional: true
+    label: 'Servicio'
   },
   paymentMethods: {
     type: Array,
     label: 'Métodos de Pago',
-    optional: true
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    }
   },
   'paymentMethods.$': {
     type: String,
@@ -80,7 +82,10 @@ const RentersQuarySchema = new SimpleSchema({
   money: {
     type: Array,
     label: 'Monedas',
-    optional: true
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => money
+    }
   },
   'money.$': {
     type: String,
