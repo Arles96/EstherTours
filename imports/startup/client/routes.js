@@ -1,7 +1,7 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
-  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
+  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator, isConsultant
 } from './validations';
 import { Renters } from '../../api/renters/renters';
 import { TransportationEstablishments } from '../../api/TransportationEstablishment/TransportationEstablishment';
@@ -481,7 +481,7 @@ Router.route('/hotel-query', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Consulta de hoteles']);
-    isOperator(this);
+    isConsultant(this);
   }
 });
 
@@ -491,7 +491,7 @@ Router.route('/show-query-hotel', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Consulta de hoteles']);
-    isOperator(this);
+    isConsultant(this);
   },
   data: function () {
     return {
