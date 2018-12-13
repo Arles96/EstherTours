@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import { messages, RegExObj } from '../regEx';
 import departments from '../departments/departments';
+import { paymentMethods, money } from '../money/money';
 
 SimpleSchema.extendOptions(['autoform']);
 
@@ -11,6 +12,11 @@ const HotelQuerySchema = new SimpleSchema({
     type: String,
     label: 'Nombre',
     optional: true
+  },
+  email: {
+    type: String,
+    optional: true,
+    label: 'Correo (Opcional)'
   },
   street: {
     type: String,
@@ -64,6 +70,10 @@ const HotelQuerySchema = new SimpleSchema({
   coin: {
     type: Array,
     label: 'Monedas aceptadas',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => money
+    },
     optional: true
   },
   'coin.$': {
@@ -84,6 +94,10 @@ const HotelQuerySchema = new SimpleSchema({
   paymentsMethod: {
     type: Array,
     label: 'Metodos de pago',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    },
     optional: true
   },
   'paymentsMethod.$': {
