@@ -44,11 +44,12 @@ Meteor.methods({
       query.type = { $regex: regex };
     }
     if (query.paymentMethods) {
-      query.paymentMethods = { $in: query.query };
+      query.paymentMethods = { $in: query.paymentMethods };
     }
     if (query.money) {
       query.money = { $in: query.money };
     }
+    console.log(query);
     return { doc, query };
   },
   editTransportationEstablishment: function (doc) {
