@@ -27,6 +27,7 @@ const RestaurantConsultSchema = new SimpleSchema({
     optional: true
   },
   municipality: {
+    optional: true,
     type: String,
     label: 'Municipio',
     autoform: {
@@ -52,7 +53,6 @@ const RestaurantConsultSchema = new SimpleSchema({
   rating: {
     type: String,
     label: 'Categorización',
-    optional: true,
     autoform: {
       readonly: true,
       omit: true,
@@ -80,10 +80,10 @@ const RestaurantConsultSchema = new SimpleSchema({
   },
   'services.$': {
     type: String,
-    label: 'Servicio',
-    optional: true
+    label: 'Servicio'
   },
   paymentMethods: {
+    optional: true,
     type: Array,
     label: 'Formas de Pago',
     autoform: {
@@ -96,6 +96,7 @@ const RestaurantConsultSchema = new SimpleSchema({
     label: 'Formas de Pago'
   },
   money: {
+    optional: true,
     type: Array,
     label: 'Monedas',
     autoform: {
