@@ -4,16 +4,31 @@ import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
 import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
+import { money, paymentMethods } from '../money/money';
 
 const TransportationEstablishments = new Mongo.Collection('TransportationEstablishments');
 
 SimpleSchema.extendOptions(['autoform']);
 
+const types = [
+  {
+    value: 'Terrestre',
+    label: 'Terrestre'
+  },
+  {
+    value: 'Aérea',
+    label: 'Aérea'
+  },
+  {
+    value: 'Marítima',
+    label: 'Marítima'
+  }
+];
+
 const TransportationEstablishmentSchema = new SimpleSchema({
   name: {
     type: String,
-    label: 'Nombre',
-    regEx: RegExObj.lettersAndNumbers
+    label: 'Nombre'
   },
   email: {
     type: String,
@@ -22,8 +37,7 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   street: {
     type: String,
-    label: 'Calle',
-    regEx: RegExObj.lettersAndNumbers
+    label: 'Calle'
   },
   city: {
     type: String,
@@ -46,11 +60,17 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   phone: {
     type: String,
     label: 'Teléfono',
-    regEx: RegExObj.isNumber
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
   },
   type: {
     type: String,
-    label: 'Tipo de transporte'
+    label: 'Tipo de transporte',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => types
+    }
   },
   categorization: {
     type: String,
@@ -68,23 +88,31 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   paymentMethods: {
     type: Array,
-    label: 'Métodos de Pago'
+    label: 'Métodos de Pago',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    }
   },
   'paymentMethods.$': {
-    type: String,
-    regEx: RegExObj.lettersAndNumbers
+    type: String
   },
   money: {
     type: Array,
-    label: 'Monedas'
+    label: 'Monedas',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => money
+    }
   },
   'money.$': {
-    type: String,
-    regEx: RegExObj.lettersAndNumbers
+    type: String
   }
 }, { check: check, tracker: Tracker });
 
 TransportationEstablishmentSchema.messageBox.messages(messages);
+
+TransportationEstablishments.attachSchema(TransportationEstablishmentSchema);
 
 export {
   TransportationEstablishments,

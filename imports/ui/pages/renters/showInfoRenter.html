@@ -1,7 +1,7 @@
 <template name="showInfoRenter" >
   <div class="card mb-3" >
     <div class="card-header" >
-        <i class="fas fa-home"></i> Mostrando datos de {{renter.name}}
+        <i class="fas fa-home"></i> Mostrando datos de <b>{{renter.name}}</b>
     </div>
     <div class="card-body">
       <div class="row">
@@ -106,7 +106,7 @@
               </button>
             </div>
           {{/if}}
-          {{> tabular table=TabularTables.FleetRenter selector=selector class="table table-hover table-bordered"}}
+          {{> tabular table=TabularTables.FleetsRenter selector=selector class="table table-hover table-bordered"}}
           {{#if isOperator}}
             {{>addFleetRenter}}
             {{>editFleetRenter}}

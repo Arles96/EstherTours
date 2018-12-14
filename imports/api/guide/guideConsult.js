@@ -3,6 +3,8 @@ import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import { messages, RegExObj } from '../regEx';
 import department from '../departments/departments';
+import { creditCards, paymentMethods, money } from '../money/money';
+import languages from '../language/languages';
 
 SimpleSchema.extendOptions(['autoform']);
 
@@ -115,9 +117,13 @@ const GuideConsultSchema = new SimpleSchema({
     label: 'Servicio'
   },
   paymentMethods: {
-    optional: true,
     type: Array,
-    label: 'Métodos de Pago'
+    optional: true,
+    label: 'Métodos de Pago',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    }
   },
   'paymentMethods.$': {
     optional: true,
@@ -125,9 +131,13 @@ const GuideConsultSchema = new SimpleSchema({
     label: 'Método de Pago'
   },
   money: {
-    optional: true,
     type: Array,
-    label: 'Monedas'
+    label: 'Monedas',
+    optional: true,
+    autoform: {
+      firstOption: '(Seleccione uno)',
+      options: () => money
+    }
   },
   'money.$': {
     optional: true,
@@ -135,9 +145,13 @@ const GuideConsultSchema = new SimpleSchema({
     label: 'Moneda'
   },
   languages: {
-    optional: true,
     type: Array,
-    label: 'Lenguajes'
+    label: 'Lenguajes',
+    optional: true,
+    autoform: {
+      firstOption: '(Seleccione uno)',
+      options: () => languages
+    }
   },
   'languages.$': {
     optional: true,
@@ -145,9 +159,13 @@ const GuideConsultSchema = new SimpleSchema({
     label: 'Lenguaje'
   },
   creditCards: {
-    optional: true,
     type: Array,
-    label: 'Tarjetas de Crédito (Opcional)'
+    optional: true,
+    label: 'Tarjetas de Crédito (Opcional)',
+    autoform: {
+      firstOption: '(Seleccione uno)',
+      options: () => creditCards
+    }
   },
   'creditCards.$': {
     optional: true,

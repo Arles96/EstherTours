@@ -4,6 +4,8 @@ import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 import department from '../departments/departments';
+import languages from '../language/languages';
+import { paymentMethods, money, creditCards } from '../money/money';
 
 const Guide = new Mongo.Collection('guide');
 
@@ -68,6 +70,7 @@ const GuideSchema = new SimpleSchema({
     type: String,
     label: 'Licencia',
     autoform: {
+      firstOption: '(Seleccione Uno)',
       options: () => licences
     }
   },
@@ -102,7 +105,11 @@ const GuideSchema = new SimpleSchema({
   },
   paymentMethods: {
     type: Array,
-    label: 'Métodos de Pago'
+    label: 'Métodos de Pago',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    }
   },
   'paymentMethods.$': {
     type: String,
@@ -110,7 +117,11 @@ const GuideSchema = new SimpleSchema({
   },
   money: {
     type: Array,
-    label: 'Monedas'
+    label: 'Monedas',
+    autoform: {
+      firstOption: '(Seleccione uno)',
+      options: () => money
+    }
   },
   'money.$': {
     type: String,
@@ -118,7 +129,11 @@ const GuideSchema = new SimpleSchema({
   },
   languages: {
     type: Array,
-    label: 'Lenguajes'
+    label: 'Lenguajes',
+    autoform: {
+      firstOption: '(Seleccione uno)',
+      options: () => languages
+    }
   },
   'languages.$': {
     type: String,
@@ -127,7 +142,11 @@ const GuideSchema = new SimpleSchema({
   creditCards: {
     type: Array,
     optional: true,
-    label: 'Tarjetas de Crédito (Opcional)'
+    label: 'Tarjetas de Crédito (Opcional)',
+    autoform: {
+      firstOption: '(Seleccione uno)',
+      options: () => creditCards
+    }
   },
   'creditCards.$': {
     type: String,

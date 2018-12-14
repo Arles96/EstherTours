@@ -46,7 +46,8 @@ Template.showButtonRenters.events({
       title: 'Eliminar Registro de Arrendadora',
       text: `Esta seguro de eliminar este registro de ${renter.name}`,
       cancelButtonText: 'Cancelar',
-      showCancelButton: true
+      showCancelButton: true,
+      focusCancel: true
     }).then(res => {
       if (res.value) {
         Meteor.call('deleteRenter', id, (error, result) => {

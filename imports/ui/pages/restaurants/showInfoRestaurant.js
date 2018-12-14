@@ -50,7 +50,8 @@ Template.showButtonRestaurantOffers.events({
       title: 'Eliminar Oferta',
       text: 'Esta seguro de eliminar este registro.',
       cancelButtonText: 'Cancelar',
-      showCancelButton: true
+      showCancelButton: true,
+      focusCancel: true
     }).then(res => {
       if (res.value) {
         Meteor.call('deleteRestaurantOffer', id, (error, result) => {
