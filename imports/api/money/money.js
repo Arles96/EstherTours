@@ -97,12 +97,9 @@ const paymentMethods = [
   {
     label: 'Cheque',
     value: 'Cheque'
-  },
-  {
-    label: 'Trajeta de crédito',
-    value: 'Trajeta de crédito'
   }
 ];
+
 const creditCards = [
   {
     label: 'MasterCard',

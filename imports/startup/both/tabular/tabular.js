@@ -27,6 +27,7 @@ TabularTables.Users = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
+  extraFields: ['profile'],
   columns: [
     {
       class: 'text-center',
