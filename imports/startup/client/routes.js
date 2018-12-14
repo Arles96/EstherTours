@@ -40,6 +40,7 @@ import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
 import '../../ui/pages/packages/addPackages';
+import '../../ui/pages/packages/listPackages';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -528,6 +529,19 @@ Router.route('/add-packages', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Paquetes']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para listar todos los paquetes
+ */
+Router.route('/list-packages', {
+  name: 'listPackages',
+  template: 'listPackages',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de Paquetes']);
     isOperator(this);
   }
 });
