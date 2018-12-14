@@ -1,70 +1,71 @@
-<template name="findRenters" >
-    <h1>Consultas de Arrendadoras</h1>
-    <hr>
-    <div class="card mb-3" >
-      <div class="card-header" >
-        <i class="fas fa-home"></i> Arrendadora
-      </div>
-      <div class="card-body">
-        {{#autoForm
-        id="findRentersForms"
-        schema=RentersQuarySchema
-        type="method"
-        meteormethod="findRenter"
-        }}
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="name"}}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="email" }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="street" }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="city" }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="municipality" }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="department" }}
-          </div>
-          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
-            <div class="form-group mt-1">
-              <label class="mb-3">Categorización</label>
-              <fieldset id="group">
-                <p class="categorization">
-                  <input id="categorization1" name="group" value="5" type="radio">
-                  <label for="categorization1">★</label>
-                  <input id="categorization2" name="group" value="4" type="radio">
-                  <label for="categorization2">★</label>
-                  <input id="categorization3" name="group" value="3" type="radio">
-                  <label for="categorization3">★</label>
-                  <input id="categorization4" name="group" value="2" type="radio">
-                  <label for="categorization4">★</label>
-                  <input id="categorization5" name="group" value="1" type="radio">
-                  <label for="categorization5">★</label>
-                </p>
-              </fieldset>
-            </div>
-            {{>afQuickField name="categorization" value=categorization }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            {{>afQuickField name="services" }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
-            {{>afQuickField name="paymentMethods" }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
-            {{>afQuickField name="money" }}
-          </div>
-        </div>
-        <div class="col-12 mt-4 text-center col-sm-12 col-md-12 col-lg-12 col-xl-12">
-          <button type="submit" class="btn pt-3 pb-3 w-75 btn-success" >Buscar</button>
-        </div>
-        {{/autoForm}}
-      </div>
+<template name="findRenters">
+  <h1>Consultas de Arrendadoras</h1>
+  <hr>
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-home"></i> Arrendadora
     </div>
-  </template> 
+    <div class="card-body">
+      {{#autoForm
+      id="findRentersForms"
+      schema=RentersQuarySchema
+      type="method"
+      meteormethod="findRenter"
+      }}
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="name"}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="email" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="street" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="city" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="department" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue
+          name="department") ) }}
+        </div>
+        <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="form-group mt-1">
+            <label class="mb-3">Categorización</label>
+            <fieldset id="group">
+              <p class="categorization">
+                <input id="categorization1" name="group" value="5" type="radio">
+                <label for="categorization1">★</label>
+                <input id="categorization2" name="group" value="4" type="radio">
+                <label for="categorization2">★</label>
+                <input id="categorization3" name="group" value="3" type="radio">
+                <label for="categorization3">★</label>
+                <input id="categorization4" name="group" value="2" type="radio">
+                <label for="categorization4">★</label>
+                <input id="categorization5" name="group" value="1" type="radio">
+                <label for="categorization5">★</label>
+              </p>
+            </fieldset>
+          </div>
+          {{>afQuickField name="categorization" value=categorization }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+          {{>afQuickField name="services" }}
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-2 mb-3">
+          {{>afQuickField name="paymentMethods" }}
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-2 mb-3">
+          {{>afQuickField name="money" }}
+        </div>
+      </div>
+      <div class="col-12 mt-4 text-center col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <button type="submit" class="btn pt-3 pb-3 w-75 btn-success">Buscar</button>
+      </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>

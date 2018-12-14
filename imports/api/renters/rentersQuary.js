@@ -60,6 +60,7 @@ const RentersQuarySchema = new SimpleSchema({
     }
   },
   services: {
+    optional: true,
     type: Array,
     label: 'Información de Servicios'
   },
@@ -68,9 +69,11 @@ const RentersQuarySchema = new SimpleSchema({
     label: 'Servicio'
   },
   paymentMethods: {
+    optional: true,
     type: Array,
     label: 'Métodos de Pago',
     autoform: {
+      optional: true,
       firstOption: '(Seleccione Uno)',
       options: () => paymentMethods
     }
@@ -80,9 +83,11 @@ const RentersQuarySchema = new SimpleSchema({
     label: 'Método de Pago'
   },
   money: {
+    optional: true,
     type: Array,
     label: 'Monedas',
     autoform: {
+      optional: true,
       firstOption: '(Seleccione Uno)',
       options: () => money
     }

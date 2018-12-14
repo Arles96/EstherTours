@@ -46,7 +46,11 @@
           <div class="form-group">
             <label for="">
               <b>Ciudad:</b>
+              {{#if city}}
               {{city}}
+              {{else}}
+              No ingreso dato.
+              {{/if}}
             </label>
           </div>
         </div>
@@ -79,13 +83,11 @@
             <label for="">
               <b>Categorización:</b>
             </label>
-            <p>
-              {{#if categorization}}
-                {{categorization}}
-              {{else}}
-                No ingreso dato.
-              {{/if}}
-            </p>
+            {{#if categorization}}
+            {{categorization}}
+            {{else}}
+            No ingreso dato.
+            {{/if}}
           </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -100,7 +102,7 @@
               {{/each}}
             </ul>
             {{else}}
-              No ingreso datos.
+            No ingreso datos.
             {{/if}}
           </div>
         </div>
@@ -116,7 +118,7 @@
               {{/each}}
             </ul>
             {{else}}
-              No ingreso datos.
+            No ingreso datos.
             {{/if}}
           </div>
         </div>
@@ -130,7 +132,7 @@
               {{/each}}
             </ul>
             {{else}}
-              No ingreso datos.
+            No ingreso datos.
             {{/if}}
           </div>
         </div>
