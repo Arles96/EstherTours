@@ -1,0 +1,53 @@
+<template name="editPackages" >
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Actualizar Paquetes
+    </div>
+    <div class="card-body">
+      {{#autoForm
+        id="editPackagesForm"
+        schema=PackagesSchema
+        type="method-update"
+        meteormethod="updatePackages"
+        doc=package
+      }}
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="name"}}
+          </div>
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="price" }}
+          </div>
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idRenter" firstOption="(Seleccione Uno)" options=Renters }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idFleetRenter" firstOption="(Seleccione Uno)" options=(FleetRenter (afFieldValue name="idRenter") ) }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idTransport" firstOption="(Seleccione Uno)" options=TransportationEstablishments }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idTransportRoute" firstOption="(Seleccione Uno)" options=(RouteTransportationEstablishment (afFieldValue name="idTransport") ) }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idHotel" firstOption="(Seleccione Uno)" options=Hotels }}
+          </div>
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idRoom" firstOption="(Seleccione Uno)" options=(RoomHotel (afFieldValue name="idHotel") ) }}
+          </div>
+          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+            {{>afQuickField name="idGuide" firstOption="(Seleccione Uno)" options=Guide }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idRestaurante" firstOption="(Seleccione Uno)" options=Restaurants }}
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <button type="submit" class="btn mx-auto btn-primary w-75" >Actualizar</button>
+        </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>

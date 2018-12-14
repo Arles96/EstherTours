@@ -570,16 +570,16 @@ TabularTables.Packages = new Tabular.Table({
       class: 'text-center',
       data: 'price',
       title: 'Precio'
-    }/* ,
+    },
     {
       class: 'text-center',
       createdCell: Meteor.isClient && function showButtonsGuide (cell, cellData, rowData) {
-        return Blaze.renderWithData(Template.showButtonsGuide, {
+        return Blaze.renderWithData(Template.showButtonPackages, {
           _id: rowData._id,
           slug: rowData.slug
         }, cell);
       }
-    } */
+    }
   ]
 });
 
