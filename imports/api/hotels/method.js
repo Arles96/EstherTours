@@ -135,7 +135,11 @@ Meteor.methods({
     }
 
     if (doc.services) {
-      doc.services = {$in : doc.services};
+      var arr = doc.services;
+      for(i = 0; i < arr.length; i++){
+        arr[i] = new RegExp('.*' + arr[i] + '.*');
+      }
+      doc.services = {$in : arr};
     } else {
       docVals.services = ["No definido."];
     }
@@ -147,13 +151,21 @@ Meteor.methods({
     }
 
     if (doc.informationsAB){
-      doc.informationsAB = {$in : doc.informationsAB};
+      var arr = doc.informationsAB;
+      for(i = 0; i < arr.length; i++){
+        arr[i] = new RegExp('.*' + arr[i] + '.*');
+      }
+      doc.informationsAB = {$in : arr};
     } else {
       docVals.informationsAB = ["No definido."];
     }
 
     if (doc.activities){
-      doc.activities = {$in : doc.activities};
+      var arr = doc.activities;
+      for(i = 0; i < arr.length; i++){
+        arr[i] = new RegExp('.*' + arr[i] + '.*');
+      }
+      doc.activities = {$in : arr};
     } else {
       docVals.activities = ["No definido."];
     }
