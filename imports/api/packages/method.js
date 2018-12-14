@@ -13,5 +13,8 @@ Meteor.methods({
     Packages.update({ _id: _id }, {
       $set: data
     });
+  },
+  deletePackage: function (id) {
+    Packages.remove({ _id: id });
   }
 });
