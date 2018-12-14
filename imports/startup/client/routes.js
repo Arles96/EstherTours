@@ -7,6 +7,7 @@ import { Renters } from '../../api/renters/renters';
 import { TransportationEstablishments } from '../../api/TransportationEstablishment/TransportationEstablishment';
 import { Hotels } from '../../api/hotels/hotels';
 import { Restaurants } from '../../api/restaurants/restaurants';
+import { Guide } from '../../api/guide/guide';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -38,7 +39,7 @@ import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
-import { Guide } from '../../api/guide/guide';
+import '../../ui/pages/packages/addPackages';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -503,5 +504,18 @@ Router.route('/edit-guide/:id', {
     return {
       guide: Guide.findOne({ _id: id })
     };
+  }
+});
+
+/**
+ * Ruta para agregar paquetes
+ */
+Router.route('/add-packages', {
+  name: 'addPackages',
+  template: 'addPackages',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar Paquetes']);
+    isOperator(this);
   }
 });

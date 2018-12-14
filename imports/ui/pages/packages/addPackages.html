@@ -1,0 +1,52 @@
+<template name="addPackages" >
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Agregar Paquetes
+    </div>
+    <div class="card-body">
+      {{#autoForm
+        id="addPackagesForm"
+        schema=PackagesSchema
+        type="method"
+        meteormethod="insertPackages"
+      }}
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="name"}}
+          </div>
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="price" }}
+          </div>
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idRenter" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idFleetRenter" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idTransport" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idTransportRoute" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idHotel" }}
+          </div>
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idRoom" }}
+          </div>
+          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+            {{>afQuickField name="idGuide" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idRestaurante" }}
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <button type="submit" class="btn mx-auto btn-primary w-75" >Agregar</button>
+        </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
