@@ -514,6 +514,18 @@ Router.route('/add-packages', {
   name: 'addPackages',
   template: 'addPackages',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('RoomHotel.all')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Paquetes']);
     isOperator(this);
