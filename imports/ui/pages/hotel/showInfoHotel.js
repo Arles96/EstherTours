@@ -48,7 +48,8 @@ Template.showButtonRoomHotel.events({
       title: 'Eliminar Habitación',
       text: 'Esta seguro de eliminar este registro.',
       cancelButtonText: 'Cancelar',
-      showCancelButton: true
+      showCancelButton: true,
+      focusCancel: true
     }).then(res => {
       if (res.value) {
         Meteor.call('deleteRoomHotel', id, (error, result) => {
@@ -73,7 +74,8 @@ Template.showButtonRateHotel.events({
       title: 'Eliminar Tarifa',
       text: 'Esta seguro de eliminar este registro.',
       cancelButtonText: 'Cancelar',
-      showCancelButton: true
+      showCancelButton: true,
+      focusCancel: true
     }).then(res => {
       if (res.value) {
         Meteor.call('deleteRateHotel', id, (error, result) => {

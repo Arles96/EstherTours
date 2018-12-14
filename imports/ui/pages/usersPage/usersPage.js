@@ -54,7 +54,8 @@ Template.showInfoUser.events({
       title: 'Bloquear Usuario',
       text: 'Esta seguro de bloquear este usuario',
       cancelButtonText: 'Cancelar',
-      showCancelButton: true
+      showCancelButton: true,
+      focusCancel: true
     }).then(res => {
       if (res.value) {
         Meteor.call('actionBlockedUser', { _id: id, blocked: true }, (error, result) => {
@@ -73,7 +74,8 @@ Template.showInfoUser.events({
       title: 'Desbloquear Usuario',
       text: 'Esta seguro de desbloquear este usuario',
       cancelButtonText: 'Cancelar',
-      showCancelButton: true
+      showCancelButton: true,
+      focusCancel: true
     }).then(res => {
       if (res.value) {
         Meteor.call('actionBlockedUser', { _id: id, blocked: false }, (error, result) => {

@@ -1,7 +1,7 @@
 <template name="showInfoRestaurant" >
     <div class="card mb-3" >
       <div class="card-header" >
-          <i class="fas fa-home"></i> Mostrando datos de {{restaurant.name}}
+          <i class="fas fa-home"></i> Mostrando datos de <b>{{restaurant.name}}</b>
       </div>
       <div class="card-body">
         <div class="row">
@@ -193,7 +193,7 @@
     </div>
     {{>infoRestaurantOffer}}
   </template>
-  
+
   <template name="showButtonRestaurantOffers" >
     <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
       <i style="cursor: pointer;" data-id="{{_id}}" class="infoRestaurantOffer far fa-eye mr-2" data-toggle="modal" data-target="#infoRestaurantOffer" ></i>
