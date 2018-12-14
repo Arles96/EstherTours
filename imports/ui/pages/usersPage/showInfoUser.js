@@ -11,6 +11,7 @@ Template.showInfoUserModal.helpers({
       firstName: user.profile.firstName,
       lastName: user.profile.lastName,
       email: user.emails[0].address,
+      position: user.profile.position,
       role: user.roles[0]
     };
   }
