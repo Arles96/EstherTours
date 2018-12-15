@@ -25,7 +25,7 @@ Template.addPackages.helpers({
     value: doc._id
   }))),
   TransportationEstablishments: () => (TransportationEstablishments.find().map(doc => ({
-    label: `${doc.name}, ${doc.municipality}, ${doc.department}`,
+    label: `${doc.name}, ${doc.town}, ${doc.department}`,
     value: doc._id
   }))),
   Guide: () => (Guide.find().map(doc => ({
