@@ -1,0 +1,125 @@
+<template name="showPackage" >
+  <div class="card mb-3" >
+    <div class="card-header" >
+        <i class="fas fa-home"></i> Mostrando datos de <b>{{package.name}}</b>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {{#with package}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Nombre:</b>
+                {{name}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Precio:</b>
+                {{price}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Hotel:</b>
+                {{#if idHotel}}
+                  {{textHotel}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Habitación:</b>
+                {{#if idRoom}}
+                  {{textRoomHotel}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Arrendadora:</b>
+                {{#if idRenter}}
+                  {{textRenters}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Flota de Arrendadora:</b>
+                {{#if idFleetRenter}}
+                  {{textFleetRenter}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Transporte:</b>
+                {{#if idTransport}}
+                  {{textTransport}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Ruta de Transporte:</b>
+                {{#if idTransportRoute}}
+                  {{textRouteTransport}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Restaurante:</b>
+                {{#if idRestaurante}}
+                  {{textRestaurant}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Guías:</b>
+                {{#if idGuide}}
+                  {{textGuide}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </label>
+            </div>
+          </div>
+        {{/with}}
+      </div>
+    </div>
+  </div>
+</template>

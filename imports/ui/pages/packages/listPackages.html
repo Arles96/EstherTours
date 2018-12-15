@@ -13,6 +13,9 @@
 </template>
 
 <template name="showButtonPackages" >
+  <a style="text-decoration: none;" href="/show-package/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+    <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+  </a>
   {{#if isOperator}}
     <a style="text-decoration: none;" href="/edit-package/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
       <i style="cursor: pointer;" class="far fa-edit mr-2"></i>

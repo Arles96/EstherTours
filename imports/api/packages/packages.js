@@ -3,6 +3,14 @@ import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
 import { messages } from '../regEx';
+import { Guide } from '../guide/guide';
+import { Hotels } from '../hotels/hotels';
+import { RoomHotel } from '../hotels/roomhotel';
+import { Renters } from '../renters/renters';
+import { FleetRenter } from '../renters/fleetRenter';
+import { Restaurants } from '../restaurants/restaurants';
+import { TransportationEstablishments } from '../TransportationEstablishment/TransportationEstablishment';
+import { RouteTransportationEstablishment } from '../TransportationEstablishment/RouteTransportationEstablishment';
 
 const Packages = new Mongo.Collection('packages');
 
@@ -18,7 +26,6 @@ const PackagesSchema = new SimpleSchema({
     optional: true,
     label: 'Arrendadora',
     custom: function () {
-      console.log(this.field('idFleetRenter'));
       if (this.value !== undefined && this.field('idFleetRenter').isSet === false) {
         return 'existFleetRenter';
       } else {
@@ -31,7 +38,6 @@ const PackagesSchema = new SimpleSchema({
     label: 'Flota de Arrendadora',
     optional: true,
     custom: function () {
-      console.log(this.value);
       if (this.value !== undefined && this.field('idRenter').isSet === false) {
         return 'existRenter';
       } else {
@@ -104,6 +110,41 @@ const PackagesSchema = new SimpleSchema({
 }, { check: check, tracker: Tracker });
 
 PackagesSchema.messageBox.messages(messages);
+
+Packages.helpers({
+  textHotel: function () {
+    const hotel = Hotels.findOne({ _id: this.idHotel });
+    return `${hotel.name}, ${hotel.municipality}, ${hotel.department}`;
+  },
+  textRoomHotel: function () {
+    const room = RoomHotel.findOne({ _id: this.idRoom });
+    return `${room.type}, L. ${room.price.toFixed(2)}`;
+  },
+  textRenters: function () {
+    const renter = Renters.findOne({ _id: this.idRenter });
+    return `${renter.name}, ${renter.municipality}, ${renter.department}`;
+  },
+  textFleetRenter: function () {
+    const fleetRenter = FleetRenter.findOne({ _id: this.idFleetRenter });
+    return `${fleetRenter.type}, L. ${fleetRenter.rate.toFixed(2)}`;
+  },
+  textTransport: function () {
+    const transport = TransportationEstablishments.findOne({ _id: this.idTransport });
+    return `${transport.name}, ${transport.municipality}, ${transport.department}`;
+  },
+  textRouteTransport: function () {
+    const route = RouteTransportationEstablishment.findOne({ _id: this.idTransportRoute });
+    return `${route.city}, ${route.type}`;
+  },
+  textRestaurant: function () {
+    const restaurant = Restaurants.findOne({ _id: this.idRestaurante });
+    return `${restaurant.name}, ${restaurant.municipality}, ${restaurant.department}`;
+  },
+  textGuide: function () {
+    const guide = Guide.findOne({ _id: this.idGuide });
+    return `${guide.name}, ${guide.municipality}, ${guide.department}`;
+  }
+});
 
 export {
   Packages,
