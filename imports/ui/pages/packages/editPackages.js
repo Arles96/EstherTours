@@ -26,7 +26,7 @@ Template.editPackages.helpers({
     value: doc._id
   }))),
   TransportationEstablishments: () => (TransportationEstablishments.find().map(doc => ({
-    label: `${doc.name}, ${doc.municipality}, ${doc.department}`,
+    label: `${doc.name}, ${doc.town}, ${doc.department}`,
     value: doc._id
   }))),
   Guide: () => (Guide.find().map(doc => ({
@@ -37,17 +37,10 @@ Template.editPackages.helpers({
     label: `${doc.type}, L. ${doc.price.toFixed(2)}`,
     value: doc._id
   }))),
-  FleetRenter: id => {
-    console.log(id);
-    console.log(FleetRenter.find({ idRenter: id }).fetch());
-    return FleetRenter.find({ idRenter: id }).map(doc => {
-      console.log(id);
-      return {
-        label: `${doc.type}, L. ${doc.rate.toFixed(2)}`,
-        value: doc._id
-      };
-    });
-  },
+  FleetRenter: id => (FleetRenter.find({ idRenter: id }).map(doc => ({
+    label: `${doc.type}, L. ${doc.rate.toFixed(2)}`,
+    value: doc._id
+  }))),
   RouteTransportationEstablishment: id => (RouteTransportationEstablishment.find({
     idTransportationEstablishment: id
   }).map(doc => ({
@@ -59,6 +52,7 @@ Template.editPackages.helpers({
 AutoForm.addHooks('editPackagesForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha actualizado la información del paquete exitosamente.');
+    Router.go('listPackages');
   },
   onError: function (formtype, error) {
     toastr.error(error);
