@@ -50,6 +50,8 @@ import '../../ui/pages/packages/addPackages';
 import '../../ui/pages/packages/listPackages';
 import '../../ui/pages/packages/editPackages';
 import '../../ui/pages/packages/showPackage';
+import '../../ui/pages/findPackage/findPackage';
+import '../../ui/pages/resultPackages/resultPackages';
 import '../../ui/pages/RenterQuary/findRenters';
 import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
@@ -740,12 +742,50 @@ Router.route('/show-package/:id', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Paquetes', 'Mostrando Información de Paquetes']);
-    isOperator(this);
+    isLoggedIn2(this);
   },
   data: function () {
     const { id } = this.params;
     return {
       package: Packages.findOne({ _id: id })
     };
+  }
+});
+
+/**
+ * Ruta para el formulario de consultas de paquetes
+ */
+Router.route('/find-packages', {
+  name: 'findPackage',
+  template: 'findPackage',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('RoomHotel.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Paquetes']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para mostrar los resultados de la busqueda de paquetes
+ */
+Router.route('/result-find-packages', {
+  name: 'resultPackages',
+  template: 'resultPackages',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Paquetes', 'Resultado Consulta Paquetes']);
+    isConsultant(this);
   }
 });
