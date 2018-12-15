@@ -21,3 +21,6 @@ import '../../api/TransportationEstablishment/server/publications';
 // Api de guías
 import '../../api/guide/method';
 import '../../api/guide/server/publication';
+
+// Api de paquetes
+import '../../api/packages/method';

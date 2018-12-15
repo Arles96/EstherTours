@@ -12,6 +12,7 @@ import { RouteTransportationEstablishment } from '../../../api/TransportationEst
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
 import { Guide } from '../../../api/guide/guide';
+import { Packages } from '../../../api/packages/packages';
 
 const TabularTables = {};
 
@@ -595,6 +596,44 @@ TabularTables.Guides = new Tabular.Table({
         }, cell);
       }
     }
+  ]
+});
+
+TabularTables.Packages = new Tabular.Table({
+  name: 'Packages',
+  collection: Packages,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  /* extraFields: [
+    'email', 'street', 'telephone',
+    'license', 'categorization', 'services',
+    'paymentMethods', 'money', 'languages', 'creditCards'
+  ], */
+  columns: [
+    {
+      class: 'text-center',
+      data: 'name',
+      title: 'Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'price',
+      title: 'Precio'
+    }/* ,
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsGuide (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonsGuide, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    } */
   ]
 });
 
