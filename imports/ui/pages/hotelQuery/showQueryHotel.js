@@ -1,11 +1,12 @@
-import './listGuide.html';
-import '../../components/infoGuideModal/infoGuideModal';
-import toastr from 'toastr';
-import Swal from 'sweetalert2';
+import './showQueryHotel.html';
+import '../../components/addRoomHotel/addRoomHotel';
+import '../../components/addRateHotel/addRateHotel';
 import { Session } from 'meteor/session';
-import { Guide } from '../../../api/guide/guide';
+import Swal from 'sweetalert2';
+import toastr from 'toastr';
+import { Hotels } from '../../../api/hotels/hotels';
 
-Template.listGuide.onCreated(() => {
+Template.showQueryHotel.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
       sLengthMenu: 'Mostrar _MENU_ registros',
@@ -34,28 +35,38 @@ Template.listGuide.onCreated(() => {
   });
 });
 
-Template.showButtonsGuide.events({
-  'click .deleteGuide': function () {
+Template.showQueryHotel.helpers({
+  selector: function () {
+    console.log(Session.get('hotelQueryDoc'));
+    return Session.get('hotelQueryDoc').doc;
+  }
+});
+
+Template.showButtonQueryHotels.events({
+  'click .addRoomHotel': function () {
+    Session.set('idHotel', this._id);
+  },
+  'click .addRateHotel': function () {
+    Session.set('idHotel', this._id);
+  },
+  'click .deleteHotel': function () {
     const id = this._id;
+    const hotel = Hotels.findOne({ _id: id });
     Swal({
-      title: 'Eliminar Guía',
-      text: 'Esta seguro de eliminar este registro.',
+      title: 'Eliminar Registro de Hotel',
+      text: `Esta seguro de eliminar este registro de ${hotel.name}`,
       cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      focusCancel: true
+      showCancelButton: true
     }).then(res => {
       if (res.value) {
-        Meteor.call('deleteGuide', id, (error, result) => {
+        Meteor.call('deleteHotel', id, (error, result) => {
           if (error) {
             toastr.error('Error al eliminar el registro.');
           } else {
-            toastr.success('Se eliminó el registro exitósamente.');
+            toastr.success('Se ha eliminado el registro.');
           }
         });
       }
     });
-  },
-  'click .infoGuideModal': function () {
-    Session.set('guide', Guide.findOne({ _id: this._id }));
   }
 });

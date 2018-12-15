@@ -23,6 +23,8 @@ import '../../ui/pages/restaurants/addRestaurant';
 import '../../ui/pages/restaurants/listRestaurants';
 import '../../ui/pages/restaurants/editRestaurant';
 import '../../ui/pages/restaurants/showInfoRestaurant';
+import '../../ui/pages/restaurantConsults/consultRestaurant';
+import '../../ui/pages/restaurantConsults/listRestaurantResults';
 import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
@@ -33,6 +35,8 @@ import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstabli
 import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
 import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/listHotels';
+import '../../ui/pages/hotelQuery/hotelQuery';
+import '../../ui/pages/hotelQuery/showQueryHotel';
 import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
 import '../../ui/pages/hotel/showInfoHotel';
@@ -40,6 +44,8 @@ import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
+import '../../ui/pages/findGuide/findGuide';
+import '../../ui/pages/resultGuide/resultGuide';
 import '../../ui/pages/packages/addPackages';
 import '../../ui/pages/packages/listPackages';
 import '../../ui/pages/packages/editPackages';
@@ -184,6 +190,16 @@ Router.route('/addRestaurant', {
   }
 });
 
+Router.route('/consult-restaurant', {
+  name: 'consult-restaurant',
+  template: 'consultRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de Restaurante']);
+    isConsultant(this);
+  }
+});
+
 Router.route('/listRestaurants', {
   name: 'listRestaurants',
   template: 'listRestaurants',
@@ -191,6 +207,32 @@ Router.route('/listRestaurants', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Restaurantes']);
     isOperator(this);
+  }
+});
+
+/**
+ * Ruta para mostrar la información de un restaurante seleccionado para el operador
+ */
+Router.route('/show-restaurant/:id', {
+  name: 'showInfoRestaurant',
+  template: 'showInfoRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('restaurant.one', id);
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const restaurant = Restaurants.findOne({ _id: id });
+    Session.set('idRestaurant', id);
+    listBreadcrumb(['Listar Restaurantes', `Mostrando Información de ${restaurant.name}`]);
+    isLoggedIn2(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      restaurant: Restaurants.findOne({ _id: id })
+    };
   }
 });
 
@@ -220,26 +262,13 @@ Router.route('/edit-restaurant/:id', {
 /**
  * Ruta para mostrar la información de un restaurante seleccionado para el operador
  */
-Router.route('/show-restaurant/:id', {
-  name: 'showInfoRestaurant',
-  template: 'showInfoRestaurant',
+Router.route('/show-restaurantResult', {
+  name: 'listRestaurantResults',
+  template: 'listRestaurantResults',
   layoutTemplate: 'bodyAdmin',
-  waitOn: function () {
-    const { id } = this.params;
-    return Meteor.subscribe('restaurant.one', id);
-  },
   onBeforeAction: function () {
-    const { id } = this.params;
-    const restaurant = Restaurants.findOne({ _id: id });
-    Session.set('idRestaurant', id);
-    listBreadcrumb(['Listar Restaurantes', `Mostrando Información de ${restaurant.name}`]);
-    isOperator(this);
-  },
-  data: function () {
-    const { id } = this.params;
-    return {
-      restaurant: Restaurants.findOne({ _id: id })
-    };
+    listBreadcrumb(['Formulario Consulta Restaurante', 'Resultado Consulta Restaurante']);
+    isConsultant(this);
   }
 });
 
@@ -498,12 +527,37 @@ Router.route('/show-hotel/:id', {
     const hotel = Hotels.findOne({ _id: id });
     Session.set('idHotel', id);
     listBreadcrumb(['Listar Hoteles', `Mostrando Información de ${hotel.name}`]);
-    isOperator(this);
+    isLoggedIn2(this);
   },
   data: function () {
     const { id } = this.params;
     return {
       hotel: Hotels.findOne({ _id: id })
+    };
+  }
+});
+
+Router.route('/hotel-query', {
+  name: 'hotelQuery',
+  template: 'hotelQuery',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de hoteles']);
+    isConsultant(this);
+  }
+});
+
+Router.route('/show-query-hotel', {
+  name: 'showQueryHotel',
+  template: 'showQueryHotel',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de hoteles']);
+    isConsultant(this);
+  },
+  data: function () {
+    return {
+      hotel: Session.get('hotelQueryDoc').docVals
     };
   }
 });
@@ -538,6 +592,31 @@ Router.route('/edit-guide/:id', {
     return {
       guide: Guide.findOne({ _id: id })
     };
+  }
+});
+
+/**
+ * Ruta para buscar guías
+ */
+Router.route('/find-guide', {
+  name: 'findGuide',
+  template: 'findGuide',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Guía']);
+    isLoggedIn2(this);
+  }
+});
+/**
+* Ruta para mostrar los resultados de la busqueda de guías
+*/
+Router.route('/result-find-guide', {
+  name: 'resultGuide',
+  template: 'resultGuide',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Guía', 'Resultado Consulta Guía']);
+    isConsultant(this);
   }
 });
 
