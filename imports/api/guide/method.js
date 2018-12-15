@@ -60,19 +60,20 @@ Meteor.methods({
       query.destination = { $regex: regex };
     }
     if (query.services) {
-      query.services = { $in: query.query };
+      const arr = query.services.map(element => new RegExp(`.*${element}.*`, 'i'));
+      query.services = { $in: arr };
     }
     if (query.paymentMethods) {
-      query.paymentMethods = { $in: query.query };
+      query.paymentMethods = { $in: query.paymentMethods };
     }
     if (query.money) {
-      query.money = { $in: query.query };
+      query.money = { $in: query.money };
     }
     if (query.language) {
-      query.language = { $in: query.query };
+      query.language = { $in: query.language };
     }
     if (query.creditCards) {
-      query.creditCards = { $in: query.query };
+      query.creditCards = { $in: query.creditCards };
     }
     return { doc, query };
   }
