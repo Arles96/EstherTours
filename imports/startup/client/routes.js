@@ -188,6 +188,7 @@ Router.route('/addRestaurant', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Restaurante']);
+    Session.set('rating', undefined);
     isOperator(this);
   }
 });
@@ -198,6 +199,7 @@ Router.route('/consult-restaurant', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Consulta de Restaurante']);
+    Session.set('findRestaurantRating', undefined);
     isConsultant(this);
   }
 });
@@ -251,6 +253,7 @@ Router.route('/edit-restaurant/:id', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Restaurantes', 'Actualizando Información de Restaurante']);
+    Session.set('editRestaurantRating', undefined);
     isOperator(this);
   },
   data: function () {
@@ -283,6 +286,7 @@ Router.route('/add-renters', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Arrendadora']);
+    Session.set('categorization', undefined);
     isOperator(this);
   }
 });
@@ -309,6 +313,7 @@ Router.route('/find-renters', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Consulta Arrendadora']);
+    Session.set('categorization', undefined);
     isConsultant(this);
   }
 });
@@ -335,6 +340,7 @@ Router.route('/add-transportation-establishment', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Transporte']);
+    Session.set('transportCategorization', undefined);
     isOperator(this);
   }
 });
@@ -391,6 +397,7 @@ Router.route('/edit-TransportationEstablishment/:id', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Lista de transportes', 'Actualizando Información de Transporte']);
+    Session.set('editTransportationEstablishmentCategorization', undefined);
     isOperator(this);
   },
   data: function () {
@@ -410,6 +417,7 @@ Router.route('/add-hotels', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar hoteles']);
+    Session.set('hotelCategorization', undefined);
     isOperator(this);
   }
 });
@@ -427,6 +435,7 @@ Router.route('/edit-renter/:id', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Arrendadoras', 'Actualizando Información de Arrendadora']);
+    Session.set('editRenterCategorization', undefined);
     isOperator(this);
   },
   data: function () {
@@ -489,6 +498,7 @@ Router.route('/edit-hotel/:id', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Hoteles', 'Actualizando Información de Hotel']);
+    Session.set('editHotelCategorization', undefined);
     isOperator(this);
   },
   data: function () {
@@ -509,6 +519,7 @@ Router.route('/add-guide', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Guía']);
+    Session.set('guideCategorization', undefined);
     isOperator(this);
   }
 });
@@ -545,6 +556,7 @@ Router.route('/hotel-query', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Consulta de hoteles']);
+    Session.set('hotelQCategorization', undefined);
     isConsultant(this);
   }
 });
@@ -587,6 +599,7 @@ Router.route('/edit-guide/:id', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Guías', 'Actualizando Información de Guías']);
+    Session.set('editGuideCategorization', undefined);
     isOperator(this);
   },
   data: function () {
@@ -606,6 +619,7 @@ Router.route('/find-guide', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Guía']);
+    Session.set('findGuideCategorization', undefined);
     isLoggedIn2(this);
   }
 });
@@ -631,6 +645,7 @@ Router.route('/find-transport', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Transporte']);
+    Session.set('findTransportCategorization', undefined);
     isConsultant(this);
   }
 });
