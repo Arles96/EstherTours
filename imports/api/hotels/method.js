@@ -98,22 +98,22 @@ Meteor.methods({
     // if (Roles.userIsInRole(Meteor.userId(), operator)) {
     // Hotels.find(doc);
     if (doc.name)
-      doc.name = new RegExp('.*' + doc.name + '.*');
+      doc.name = new RegExp('.*' + doc.name + '.*', "i");
     else
       docVals.name = "No definido.";
     
     if (doc.street)
-      doc.street = new RegExp('.*' + doc.street + '.*');
+      doc.street = new RegExp('.*' + doc.street + '.*', "i");
     else
       docVals.street = "No definido.";
 
     if (doc.city)
-      doc.city = new RegExp('.*' + doc.city + '.*');
+      doc.city = new RegExp('.*' + doc.city + '.*', "i");
     else
       docVals.city = "No definido.";
 
     if (doc.municipality)
-      doc.municipality = new RegExp('.*' + doc.municipality + '.*');
+      doc.municipality = new RegExp('.*' + doc.municipality + '.*', "i");
     else
       docVals.municipality = "No definido.";
       
@@ -125,8 +125,9 @@ Meteor.methods({
 
     if (!doc.categorization)
       docVals.categorization = "No definido.";
-    else
-      docVals.categorization += "estrellas"
+    else {
+      docVals.categorization += (docVals.categorization == '1')?" estrella":" estrellas";      
+    }
     
     if (doc.coin) {
       doc.coin = {$in : doc.coin};
@@ -137,7 +138,7 @@ Meteor.methods({
     if (doc.services) {
       var arr = doc.services;
       for(i = 0; i < arr.length; i++){
-        arr[i] = new RegExp('.*' + arr[i] + '.*');
+        arr[i] = new RegExp('.*' + arr[i] + '.*', "i");
       }
       doc.services = {$in : arr};
     } else {
@@ -153,7 +154,7 @@ Meteor.methods({
     if (doc.informationsAB){
       var arr = doc.informationsAB;
       for(i = 0; i < arr.length; i++){
-        arr[i] = new RegExp('.*' + arr[i] + '.*');
+        arr[i] = new RegExp('.*' + arr[i] + '.*', "i");
       }
       doc.informationsAB = {$in : arr};
     } else {
@@ -163,7 +164,7 @@ Meteor.methods({
     if (doc.activities){
       var arr = doc.activities;
       for(i = 0; i < arr.length; i++){
-        arr[i] = new RegExp('.*' + arr[i] + '.*');
+        arr[i] = new RegExp('.*' + arr[i] + '.*', "i");
       }
       doc.activities = {$in : arr};
     } else {

@@ -467,7 +467,7 @@ Router.route('/show-hotel/:id', {
     const hotel = Hotels.findOne({ _id: id });
     Session.set('idHotel', id);
     listBreadcrumb(['Listar Hoteles', `Mostrando Información de ${hotel.name}`]);
-    isOperator(this);
+    isLoggedIn2(this);
   },
   data: function () {
     const { id } = this.params;
