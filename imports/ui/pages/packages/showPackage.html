@@ -118,6 +118,20 @@
               </label>
             </div>
           </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Observación:</b>
+              </label>
+              <p>
+                {{#if observation}}
+                  {{observation}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </p>
+            </div>
+          </div>
         {{/with}}
       </div>
     </div>
