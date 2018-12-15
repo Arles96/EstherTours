@@ -1,0 +1,151 @@
+<template name="resultTransport" >
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i> Resultado de busqueda de transporte
+    </div>
+    <div class="card-body">
+      <div>
+        <h4 class="text-center mb-4">Datos Ingresados</h4>
+        <div class="row">
+          {{#with data}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Nombre:</b>
+                  {{#if name}}
+                    {{name}}
+                  {{else}}
+                    No ingreso dato.
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Correo Electrónico:</b>
+                  {{#if email}}
+                    {{email}}
+                  {{else}}
+                    No ingreso dato.
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Calle:</b>
+                  {{#if street}}
+                    {{street}}
+                  {{else}}
+                    No ingreso dato.
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Ciudad:</b>
+                  {{#if city }}
+                    {{city}}
+                  {{else}}
+                    No ingreso dato.
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Municipio:</b>
+                  {{#if town}}
+                    {{town}}
+                  {{else}}
+                    No ingreso dato.
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Departamento:</b>
+                  {{#if department}}
+                    {{department}}
+                  {{else}}
+                    No ingreso dato.
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Tipo de transporte:</b>
+                  {{#if type }}
+                    {{type}}
+                  {{else}}
+                    No ingreso dato.
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Categorización:</b>
+                  {{#if categorization}}
+                    {{categorization}} estrellas
+                  {{else}}
+                    No ingreso dato.
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Métodos de Pago:</b>
+                </label>
+                {{#if paymentMethods }}
+                  <ul>
+                    {{#each paymentMethods}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                  </ul>
+                {{else}}
+                  <p>No ingreso dato.</p>
+                {{/if}}
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Monedas:</b></label>
+                {{#if money }}
+                  <ul>
+                    {{#each money }}
+                    <li>{{this}}</li>
+                    {{/each}}
+                  </ul>
+                {{else}}
+                  <p>No ingreso dato.</p>
+                {{/if}}
+              </div>
+            </div>
+          {{/with}}
+        </div>
+      </div>
+      <div class="table-responsive">
+        <h4 class="text-center mt-3">Resultados</h4>
+        {{#if query }}
+          {{> tabular table=TabularTables.TransportationEstablishments selector=query class="table table-hover table-bordered"}}
+        {{else}}
+          {{> tabular table=TabularTables.TransportationEstablishments class="table table-hover table-bordered"}}
+        {{/if}}
+      </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+  </div>
+</template>

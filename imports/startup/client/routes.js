@@ -41,6 +41,10 @@ import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
 import '../../ui/pages/findGuide/findGuide';
 import '../../ui/pages/resultGuide/resultGuide';
+import '../../ui/pages/RenterQuary/findRenters';
+import '../../ui/pages/RenterQuary/showRenters';
+import '../../ui/pages/findTransport/findTransport';
+import '../../ui/pages/resultTransport/resultTransport';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -263,7 +267,33 @@ Router.route('/list-renters', {
 });
 
 /**
- * Ruta para agregar Establecimientos de transporte
+ * Ruta para consulta de Arrendadoras
+ */
+Router.route('/find-renters', {
+  name: 'findRenters',
+  template: 'findRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta Arrendadora']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para mostrar la información dada por el consultor al hacer la contulta de arrendadoras
+ */
+Router.route('/show-renterQuary/', {
+  name: 'showRenters',
+  template: 'showRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Resultado Consulta Arrendadora']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para agregar Establecimientos de trasporte
  */
 Router.route('/add-transportation-establishment', {
   name: 'addTransportationEstablishments',
@@ -304,7 +334,7 @@ Router.route('/show-TransportationEstablishment/:id', {
     const TransportationEstablishment = TransportationEstablishments.findOne({ _id: id });
     Session.set('idTransportationEstablishment', id);
     listBreadcrumb(['Lista de transportes', `Mostrando Información de ${TransportationEstablishment.name}`]);
-    isOperator(this);
+    isLoggedIn2(this);
   },
   data: function () {
     const { id } = this.params;
@@ -402,7 +432,7 @@ Router.route('/show-renter/:id', {
     const renter = Renters.findOne({ _id: id });
     Session.set('idRenter', id);
     listBreadcrumb(['Listar Arrendadoras', `Mostrando Información de ${renter.name}`]);
-    isOperator(this);
+    isLoggedIn2(this);
   },
   data: function () {
     const { id } = this.params;
@@ -511,6 +541,7 @@ Router.route('/edit-guide/:id', {
 /**
  * Ruta para el formulario de consultas de establecimientos de transporte
  */
+<<<<<<< HEAD
 Router.route('/find-guide', {
   name: 'findGuide',
   template: 'findGuide',
@@ -518,10 +549,20 @@ Router.route('/find-guide', {
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Guía']);
     isLoggedIn2(this);
+=======
+Router.route('/find-transport', {
+  name: 'findTransport',
+  template: 'findTransport',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Transporte']);
+    isConsultant(this);
+>>>>>>> 0960c6bf49ca0b4174d02c015c0894227ed0fe5f
   }
 });
 
 /**
+<<<<<<< HEAD
  * Ruta para mostrar los resultados de la busqueda de guías
  */
 Router.route('/result-find-guide', {
@@ -530,6 +571,16 @@ Router.route('/result-find-guide', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Guía', 'Resultado Consulta Guía']);
+=======
+ * Ruta para mostrar los resultados de la busqueda de establecimientos de transporte
+ */
+Router.route('/result-find-transport', {
+  name: 'resultTransport',
+  template: 'resultTransport',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Transporte', 'Resultado Consulta Transporte']);
+>>>>>>> 0960c6bf49ca0b4174d02c015c0894227ed0fe5f
     isConsultant(this);
   }
 });
