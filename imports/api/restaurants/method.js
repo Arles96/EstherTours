@@ -40,24 +40,27 @@ Meteor.methods({
       query.city = { $regex: regex };
     }
     if (query.services) {
-      query.services = { $in: query.services };
+      const arr = query.services.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      query.services = { $in: arr };
     }
     if (query.paymentMethods) {
-      query.paymentMethods = { $in: query.query };
+      query.paymentMethods = { $in: query.paymentMethods };
     }
     if (query.money) {
       query.money = { $in: query.money };
     }
     if (query.menages) {
-      query.menages = { $in: query.menages };
+      const arr = query.menages.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      query.menages = { $in: arr };
     }
     if (query.ambience) {
-      query.ambience = { $in: query.ambience };
+      const arr = query.ambience.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      query.ambience = { $in: arr };
     }
     if (query.menu) {
-      query.menu = { $in: query.menu };
+      const arr = query.menu.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      query.menu = { $in: arr };
     }
-    console.log(query);
     return { doc, query };
   },
   editRestaurant: function (doc) {

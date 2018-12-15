@@ -78,7 +78,7 @@ const RestaurantSchema = new SimpleSchema({
   },
   paymentMethods: {
     type: Array,
-    label: 'Formas de Pago',
+    label: 'Métodos de Pago',
     autoform: {
       firstOption: '(Seleccione Uno)',
       options: () => paymentMethods

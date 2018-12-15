@@ -1,28 +1,13 @@
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
-import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
-import { money, paymentMethods } from '../money/money';
+import departments from '../departments/departments';
+import { paymentMethods, money } from '../money/money';
 
 SimpleSchema.extendOptions(['autoform']);
 
-const types = [
-  {
-    value: 'Terrestre',
-    label: 'Terrestre'
-  },
-  {
-    value: 'Aérea',
-    label: 'Aérea'
-  },
-  {
-    value: 'Marítima',
-    label: 'Marítima'
-  }
-];
-
-const TransportConsultSchema = new SimpleSchema({
+const HotelQuerySchema = new SimpleSchema({
   name: {
     type: String,
     label: 'Nombre',
@@ -30,9 +15,8 @@ const TransportConsultSchema = new SimpleSchema({
   },
   email: {
     type: String,
-    label: 'Correo Electrónico',
-    regEx: RegExObj.email,
-    optional: true
+    optional: true,
+    label: 'Correo (Opcional)'
   },
   street: {
     type: String,
@@ -45,13 +29,13 @@ const TransportConsultSchema = new SimpleSchema({
     regEx: RegExObj.names,
     optional: true
   },
-  town: {
+  municipality: {
     type: String,
     label: 'Municipio',
     regEx: RegExObj.names,
     optional: true
   },
-  department: {
+  departament: {
     type: String,
     label: 'Departamento',
     autoform: {
@@ -60,13 +44,12 @@ const TransportConsultSchema = new SimpleSchema({
     },
     optional: true
   },
-  type: {
+  phone: {
     type: String,
-    label: 'Tipo de transporte',
-    autoform: {
-      firstOption: '(Seleccione Uno)',
-      options: () => types
-    },
+    label: 'Teléfono',
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8,
     optional: true
   },
   categorization: {
@@ -84,32 +67,66 @@ const TransportConsultSchema = new SimpleSchema({
     },
     optional: true
   },
-  paymentMethods: {
+  coin: {
     type: Array,
-    label: 'Métodos de Pago',
-    autoform: {
-      firstOption: '(Seleccione Uno)',
-      options: () => paymentMethods
-    },
-    optional: true
-  },
-  'paymentMethods.$': {
-    type: String
-  },
-  money: {
-    type: Array,
-    label: 'Monedas',
+    label: 'Monedas aceptadas',
     autoform: {
       firstOption: '(Seleccione Uno)',
       options: () => money
     },
     optional: true
   },
-  'money.$': {
-    type: String
+  'coin.$': {
+    type: String,
+    label: 'Moneda',
+    optional: true
+  },
+  services: {
+    type: Array,
+    label: 'Servicios',
+    optional: true
+  },
+  'services.$': {
+    type: String,
+    label: 'Servicios',
+    optional: true
+  },
+  paymentsMethod: {
+    type: Array,
+    label: 'Metodos de pago',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    },
+    optional: true
+  },
+  'paymentsMethod.$': {
+    type: String,
+    label: 'Metodos de pago',
+    optional: true
+  },
+  informationsAB: {
+    type: Array,
+    label: 'Información A y B',
+    optional: true
+  },
+  'informationsAB.$': {
+    type: String,
+    label: 'Información A y B',
+    optional: true
+  },
+  activities: {
+    type: Array,
+    label: 'Actividades',
+    optional: true
+  },
+  'activities.$': {
+    type: String,
+    label: 'Actividad',
+    optional: true
   }
 }, { check: check, tracker: Tracker });
 
-TransportConsultSchema.messageBox.messages(messages);
+HotelQuerySchema.messageBox.messages(messages);
 
-export default TransportConsultSchema;
+export default HotelQuerySchema;

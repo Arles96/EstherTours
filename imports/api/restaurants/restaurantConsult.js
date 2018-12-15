@@ -53,6 +53,7 @@ const RestaurantConsultSchema = new SimpleSchema({
   rating: {
     type: String,
     label: 'Categorización',
+    optional: true,
     autoform: {
       readonly: true,
       omit: true,

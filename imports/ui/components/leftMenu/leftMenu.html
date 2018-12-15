@@ -82,15 +82,46 @@
         <a class="dropdown-item" href="/list-hotels">Tabla de Hoteles</a>
       </div>
     </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Paquetes</span>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <a class="dropdown-item" href="/add-packages">Agregar Paquetes</a>
+        <a class="dropdown-item" href="/list-packages">Tabla de Paquetes</a>
+      </div>
+    </li>
     {{/if}}
     {{#if isConsultant}}
+      <li class="nav-item">
+        <a class="nav-link" href="/hotel-query">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Consultas de Hoteles</span>
+        </a>
+      </li>
       <li class="nav-item active">
         <a class="nav-link" href="/consult-restaurant">
           <i class="fas fa-utensils"></i>
           <span>Consultar Restaurante</span>
         </a>
-        <a class="nav-link" href="/find-transport">
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/find-guide">
           <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Consulta Guía</span>
+        </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/find-renters">
+          <i class="fas fa-table"></i>
+          <span >Consultar Arrendadoras</span>
+        </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/find-transport">
+          <i class="fas fa-fw fa-car"></i>
           <span>Consulta Transporte</span>
         </a>
       </li>

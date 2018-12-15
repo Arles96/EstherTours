@@ -36,7 +36,7 @@ Accounts.emailTemplates.verifyEmail = {
 
 Accounts.emailTemplates.resetPassword = {
   subject () {
-    return 'Reseteando tu contraseña';
+    return 'Restaurar contraseña';
   },
   html (user, url) {
     const html = SSR.render('resetPassword',

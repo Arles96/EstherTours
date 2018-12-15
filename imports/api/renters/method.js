@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Renters, RentersSchema } from './renters';
 import { FleetRenter, FleetRenterSchema } from './fleetRenter';
-import { operator } from '../roles/roles';
+import { operator, consultant } from '../roles/roles';
 
 Meteor.methods({
   addRenter: function (doc) {
@@ -57,6 +57,49 @@ Meteor.methods({
       });
     } else {
       throw new Meteor.Error('Permiso Denegado');
+    }
+  },
+  findRenter: function (doc) {
+    const query = JSON.parse(JSON.stringify(doc));
+    if (Roles.userIsInRole(Meteor.userId(), consultant)) {
+      if (query.name) {
+        const regStr = query.name.split(/ /).join('|');
+        const regex = new RegExp(regStr, 'i');
+        query.name = { $regex: regex };
+      }
+      if (query.email) {
+        const regStr = query.email.split(/ /).join('|');
+        const regex = new RegExp(regStr, 'i');
+        query.email = { $regex: regex };
+      }
+      if (query.street) {
+        const regStr = query.street.split(/ /).join('|');
+        const regex = new RegExp(regStr, 'i');
+        query.street = { $regex: regex };
+      }
+      if (query.city) {
+        const regStr = query.city.split(/ /).join('|');
+        const regex = new RegExp(regStr, 'i');
+        query.city = { $regex: regex };
+      }
+      if (query.municipality) {
+        const regStr = query.municipality.split(/ /).join('|');
+        const regex = new RegExp(regStr, 'i');
+        query.municipality = { $regex: regex };
+      }
+      if (query.services) {
+        query.services = { $in: query.query };
+      }
+      if (query.paymentMethods) {
+        query.paymentMethods = { $in: query.query };
+      }
+      if (query.money) {
+        query.money = { $in: query.query };
+      }
+
+      return { doc, query };
+    } else {
+      throw new Meteor.Error('Permiso Denegado.');
     }
   }
 });
