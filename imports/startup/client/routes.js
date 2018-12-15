@@ -653,7 +653,7 @@ Router.route('/find-packages', {
   template: 'findPackage',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Formulario Consulta Transporte']);
+    listBreadcrumb(['Formulario Consulta Paquetes']);
     isConsultant(this);
   }
 });
@@ -666,7 +666,7 @@ Router.route('/result-find-packages', {
   template: 'resultPackages',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Formulario Consulta Transporte', 'Resultado Consulta Transporte']);
+    listBreadcrumb(['Formulario Consulta Paquetes', 'Resultado Consulta Paquetes']);
     isConsultant(this);
   }
 });
