@@ -1,5 +1,6 @@
 import './findPackage.html';
 import toastr from 'toastr';
+import { Session } from 'meteor/session';
 import PackagesSchemaConsult from '../../../api/packages/packageConsult';
 import { Guide } from '../../../api/guide/guide';
 import { Hotels } from '../../../api/hotels/hotels';
@@ -32,17 +33,15 @@ Template.findPackage.helpers({
     label: `${doc.name}, ${doc.municipality}, ${doc.department}`,
     value: doc._id
   }))),
-  RoomHotel: id => (RoomHotel.find({ idHotel: id }).map(doc => ({
+  RoomHotel: () => (RoomHotel.find().map(doc => ({
     label: `${doc.type}, L. ${doc.price.toFixed(2)}`,
     value: doc._id
   }))),
-  FleetRenter: id => (FleetRenter.find({ idRenter: id }).map(doc => ({
+  FleetRenter: () => (FleetRenter.find().map(doc => ({
     label: `${doc.type}, L. ${doc.rate.toFixed(2)}`,
     value: doc._id
   }))),
-  RouteTransportationEstablishment: id => (RouteTransportationEstablishment.find({
-    idTransportationEstablishment: id
-  }).map(doc => ({
+  RouteTransportationEstablishment: () => (RouteTransportationEstablishment.find().map(doc => ({
     label: `${doc.city}, ${doc.type}`,
     value: doc._id
   })))

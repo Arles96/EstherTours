@@ -652,6 +652,18 @@ Router.route('/find-packages', {
   name: 'findPackage',
   template: 'findPackage',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('RoomHotel.all')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Paquetes']);
     isConsultant(this);

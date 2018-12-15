@@ -18,7 +18,7 @@ Meteor.methods({
   deletePackage: function (id) {
     Packages.remove({ _id: id });
   },
-  findPackage: function (doc) {
+  findPackages: function (doc) {
     PackagesSchemaConsult.validate(doc);
     const query = JSON.parse(JSON.stringify(doc));
     if (query.name) {
