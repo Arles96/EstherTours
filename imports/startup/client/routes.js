@@ -8,6 +8,7 @@ import { TransportationEstablishments } from '../../api/TransportationEstablishm
 import { Hotels } from '../../api/hotels/hotels';
 import { Restaurants } from '../../api/restaurants/restaurants';
 import { Guide } from '../../api/guide/guide';
+import { Packages } from '../../api/packages/packages';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -47,6 +48,8 @@ import '../../ui/pages/findGuide/findGuide';
 import '../../ui/pages/resultGuide/resultGuide';
 import '../../ui/pages/packages/addPackages';
 import '../../ui/pages/packages/listPackages';
+import '../../ui/pages/packages/editPackages';
+import '../../ui/pages/packages/showPackage';
 import '../../ui/pages/RenterQuary/findRenters';
 import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
@@ -678,5 +681,71 @@ Router.route('/list-packages', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Paquetes']);
     isOperator(this);
+  }
+});
+
+/**
+ * Ruta para actualizar la información de paquetes
+ */
+Router.route('/edit-package/:id', {
+  name: 'editPackages',
+  template: 'editPackages',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('RoomHotel.all'),
+      Meteor.subscribe('OnePackage', id)
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Paquetes', 'Actualizando Información de Paquetes']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      package: Packages.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para mostrar información de un paquete
+ */
+Router.route('/show-package/:id', {
+  name: 'showPackage',
+  template: 'showPackage',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('RoomHotel.all'),
+      Meteor.subscribe('OnePackage', id)
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Paquetes', 'Mostrando Información de Paquetes']);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      package: Packages.findOne({ _id: id })
+    };
   }
 });
