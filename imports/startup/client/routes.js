@@ -41,6 +41,8 @@ import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
+import '../../ui/pages/RenterQuary/findRenters';
+import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
 
@@ -265,7 +267,33 @@ Router.route('/list-renters', {
 });
 
 /**
- * Ruta para agregar Establecimientos de transporte
+ * Ruta para consulta de Arrendadoras
+ */
+Router.route('/find-renters', {
+  name: 'findRenters',
+  template: 'findRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta Arrendadora']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para mostrar la información dada por el consultor al hacer la contulta de arrendadoras
+ */
+Router.route('/show-renterQuary/', {
+  name: 'showRenters',
+  template: 'showRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Resultado Consulta Arrendadora']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para agregar Establecimientos de trasporte
  */
 Router.route('/add-transportation-establishment', {
   name: 'addTransportationEstablishments',
@@ -404,7 +432,7 @@ Router.route('/show-renter/:id', {
     const renter = Renters.findOne({ _id: id });
     Session.set('idRenter', id);
     listBreadcrumb(['Listar Arrendadoras', `Mostrando Información de ${renter.name}`]);
-    isOperator(this);
+    isLoggedIn2(this);
   },
   data: function () {
     const { id } = this.params;
