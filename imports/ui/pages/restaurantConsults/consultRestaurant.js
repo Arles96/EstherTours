@@ -1,12 +1,13 @@
-import './editRestaurant.html';
+import './consultRestaurant.html';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
-import { RestaurantSchema } from '../../../api/restaurants/restaurants';
+import { Router } from 'meteor/iron:router';
+import RestaurantConsultSchema from '../../../api/restaurants/restaurantConsult';
 import municipalities from '../../../api/municipalities/municipality';
 
-Template.editRestaurant.helpers({
-  RestaurantSchema: () => RestaurantSchema,
-  rating: () => Session.get('editRestaurantRating'),
+Template.consultRestaurant.helpers({
+  RestaurantConsultSchema: () => RestaurantConsultSchema,
+  rating: () => Session.get('rating'),
   municipalities: department => {
     if (department) {
       Session.set('firstOptionMunicipalityRestaurant', '(Seleccione uno)');
@@ -19,16 +20,17 @@ Template.editRestaurant.helpers({
   firstOption: () => Session.get('firstOptionMunicipalityRestaurant')
 });
 
-Template.editRestaurant.events({
+Template.consultRestaurant.events({
   'change .categorization [type=radio]' (event) {
-    Session.set('editRestaurantRating', event.currentTarget.value);
+    Session.set('findRestaurantRating', event.currentTarget.value);
   }
 });
 
-AutoForm.addHooks('editRestaurantsForms', {
+AutoForm.addHooks('consultRestaurantsForms', {
   onSuccess: function (formtype, result) {
-    toastr.success('Se ha actualizado el registro del restaurante exitosamente.');
-    Router.go('/listRestaurants');
+    Session.set('findRestaurantRating', undefined);
+    Session.set('restaurantQuery', result);
+    Router.go('/show-restaurantResult');
   },
   onError: function (formtype, error) {
     toastr.error(error);

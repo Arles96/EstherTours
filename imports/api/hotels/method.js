@@ -101,7 +101,7 @@ Meteor.methods({
       doc.name = new RegExp('.*' + doc.name + '.*', "i");
     else
       docVals.name = "No definido.";
-    
+
     if (doc.street)
       doc.street = new RegExp('.*' + doc.street + '.*', "i");
     else
@@ -116,7 +116,7 @@ Meteor.methods({
       doc.municipality = new RegExp('.*' + doc.municipality + '.*', "i");
     else
       docVals.municipality = "No definido.";
-      
+
     if (!doc.departament)
       docVals.departament = "No definido.";
 
@@ -126,9 +126,9 @@ Meteor.methods({
     if (!doc.categorization)
       docVals.categorization = "No definido.";
     else {
-      docVals.categorization += (docVals.categorization == '1')?" estrella":" estrellas";      
+      docVals.categorization += (docVals.categorization == '1')?" estrella":" estrellas";
     }
-    
+
     if (doc.coin) {
       doc.coin = {$in : doc.coin};
     } else {
@@ -165,9 +165,6 @@ Meteor.methods({
     console.log(doc);
     console.log(docVals);
     return {doc: doc, docVals: docVals};
-    /* } else {
-      throw new Meteor.Error('Permiso Denegado');
-    } */
   }
 
 });

@@ -27,10 +27,10 @@
                 {{>afQuickField name="city" }}
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              {{>afQuickField name="municipality" }}
+              {{>afQuickField name="department" }}
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              {{>afQuickField name="department" }}
+              {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue name="department") ) }}
             </div>
             <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-6">
               {{>afQuickField name="telephone" }}

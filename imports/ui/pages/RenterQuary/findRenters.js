@@ -26,8 +26,6 @@ Template.findRenters.events({
 
 AutoForm.addHooks('findRentersForms', {
   onSuccess: function (formtype, result) {
-    console.log(result);
-    toastr.success('Elemento buscado');
     Session.set('findRenter', result);
     Router.go('/show-renterQuary');
   },
