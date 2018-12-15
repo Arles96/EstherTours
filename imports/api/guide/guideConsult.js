@@ -1,60 +1,67 @@
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
-import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 import department from '../departments/departments';
+import { creditCards, paymentMethods, money } from '../money/money';
 import languages from '../language/languages';
-import { paymentMethods, money, creditCards } from '../money/money';
-
-const Guide = new Mongo.Collection('guide');
 
 SimpleSchema.extendOptions(['autoform']);
 
 const licences = [
   {
+    optional: true,
     label: 'Licencia o certificación general',
     value: 'Licencia o certificación general'
   },
   {
+    optional: true,
     label: 'Licencia local',
     value: 'Licencia local'
   },
   {
+    optional: true,
     label: 'Licencia nacional',
     value: 'Licencia nacional'
   },
   {
+    optional: true,
     label: 'Licencia regional',
     value: 'Licencia regional'
   }
 ];
 
-const GuideSchema = new SimpleSchema({
+const GuideConsultSchema = new SimpleSchema({
   name: {
+    optional: true,
     type: String,
     label: 'Nombre'
   },
   email: {
+    optional: true,
     type: String,
     label: 'Correo',
     regEx: RegExObj.email
   },
   street: {
+    optional: true,
     type: String,
     label: 'Calle'
   },
   city: {
+    optional: true,
     type: String,
     label: 'Ciudad',
     regEx: RegExObj.names
   },
   municipality: {
+    optional: true,
     type: String,
     label: 'Municipio',
     regEx: RegExObj.names
   },
   department: {
+    optional: true,
     type: String,
     label: 'Departamento',
     autoform: {
@@ -63,10 +70,12 @@ const GuideSchema = new SimpleSchema({
     }
   },
   destination: {
+    optional: true,
     type: String,
     label: 'Destino'
   },
   license: {
+    optional: true,
     type: String,
     label: 'Licencia',
     autoform: {
@@ -75,6 +84,7 @@ const GuideSchema = new SimpleSchema({
     }
   },
   telephone: {
+    optional: true,
     type: String,
     label: 'Teléfono',
     regEx: RegExObj.isNumber,
@@ -82,6 +92,7 @@ const GuideSchema = new SimpleSchema({
     max: 8
   },
   categorization: {
+    optional: true,
     type: String,
     label: 'Categorización',
     autoform: {
@@ -96,15 +107,18 @@ const GuideSchema = new SimpleSchema({
     }
   },
   services: {
+    optional: true,
     type: Array,
     label: 'Información de Servicios'
   },
   'services.$': {
+    optional: true,
     type: String,
     label: 'Servicio'
   },
   paymentMethods: {
     type: Array,
+    optional: true,
     label: 'Métodos de Pago',
     autoform: {
       firstOption: '(Seleccione Uno)',
@@ -112,30 +126,35 @@ const GuideSchema = new SimpleSchema({
     }
   },
   'paymentMethods.$': {
+    optional: true,
     type: String,
     label: 'Método de Pago'
   },
   money: {
     type: Array,
     label: 'Monedas',
+    optional: true,
     autoform: {
       firstOption: '(Seleccione uno)',
       options: () => money
     }
   },
   'money.$': {
+    optional: true,
     type: String,
     label: 'Moneda'
   },
   languages: {
     type: Array,
     label: 'Lenguajes',
+    optional: true,
     autoform: {
       firstOption: '(Seleccione uno)',
       options: () => languages
     }
   },
   'languages.$': {
+    optional: true,
     type: String,
     label: 'Lenguaje'
   },
@@ -149,14 +168,12 @@ const GuideSchema = new SimpleSchema({
     }
   },
   'creditCards.$': {
+    optional: true,
     type: String,
     label: 'Tarjeta de crédito'
   }
 }, { check: check, tracker: Tracker });
 
-GuideSchema.messageBox.messages(messages);
+GuideConsultSchema.messageBox.messages(messages);
 
-export {
-  Guide,
-  GuideSchema
-};
+export default GuideConsultSchema;

@@ -41,6 +41,8 @@ import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
+import '../../ui/pages/findGuide/findGuide';
+import '../../ui/pages/resultGuide/resultGuide';
 import '../../ui/pages/packages/addPackages';
 import '../../ui/pages/packages/listPackages';
 import '../../ui/pages/RenterQuary/findRenters';
@@ -562,6 +564,31 @@ Router.route('/edit-guide/:id', {
     return {
       guide: Guide.findOne({ _id: id })
     };
+  }
+});
+
+/**
+ * Ruta para buscar guías
+ */
+Router.route('/find-guide', {
+  name: 'findGuide',
+  template: 'findGuide',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Guía']);
+    isLoggedIn2(this);
+  }
+});
+/**
+* Ruta para mostrar los resultados de la busqueda de guías
+*/
+Router.route('/result-find-guide', {
+  name: 'resultGuide',
+  template: 'resultGuide',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Guía', 'Resultado Consulta Guía']);
+    isConsultant(this);
   }
 });
 
