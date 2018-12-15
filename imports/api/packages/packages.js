@@ -68,7 +68,7 @@ const PackagesSchema = new SimpleSchema({
       }
     }
   },
-  idRestaurante: {
+  idRestaurant: {
     type: String,
     label: 'Restaurante',
     optional: true
@@ -99,6 +99,14 @@ const PackagesSchema = new SimpleSchema({
       } else {
         return 1;
       }
+    }
+  },
+  observation: {
+    type: String,
+    label: 'Observación',
+    optional: true,
+    autoform: {
+      type: 'textarea'
     }
   }
 }, { check: check, tracker: Tracker });
