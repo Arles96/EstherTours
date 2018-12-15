@@ -39,6 +39,8 @@ import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
+import '../../ui/pages/packages/addPackages';
+import '../../ui/pages/packages/listPackages';
 import '../../ui/pages/RenterQuary/findRenters';
 import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
@@ -559,5 +561,43 @@ Router.route('/result-find-transport', {
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Transporte', 'Resultado Consulta Transporte']);
     isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para agregar paquetes
+ */
+Router.route('/add-packages', {
+  name: 'addPackages',
+  template: 'addPackages',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('RoomHotel.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar Paquetes']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para listar todos los paquetes
+ */
+Router.route('/list-packages', {
+  name: 'listPackages',
+  template: 'listPackages',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de Paquetes']);
+    isOperator(this);
   }
 });
