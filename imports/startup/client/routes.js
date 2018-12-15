@@ -44,6 +44,8 @@ import '../../ui/pages/packages/addPackages';
 import '../../ui/pages/packages/listPackages';
 import '../../ui/pages/packages/editPackages';
 import '../../ui/pages/packages/showPackage';
+import '../../ui/pages/findPackage/findPackage';
+import '../../ui/pages/resultPackages/resultPackages';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
 
@@ -640,5 +642,31 @@ Router.route('/show-package/:id', {
     return {
       package: Packages.findOne({ _id: id })
     };
+  }
+});
+
+/**
+ * Ruta para el formulario de consultas de paquetes
+ */
+Router.route('/find-packages', {
+  name: 'findPackage',
+  template: 'findPackage',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Transporte']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para mostrar los resultados de la busqueda de paquetes
+ */
+Router.route('/result-find-packages', {
+  name: 'resultPackages',
+  template: 'resultPackages',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Transporte', 'Resultado Consulta Transporte']);
+    isConsultant(this);
   }
 });

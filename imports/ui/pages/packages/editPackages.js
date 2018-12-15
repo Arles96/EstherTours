@@ -37,17 +37,10 @@ Template.editPackages.helpers({
     label: `${doc.type}, L. ${doc.price.toFixed(2)}`,
     value: doc._id
   }))),
-  FleetRenter: id => {
-    console.log(id);
-    console.log(FleetRenter.find({ idRenter: id }).fetch());
-    return FleetRenter.find({ idRenter: id }).map(doc => {
-      console.log(id);
-      return {
-        label: `${doc.type}, L. ${doc.rate.toFixed(2)}`,
-        value: doc._id
-      };
-    });
-  },
+  FleetRenter: id => (FleetRenter.find({ idRenter: id }).map(doc => ({
+    label: `${doc.type}, L. ${doc.rate.toFixed(2)}`,
+    value: doc._id
+  }))),
   RouteTransportationEstablishment: id => (RouteTransportationEstablishment.find({
     idTransportationEstablishment: id
   }).map(doc => ({

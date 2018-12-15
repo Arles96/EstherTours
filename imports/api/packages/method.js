@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Packages, PackagesSchema } from './packages';
+import PackagesSchemaConsult from './packageConsult';
 
 Meteor.methods({
   insertPackages: function (doc) {
@@ -16,5 +17,15 @@ Meteor.methods({
   },
   deletePackage: function (id) {
     Packages.remove({ _id: id });
+  },
+  findPackage: function (doc) {
+    PackagesSchemaConsult.validate(doc);
+    const query = JSON.parse(JSON.stringify(doc));
+    if (query.name) {
+      const regStr = query.name.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.name = { $regex: regex };
+    }
+    return { doc, query };
   }
 });

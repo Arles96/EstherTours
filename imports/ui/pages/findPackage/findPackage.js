@@ -50,7 +50,8 @@ Template.findPackage.helpers({
 
 AutoForm.addHooks('consultPackagesForm', {
   onSuccess: function (formtype, result) {
-
+    Session.set('resultFindPackage', result);
+    Router.go('resultPackages');
   },
   onError: function (formtype, error) {
     toastr.error(error);

@@ -1,0 +1,150 @@
+<template name="resultPackages" >
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i> Resultado de busqueda de transporte
+    </div>
+    <div class="card-body">
+      <div>
+        <h4 class="text-center mb-4">Datos Ingresados</h4>
+        <div class="row">
+          {{#with data}}
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Nombre:</b>
+                  {{name}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Precio:</b>
+                  {{price}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Hotel:</b>
+                  {{#if idHotel}}
+                    {{textHotel}}
+                  {{else}}
+                    No posee
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Habitación:</b>
+                  {{#if idRoom}}
+                    {{textRoomHotel}}
+                  {{else}}
+                    No posee
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Arrendadora:</b>
+                  {{#if idRenter}}
+                    {{textRenters}}
+                  {{else}}
+                    No posee
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Flota de Arrendadora:</b>
+                  {{#if idFleetRenter}}
+                    {{textFleetRenter}}
+                  {{else}}
+                    No posee
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Transporte:</b>
+                  {{#if idTransport}}
+                    {{textTransport}}
+                  {{else}}
+                    No posee
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Ruta de Transporte:</b>
+                  {{#if idTransportRoute}}
+                    {{textRouteTransport}}
+                  {{else}}
+                    No posee
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Restaurante:</b>
+                  {{#if idRestaurante}}
+                    {{textRestaurant}}
+                  {{else}}
+                    No posee
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Guías:</b>
+                  {{#if idGuide}}
+                    {{textGuide}}
+                  {{else}}
+                    No posee
+                  {{/if}}
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Observación:</b>
+                </label>
+                <p>
+                  {{#if observation}}
+                    {{observation}}
+                  {{else}}
+                    No posee
+                  {{/if}}
+                </p>
+              </div>
+            </div>
+          {{/with}}
+        </div>
+      </div>
+      <div class="table-responsive">
+        {{#if query }}
+          {{> tabular table=TabularTables.Packages selector=query class="table table-hover table-bordered"}}
+        {{else}}
+          {{> tabular table=TabularTables.Packages class="table table-hover table-bordered"}}
+        {{/if}}
+      </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+  </div>
+</template>
