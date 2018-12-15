@@ -32,6 +32,8 @@ import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstabli
 import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
 import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/listHotels';
+import '../../ui/pages/hotelQuery/hotelQuery';
+import '../../ui/pages/hotelQuery/showQueryHotel';
 import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
 import '../../ui/pages/hotel/showInfoHotel';
@@ -41,6 +43,8 @@ import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
 import '../../ui/pages/findGuide/findGuide';
 import '../../ui/pages/resultGuide/resultGuide';
+import '../../ui/pages/packages/addPackages';
+import '../../ui/pages/packages/listPackages';
 import '../../ui/pages/RenterQuary/findRenters';
 import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
@@ -495,12 +499,37 @@ Router.route('/show-hotel/:id', {
     const hotel = Hotels.findOne({ _id: id });
     Session.set('idHotel', id);
     listBreadcrumb(['Listar Hoteles', `Mostrando Información de ${hotel.name}`]);
-    isOperator(this);
+    isLoggedIn2(this);
   },
   data: function () {
     const { id } = this.params;
     return {
       hotel: Hotels.findOne({ _id: id })
+    };
+  }
+});
+
+Router.route('/hotel-query', {
+  name: 'hotelQuery',
+  template: 'hotelQuery',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de hoteles']);
+    isConsultant(this);
+  }
+});
+
+Router.route('/show-query-hotel', {
+  name: 'showQueryHotel',
+  template: 'showQueryHotel',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de hoteles']);
+    isConsultant(this);
+  },
+  data: function () {
+    return {
+      hotel: Session.get('hotelQueryDoc').docVals
     };
   }
 });
@@ -539,9 +568,8 @@ Router.route('/edit-guide/:id', {
 });
 
 /**
- * Ruta para el formulario de consultas de establecimientos de transporte
+ * Ruta para buscar guías
  */
-<<<<<<< HEAD
 Router.route('/find-guide', {
   name: 'findGuide',
   template: 'findGuide',
@@ -549,7 +577,24 @@ Router.route('/find-guide', {
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Guía']);
     isLoggedIn2(this);
-=======
+  }
+});
+/**
+* Ruta para mostrar los resultados de la busqueda de guías
+*/
+Router.route('/result-find-guide', {
+  name: 'resultGuide',
+  template: 'resultGuide',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Guía', 'Resultado Consulta Guía']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para el formulario de consultas de establecimientos de transporte
+ */
 Router.route('/find-transport', {
   name: 'findTransport',
   template: 'findTransport',
@@ -557,21 +602,10 @@ Router.route('/find-transport', {
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Transporte']);
     isConsultant(this);
->>>>>>> 0960c6bf49ca0b4174d02c015c0894227ed0fe5f
   }
 });
 
 /**
-<<<<<<< HEAD
- * Ruta para mostrar los resultados de la busqueda de guías
- */
-Router.route('/result-find-guide', {
-  name: 'resultGuide',
-  template: 'resultGuide',
-  layoutTemplate: 'bodyAdmin',
-  onBeforeAction: function () {
-    listBreadcrumb(['Formulario Consulta Guía', 'Resultado Consulta Guía']);
-=======
  * Ruta para mostrar los resultados de la busqueda de establecimientos de transporte
  */
 Router.route('/result-find-transport', {
@@ -580,7 +614,44 @@ Router.route('/result-find-transport', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Transporte', 'Resultado Consulta Transporte']);
->>>>>>> 0960c6bf49ca0b4174d02c015c0894227ed0fe5f
     isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para agregar paquetes
+ */
+Router.route('/add-packages', {
+  name: 'addPackages',
+  template: 'addPackages',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('RoomHotel.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar Paquetes']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para listar todos los paquetes
+ */
+Router.route('/list-packages', {
+  name: 'listPackages',
+  template: 'listPackages',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de Paquetes']);
+    isOperator(this);
   }
 });
