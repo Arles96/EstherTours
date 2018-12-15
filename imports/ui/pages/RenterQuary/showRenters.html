@@ -1,0 +1,151 @@
+<template name="showRenters">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-home"></i> Mostrando información dada
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {{#with data}}
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Nombre:</b>
+              {{#if name}}
+              {{name}}
+              {{else}}
+              No ingreso dato.
+              {{/if}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Correo Electrónico:</b>
+              {{#if email}}
+              {{email}}
+              {{else}}
+              No ingreso dato.
+              {{/if}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Calle:</b>
+              {{#if street}}
+              {{street}}
+              {{else}}
+              No ingreso dato.
+              {{/if}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Ciudad:</b>
+              {{#if city}}
+              {{city}}
+              {{else}}
+              No ingreso dato.
+              {{/if}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Municipio:</b>
+              {{#if municipality}}
+              {{municipality}}
+              {{else}}
+              No ingreso dato.
+              {{/if}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Departamento:</b>
+              {{#if department}}
+              {{department}}
+              {{else}}
+              No ingreso dato.
+              {{/if}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Categorización:</b>
+            </label>
+            {{#if categorization}}
+            {{categorization}}
+            {{else}}
+            No ingreso dato.
+            {{/if}}
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Servicios:</b>
+            </label>
+            {{#if services}}
+            <ul>
+              {{#each services}}
+              <li>{{this}}</li>
+              {{/each}}
+            </ul>
+            {{else}}
+            No ingreso datos.
+            {{/if}}
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Métodos de Pago:</b>
+            </label>
+            {{#if paymentMethods}}
+            <ul>
+              {{#each paymentMethods}}
+              <li>{{this}}</li>
+              {{/each}}
+            </ul>
+            {{else}}
+            No ingreso datos.
+            {{/if}}
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for=""><b>Monedas:</b></label>
+            {{#if money}}
+            <ul>
+              {{#each money}}
+              <li>{{this}}</li>
+              {{/each}}
+            </ul>
+            {{else}}
+            No ingreso datos.
+            {{/if}}
+          </div>
+        </div>
+        {{/with}}
+        <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <h4 class="text-center mt-3">Resultados</h4>
+          {{#if query}}
+          {{> tabular table=TabularTables.Renters selector=query class="table table-hover table-bordered"}}
+          {{else}}
+          {{> tabular table=TabularTables.Renters class="table table-hover table-bordered"}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

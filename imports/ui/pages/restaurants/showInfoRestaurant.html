@@ -172,6 +172,16 @@
                 </ul>
               </div>
             </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Menajes:</b></label>
+                <ul>
+                  {{#each menages }}
+                    <li>{{this}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
           {{/with}}
           <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <h4 class="text-center mt-3">Ofertas de {{restaurant.name}}</h4>

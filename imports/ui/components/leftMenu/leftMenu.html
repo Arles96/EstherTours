@@ -1,7 +1,7 @@
 <template name="leftMenu">
   <!-- Sidebar -->
   <ul class="sidebar navbar-nav">
-    <li class="nav-item active">
+    <li class="nav-item ">
       <a class="nav-link" href="/">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span>
@@ -95,15 +95,39 @@
     </li>
     {{/if}}
     {{#if isConsultant}}
-      <li class="nav-item active">
+      <li class="nav-item">
+        <a class="nav-link" href="/hotel-query">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Consultas de Hoteles</span>
+        </a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="/consult-restaurant">
+          <i class="fas fa-utensils"></i>
+          <span>Consultar Restaurante</span>
+        </a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="/find-guide">
+          <i class="fas fa-table"></i>
+          <span>Consulta Guía</span>
+        </a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="/find-renters">
+          <i class="fas fa-table"></i>
+          <span >Consultar Arrendadoras</span>
+        </a>
+      </li>
+      <li class="nav-item ">
         <a class="nav-link" href="/find-transport">
           <i class="fas fa-fw fa-car"></i>
           <span>Consulta Transporte</span>
         </a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" href="/find-packages">
-          <i class="fas fa-fw fa-car"></i>
+          <i class="fas fa-table"></i>
           <span>Consulta Paquetes</span>
         </a>
       </li>

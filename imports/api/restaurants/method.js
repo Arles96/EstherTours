@@ -1,12 +1,67 @@
+/* eslint-disable prefer-template */
+/* eslint-disable no-param-reassign */
 import { Meteor } from 'meteor/meteor';
 import { RestaurantSchema, Restaurants } from './restaurants';
 import { restaurantOffers, restaurantOffersSchema } from './restaurantOffers';
+import RestaurantConsultSchema from './restaurantConsult';
 import { operator } from '../roles/roles';
 
 Meteor.methods({
   addRestaurant: function (doc) {
     RestaurantSchema.validate(doc);
     Restaurants.insert(doc);
+  },
+  consultRestaurant: function (doc) {
+    RestaurantConsultSchema.validate(doc);
+    const query = JSON.parse(JSON.stringify(doc));
+    if (query.name) {
+      const regStr = query.name.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.name = { $regex: regex };
+    }
+    if (query.email) {
+      const regStr = query.email.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.email = { $regex: regex };
+    }
+    if (query.street) {
+      const regStr = query.street.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.street = { $regex: regex };
+    }
+    if (query.municipality) {
+      const regStr = query.municipality.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.municipality = { $regex: regex };
+    }
+    if (query.city) {
+      const regStr = query.city.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.city = { $regex: regex };
+    }
+    if (query.services) {
+      const arr = query.services.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      query.services = { $in: arr };
+    }
+    if (query.paymentMethods) {
+      query.paymentMethods = { $in: query.paymentMethods };
+    }
+    if (query.money) {
+      query.money = { $in: query.money };
+    }
+    if (query.menages) {
+      const arr = query.menages.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      query.menages = { $in: arr };
+    }
+    if (query.ambience) {
+      const arr = query.ambience.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      query.ambience = { $in: arr };
+    }
+    if (query.menu) {
+      const arr = query.menu.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      query.menu = { $in: arr };
+    }
+    return { doc, query };
   },
   editRestaurant: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {

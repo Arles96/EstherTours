@@ -1,27 +1,19 @@
-<template name="showInfoRenter" >
+<template name="showQueryHotel" >
   <div class="card mb-3" >
     <div class="card-header" >
-        <i class="fas fa-home"></i> Mostrando datos de <b>{{renter.name}}</b>
+        <i class="fas fa-home"></i> Mostrando hoteles que continen
     </div>
     <div class="card-body">
       <div class="row">
-        {{#with renter}}
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
-                <b>Correo Electrónico:</b>
-                {{email}}
-              </label>
-            </div>
+        {{#with hotel}}
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Nombre:</b>
+              {{name}}
+            </label>
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
-                <b>Teléfono:</b>
-                {{telephone}}
-              </label>
-            </div>
-          </div>
+        </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
@@ -50,18 +42,38 @@
             <div class="form-group">
               <label for="">
                 <b>Departamento:</b>
-                {{department}}
+                {{departament}}
               </label>
             </div>
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              <div class="form-group">
-                <label for="">
-                  <b>Categorización:</b>
-                </label>
-                <p>{{categorization}} estrellas </p>
-              </div>
+            <div class="form-group">
+              <label for="">
+                <b>Teléfono:</b>
+                {{phone}}
+              </label>
             </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Categorización:</b>
+              </label>
+              <p>{{categorization}}</p>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Monedas aceptadas:</b>
+              </label>
+              <ul>
+                {{#each coin}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
@@ -80,7 +92,7 @@
                 <b>Métodos de Pago:</b>
               </label>
               <ul>
-                {{#each paymentMethods}}
+                {{#each paymentsMethod}}
                   <li>{{this}}</li>
                 {{/each}}
               </ul>
@@ -88,46 +100,38 @@
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
-              <label for=""><b>Monedas:</b></label>
+              <label for="">
+                <b>Información A y B:</b>
+              </label>
               <ul>
-                {{#each money }}
+                {{#each informationsAB }}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Actividades:</b>
+              </label>
+              <ul>
+                {{#each activities }}
                   <li>{{this}}</li>
                 {{/each}}
               </ul>
             </div>
           </div>
         {{/with}}
-        <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-          <h4 class="text-center mt-3">Flota de {{renter.name}}</h4>
-          {{#if isOperator}}
-            <div>
-              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addRenter" >
-                Agregar
-              </button>
-            </div>
-          {{/if}}
-          {{> tabular table=TabularTables.FleetsRenter selector=selector class="table table-hover table-bordered"}}
-          {{#if isOperator}}
-            {{>addFleetRenter}}
-            {{>editFleetRenter}}
-          {{/if}}
-        </div>
+        
       </div>
     </div>
   </div>
-
+  {{> tabular table=TabularTables.HotelsQuery selector=selector class="table table-hover table-bordered"}}
 </template>
 
-<template name="showButtonFleetRenters" >
-  <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
-    <i style="cursor: pointer;" data-id="{{_id}}" class="infoFleetRenter far fa-eye mr-2" data-toggle="modal" data-target="#infoFleetRenter" ></i>
-  </span>
-  {{#if isOperator}}
-    <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
-      <i style="cursor: pointer;" data-id="{{_id}}" class="infoFleetRenter far fa-edit mr-2" data-toggle="modal" data-target="#editFleetRenter"></i>
-    </span>
-    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
-      <i style="cursor: pointer;" data-id="{{_id}}" class="deleteFleetRenter far fa-trash-alt"></i>
-    </span>
-  {{/if}}
+<template name="showButtonQueryHotels" >
+  <a style="text-decoration: none;" href="/show-hotel/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+    <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+  </a>
 </template>

@@ -26,7 +26,7 @@ Template.editPackages.helpers({
     value: doc._id
   }))),
   TransportationEstablishments: () => (TransportationEstablishments.find().map(doc => ({
-    label: `${doc.name}, ${doc.municipality}, ${doc.department}`,
+    label: `${doc.name}, ${doc.town}, ${doc.department}`,
     value: doc._id
   }))),
   Guide: () => (Guide.find().map(doc => ({
@@ -52,6 +52,7 @@ Template.editPackages.helpers({
 AutoForm.addHooks('editPackagesForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha actualizado la información del paquete exitosamente.');
+    Router.go('listPackages');
   },
   onError: function (formtype, error) {
     toastr.error(error);

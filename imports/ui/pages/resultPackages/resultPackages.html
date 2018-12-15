@@ -12,7 +12,11 @@
               <div class="form-group">
                 <label for="">
                   <b>Nombre:</b>
-                  {{name}}
+                  {{#if name}}
+                    {{name}}
+                  {{else}}
+                  No posee.
+                  {{/if}}
                 </label>
               </div>
             </div>
@@ -20,7 +24,11 @@
               <div class="form-group">
                 <label for="">
                   <b>Precio:</b>
-                  {{price}}
+                  {{#if price}}
+                    {{price}}
+                  {{else}}
+                    No posee.
+                  {{/if}}
                 </label>
               </div>
             </div>
