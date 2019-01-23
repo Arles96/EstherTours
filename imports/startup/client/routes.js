@@ -586,9 +586,9 @@ Router.route('/show-query-hotel', {
 /*
  * Ruta para agregar atracciones
  */
-Router.route('/add-attraction', {
-  name: 'addAttraction',
-  template: 'addAttraction',
+Router.route('/add-attractions', {
+  name: 'addAttractions',
+  template: 'addAttractions',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar atracciones']);
@@ -600,9 +600,9 @@ Router.route('/add-attraction', {
 /**
  * Ruta para listar atracciones
  */
-Router.route('/list-attraction', {
-  name: 'listAttraction',
-  template: 'listAttraction',
+Router.route('/list-attractions', {
+  name: 'listAttractions',
+  template: 'listAttractions',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Listar Atracciones']);
@@ -622,7 +622,7 @@ Router.route('/edit-attraction/:id', {
     return Meteor.subscribe('attraction.one', id);
   },
   onBeforeAction: function () {
-    listBreadcrumb(['Listar Atracciones', 'Actualizando Información de la atraccion']);
+    listBreadcrumb(['Listar Atracciones', 'Actualizando información de atraccion']);
     Session.set('editAttractionCategorization', undefined);
     isOperator(this);
   },
@@ -648,7 +648,7 @@ Router.route('/show-attraction/:id', {
   onBeforeAction: function () {
     const { id } = this.params;
     const attraction = Attractions.findOne({ _id: id });
-    Session.set('idattraction', id);
+    Session.set('idAttraction', id);
     listBreadcrumb(['Listar Attraciones', `Mostrando Información de ${attraction.name}`]);
     isLoggedIn2(this);
   },
@@ -672,8 +672,8 @@ Router.route('/attraction-query', {
 });
 
 Router.route('/show-query-attraction', {
-  name: 'showQueryHotel',
-  template: 'showQueryHotel',
+  name: 'showQueryAttraction',
+  template: 'showQueryAttraction',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Consulta de atracciones']);

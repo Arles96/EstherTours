@@ -65,6 +65,7 @@ Template.showButtonRateAttraction.events({
 
 Template.showInfoAttraction.helpers({
   selector: function () {
+    console.log({ idAttraction: Session.get('idAttraction') });
     return { idAttraction: Session.get('idAttraction') };
   }
 });
