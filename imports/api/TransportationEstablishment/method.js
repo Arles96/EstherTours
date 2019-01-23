@@ -49,7 +49,6 @@ Meteor.methods({
     if (query.money) {
       query.money = { $in: query.money };
     }
-    console.log(query);
     return { doc, query };
   },
   editTransportationEstablishment: function (doc) {

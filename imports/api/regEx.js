@@ -23,6 +23,12 @@ const messages = {
   en: {
     exceedWithdrawLimit: ({ label }) => `${label} excede el limite`,
     passwordMismatch: 'Contraseñas no coinciden',
+    existFleetRenter: 'Debe seleccionar una flota',
+    existRenter: 'Debe seleccionar una arrendadora',
+    existRouteTransport: 'Debe seleccionar una ruta',
+    existTransport: 'Debe seleccionar un establecimiento de transporte',
+    existRoomHotel: 'Debe seleccionar una habitación',
+    existHotel: 'Debe seleccionar un hotel',
     lessZero: 'No puede ser menor que cero.',
     required: ({ label }) => `Se requiere ${label}`,
     minString: ({ label, min }) => `${label} debe tener como mínimo ${min} caracteres`,
