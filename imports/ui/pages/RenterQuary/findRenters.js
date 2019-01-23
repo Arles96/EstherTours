@@ -18,7 +18,6 @@ Template.findRenters.helpers({
   },
   firstOption: () => Session.get('firstOptionMunicipalityRenter')
 });
-
 Template.findRenters.events({
   'change .categorization [type=radio]' (event) {
     Session.set('categorization', event.currentTarget.value);
@@ -27,8 +26,7 @@ Template.findRenters.events({
 
 AutoForm.addHooks('findRentersForms', {
   onSuccess: function (formtype, result) {
-    console.log(result);
-    toastr.success('Elemento buscado');
+    Session.set('categorization', undefined);
     Session.set('findRenter', result);
     Router.go('/show-renterQuary');
   },

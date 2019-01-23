@@ -31,10 +31,6 @@ const licences = [
 ];
 
 const GuideSchema = new SimpleSchema({
-  destination: {
-    type: String,
-    label: 'Destino'
-  },
   name: {
     type: String,
     label: 'Nombre'
@@ -66,12 +62,9 @@ const GuideSchema = new SimpleSchema({
       options: () => department
     }
   },
-  telephone: {
+  destination: {
     type: String,
-    label: 'Teléfono',
-    regEx: RegExObj.isNumber,
-    min: 8,
-    max: 8
+    label: 'Destino'
   },
   license: {
     type: String,
@@ -80,6 +73,13 @@ const GuideSchema = new SimpleSchema({
       firstOption: '(Seleccione Uno)',
       options: () => licences
     }
+  },
+  telephone: {
+    type: String,
+    label: 'Teléfono',
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
   },
   categorization: {
     type: String,
