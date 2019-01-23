@@ -539,7 +539,7 @@ Router.route('/edit-guide/:id', {
 });
 
 /**
- * Ruta para el formulario de consultas de gias
+ * Ruta para el formulario de consultas de establecimientos de transporte
  */
 Router.route('/find-guide', {
   name: 'findGuide',
@@ -548,18 +548,6 @@ Router.route('/find-guide', {
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Guía']);
     isLoggedIn2(this);
-  }
-});
-/**
- * Ruta para el formulario de consultas de establecimientos de transporte
-*/
-Router.route('/find-transport', {
-  name: 'findTransport',
-  template: 'findTransport',
-  layoutTemplate: 'bodyAdmin',
-  onBeforeAction: function () {
-    listBreadcrumb(['Formulario Consulta Transporte']);
-    isConsultant(this);
   }
 });
 
@@ -572,19 +560,6 @@ Router.route('/result-find-guide', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Guía', 'Resultado Consulta Guía']);
-    isConsultant(this);
-  }
-});
-
-/**
- * Ruta para mostrar los resultados de la busqueda de establecimientos de transporte
- */
-Router.route('/result-find-transport', {
-  name: 'resultTransport',
-  template: 'resultTransport',
-  layoutTemplate: 'bodyAdmin',
-  onBeforeAction: function () {
-    listBreadcrumb(['Formulario Consulta Transporte', 'Resultado Consulta Transporte']);
     isConsultant(this);
   }
 });
