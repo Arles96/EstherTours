@@ -1,0 +1,166 @@
+<template name="showInfoAttraction" >
+  <div class="card mb-3" >
+    <div class="card-header" >
+        <i class="fas fa-home"></i> Mostrando datos de <b>{{attraction.name}}</b>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {{#with attraction}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Correo:</b>
+                {{#if email}}
+                  {{email}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Calle:</b>
+                {{street}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Ciudad:</b>
+                {{city}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Municipio:</b>
+                {{municipality}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Departamento:</b>
+                {{departament}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Teléfono:</b>
+                {{phone}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Categorización:</b>
+              </label>
+              <p>{{categorization}} estrellas </p>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Monedas aceptadas:</b>
+              </label>
+              <ul>
+                {{#each coin}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Servicios:</b>
+              </label>
+              <ul>
+                {{#each services}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Métodos de Pago:</b>
+              </label>
+              <ul>
+                {{#each paymentsMethod}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Información A y B:</b>
+              </label>
+              <ul>
+                {{#each informationsAB }}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Actividades:</b>
+              </label>
+              <ul>
+                {{#each activities }}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        {{/with}}
+        <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <h4 class="text-center mt-3">Habitaciones de {{attraction.name}}</h4>
+          {{#if isOperator}}
+        <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <h4 class="text-center mt-3">Tarifas de {{attraction.name}}</h4>
+          {{#if isOperator}}
+          <div>
+            <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addRateAttraction" >
+              Agregar
+            </button>
+          </div>
+          {{/if}}
+          {{> tabular table=TabularTables.RateAttraction selector=selector class="table table-hover table-bordered"}}
+          {{#if isOperator}}
+            {{>addRateAttraction}}
+            {{>editRateAttraction}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{>infoRateAttraction}}
+</template>
+
+<template name="showButtonRateAttraction" >
+    <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="infoRateAttraction far fa-eye mr-2" data-toggle="modal" data-target="#infoRateAttraction" ></i>
+    </span>
+    {{#if isOperator}}
+      <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="infoRateAttraction far fa-edit mr-2" data-toggle="modal" data-target="#editRateAttraction"></i>
+      </span>
+      <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRateAttraction far fa-trash-alt"></i>
+      </span>
+    {{/if}}
+  </template>
