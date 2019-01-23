@@ -1,8 +1,7 @@
-import './listPackages.html';
-import Swal from 'sweetalert2';
-import toastr from 'toastr';
+import './resultPackages.html';
+import { Session } from 'meteor/session';
 
-Template.listPackages.onCreated(() => {
+Template.resultPackages.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
       sLengthMenu: 'Mostrar _MENU_ registros',
@@ -31,25 +30,7 @@ Template.listPackages.onCreated(() => {
   });
 });
 
-Template.showButtonPackages.events({
-  'click .deletePackages': function () {
-    const id = this._id;
-    Swal({
-      title: 'Eliminar Registro de Paquete',
-      text: `¿Está seguro de eliminar este paquete?`,
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      focusCancel: true
-    }).then(res => {
-      if (res.value) {
-        Meteor.call('deletePackage', id, (error, result) => {
-          if (error) {
-            toastr.error('Error al eliminar el registro.');
-          } else {
-            toastr.success('Se ha eliminado el registro.');
-          }
-        });
-      }
-    });
-  }
+Template.resultPackages.helpers({
+  data: () => Session.get('resultFindPackage').doc,
+  query: () => Session.get('resultFindPackage').query
 });

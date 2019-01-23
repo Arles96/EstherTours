@@ -27,7 +27,7 @@ Template.hotelQuery.events({
 
 AutoForm.addHooks('hotelQueryForm', {
   onSuccess: function (formtype, result) {
-    toastr.success('Buscando...');
+    Session.set('hotelQCategorization', undefined);
     Session.set('hotelQueryDoc', result);
     Router.go('/show-query-hotel');
   },

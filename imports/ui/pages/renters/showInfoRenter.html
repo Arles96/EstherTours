@@ -101,7 +101,7 @@
           <h4 class="text-center mt-3">Flota de {{renter.name}}</h4>
           {{#if isOperator}}
             <div>
-              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addRenter" >
+              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addFleetRenter" >
                 Agregar
               </button>
             </div>
@@ -114,6 +114,7 @@
         </div>
       </div>
     </div>
+    {{>infoFleetRenter}}
   </div>
 
 </template>

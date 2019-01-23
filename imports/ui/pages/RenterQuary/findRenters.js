@@ -26,6 +26,7 @@ Template.findRenters.events({
 
 AutoForm.addHooks('findRentersForms', {
   onSuccess: function (formtype, result) {
+    Session.set('categorization', undefined);
     Session.set('findRenter', result);
     Router.go('/show-renterQuary');
   },
