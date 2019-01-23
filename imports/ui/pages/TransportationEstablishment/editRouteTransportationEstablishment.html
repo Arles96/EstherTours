@@ -20,7 +20,7 @@
           {{>afQuickField name="idTransportationEstablishment" value=idTransportationEstablishment }}
           {{>afQuickField name="type" }}
           {{>afQuickField name="department" }}
-          {{>afQuickField name="town" }}
+          {{>afQuickField name="town" firstOption=firstOption options=(municipalities (afFieldValue name="department") ) }}
           {{>afQuickField name="city" }}
           {{>afQuickField name="street" }}
           {{>afQuickField name="description" }}

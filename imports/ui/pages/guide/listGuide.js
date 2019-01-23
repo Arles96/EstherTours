@@ -41,7 +41,8 @@ Template.showButtonsGuide.events({
       title: 'Eliminar Guía',
       text: 'Esta seguro de eliminar este registro.',
       cancelButtonText: 'Cancelar',
-      showCancelButton: true
+      showCancelButton: true,
+      focusCancel: true
     }).then(res => {
       if (res.value) {
         Meteor.call('deleteGuide', id, (error, result) => {
@@ -54,7 +55,7 @@ Template.showButtonsGuide.events({
       }
     });
   },
-  'click .infoGuide': function () {
+  'click .infoGuideModal': function () {
     Session.set('guide', Guide.findOne({ _id: this._id }));
   }
 });

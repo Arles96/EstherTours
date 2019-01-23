@@ -1,12 +1,13 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
-  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator
+  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator, isConsultant
 } from './validations';
 import { Renters } from '../../api/renters/renters';
 import { TransportationEstablishments } from '../../api/TransportationEstablishment/TransportationEstablishment';
 import { Hotels } from '../../api/hotels/hotels';
 import { Restaurants } from '../../api/restaurants/restaurants';
+import { Guide } from '../../api/guide/guide';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -21,6 +22,8 @@ import '../../ui/pages/restaurants/addRestaurant';
 import '../../ui/pages/restaurants/listRestaurants';
 import '../../ui/pages/restaurants/editRestaurant';
 import '../../ui/pages/restaurants/showInfoRestaurant';
+import '../../ui/pages/restaurantConsults/consultRestaurant';
+import '../../ui/pages/restaurantConsults/listRestaurantResults';
 import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
@@ -31,6 +34,8 @@ import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstabli
 import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
 import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/listHotels';
+import '../../ui/pages/hotelQuery/hotelQuery';
+import '../../ui/pages/hotelQuery/showQueryHotel';
 import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
 import '../../ui/pages/hotel/showInfoHotel';
@@ -38,7 +43,14 @@ import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
-import { Guide } from '../../api/guide/guide';
+import '../../ui/pages/findGuide/findGuide';
+import '../../ui/pages/resultGuide/resultGuide';
+import '../../ui/pages/packages/addPackages';
+import '../../ui/pages/packages/listPackages';
+import '../../ui/pages/RenterQuary/findRenters';
+import '../../ui/pages/RenterQuary/showRenters';
+import '../../ui/pages/findTransport/findTransport';
+import '../../ui/pages/resultTransport/resultTransport';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -175,6 +187,16 @@ Router.route('/addRestaurant', {
   }
 });
 
+Router.route('/consult-restaurant', {
+  name: 'consult-restaurant',
+  template: 'consultRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de Restaurante']);
+    isConsultant(this);
+  }
+});
+
 Router.route('/listRestaurants', {
   name: 'listRestaurants',
   template: 'listRestaurants',
@@ -182,6 +204,32 @@ Router.route('/listRestaurants', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Restaurantes']);
     isOperator(this);
+  }
+});
+
+/**
+ * Ruta para mostrar la información de un restaurante seleccionado para el operador
+ */
+Router.route('/show-restaurant/:id', {
+  name: 'showInfoRestaurant',
+  template: 'showInfoRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return Meteor.subscribe('restaurant.one', id);
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const restaurant = Restaurants.findOne({ _id: id });
+    Session.set('idRestaurant', id);
+    listBreadcrumb(['Listar Restaurantes', `Mostrando Información de ${restaurant.name}`]);
+    isLoggedIn2(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      restaurant: Restaurants.findOne({ _id: id })
+    };
   }
 });
 
@@ -211,26 +259,13 @@ Router.route('/edit-restaurant/:id', {
 /**
  * Ruta para mostrar la información de un restaurante seleccionado para el operador
  */
-Router.route('/show-restaurant/:id', {
-  name: 'showInfoRestaurant',
-  template: 'showInfoRestaurant',
+Router.route('/show-restaurantResult', {
+  name: 'listRestaurantResults',
+  template: 'listRestaurantResults',
   layoutTemplate: 'bodyAdmin',
-  waitOn: function () {
-    const { id } = this.params;
-    return Meteor.subscribe('restaurant.one', id);
-  },
   onBeforeAction: function () {
-    const { id } = this.params;
-    const restaurant = Restaurants.findOne({ _id: id });
-    Session.set('idRestaurant', id);
-    listBreadcrumb(['Listar Restaurantes', `Mostrando Información de ${restaurant.name}`]);
-    isOperator(this);
-  },
-  data: function () {
-    const { id } = this.params;
-    return {
-      restaurant: Restaurants.findOne({ _id: id })
-    };
+    listBreadcrumb(['Formulario Consulta Restaurante', 'Resultado Consulta Restaurante']);
+    isConsultant(this);
   }
 });
 
@@ -261,7 +296,33 @@ Router.route('/list-renters', {
 });
 
 /**
- * Ruta para agregar Establecimientos de transporte
+ * Ruta para consulta de Arrendadoras
+ */
+Router.route('/find-renters', {
+  name: 'findRenters',
+  template: 'findRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta Arrendadora']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para mostrar la información dada por el consultor al hacer la contulta de arrendadoras
+ */
+Router.route('/show-renterQuary/', {
+  name: 'showRenters',
+  template: 'showRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Resultado Consulta Arrendadora']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para agregar Establecimientos de trasporte
  */
 Router.route('/add-transportation-establishment', {
   name: 'addTransportationEstablishments',
@@ -302,7 +363,7 @@ Router.route('/show-TransportationEstablishment/:id', {
     const TransportationEstablishment = TransportationEstablishments.findOne({ _id: id });
     Session.set('idTransportationEstablishment', id);
     listBreadcrumb(['Lista de transportes', `Mostrando Información de ${TransportationEstablishment.name}`]);
-    isOperator(this);
+    isLoggedIn2(this);
   },
   data: function () {
     const { id } = this.params;
@@ -400,7 +461,7 @@ Router.route('/show-renter/:id', {
     const renter = Renters.findOne({ _id: id });
     Session.set('idRenter', id);
     listBreadcrumb(['Listar Arrendadoras', `Mostrando Información de ${renter.name}`]);
-    isOperator(this);
+    isLoggedIn2(this);
   },
   data: function () {
     const { id } = this.params;
@@ -463,12 +524,37 @@ Router.route('/show-hotel/:id', {
     const hotel = Hotels.findOne({ _id: id });
     Session.set('idHotel', id);
     listBreadcrumb(['Listar Hoteles', `Mostrando Información de ${hotel.name}`]);
-    isOperator(this);
+    isLoggedIn2(this);
   },
   data: function () {
     const { id } = this.params;
     return {
       hotel: Hotels.findOne({ _id: id })
+    };
+  }
+});
+
+Router.route('/hotel-query', {
+  name: 'hotelQuery',
+  template: 'hotelQuery',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de hoteles']);
+    isConsultant(this);
+  }
+});
+
+Router.route('/show-query-hotel', {
+  name: 'showQueryHotel',
+  template: 'showQueryHotel',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de hoteles']);
+    isConsultant(this);
+  },
+  data: function () {
+    return {
+      hotel: Session.get('hotelQueryDoc').docVals
     };
   }
 });
@@ -503,5 +589,94 @@ Router.route('/edit-guide/:id', {
     return {
       guide: Guide.findOne({ _id: id })
     };
+  }
+});
+
+/**
+ * Ruta para buscar guías
+ */
+Router.route('/find-guide', {
+  name: 'findGuide',
+  template: 'findGuide',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Guía']);
+    isLoggedIn2(this);
+  }
+});
+/**
+* Ruta para mostrar los resultados de la busqueda de guías
+*/
+Router.route('/result-find-guide', {
+  name: 'resultGuide',
+  template: 'resultGuide',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Guía', 'Resultado Consulta Guía']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para el formulario de consultas de establecimientos de transporte
+ */
+Router.route('/find-transport', {
+  name: 'findTransport',
+  template: 'findTransport',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Transporte']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para mostrar los resultados de la busqueda de establecimientos de transporte
+ */
+Router.route('/result-find-transport', {
+  name: 'resultTransport',
+  template: 'resultTransport',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Formulario Consulta Transporte', 'Resultado Consulta Transporte']);
+    isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para agregar paquetes
+ */
+Router.route('/add-packages', {
+  name: 'addPackages',
+  template: 'addPackages',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('RoomHotel.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar Paquetes']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para listar todos los paquetes
+ */
+Router.route('/list-packages', {
+  name: 'listPackages',
+  template: 'listPackages',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de Paquetes']);
+    isOperator(this);
   }
 });

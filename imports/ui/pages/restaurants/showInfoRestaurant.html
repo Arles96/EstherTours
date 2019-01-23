@@ -1,7 +1,7 @@
 <template name="showInfoRestaurant" >
     <div class="card mb-3" >
       <div class="card-header" >
-          <i class="fas fa-home"></i> Mostrando datos de {{restaurant.name}}
+          <i class="fas fa-home"></i> Mostrando datos de <b>{{restaurant.name}}</b>
       </div>
       <div class="card-body">
         <div class="row">
@@ -172,6 +172,16 @@
                 </ul>
               </div>
             </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for=""><b>Menajes:</b></label>
+                <ul>
+                  {{#each menages }}
+                    <li>{{this}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
           {{/with}}
           <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <h4 class="text-center mt-3">Ofertas de {{restaurant.name}}</h4>
@@ -193,7 +203,7 @@
     </div>
     {{>infoRestaurantOffer}}
   </template>
-  
+
   <template name="showButtonRestaurantOffers" >
     <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
       <i style="cursor: pointer;" data-id="{{_id}}" class="infoRestaurantOffer far fa-eye mr-2" data-toggle="modal" data-target="#infoRestaurantOffer" ></i>

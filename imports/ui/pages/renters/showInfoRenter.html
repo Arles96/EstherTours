@@ -1,7 +1,7 @@
 <template name="showInfoRenter" >
   <div class="card mb-3" >
     <div class="card-header" >
-        <i class="fas fa-home"></i> Mostrando datos de {{renter.name}}
+        <i class="fas fa-home"></i> Mostrando datos de <b>{{renter.name}}</b>
     </div>
     <div class="card-body">
       <div class="row">
@@ -101,7 +101,7 @@
           <h4 class="text-center mt-3">Flota de {{renter.name}}</h4>
           {{#if isOperator}}
             <div>
-              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addFleetRenter" >
+              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addRenter" >
                 Agregar
               </button>
             </div>
@@ -115,7 +115,7 @@
       </div>
     </div>
   </div>
-  {{>infoFleetRenter}}
+
 </template>
 
 <template name="showButtonFleetRenters" >

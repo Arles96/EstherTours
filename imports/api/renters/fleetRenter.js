@@ -9,6 +9,21 @@ const FleetRenter = new Mongo.Collection('renterFleet');
 
 SimpleSchema.extendOptions(['autoform']);
 
+const types = [
+  {
+    value: 'Terrestre',
+    label: 'Terrestre'
+  },
+  {
+    value: 'Aérea',
+    label: 'Aérea'
+  },
+  {
+    value: 'Marítima',
+    label: 'Marítima'
+  }
+];
+
 const FleetRenterSchema = new SimpleSchema({
   idRenter: {
     type: String,
@@ -36,7 +51,11 @@ const FleetRenterSchema = new SimpleSchema({
   },
   type: {
     type: String,
-    label: 'Tipo de Flota'
+    label: 'Tipo de Flota',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => types
+    }
   },
   rate: {
     type: Number,

@@ -2,3 +2,4 @@
 /public/vendor/datatables/jquery.dataTables.js
 /public/vendor/jquery-easing/jquery.easing.compatibility.js
 /public/vendor/jquery-easing/jquery.easing.js
+/imports/api/hotels/method.js

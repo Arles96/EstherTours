@@ -32,6 +32,9 @@ const restaurantOffersSchema = new SimpleSchema({
     type: Number,
     label: 'Precio',
     custom: function () {
+      if (!RegExObj.isNumber.test(this.value)) {
+        return 'onlyNumber';
+      }
       if (this.value < 0) {
         return 'lessZero';
       }
