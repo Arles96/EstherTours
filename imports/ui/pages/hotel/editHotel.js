@@ -23,12 +23,6 @@ Template.editHotel.helpers({
   firstOption: () => Session.get('firstOptionMunicipalityEditHotel')
 });
 
-/* Template.editHotel.events({
-  'change .categorization [type=radio]' (event) {
-    Session.set('editHotelCategorization', event.currentTarget.value);
-  }
-}); */
-
 AutoForm.addHooks('editHotelForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha actualizado el registro del hotel exitosamente.');

@@ -7,9 +7,9 @@
       {{#autoForm
         id="editHotelForm"
         schema=HotelSchema
+        doc=hotel
         type="method-update"
         meteormethod="editHotel"
-        doc=hotel
       }}
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -39,7 +39,7 @@
             {{>updateStarHotel}}
           </div>
           {{#if categorization}}
-            {{>afQuickField name="categorization" value=(categorization) }}
+            {{>afQuickField name="categorization" value=categorization }}
           {{/if}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
