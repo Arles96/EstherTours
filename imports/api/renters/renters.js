@@ -5,7 +5,7 @@ import { Mongo } from 'meteor/mongo';
 import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
 import { paymentMethods, money } from '../money/money';
-// import municipalities from '../municipalities/municipality';
+import municipalities from '../municipalities/municipality';
 
 const Renters = new Mongo.Collection('renters');
 
@@ -28,7 +28,11 @@ const RentersSchema = new SimpleSchema({
   municipality: {
     type: String,
     label: 'Municipio',
-    regEx: RegExObj.names
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => municipalities
+    },
+    optional: true
   },
   city: {
     type: String,

@@ -42,13 +42,6 @@ const HotelSchema = new SimpleSchema({
       options: () => departments
     }
   },
-  phone: {
-    type: String,
-    label: 'Teléfono',
-    regEx: RegExObj.isNumber,
-    min: 8,
-    max: 8
-  },
   categorization: {
     type: String,
     label: 'Categorización',
@@ -74,6 +67,15 @@ const HotelSchema = new SimpleSchema({
   'coin.$': {
     type: String,
     label: 'Moneda'
+  },
+  phone: {
+    type: Array,
+    label: 'Teléfono'
+  },
+  'phone.$': {
+    type: Number,
+    label: 'Teléfono',
+    regEx: RegExObj.isNumber
   },
   services: {
     type: Array,
