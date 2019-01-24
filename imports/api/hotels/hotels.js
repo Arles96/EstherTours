@@ -123,7 +123,10 @@ const HotelSchema = new SimpleSchema({
     label: 'Actividad'
   },
   branchOffices: {
-    type: Array
+    type: Array,
+    label: 'Sucursales',
+    minCount: 1,
+    maxCount: 10
   },
   'branchOffices.$': {
     type: branchOfficeSchema,
