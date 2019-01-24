@@ -12,7 +12,6 @@ import { FleetTransportationEstablishment } from '../../../api/TransportationEst
 import { RouteTransportationEstablishment } from '../../../api/TransportationEstablishment/RouteTransportationEstablishment';
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
-import { RateAttraction } from '../../../api/attractions/rateattraction';
 import { Guide } from '../../../api/guide/guide';
 import { Packages } from '../../../api/packages/packages';
 
@@ -512,40 +511,6 @@ TabularTables.AttractionsQuery = new Tabular.Table({
       class: 'text-center',
       createdCell: Meteor.isClient && function showButtonsAttractions (cell, cellData, rowData) {
         return Blaze.renderWithData(Template.showButtonQueryAttractions, {
-          _id: rowData._id,
-          slug: rowData.slug
-        }, cell);
-      }
-    }
-  ]
-});
-
-TabularTables.RateAttraction = new Tabular.Table({
-  name: 'RateAttraction',
-  collection: RateAttraction,
-  responsive: true,
-  autoWidth: false,
-  search: {
-    caseInsesitive: true,
-    smart: true,
-    onEnterOnly: false
-  },
-  extraFields: ['idAttraction'],
-  columns: [
-    {
-      class: 'text-center',
-      data: 'price',
-      title: 'Precio'
-    },
-    {
-      class: 'text-center',
-      data: 'type',
-      title: 'Tipo'
-    },
-    {
-      class: 'text-center',
-      createdCell: Meteor.isClient && function showButtonRateAttraction (cell, cellData, rowData) {
-        return Blaze.renderWithData(Template.showButtonRateAttraction, {
           _id: rowData._id,
           slug: rowData.slug
         }, cell);

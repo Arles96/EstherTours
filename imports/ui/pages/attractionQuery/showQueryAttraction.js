@@ -1,5 +1,4 @@
 import './showQueryAttraction.html';
-import '../../components/addRateAttraction/addRateAttraction';
 import { Session } from 'meteor/session';
 import Swal from 'sweetalert2';
 import toastr from 'toastr';
@@ -36,15 +35,11 @@ Template.showQueryAttraction.onCreated(() => {
 
 Template.showQueryAttraction.helpers({
   selector: function () {
-    console.log(Session.get('attractionQueryDoc'));
     return Session.get('attractionQueryDoc').doc;
   }
 });
 
 Template.showButtonQueryAttractions.events({
-  'click .addRateAttraction': function () {
-    Session.set('idAttraction', this._id);
-  },
   'click .deleteAttraction': function () {
     const id = this._id;
     const attraction = Attractions.findOne({ _id: id });

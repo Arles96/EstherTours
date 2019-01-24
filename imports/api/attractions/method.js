@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { AttractionSchema, Attractions } from './attractions';
-import { RateAttractionSchema, RateAttraction } from './rateattraction';
 import { operator } from '../roles/roles';
 import AttractionQuerySchema from './attractionQuery';
 
@@ -29,35 +28,6 @@ Meteor.methods({
   deleteAttraction: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       Attractions.remove({ _id: id });
-      RateAttraction.remove({ idAttraction: id });
-    } else {
-      throw new Meteor.Error('Permiso Denegado.');
-    }
-  },
-  // Metodos para tarifas
-  addRateAttraction: function (doc) {
-    if (Roles.userIsInRole(Meteor.userId(), operator)) {
-      RateAttractionSchema.validate(doc);
-      RateAttraction.insert(doc);
-    } else {
-      throw new Meteor.Error('Permiso Denegado');
-    }
-  },
-  editRateAttraction: function (doc) {
-    if (Roles.userIsInRole(Meteor.userId(), operator)) {
-      const data = doc.modifier.$set;
-      const { _id } = doc;
-      RateAttractionSchema.validate(data);
-      RateAttraction.update({ _id: _id }, {
-        $set: data
-      });
-    } else {
-      throw new Meteor.Error('Permiso Denegado');
-    }
-  },
-  deleteRateAttraction: function (id) {
-    if (Roles.userIsInRole(Meteor.userId(), operator)) {
-      RateAttraction.remove({ _id: id });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }

@@ -8,7 +8,6 @@
         {{> tabular table=TabularTables.Attractions class="table table-hover table-bordered"}}
       </div>
     </div>
-    {{>addRateAttraction}}
     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
   </div>
 </template>
@@ -20,9 +19,6 @@
   <a style="text-decoration: none;" href="/edit-attraction/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
     <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
   </a>
-  <span data-toggle="tooltip" data-placement="top" title="Agregar tarifa" >
-      <i style="cursor: pointer;" data-id="{{_id}}" class="addRateAttraction fas fa-money-check mr-2" data-toggle="modal" data-target="#addRateAttraction"></i>
-  </span>
   <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
     <i style="cursor: pointer;" data-id="{{_id}}" class="deleteAttraction far fa-trash-alt"></i>
   </span>

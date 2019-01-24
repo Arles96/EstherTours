@@ -1,12 +1,5 @@
 import './showInfoAttraction.html';
-import '../../components/addRateAttraction/addRateAttraction';
-import '../../components/infoRateAttraction/infoRateAttraction';
-import './editRateAttraction';
-import toastr from 'toastr';
-import Swal from 'sweetalert2';
-import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
-import { RateAttraction } from '../../../api/attractions/rateattraction';
 
 Template.showInfoAttraction.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -35,32 +28,6 @@ Template.showInfoAttraction.onCreated(() => {
       }
     }
   });
-});
-
-Template.showButtonRateAttraction.events({
-  'click .deleteRateAttraction': function () {
-    const id = this._id;
-    Swal({
-      title: 'Eliminar Tarifa',
-      text: 'Esta seguro de eliminar este registro.',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      focusCancel: true
-    }).then(res => {
-      if (res.value) {
-        Meteor.call('deleteRateAttraction', id, (error, result) => {
-          if (error) {
-            toastr.error('Error al eliminar el registro.');
-          } else {
-            toastr.success('Se eliminó el registro exitósamente.');
-          }
-        });
-      }
-    });
-  },
-  'click .infoRateAttraction': function () {
-    Session.set('rateAttraction', RateAttraction.findOne({ _id: this._id }));
-  }
 });
 
 Template.showInfoAttraction.helpers({

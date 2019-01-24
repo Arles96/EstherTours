@@ -1,5 +1,4 @@
 import './listAttractions.html';
-import '../../components/addRateAttraction/addRateAttraction';
 import { Session } from 'meteor/session';
 import toastr from 'toastr';
 import { Meteor } from 'meteor/meteor';
@@ -36,9 +35,6 @@ Template.listAttractions.onCreated(() => {
 });
 
 Template.showButtonAttractions.events({
-  'click .addRateAttraction': function () {
-    Session.set('idAttraction', this._id);
-  },
   'click .deleteAttraction': function () {
     const id = this._id;
     const attraction = Attractions.findOne({ _id: id });
