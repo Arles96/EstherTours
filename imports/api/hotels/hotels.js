@@ -63,6 +63,14 @@ const HotelSchema = new SimpleSchema({
       }
     }
   },
+  contact: {
+    type: Array,
+    label: 'Contactos'
+  },
+  'contact.$': {
+    type: String,
+    label: 'Contactos'
+  },
   coin: {
     type: Array,
     label: 'Monedas aceptadas',
