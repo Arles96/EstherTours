@@ -53,6 +53,10 @@ Meteor.methods({
       const arr = query.menages.map(Element => new RegExp(`.*${Element}.*`, 'i'));
       query.menages = { $in: arr };
     }
+    if (query.telephone) {
+      const arr = query.telephone.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      query.telephone = { $in: arr };
+    }
     if (query.ambience) {
       const arr = query.ambience.map(Element => new RegExp(`.*${Element}.*`, 'i'));
       query.ambience = { $in: arr };
