@@ -10,8 +10,6 @@ SimpleSchema.extendOptions(['autoform']);
 
 const Attractions = new Mongo.Collection('attractions');
 
-// TODO fix mostrar guia, editar
-
 const AttractionSchema = new SimpleSchema({
   name: {
     type: String,

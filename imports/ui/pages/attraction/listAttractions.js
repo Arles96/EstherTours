@@ -1,8 +1,4 @@
 import './listAttractions.html';
-import toastr from 'toastr';
-import { Meteor } from 'meteor/meteor';
-import Swal from 'sweetalert2';
-import { Attractions } from '../../../api/attractions/attractions';
 
 Template.listAttractions.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -34,25 +30,4 @@ Template.listAttractions.onCreated(() => {
 });
 
 Template.showButtonAttractions.events({
-  'click .deleteAttraction': function () {
-    const id = this._id;
-    const attraction = Attractions.findOne({ _id: id });
-    Swal({
-      title: 'Eliminar Registro de Attraction',
-      text: `Esta seguro de eliminar este registro de ${attraction.name}`,
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      focusCancel: true
-    }).then(res => {
-      if (res.value) {
-        Meteor.call('deleteAttraction', id, (error, result) => {
-          if (error) {
-            toastr.error('Error al eliminar el registro.');
-          } else {
-            toastr.success('Se ha eliminado el registro.');
-          }
-        });
-      }
-    });
-  }
 });

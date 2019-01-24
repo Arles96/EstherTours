@@ -47,7 +47,6 @@ import '../../ui/pages/attraction/listAttractions';
 import '../../ui/pages/attractionQuery/attractionQuery';
 import '../../ui/pages/attractionQuery/showQueryAttraction';
 import '../../ui/pages/attraction/showInfoAttraction';
-import '../../ui/pages/attraction/editAttraction';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
@@ -610,30 +609,6 @@ Router.route('/list-attractions', {
   onBeforeAction: function () {
     listBreadcrumb(['Listar Atracciones']);
     isOperator(this);
-  }
-});
-
-/**
- * Ruta de actualizar los datos de una atraccion
- */
-Router.route('/edit-attraction/:id', {
-  name: 'editAttraction',
-  template: 'editAttraction',
-  layoutTemplate: 'bodyAdmin',
-  waitOn: function () {
-    const { id } = this.params;
-    return Meteor.subscribe('attraction.one', id);
-  },
-  onBeforeAction: function () {
-    listBreadcrumb(['Listar Atracciones', 'Actualizando información de atraccion']);
-    Session.set('editAttractionCategorization', undefined);
-    isOperator(this);
-  },
-  data: function () {
-    const { id } = this.params;
-    return {
-      attraction: Attractions.findOne({ _id: id })
-    };
   }
 });
 

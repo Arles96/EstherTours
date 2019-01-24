@@ -441,11 +441,6 @@ TabularTables.Attractions = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'guide',
-      title: 'Guia'
-    },
-    {
-      class: 'text-center',
       data: 'street',
       title: 'Calle'
     },
@@ -501,11 +496,6 @@ TabularTables.AttractionsQuery = new Tabular.Table({
       class: 'text-center',
       data: 'price',
       title: 'Costo'
-    },
-    {
-      class: 'text-center',
-      data: 'guide',
-      title: 'Guia'
     },
     {
       class: 'text-center',

@@ -13,103 +13,75 @@ Meteor.methods({
       throw new Meteor.Error('Permiso Denegado');
     }
   },
-  editAttraction: function (doc) {
-    if (Roles.userIsInRole(Meteor.userId(), operator)) {
-      const data = doc.modifier.$set;
-      const { _id } = doc;
-      AttractionSchema.validate(data);
-      Attractions.update({ _id: _id }, {
-        $set: data
-      });
-    } else {
-      throw new Meteor.Error('Permiso Denegado');
-    }
-  },
-  deleteAttraction: function (id) {
-    if (Roles.userIsInRole(Meteor.userId(), operator)) {
-      Attractions.remove({ _id: id });
-    } else {
-      throw new Meteor.Error('Permiso Denegado.');
-    }
-  },
   findAttraction: function (doc) {
+    const cDoc = doc;
     AttractionQuerySchema.validate(doc);
     const docVals = JSON.parse(JSON.stringify(doc));
-    // if (Roles.userIsInRole(Meteor.userId(), operator)) {
-    // Attractions.find(doc);
-    if (doc.name) {
-      doc.name = new RegExp(`.*${doc.name}.*`, 'i');
+
+    if (cDoc.name) {
+      cDoc.name = new RegExp(`.*${cDoc.name}.*`, 'i');
     } else {
       docVals.name = 'No definido.';
     }
 
-    if (doc.street) {
-      doc.street = new RegExp(`.*${doc.street}.*`, 'i');
+    if (cDoc.type) {
+      cDoc.type = new RegExp(`.*${cDoc.type}.*`, 'i');
+    } else {
+      docVals.type = 'No definido.';
+    }
+
+    if (cDoc.price) {
+      cDoc.price = new RegExp(`.*${cDoc.price}.*`, 'i');
+    } else {
+      docVals.price = 'No definido.';
+    }
+
+    if (cDoc.guide) {
+      cDoc.guide = new RegExp(`.*${cDoc.guide}.*`, 'i');
+    } else {
+      docVals.guide = 'No definido.';
+    }
+
+    if (cDoc.street) {
+      cDoc.street = new RegExp(`.*${cDoc.street}.*`, 'i');
     } else {
       docVals.street = 'No definido.';
     }
 
-    if (doc.city) {
-      doc.city = new RegExp(`.*${doc.city}.*`, 'i');
+    if (cDoc.city) {
+      cDoc.city = new RegExp(`.*${cDoc.city}.*`, 'i');
     } else {
       docVals.city = 'No definido.';
     }
 
-    if (doc.municipality) {
-      doc.municipality = new RegExp(`.*${doc.municipality}.*`, 'i');
+    if (cDoc.municipality) {
+      cDoc.municipality = new RegExp(`.*${cDoc.municipality}.*`, 'i');
     } else {
       docVals.municipality = 'No definido.';
     }
 
-    if (!doc.departament) {
+    if (!cDoc.departament) {
       docVals.departament = 'No definido.';
     }
 
-    if (!doc.phone) {
-      docVals.phone = 'No definido.';
-    }
-
-    if (!doc.categorization) {
+    if (!cDoc.categorization) {
       docVals.categorization = 'No definido.';
     } else {
       docVals.categorization += (docVals.categorization === '1') ? ' estrella' : ' estrellas';
     }
 
-    if (doc.coin) {
-      doc.coin = { $in: doc.coin };
+    if (cDoc.coin) {
+      cDoc.coin = { $in: cDoc.coin };
     } else {
       docVals.coin = ['No definido.'];
     }
 
-    if (doc.services) {
-      const arr = doc.services.map(Element => new RegExp(`.*${Element}.*`, 'i'));
-      doc.services = { $in: arr };
-    } else {
-      docVals.services = ['No definido.'];
-    }
-
-    if (doc.paymentsMethod) {
-      doc.paymentsMethod = { $in: doc.paymentsMethod };
+    if (cDoc.paymentsMethod) {
+      cDoc.paymentsMethod = { $in: cDoc.paymentsMethod };
     } else {
       docVals.paymentsMethod = ['No definido.'];
     }
 
-    if (doc.informationsAB) {
-      const arr = doc.informationsAB.map(Element => new RegExp(`.*${Element}.*`, 'i'));
-      doc.informationsAB = { $in: arr };
-    } else {
-      docVals.informationsAB = ['No definido.'];
-    }
-
-    if (doc.activities) {
-      const arr = doc.activities.map(Element => new RegExp(`.*${Element}.*`, 'i'));
-      doc.activities = { $in: arr };
-    } else {
-      docVals.activities = ['No definido.'];
-    }
-
-    console.log('method attractions', { doc, docVals });
-    return { doc, docVals };
+    return { doc: cDoc, docVals: docVals };
   }
-
 });
