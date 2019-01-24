@@ -1,5 +1,4 @@
 import './listAttractions.html';
-import { Session } from 'meteor/session';
 import toastr from 'toastr';
 import { Meteor } from 'meteor/meteor';
 import Swal from 'sweetalert2';

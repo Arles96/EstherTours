@@ -594,6 +594,9 @@ Router.route('/add-attractions', {
     listBreadcrumb(['Agregar atracciones']);
     Session.set('attractionCategorization', undefined);
     isOperator(this);
+  },
+  waitOn: function () {
+    return [Meteor.subscribe('guide.all')];
   }
 });
 

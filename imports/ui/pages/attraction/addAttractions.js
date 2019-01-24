@@ -3,6 +3,7 @@ import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { AttractionSchema } from '../../../api/attractions/attractions';
 import municipalities from '../../../api/municipalities/municipality';
+import { Guide } from '../../../api/guide/guide';
 
 Template.addAttractions.helpers({
   AttractionSchema: () => AttractionSchema,
@@ -16,6 +17,10 @@ Template.addAttractions.helpers({
       return [];
     }
   },
+  data: () => Guide.find().map(doc => ({
+    value: doc._id,
+    label: doc.name
+  })),
   firstOption: () => Session.get('firstOptionMunicipalityAttraction')
 });
 

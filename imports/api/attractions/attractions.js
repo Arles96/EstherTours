@@ -10,12 +10,7 @@ SimpleSchema.extendOptions(['autoform']);
 
 const Attractions = new Mongo.Collection('attractions');
 
-// TODO
-// X | nombre
-// X | ubicacion
-// X | tipo
-// X | costo visita
-// 0 | guia
+// TODO fix mostrar guia, editar
 
 const AttractionSchema = new SimpleSchema({
   name: {
@@ -29,6 +24,13 @@ const AttractionSchema = new SimpleSchema({
   price: {
     type: Number,
     label: 'Costo de visita'
+  },
+  guide: {
+    type: String,
+    label: 'Guia',
+    autoform: {
+      firstOption: '(Seleccione Uno)'
+    }
   },
   street: {
     type: String,

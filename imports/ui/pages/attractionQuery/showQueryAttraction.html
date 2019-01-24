@@ -6,14 +6,38 @@
     <div class="card-body">
       <div class="row">
         {{#with attraction}}
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          <div class="form-group">
-            <label for="">
-              <b>Nombre:</b>
-              {{name}}
-            </label>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Nombre:</b>
+                {{name}}
+              </label>
+            </div>
           </div>
-        </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Tipo de atraccion:</b>
+                {{type}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Costo:</b>
+                {{price}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Guia:</b>
+                {{guide}}
+              </label>
+            </div>
+          </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
@@ -49,14 +73,6 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
-                <b>Teléfono:</b>
-                {{phone}}
-              </label>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
                 <b>Categorización:</b>
               </label>
               <p>{{categorization}}</p>
@@ -77,18 +93,6 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
-                <b>Servicios:</b>
-              </label>
-              <ul>
-                {{#each services}}
-                  <li>{{this}}</li>
-                {{/each}}
-              </ul>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
                 <b>Métodos de Pago:</b>
               </label>
               <ul>
@@ -98,32 +102,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
-                <b>Información A y B:</b>
-              </label>
-              <ul>
-                {{#each informationsAB }}
-                  <li>{{this}}</li>
-                {{/each}}
-              </ul>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
-                <b>Actividades:</b>
-              </label>
-              <ul>
-                {{#each activities }}
-                  <li>{{this}}</li>
-                {{/each}}
-              </ul>
-            </div>
-          </div>
         {{/with}}
-
       </div>
     </div>
   </div>

@@ -23,6 +23,14 @@ const AttractionQuerySchema = new SimpleSchema({
     label: 'Costo de visita',
     optional: true
   },
+  guide: {
+    type: String,
+    label: 'Guia',
+    autoform: {
+      firstOption: '(Seleccione Uno)'
+    },
+    optional: true
+  },
   street: {
     type: String,
     label: 'Calle',
