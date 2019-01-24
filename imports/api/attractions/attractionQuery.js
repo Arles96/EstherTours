@@ -13,10 +13,15 @@ const AttractionQuerySchema = new SimpleSchema({
     label: 'Nombre',
     optional: true
   },
-  email: {
+  type: {
     type: String,
-    optional: true,
-    label: 'Correo (Opcional)'
+    label: 'Tipo de atraccion',
+    optional: true
+  },
+  price: {
+    type: Number,
+    label: 'Costo de visita',
+    optional: true
   },
   street: {
     type: String,
@@ -42,14 +47,6 @@ const AttractionQuerySchema = new SimpleSchema({
       firstOption: '(Seleccione Uno)',
       options: () => departments
     },
-    optional: true
-  },
-  phone: {
-    type: String,
-    label: 'Teléfono',
-    regEx: RegExObj.isNumber,
-    min: 8,
-    max: 8,
     optional: true
   },
   categorization: {
@@ -81,16 +78,6 @@ const AttractionQuerySchema = new SimpleSchema({
     label: 'Moneda',
     optional: true
   },
-  services: {
-    type: Array,
-    label: 'Servicios',
-    optional: true
-  },
-  'services.$': {
-    type: String,
-    label: 'Servicios',
-    optional: true
-  },
   paymentsMethod: {
     type: Array,
     label: 'Metodos de pago',
@@ -103,26 +90,6 @@ const AttractionQuerySchema = new SimpleSchema({
   'paymentsMethod.$': {
     type: String,
     label: 'Metodos de pago',
-    optional: true
-  },
-  informationsAB: {
-    type: Array,
-    label: 'Información A y B',
-    optional: true
-  },
-  'informationsAB.$': {
-    type: String,
-    label: 'Información A y B',
-    optional: true
-  },
-  activities: {
-    type: Array,
-    label: 'Actividades',
-    optional: true
-  },
-  'activities.$': {
-    type: String,
-    label: 'Actividad',
     optional: true
   }
 }, { check: check, tracker: Tracker });

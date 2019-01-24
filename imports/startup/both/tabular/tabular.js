@@ -431,6 +431,16 @@ TabularTables.Attractions = new Tabular.Table({
     },
     {
       class: 'text-center',
+      data: 'type',
+      title: 'Tipo'
+    },
+    {
+      class: 'text-center',
+      data: 'price',
+      title: 'Costo'
+    },
+    {
+      class: 'text-center',
       data: 'street',
       title: 'Calle'
     },
@@ -448,11 +458,6 @@ TabularTables.Attractions = new Tabular.Table({
       class: 'text-center',
       data: 'departament',
       title: 'Departamento'
-    },
-    {
-      class: 'text-center',
-      data: 'phone',
-      title: 'Teléfono'
     },
     {
       class: 'text-center',
@@ -484,6 +489,16 @@ TabularTables.AttractionsQuery = new Tabular.Table({
     },
     {
       class: 'text-center',
+      data: 'type',
+      title: 'Tipo'
+    },
+    {
+      class: 'text-center',
+      data: 'price',
+      title: 'Costo'
+    },
+    {
+      class: 'text-center',
       data: 'street',
       title: 'Calle'
     },
@@ -501,11 +516,6 @@ TabularTables.AttractionsQuery = new Tabular.Table({
       class: 'text-center',
       data: 'departament',
       title: 'Departamento'
-    },
-    {
-      class: 'text-center',
-      data: 'phone',
-      title: 'Teléfono'
     },
     {
       class: 'text-center',

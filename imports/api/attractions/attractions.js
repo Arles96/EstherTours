@@ -10,15 +10,25 @@ SimpleSchema.extendOptions(['autoform']);
 
 const Attractions = new Mongo.Collection('attractions');
 
+// TODO
+// X | nombre
+// X | ubicacion
+// X | tipo
+// X | costo visita
+// 0 | guia
+
 const AttractionSchema = new SimpleSchema({
   name: {
     type: String,
     label: 'Nombre'
   },
-  email: {
+  type: {
     type: String,
-    optional: true,
-    label: 'Correo (Opcional)'
+    label: 'Tipo de atraccion'
+  },
+  price: {
+    type: Number,
+    label: 'Costo de visita'
   },
   street: {
     type: String,
@@ -41,13 +51,6 @@ const AttractionSchema = new SimpleSchema({
       firstOption: '(Seleccione Uno)',
       options: () => departments
     }
-  },
-  phone: {
-    type: String,
-    label: 'Teléfono',
-    regEx: RegExObj.isNumber,
-    min: 8,
-    max: 8
   },
   categorization: {
     type: String,
@@ -75,14 +78,6 @@ const AttractionSchema = new SimpleSchema({
     type: String,
     label: 'Moneda'
   },
-  services: {
-    type: Array,
-    label: 'Servicios'
-  },
-  'services.$': {
-    type: String,
-    label: 'Servicios'
-  },
   paymentsMethod: {
     type: Array,
     label: 'Metodos de pago',
@@ -94,22 +89,6 @@ const AttractionSchema = new SimpleSchema({
   'paymentsMethod.$': {
     type: String,
     label: 'Metodos de pago'
-  },
-  informationsAB: {
-    type: Array,
-    label: 'Información A y B'
-  },
-  'informationsAB.$': {
-    type: String,
-    label: 'Información A y B'
-  },
-  activities: {
-    type: Array,
-    label: 'Actividades'
-  },
-  'activities.$': {
-    type: String,
-    label: 'Actividad'
   }
 }, { check: check, tracker: Tracker });
 

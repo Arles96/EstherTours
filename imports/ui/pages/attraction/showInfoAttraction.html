@@ -9,12 +9,16 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
-                <b>Correo:</b>
-                {{#if email}}
-                  {{email}}
-                {{else}}
-                  No posee
-                {{/if}}
+                <b>Tipo de atraccion:</b>
+                {{type}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Costo:</b>
+                {{price}}
               </label>
             </div>
           </div>
@@ -53,14 +57,6 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
-                <b>Teléfono:</b>
-                {{phone}}
-              </label>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
                 <b>Categorización:</b>
               </label>
               <p>{{categorization}} estrellas </p>
@@ -81,46 +77,10 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
-                <b>Servicios:</b>
-              </label>
-              <ul>
-                {{#each services}}
-                  <li>{{this}}</li>
-                {{/each}}
-              </ul>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
                 <b>Métodos de Pago:</b>
               </label>
               <ul>
                 {{#each paymentsMethod}}
-                  <li>{{this}}</li>
-                {{/each}}
-              </ul>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
-                <b>Información A y B:</b>
-              </label>
-              <ul>
-                {{#each informationsAB }}
-                  <li>{{this}}</li>
-                {{/each}}
-              </ul>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
-                <b>Actividades:</b>
-              </label>
-              <ul>
-                {{#each activities }}
                   <li>{{this}}</li>
                 {{/each}}
               </ul>

@@ -32,7 +32,6 @@ Template.showInfoAttraction.onCreated(() => {
 
 Template.showInfoAttraction.helpers({
   selector: function () {
-    console.log({ idAttraction: Session.get('idAttraction') });
     return { idAttraction: Session.get('idAttraction') };
   }
 });
