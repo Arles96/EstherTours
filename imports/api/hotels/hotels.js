@@ -8,6 +8,17 @@ import { paymentMethods, money } from '../money/money';
 
 SimpleSchema.extendOptions(['autoform']);
 
+const branchOfficeSchema = new SimpleSchema({
+  departament: {
+    type: String,
+    label: 'Departamento'
+  },
+  municipality: {
+    type: String,
+    label: 'Municipio'
+  }
+});
+
 const Hotels = new Mongo.Collection('hotels');
 
 const HotelSchema = new SimpleSchema({
@@ -110,6 +121,13 @@ const HotelSchema = new SimpleSchema({
   'activities.$': {
     type: String,
     label: 'Actividad'
+  },
+  branchOffices: {
+    type: Array
+  },
+  'branchOffices.$': {
+    type: branchOfficeSchema,
+    label: 'Sucursal'
   }
 }, { check: check, tracker: Tracker });
 
