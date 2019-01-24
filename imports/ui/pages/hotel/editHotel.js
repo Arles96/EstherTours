@@ -7,6 +7,10 @@ import municipalities from '../../../api/municipalities/municipality';
 Template.editHotel.helpers({
   HotelSchema: () => HotelSchema,
   categorization: () => Session.get('editHotelCategorization'),
+  labelCategortization: function (categorization) {
+    Session.set('editHotelCategorization', categorization);
+    return 'Categorización';
+  },
   municipalities: department => {
     if (department) {
       Session.set('firstOptionMunicipalityEditHotel', '(Seleccione uno)');
@@ -19,11 +23,11 @@ Template.editHotel.helpers({
   firstOption: () => Session.get('firstOptionMunicipalityEditHotel')
 });
 
-Template.editHotel.events({
+/* Template.editHotel.events({
   'change .categorization [type=radio]' (event) {
     Session.set('editHotelCategorization', event.currentTarget.value);
   }
-});
+}); */
 
 AutoForm.addHooks('editHotelForm', {
   onSuccess: function (formtype, result) {
@@ -32,5 +36,43 @@ AutoForm.addHooks('editHotelForm', {
   },
   onError: function (formtype, error) {
     toastr.error(error);
+  }
+});
+
+Template.updateStarHotel.helpers({
+  list: () => {
+    const list = [];
+    for (let index = 1; index <= 5; index += 1) {
+      if (index <= parseInt(Session.get('editHotelCategorization'), 10)) {
+        list.push({
+          class: 'fas fa-star colorOrange',
+          id: `start${index}`
+        });
+      } else {
+        list.push({
+          class: 'fas fa-star',
+          id: `start${index}`
+        });
+      }
+    }
+    return list;
+  }
+});
+
+Template.updateStarHotel.events({
+  'click #start1': function () {
+    Session.set('editHotelCategorization', '1');
+  },
+  'click #start2': function () {
+    Session.set('editHotelCategorization', '2');
+  },
+  'click #start3': function () {
+    Session.set('editHotelCategorization', '3');
+  },
+  'click #start4': function () {
+    Session.set('editHotelCategorization', '4');
+  },
+  'click #start5': function () {
+    Session.set('editHotelCategorization', '5');
   }
 });
