@@ -75,11 +75,13 @@ const GuideSchema = new SimpleSchema({
     }
   },
   telephone: {
-    type: String,
+    type: Array,
+    label: 'Teléfono'
+  },
+  'telephone.$': {
+    type: Number,
     label: 'Teléfono',
-    regEx: RegExObj.isNumber,
-    min: 8,
-    max: 8
+    regEx: RegExObj.isNumber
   },
   categorization: {
     type: String,
