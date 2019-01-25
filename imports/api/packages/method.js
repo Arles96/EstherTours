@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import { Session } from 'meteor/session';
 import { Packages, PackagesSchema } from './packages';
 import PackagesSchemaConsult from './packageConsult';
 import convertArrayOfObjectsToCSV from '../../startup/server/export';
@@ -30,9 +29,7 @@ Meteor.methods({
     }
     return { doc, query };
   },
-  exportToCSV: function () {
-    const csv = `data:text/csv;charset=utf-8,
-            ${convertArrayOfObjectsToCSV({ data: Session.get('listPackages') })}`;
-    return csv;
+  exportToCSV: function (data) {
+    return convertArrayOfObjectsToCSV(data);
   }
 });

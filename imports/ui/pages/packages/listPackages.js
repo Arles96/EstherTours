@@ -1,6 +1,7 @@
 import './listPackages.html';
 import Swal from 'sweetalert2';
 import toastr from 'toastr';
+import { Session } from 'meteor/session';
 
 Template.listPackages.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -40,18 +41,27 @@ Template.listPackages.events({
       showCancelButton: true
     }).then(res => {
       if (res.value) {
-        Meteor.call('exportToCSV', (error, result) => {
+        // Obtener Session
+        console.log(Session);
+        const ses = { data: Session.get('listPackages') };
+        console.log(ses);
+
+        // Formatear en serverSide
+        Meteor.call('exportToCSV', ses, (error, result) => {
           if (error) {
             toastr.error('Error al exportar a Excel.');
           } else {
+            // Descargar
+            const csv = `data:text/csv;charset=utf-8,
+                ${result}`;
             const filename = 'Paquetes.csv';
-            const data = encodeURI(result);
+            const data = encodeURI(csv);
             const link = document.createElement('a');
             link.setAttribute('href', data);
             link.setAttribute('download', filename);
             link.click();
-            console.log(result);
-            toastr.success('Se ha exportada a Excel exitosamente.');
+            console.log(csv);
+            toastr.success('Se ha exportado a Excel exitosamente.');
           }
         });
       }
