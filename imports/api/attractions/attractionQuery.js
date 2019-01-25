@@ -57,21 +57,6 @@ const AttractionQuerySchema = new SimpleSchema({
     },
     optional: true
   },
-  categorization: {
-    type: String,
-    label: 'Categorización',
-    autoform: {
-      readonly: true,
-      omit: true,
-      afFieldInput: {
-        type: 'hidden'
-      },
-      afFormGroup: {
-        label: false
-      }
-    },
-    optional: true
-  },
   coin: {
     type: Array,
     label: 'Monedas aceptadas',

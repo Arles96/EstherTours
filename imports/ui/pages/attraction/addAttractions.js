@@ -7,7 +7,6 @@ import { Guide } from '../../../api/guide/guide';
 
 Template.addAttractions.helpers({
   AttractionSchema: () => AttractionSchema,
-  categorization: () => Session.get('attractionCategorization'),
   municipalities: department => {
     if (department) {
       Session.set('firstOptionMunicipalityAttraction', '(Seleccione uno)');
@@ -25,9 +24,6 @@ Template.addAttractions.helpers({
 });
 
 Template.addAttractions.events({
-  'change .categorization [type=radio]' (event) {
-    Session.set('attractionCategorization', event.currentTarget.value);
-  }
 });
 
 AutoForm.addHooks('addAttractionsForm', {

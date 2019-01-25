@@ -591,7 +591,6 @@ Router.route('/add-attractions', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar atracciones']);
-    Session.set('attractionCategorization', undefined);
     isOperator(this);
   },
   waitOn: function () {
