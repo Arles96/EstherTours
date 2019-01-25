@@ -44,14 +44,12 @@ Template.listPackages.events({
           if (error) {
             toastr.error('Error al exportar a Excel.');
           } else {
-            // const filename = 'Reporte Consultas.result';
-            // const data = encodeURI(result);
-            /*
+            const filename = 'Paquetes.csv';
+            const data = encodeURI(result);
             const link = document.createElement('a');
             link.setAttribute('href', data);
             link.setAttribute('download', filename);
             link.click();
-            */
             console.log(result);
             toastr.success('Se ha exportada a Excel exitosamente.');
           }

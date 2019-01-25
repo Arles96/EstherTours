@@ -30,6 +30,7 @@ function convertArrayOfObjectsToCSV (args) {
     });
     result += lineDelimiter;
   });
+  console.log('result');
   console.log(result);
   return result;
 }

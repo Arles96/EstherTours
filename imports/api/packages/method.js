@@ -32,7 +32,7 @@ Meteor.methods({
   },
   exportToCSV: function () {
     const csv = `data:text/csv;charset=utf-8,
-            ${convertArrayOfObjectsToCSV({ data: () => Session.get('listPackages') })}`;
+            ${convertArrayOfObjectsToCSV({ data: Session.get('listPackages') })}`;
     return csv;
   }
 });
