@@ -31,6 +31,36 @@ Template.listPackages.onCreated(() => {
   });
 });
 
+Template.listPackages.events({
+  'click .export-csv': function () {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: `¿Está seguro de exportar los paquetes a Excel?`,
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('exportToCSV', (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            // const filename = 'Reporte Consultas.result';
+            // const data = encodeURI(result);
+            /*
+            const link = document.createElement('a');
+            link.setAttribute('href', data);
+            link.setAttribute('download', filename);
+            link.click();
+            */
+            console.log(result);
+            toastr.success('Se ha exportada a Excel exitosamente.');
+          }
+        });
+      }
+    });
+  }
+});
+
 Template.showButtonPackages.events({
   'click .deletePackages': function () {
     const id = this._id;
