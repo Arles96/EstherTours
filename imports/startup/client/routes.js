@@ -643,7 +643,6 @@ Router.route('/attraction-query', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Consulta de Atracciones']);
-    Session.set('attractionQCategorization', undefined);
     isConsultant(this);
   }
 });
