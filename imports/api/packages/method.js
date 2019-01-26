@@ -29,7 +29,7 @@ Meteor.methods({
     }
     return { doc, query };
   },
-  exportToCSV: function (data) {
-    return convertArrayOfObjectsToCSV(data);
+  exportAllToCSV: function () {
+    return convertArrayOfObjectsToCSV({ data: Packages.find().fetch() });
   }
 });
