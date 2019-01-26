@@ -18,6 +18,12 @@ const AttractionQuerySchema = new SimpleSchema({
     label: 'Tipo de atraccion',
     optional: true
   },
+  website: {
+    type: String,
+    label: 'Sitio web',
+    regEx: RegExObj.website,
+    optional: true
+  },
   price: {
     type: Number,
     label: 'Costo de visita',

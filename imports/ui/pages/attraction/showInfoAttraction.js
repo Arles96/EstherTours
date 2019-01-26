@@ -35,5 +35,11 @@ Template.showInfoAttraction.helpers({
   selector: function () {
     return { idAttraction: Session.get('idAttraction') };
   },
-  guideInfo: guide => Guide.findOne({ _id: guide }).name
+  guideInfo: guide => Guide.findOne({ _id: guide }).name,
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
+  }
 });
