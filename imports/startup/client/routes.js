@@ -620,7 +620,7 @@ Router.route('/show-attraction/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('attraction.one', id);
+    return [Meteor.subscribe('attraction.one', id), Meteor.subscribe('guide.all')];
   },
   onBeforeAction: function () {
     const { id } = this.params;
@@ -644,6 +644,9 @@ Router.route('/attraction-query', {
   onBeforeAction: function () {
     listBreadcrumb(['Consulta de Atracciones']);
     isConsultant(this);
+  },
+  waitOn: function () {
+    return [Meteor.subscribe('guide.all')];
   }
 });
 
@@ -659,6 +662,9 @@ Router.route('/show-query-attraction', {
     return {
       attraction: Session.get('attractionQueryDoc').docVals
     };
+  },
+  waitOn: function () {
+    return [Meteor.subscribe('guide.all')];
   }
 });
 

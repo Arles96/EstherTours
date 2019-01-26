@@ -1,5 +1,6 @@
 import './showQueryAttraction.html';
 import { Session } from 'meteor/session';
+import { Guide } from '../../../api/guide/guide';
 
 Template.showQueryAttraction.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -33,7 +34,8 @@ Template.showQueryAttraction.onCreated(() => {
 Template.showQueryAttraction.helpers({
   selector: function () {
     return Session.get('attractionQueryDoc').doc;
-  }
+  },
+  guideInfo: guide => Guide.findOne({ _id: guide }).name
 });
 
 Template.showButtonQueryAttractions.events({
