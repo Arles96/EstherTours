@@ -627,7 +627,7 @@ Router.route('/show-attraction/:id', {
     const { id } = this.params;
     const attraction = Attractions.findOne({ _id: id });
     Session.set('idAttraction', id);
-    listBreadcrumb(['Listar Attraciones', `Mostrando Información de ${attraction.name}`]);
+    listBreadcrumb(['Listar Atracciones', `Mostrando Información de ${attraction.name}`]);
     isLoggedIn2(this);
   },
   data: function () {
