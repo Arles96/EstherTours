@@ -64,6 +64,12 @@ Meteor.methods({
       docVals.departament = 'No definido.';
     }
 
+    if (!cDoc.categorization) {
+      docVals.categorization = 'No definido.';
+    } else {
+      docVals.categorization += (docVals.categorization === '1') ? ' estrella' : ' estrellas';
+    }
+
     if (cDoc.coin) {
       cDoc.coin = { $in: cDoc.coin };
     } else {

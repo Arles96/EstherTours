@@ -7,6 +7,7 @@ import { Guide } from '../../../api/guide/guide';
 
 Template.attractionQuery.helpers({
   AttractionQuerySchema: () => AttractionQuerySchema,
+  categorization: () => Session.get('attractionQCategorization'),
   municipalities: department => {
     if (department) {
       Session.set('firstOptionMunicipalityAttractionQ', '(Seleccione uno)');
@@ -24,10 +25,14 @@ Template.attractionQuery.helpers({
 });
 
 Template.attractionQuery.events({
+  'change .categorization [type=radio]' (event) {
+    Session.set('attractionQCategorization', event.currentTarget.value);
+  }
 });
 
 AutoForm.addHooks('attractionQueryForm', {
   onSuccess: function (formtype, result) {
+    Session.set('attractionQCategorization', undefined);
     Session.set('attractionQueryDoc', result);
     Router.go('/show-query-attraction');
   },
