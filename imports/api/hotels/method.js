@@ -97,6 +97,12 @@ Meteor.methods({
     var docVals = JSON.parse(JSON.stringify(doc));
     // if (Roles.userIsInRole(Meteor.userId(), operator)) {
     // Hotels.find(doc);
+    if (doc.website) {
+      doc.website = new RegExp(`.*${doc.website}.*`, 'i');
+    } else {
+      docVals.website = 'No definido.';
+    }
+
     if (doc.name)
       doc.name = new RegExp('.*' + doc.name + '.*', "i");
     else

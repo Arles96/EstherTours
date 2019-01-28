@@ -18,6 +18,12 @@ const HotelQuerySchema = new SimpleSchema({
     optional: true,
     label: 'Correo (Opcional)'
   },
+  website: {
+    type: String,
+    label: 'Sitio web',
+    regEx: RegExObj.website,
+    optional: true
+  },
   street: {
     type: String,
     label: 'Calle',
