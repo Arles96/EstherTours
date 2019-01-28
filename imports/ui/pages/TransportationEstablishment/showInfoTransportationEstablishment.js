@@ -44,6 +44,12 @@ Template.showInfoTransportationEstablishment.onCreated(() => {
 Template.showInfoTransportationEstablishment.helpers({
   selector: function () {
     return { idTransportationEstablishment: Session.get('idTransportationEstablishment') };
+  },
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
   }
 });
 
