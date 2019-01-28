@@ -31,6 +31,12 @@ Template.listRestaurantResults.onCreated(() => {
 });
 
 Template.listRestaurantResults.helpers({
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
+  },
   data: () => Session.get('restaurantQuery').doc,
   query: () => Session.get('restaurantQuery').query
 });
