@@ -11,6 +11,19 @@ const Renters = new Mongo.Collection('renters');
 
 SimpleSchema.extendOptions(['autoform']);
 
+const branchContactsSchema = new SimpleSchema({
+  name: {
+    type: String,
+    label: 'Nombre',
+    optional: true
+  },
+  role: {
+    type: String,
+    label: 'Rol',
+    optional: true
+  }
+});
+
 const RentersSchema = new SimpleSchema({
   name: {
     type: String,
@@ -95,6 +108,17 @@ const RentersSchema = new SimpleSchema({
   'money.$': {
     type: String,
     label: 'Moneda'
+  },
+  branchContacts: {
+    type: Array,
+    label: 'Contactos',
+    minCount: 1,
+    maxCount: 10,
+    optional: true
+  },
+  'branchContacts.$': {
+    type: branchContactsSchema,
+    label: ''
   }
 }, { check: check, tracker: Tracker });
 

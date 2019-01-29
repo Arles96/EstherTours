@@ -25,6 +25,19 @@ const types = [
   }
 ];
 
+const branchContactsSchema = new SimpleSchema({
+  name: {
+    type: String,
+    label: 'Nombre',
+    optional: true
+  },
+  role: {
+    type: String,
+    label: 'Rol',
+    optional: true
+  }
+});
+
 const TransportationEstablishmentSchema = new SimpleSchema({
   name: {
     type: String,
@@ -85,6 +98,18 @@ const TransportationEstablishmentSchema = new SimpleSchema({
         label: false
       }
     }
+  },
+  branchContacts: {
+    type: Array,
+    label: 'Contactos',
+    minCount: 1,
+    maxCount: 10,
+    optional: true
+  },
+  'branchContacts.$': {
+    type: branchContactsSchema,
+    label: '',
+    optional: true
   },
   paymentMethods: {
     type: Array,
