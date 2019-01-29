@@ -5,6 +5,7 @@ import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 import departments from '../departments/departments';
 import { paymentMethods, money } from '../money/money';
+import municipalities from '../municipalities/municipality';
 
 SimpleSchema.extendOptions(['autoform']);
 
@@ -42,7 +43,10 @@ const AttractionSchema = new SimpleSchema({
   municipality: {
     type: String,
     label: 'Municipio',
-    regEx: RegExObj.names
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => municipalities
+    }
   },
   departament: {
     type: String,

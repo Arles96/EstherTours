@@ -44,6 +44,7 @@ import '../../ui/pages/hotel/showInfoHotel';
 import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/attraction/addAttractions';
 import '../../ui/pages/attraction/listAttractions';
+import '../../ui/pages/attraction/editAttractions';
 import '../../ui/pages/attractionQuery/attractionQuery';
 import '../../ui/pages/attractionQuery/showQueryAttraction';
 import '../../ui/pages/attraction/showInfoAttraction';
@@ -611,6 +612,34 @@ Router.route('/list-attractions', {
     isOperator(this);
   }
 });
+
+
+/**
+ * Ruta para editar atracciones
+ */
+Router.route('/edit-attractions/:id', {
+  name: 'editAttractions',
+  template: 'editAttractions',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function (){
+    return [
+      Meteor.subscribe('attraction.one', this.params.id),
+      Meteor.subscribe('guide.all')
+    ]
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Atracciones', 'Actualizando Información de Atraccion']);
+    Session.set('editAttractionCategorization', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      attractions: Attractions.findOne({ _id: id })
+    };
+  }
+});
+
 
 /**
  * Ruta para mostrar la información de la atraccion seleccionado para el operador

@@ -1,5 +1,6 @@
 import './showQueryAttraction.html';
 import { Session } from 'meteor/session';
+import { Attractions } from '../../../api/attractions/attractions';
 
 Template.showQueryAttraction.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -37,4 +38,24 @@ Template.showQueryAttraction.helpers({
 });
 
 Template.showButtonQueryAttractions.events({
+  'click .deleteAttraction': function () {
+    const id = this._id;
+    const attraction = Attractions.findOne({ _id: id });
+    Swal({
+      title: 'Eliminar Registro de Atracciones',
+      text: `Esta seguro de eliminar este registro de ${attraction.name}`,
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('deleteAttraction', id, (error, result) => {
+          if (error) {
+            toastr.error('Error al eliminar el registro.');
+          } else {
+            toastr.success('Se ha eliminado el registro.');
+          }
+        });
+      }
+    });
+  }
 });
