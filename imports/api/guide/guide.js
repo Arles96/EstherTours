@@ -162,6 +162,8 @@ const GuideSchema = new SimpleSchema({
 
 GuideSchema.messageBox.messages(messages);
 
+Guide.attachSchema(GuideSchema);
+
 export {
   Guide,
   GuideSchema

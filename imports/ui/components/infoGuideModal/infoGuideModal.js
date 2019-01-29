@@ -3,8 +3,6 @@ import { Session } from 'meteor/session';
 
 Template.infoGuideModal.helpers({
   Guide: function () {
-    // TODO website undefined
-    console.log(Session.get('guide'));
     return Session.get('guide');
   },
   urlTag: url => {
