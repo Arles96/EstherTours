@@ -1,5 +1,6 @@
 import './showInfoAttraction.html';
 import { Session } from 'meteor/session';
+import { Guide } from '../../../api/guide/guide';
 
 Template.showInfoAttraction.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -33,5 +34,6 @@ Template.showInfoAttraction.onCreated(() => {
 Template.showInfoAttraction.helpers({
   selector: function () {
     return { idAttraction: Session.get('idAttraction') };
-  }
+  },
+  guideInfo: guide => Guide.findOne({ _id: guide }).name
 });

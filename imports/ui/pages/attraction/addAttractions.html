@@ -37,6 +37,12 @@
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue name="departament") ) }}
         </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="coin" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="paymentsMethod" }}
+        </div>
         <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
           <div class="form-group mt-1">
             <label class="mb-3">Categorización</label>
@@ -56,12 +62,6 @@
             </fieldset>
           </div>
           {{>afQuickField name="categorization" value=categorization }}
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="coin" }}
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
-          {{>afQuickField name="paymentsMethod" }}
         </div>
       </div>
       <div class="text-center mt-4">

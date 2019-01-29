@@ -650,13 +650,13 @@ Router.route('/show-attraction/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('attraction.one', id);
+    return [Meteor.subscribe('attraction.one', id), Meteor.subscribe('guide.all')];
   },
   onBeforeAction: function () {
     const { id } = this.params;
     const attraction = Attractions.findOne({ _id: id });
     Session.set('idAttraction', id);
-    listBreadcrumb(['Listar Attraciones', `Mostrando Información de ${attraction.name}`]);
+    listBreadcrumb(['Listar Atracciones', `Mostrando Información de ${attraction.name}`]);
     isLoggedIn2(this);
   },
   data: function () {
@@ -675,6 +675,9 @@ Router.route('/attraction-query', {
     listBreadcrumb(['Consulta de Atracciones']);
     Session.set('attractionQCategorization', undefined);
     isConsultant(this);
+  },
+  waitOn: function () {
+    return [Meteor.subscribe('guide.all')];
   }
 });
 
@@ -690,6 +693,9 @@ Router.route('/show-query-attraction', {
     return {
       attraction: Session.get('attractionQueryDoc').docVals
     };
+  },
+  waitOn: function () {
+    return [Meteor.subscribe('guide.all')];
   }
 });
 
