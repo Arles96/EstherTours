@@ -36,15 +36,17 @@ Meteor.methods({
     }
     return { doc, query };
   },
-  exportAllToCSV: function () {
+  exportToCSV: function (query) {
     return convertArrayOfObjectsToCSV({
-      data: Packages.find().fetch().map(item => ({
+      data: Packages.find(
+        query, {}
+      ).fetch().map(item => ({
         Nombre: (item.name ? item.name : 'Indefinido'),
         Precio: item.price,
         Arrendadora: (item.idRenter ? Renters.findOne({
           _id: item.idRenter
         }, { name: 1 }).name : 'Indefinido'),
-        'Flota de arrendadora': (item.FleetRenter ? FleetRenter.findOne({
+        'Flota de arrendadora': (item.idFleetRenter ? FleetRenter.findOne({
           _id: item.idFleetRenter
         }, { type: 1 }).type : 'Indefinido'),
         Transporte: (item.idTransport ? TransportationEstablishments.findOne({

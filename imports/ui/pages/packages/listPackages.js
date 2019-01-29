@@ -41,7 +41,7 @@ Template.listPackages.events({
     }).then(res => {
       if (res.value) {
         // Formatear en serverSide
-        Meteor.call('exportAllToCSV', null, (error, result) => {
+        Meteor.call('exportToCSV', {}, (error, result) => {
           if (error) {
             toastr.error('Error al exportar a Excel.');
           } else {

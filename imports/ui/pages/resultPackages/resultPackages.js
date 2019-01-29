@@ -1,4 +1,6 @@
 import './resultPackages.html';
+import Swal from 'sweetalert2';
+import toastr from 'toastr';
 import { Session } from 'meteor/session';
 
 Template.resultPackages.onCreated(() => {
@@ -33,4 +35,36 @@ Template.resultPackages.onCreated(() => {
 Template.resultPackages.helpers({
   data: () => Session.get('resultFindPackage').doc,
   query: () => Session.get('resultFindPackage').query
+});
+
+Template.resultPackages.events({
+  'click .export-csv': function () {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: `¿Está seguro de exportar la consulta de paquetes a Excel?`,
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        // Formatear en serverSide
+        Meteor.call('exportToCSV', Session.get('resultFindPackage').doc, (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            // Descargar
+            const csv = `data:text/csv;charset=utf-8,
+                ${result}`;
+            const filename = `Consulta de paquetes (${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}).csv`;
+            const data = encodeURI(csv);
+            const link = document.createElement('a');
+            link.setAttribute('href', data);
+            link.setAttribute('download', filename);
+            link.click();
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
+  }
 });
