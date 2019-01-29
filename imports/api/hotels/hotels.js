@@ -5,6 +5,7 @@ import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 import departments from '../departments/departments';
 import { paymentMethods, money } from '../money/money';
+import HotelImage from './hotelImage';
 
 SimpleSchema.extendOptions(['autoform']);
 
@@ -110,11 +111,31 @@ const HotelSchema = new SimpleSchema({
   'activities.$': {
     type: String,
     label: 'Actividad'
+  },
+  images: {
+    type: Array,
+    label: 'Imagenes (Opcional)',
+    optional: true
+  },
+  'images.$': {
+    type: String,
+    autoform: {
+      afFieldInput: {
+        type: 'fileUpload',
+        collection: 'HotelImages'
+      }
+    }
   }
 }, { check: check, tracker: Tracker });
 
 HotelSchema.messageBox.messages(messages);
 
 Hotels.attachSchema(HotelSchema);
+
+Hotels.helpers({
+  hotelImages: function () {
+    return this.images.map(_id => HotelImage.findOne({ _id }));
+  }
+});
 
 export { HotelSchema, Hotels };
