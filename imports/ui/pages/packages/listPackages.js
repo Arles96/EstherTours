@@ -45,10 +45,11 @@ Template.listPackages.events({
           if (error) {
             toastr.error('Error al exportar a Excel.');
           } else {
+            const date = new Date();
             // Descargar
             const csv = `data:text/csv;charset=utf-8,
                 ${result}`;
-            const filename = 'Paquetes.csv';
+            const filename = `Paquetes (${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}).csv`;
             const data = encodeURI(csv);
             const link = document.createElement('a');
             link.setAttribute('href', data);
