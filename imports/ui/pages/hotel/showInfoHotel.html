@@ -126,6 +126,19 @@
               </ul>
             </div>
           </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Sucursales:</b>
+              </label>
+              <ul>
+                {{#each branchOffices }}
+                  <li>Departamento: {{this.departament}}</li>
+                  <li>Municipio: {{this.municipality}}</li>    
+                {{/each}}
+              </ul>
+            </div>
+          </div>
         {{/with}}
         <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <h4 class="text-center mt-3">Habitaciones de {{hotel.name}}</h4>

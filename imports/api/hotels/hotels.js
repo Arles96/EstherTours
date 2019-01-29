@@ -5,19 +5,9 @@ import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 import departments from '../departments/departments';
 import { paymentMethods, money } from '../money/money';
+import branchOfficeSchema from '../branchOffice/branchOffice';
 
 SimpleSchema.extendOptions(['autoform']);
-
-const branchOfficeSchema = new SimpleSchema({
-  departament: {
-    type: String,
-    label: 'Departamento'
-  },
-  municipality: {
-    type: String,
-    label: 'Municipio'
-  }
-});
 
 const Hotels = new Mongo.Collection('hotels');
 
@@ -40,7 +30,7 @@ const HotelSchema = new SimpleSchema({
     label: 'Ciudad',
     regEx: RegExObj.names
   },
-  municipality: {
+  /* municipality: {
     type: String,
     label: 'Municipio',
     regEx: RegExObj.names
@@ -52,7 +42,7 @@ const HotelSchema = new SimpleSchema({
       firstOption: '(Seleccione Uno)',
       options: () => departments
     }
-  },
+  }, */
   phone: {
     type: String,
     label: 'Teléfono',

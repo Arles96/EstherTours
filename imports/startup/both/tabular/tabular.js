@@ -256,6 +256,11 @@ TabularTables.Hotels = new Tabular.Table({
     },
     {
       class: 'text-center',
+      data: 'branchOffice',
+      title: 'Sucursales'
+    },
+    /* {
+      class: 'text-center',
       data: 'municipality',
       title: 'Municipio'
     },
@@ -263,7 +268,7 @@ TabularTables.Hotels = new Tabular.Table({
       class: 'text-center',
       data: 'departament',
       title: 'Departamento'
-    },
+    }, */
     {
       class: 'text-center',
       data: 'phone',
