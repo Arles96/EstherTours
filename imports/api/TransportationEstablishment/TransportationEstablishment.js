@@ -108,8 +108,7 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   'branchContacts.$': {
     type: branchContactsSchema,
-    label: '',
-    optional: true
+    label: ''
   },
   paymentMethods: {
     type: Array,
