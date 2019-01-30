@@ -20,15 +20,6 @@ Template.editRenter.helpers({
   textCategorization: function (text) {
     Session.set('editRenterCategorization', text);
     return 'Categorización';
-  },
-  loadStars: function (stars) {
-    $('p label').css('color: orange');
-  }
-});
-
-Template.editRenter.events({
-  'change .categorization [type=radio]' (event) {
-    Session.set('editRenterCategorization', event.currentTarget.value);
   }
 });
 
@@ -39,5 +30,43 @@ AutoForm.addHooks('editRentersForms', {
   },
   onError: function (formtype, error) {
     toastr.error(error);
+  }
+});
+
+Template.updateStarRenter.helpers({
+  list: () => {
+    const list = [];
+    for (let index = 1; index <= 5; index += 1) {
+      if (index <= parseInt(Session.get('editRenterCategorization'), 10)) {
+        list.push({
+          class: 'fas fa-star colorOrange',
+          id: `start${index}`
+        });
+      } else {
+        list.push({
+          class: 'fas fa-star',
+          id: `start${index}`
+        });
+      }
+    }
+    return list;
+  }
+});
+
+Template.updateStarRenter.events({
+  'click #start1': function () {
+    Session.set('editRenterCategorization', '1');
+  },
+  'click #start2': function () {
+    Session.set('editRenterCategorization', '2');
+  },
+  'click #start3': function () {
+    Session.set('editRenterCategorization', '3');
+  },
+  'click #start4': function () {
+    Session.set('editRenterCategorization', '4');
+  },
+  'click #start5': function () {
+    Session.set('editRenterCategorization', '5');
   }
 });
