@@ -7,9 +7,9 @@
       {{#autoForm
         id="editHotelForm"
         schema=HotelSchema
+        doc=hotel
         type="method-update"
         meteormethod="editHotel"
-        doc=hotel
       }}
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -35,23 +35,12 @@
         </div>
         <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
           <div class="form-group mt-1">
-            <label class="mb-3">Categorización</label>
-            <fieldset id="group">
-              <p class="categorization">
-                <input id="categorization1" name="group" value="5" type="radio">
-                <label for="categorization1">★</label>
-                <input id="categorization2" name="group" value="4" type="radio">
-                <label for="categorization2">★</label>
-                <input id="categorization3" name="group" value="3" type="radio">
-                <label for="categorization3">★</label>
-                <input id="categorization4" name="group" value="2" type="radio">
-                <label for="categorization4">★</label>
-                <input id="categorization5" name="group" value="1" type="radio">
-                <label for="categorization5">★</label>
-              </p>
-            </fieldset>
+            <label class="mb-3">{{labelCategortization hotel.categorization}}</label>
+            {{>updateStarHotel}}
           </div>
-          {{>afQuickField name="categorization" value=categorization }}
+          {{#if categorization}}
+            {{>afQuickField name="categorization" value=categorization }}
+          {{/if}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="coin" }}
@@ -74,5 +63,15 @@
       </div>
       {{/autoForm}}
     </div>
+  </div>
+</template>
+
+<template name="updateStarHotel" >
+  <div>
+    <p>
+      {{#each list}}
+        <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
   </div>
 </template>
