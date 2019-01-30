@@ -5,6 +5,7 @@ import { Mongo } from 'meteor/mongo';
 import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
 import { money, paymentMethods } from '../money/money';
+import TransportationImage from './transportationImage';
 
 const TransportationEstablishments = new Mongo.Collection('TransportationEstablishments');
 
@@ -107,12 +108,32 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   'money.$': {
     type: String
+  },
+  images: {
+    type: Array,
+    label: 'Imagenes (Opcional)',
+    optional: true
+  },
+  'images.$': {
+    type: String,
+    autoform: {
+      afFieldInput: {
+        type: 'fileUpload',
+        collection: 'TransportationImages'
+      }
+    }
   }
 }, { check: check, tracker: Tracker });
 
 TransportationEstablishmentSchema.messageBox.messages(messages);
 
 TransportationEstablishments.attachSchema(TransportationEstablishmentSchema);
+
+TransportationEstablishments.helpers({
+  transportationImages: function () {
+    return this.images.map(_id => TransportationImage.findOne({ _id }));
+  }
+});
 
 export {
   TransportationEstablishments,

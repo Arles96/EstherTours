@@ -343,6 +343,11 @@ Router.route('/add-transportation-establishment', {
   name: 'addTransportationEstablishments',
   template: 'addTransportationEstablishments',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('transportationImage.all')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Transporte']);
     Session.set('transportCategorization', undefined);
@@ -372,7 +377,10 @@ Router.route('/show-TransportationEstablishment/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('TransportationEstablishment.one', id);
+    return [
+      Meteor.subscribe('TransportationEstablishment.one', id),
+      Meteor.subscribe('transportationImage.all')
+    ];
   },
   onBeforeAction: function () {
     const { id } = this.params;
@@ -398,7 +406,10 @@ Router.route('/edit-TransportationEstablishment/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('TransportationEstablishment.one', id);
+    return [
+      Meteor.subscribe('TransportationEstablishment.one', id),
+      Meteor.subscribe('transportationImage.all')
+    ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Lista de transportes', 'Actualizando Información de Transporte']);
