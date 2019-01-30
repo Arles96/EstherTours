@@ -21,12 +21,10 @@ Template.editAttractions.helpers({
     value: doc._id,
     label: doc.name
   })),
-  firstOption: () => Session.get('firstOptionMunicipalityEditAttraction')
-});
-
-Template.editAttractions.events({
-  'change .categorization [type=radio]' (event) {
-    Session.set('editAttractionCategorization', event.currentTarget.value);
+  firstOption: () => Session.get('firstOptionMunicipalityEditAttraction'),
+  textCategorization: function (text) {
+    Session.set('editAttractionCategorization', text);
+    return 'Categorización';
   }
 });
 
@@ -37,5 +35,43 @@ AutoForm.addHooks('editAttractionForm', {
   },
   onError: function (formtype, error) {
     toastr.error(error);
+  }
+});
+
+Template.updateStarAttraction.helpers({
+  list: () => {
+    const list = [];
+    for (let index = 1; index <= 5; index += 1) {
+      if (index <= parseInt(Session.get('editAttractionCategorization'), 10)) {
+        list.push({
+          class: 'fas fa-star colorOrange',
+          id: `start${index}`
+        });
+      } else {
+        list.push({
+          class: 'fas fa-star',
+          id: `start${index}`
+        });
+      }
+    }
+    return list;
+  }
+});
+
+Template.updateStarAttraction.events({
+  'click #start1': function () {
+    Session.set('editAttractionCategorization', '1');
+  },
+  'click #start2': function () {
+    Session.set('editAttractionCategorization', '2');
+  },
+  'click #start3': function () {
+    Session.set('editAttractionCategorization', '3');
+  },
+  'click #start4': function () {
+    Session.set('editAttractionCategorization', '4');
+  },
+  'click #start5': function () {
+    Session.set('editAttractionCategorization', '5');
   }
 });
