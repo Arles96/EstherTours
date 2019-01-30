@@ -5,6 +5,8 @@ import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 import departments from '../departments/departments';
 import { paymentMethods, money } from '../money/money';
+import municipalities from '../municipalities/municipality';
+import types from './types';
 
 SimpleSchema.extendOptions(['autoform']);
 
@@ -16,6 +18,14 @@ const AttractionSchema = new SimpleSchema({
     label: 'Nombre'
   },
   type: {
+    type: Array,
+    label: 'Tipo de atraccion',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => types
+    }
+  },
+  'type.$': {
     type: String,
     label: 'Tipo de atraccion'
   },
@@ -27,7 +37,14 @@ const AttractionSchema = new SimpleSchema({
   },
   price: {
     type: Number,
-    label: 'Costo de visita'
+    label: 'Costo de visita',
+    regEx: RegExObj.isNumber,
+    custom: function () {
+      if (this.value < 0) {
+        return 'lessZero';
+      }
+      return 1;
+    }
   },
   guide: {
     type: String,
@@ -48,7 +65,10 @@ const AttractionSchema = new SimpleSchema({
   municipality: {
     type: String,
     label: 'Municipio',
-    regEx: RegExObj.names
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => municipalities
+    }
   },
   departament: {
     type: String,
@@ -56,6 +76,20 @@ const AttractionSchema = new SimpleSchema({
     autoform: {
       firstOption: '(Seleccione Uno)',
       options: () => departments
+    }
+  },
+  categorization: {
+    type: String,
+    label: 'Categorización',
+    autoform: {
+      readonly: true,
+      omit: true,
+      afFieldInput: {
+        type: 'hidden'
+      },
+      afFormGroup: {
+        label: false
+      }
     }
   },
   coin: {

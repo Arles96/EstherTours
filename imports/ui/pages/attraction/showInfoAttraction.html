@@ -9,8 +9,8 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
-                <b>Tipo de atraccion:</b>
-                {{type}}
+                <b>Nombre:</b>
+                {{name}}
               </label>
             </div>
           </div>
@@ -57,6 +57,14 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
+                <b>Categorización:</b>
+              </label>
+              {{categorization}} estrellas
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
                 <b>Municipio:</b>
                 {{municipality}}
               </label>
@@ -73,6 +81,18 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
+                <b>Métodos de Pago:</b>
+              </label>
+              <ul>
+                {{#each paymentsMethod}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
                 <b>Monedas aceptadas:</b>
               </label>
               <ul>
@@ -84,11 +104,9 @@
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
-              <label for="">
-                <b>Métodos de Pago:</b>
-              </label>
+                <label for=""><b>Tipo de atraccion:</b></label>
               <ul>
-                {{#each paymentsMethod}}
+                {{#each type}}
                   <li>{{this}}</li>
                 {{/each}}
               </ul>

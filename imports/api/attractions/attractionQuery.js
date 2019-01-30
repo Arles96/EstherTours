@@ -16,6 +16,7 @@ const AttractionQuerySchema = new SimpleSchema({
   type: {
     type: String,
     label: 'Tipo de atraccion',
+    regEx: RegExObj.names,
     optional: true
   },
   website: {
@@ -27,6 +28,13 @@ const AttractionQuerySchema = new SimpleSchema({
   price: {
     type: Number,
     label: 'Costo de visita',
+    regEx: RegExObj.isNumber,
+    custom: function () {
+      if (this.value < 0) {
+        return 'lessZero';
+      }
+      return 1;
+    },
     optional: true
   },
   guide: {
@@ -60,6 +68,21 @@ const AttractionQuerySchema = new SimpleSchema({
     autoform: {
       firstOption: '(Seleccione Uno)',
       options: () => departments
+    },
+    optional: true
+  },
+  categorization: {
+    type: String,
+    label: 'Categorización',
+    autoform: {
+      readonly: true,
+      omit: true,
+      afFieldInput: {
+        type: 'hidden'
+      },
+      afFormGroup: {
+        label: false
+      }
     },
     optional: true
   },

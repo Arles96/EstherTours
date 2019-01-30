@@ -70,6 +70,12 @@ Meteor.methods({
       docVals.departament = 'No definido.';
     }
 
+    if (!cDoc.categorization) {
+      docVals.categorization = 'No definido.';
+    } else {
+      docVals.categorization += (docVals.categorization === '1') ? ' estrella' : ' estrellas';
+    }
+
     if (cDoc.coin) {
       cDoc.coin = { $in: cDoc.coin };
     } else {
@@ -83,5 +89,25 @@ Meteor.methods({
     }
 
     return { doc: cDoc, docVals: docVals };
+  },
+  editAttraction: function (doc) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      const data = doc.modifier.$set;
+      const { _id } = doc;
+      AttractionSchema.validate(data);
+      Attractions.update({ _id: _id }, {
+        $set: data
+      });
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
+  },
+  deleteAttraction: function (id) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      Attractions.remove({ _id: id });
+    } else {
+      throw new Meteor.Error('Permiso Denegado.');
+    }
   }
+
 });

@@ -81,6 +81,18 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
+                <b>Métodos de Pago:</b>
+              </label>
+              <ul>
+                {{#each paymentsMethod}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
                 <b>Monedas aceptadas:</b>
               </label>
               <ul>
@@ -93,13 +105,9 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
-                <b>Métodos de Pago:</b>
+                <b>Categorización:</b>
               </label>
-              <ul>
-                {{#each paymentsMethod}}
-                  <li>{{this}}</li>
-                {{/each}}
-              </ul>
+              {{categorization}} estrellas
             </div>
           </div>
         {{/with}}

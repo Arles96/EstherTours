@@ -44,6 +44,7 @@ import '../../ui/pages/hotel/showInfoHotel';
 import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/attraction/addAttractions';
 import '../../ui/pages/attraction/listAttractions';
+import '../../ui/pages/attraction/editAttractions';
 import '../../ui/pages/attractionQuery/attractionQuery';
 import '../../ui/pages/attractionQuery/showQueryAttraction';
 import '../../ui/pages/attraction/showInfoAttraction';
@@ -591,6 +592,7 @@ Router.route('/add-attractions', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Agregar atracciones']);
+    Session.set('attractionCategorization', undefined);
     isOperator(this);
   },
   waitOn: function () {
@@ -611,6 +613,34 @@ Router.route('/list-attractions', {
   }
 });
 
+
+/**
+ * Ruta para editar atracciones
+ */
+Router.route('/edit-attractions/:id', {
+  name: 'editAttractions',
+  template: 'editAttractions',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function (){
+    return [
+      Meteor.subscribe('attraction.one', this.params.id),
+      Meteor.subscribe('guide.all')
+    ]
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Atracciones', 'Actualizando Información de Atraccion']);
+    Session.set('editAttractionCategorization', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      attractions: Attractions.findOne({ _id: id })
+    };
+  }
+});
+
+
 /**
  * Ruta para mostrar la información de la atraccion seleccionado para el operador
  */
@@ -626,7 +656,7 @@ Router.route('/show-attraction/:id', {
     const { id } = this.params;
     const attraction = Attractions.findOne({ _id: id });
     Session.set('idAttraction', id);
-    listBreadcrumb(['Listar Attraciones', `Mostrando Información de ${attraction.name}`]);
+    listBreadcrumb(['Listar Atracciones', `Mostrando Información de ${attraction.name}`]);
     isLoggedIn2(this);
   },
   data: function () {
@@ -643,6 +673,7 @@ Router.route('/attraction-query', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Consulta de Atracciones']);
+    Session.set('attractionQCategorization', undefined);
     isConsultant(this);
   },
   waitOn: function () {
