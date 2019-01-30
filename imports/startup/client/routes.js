@@ -289,6 +289,11 @@ Router.route('/add-renters', {
   name: 'addRenters',
   template: 'addRenters',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('renterImage.all')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Arrendadora']);
     Session.set('categorization', undefined);
@@ -442,7 +447,8 @@ Router.route('/edit-renter/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
-      Meteor.subscribe('renter.one', id)
+      Meteor.subscribe('renter.one', id),
+      Meteor.subscribe('renterImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -480,7 +486,10 @@ Router.route('/show-renter/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('renter.one', id);
+    return [
+      Meteor.subscribe('renter.one', id),
+      Meteor.subscribe('renterImage.all')
+    ];
   },
   onBeforeAction: function () {
     const { id } = this.params;

@@ -5,6 +5,7 @@ import { Mongo } from 'meteor/mongo';
 import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
 import { paymentMethods, money } from '../money/money';
+import RenterImage from './renterImage';
 // import municipalities from '../municipalities/municipality';
 
 const Renters = new Mongo.Collection('renters');
@@ -95,12 +96,32 @@ const RentersSchema = new SimpleSchema({
   'money.$': {
     type: String,
     label: 'Moneda'
+  },
+  images: {
+    type: Array,
+    label: 'Imagenes (Opcional)',
+    optional: true
+  },
+  'images.$': {
+    type: String,
+    autoform: {
+      afFieldInput: {
+        type: 'fileUpload',
+        collection: 'RenterImages'
+      }
+    }
   }
 }, { check: check, tracker: Tracker });
 
 RentersSchema.messageBox.messages(messages);
 
 Renters.attachSchema(RentersSchema);
+
+Renters.helpers({
+  renterImages: function () {
+    return this.images.map(_id => RenterImage.findOne({ _id }));
+  }
+});
 
 export {
   Renters,
