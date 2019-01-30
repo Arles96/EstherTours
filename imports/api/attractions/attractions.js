@@ -6,6 +6,7 @@ import { messages, RegExObj } from '../regEx';
 import departments from '../departments/departments';
 import { paymentMethods, money } from '../money/money';
 import municipalities from '../municipalities/municipality';
+import types from './types';
 
 SimpleSchema.extendOptions(['autoform']);
 
@@ -17,9 +18,16 @@ const AttractionSchema = new SimpleSchema({
     label: 'Nombre'
   },
   type: {
-    type: String,
+    type: Array,
     label: 'Tipo de atraccion',
-    regEx: RegExObj.names
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => types
+    }
+  },
+  'type.$': {
+    type: String,
+    label: 'Tipo de atraccion'
   },
   price: {
     type: Number,

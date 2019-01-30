@@ -17,14 +17,6 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
-                <b>Tipo de atraccion:</b>
-                {{type}}
-              </label>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
                 <b>Costo:</b>
                 {{price}}
               </label>
@@ -52,6 +44,14 @@
                 <b>Ciudad:</b>
                 {{city}}
               </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Categorización:</b>
+              </label>
+              {{categorization}} estrellas
             </div>
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -96,10 +96,12 @@
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
-              <label for="">
-                <b>Categorización:</b>
-              </label>
-              {{categorization}} estrellas
+                <label for=""><b>Tipo de atraccion:</b></label>
+              <ul>
+                {{#each type}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
             </div>
           </div>
         {{/with}}

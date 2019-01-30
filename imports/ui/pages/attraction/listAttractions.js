@@ -1,9 +1,8 @@
 import './listAttractions.html';
-import { Attractions } from '../../../api/attractions/attractions';
 import toastr from 'toastr';
 import { Meteor } from 'meteor/meteor';
 import Swal from 'sweetalert2';
-
+import { Attractions } from '../../../api/attractions/attractions';
 
 Template.listAttractions.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
