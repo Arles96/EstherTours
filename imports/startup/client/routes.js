@@ -170,6 +170,11 @@ Router.route('/update-profile', {
   onBeforeAction: function () {
     listBreadcrumb(['Actualizando Perfil']);
     isLoggedIn2(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('imageProfile.all')
+    ];
   }
 });
 
