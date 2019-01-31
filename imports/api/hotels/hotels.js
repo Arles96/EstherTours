@@ -75,7 +75,9 @@ const HotelSchema = new SimpleSchema({
   'phone.$': {
     type: Number,
     label: 'Teléfono',
-    regEx: RegExObj.isNumber
+    regEx: RegExObj.isNumber,
+    min: 10000000,
+    max: 99999999
   },
   services: {
     type: Array,

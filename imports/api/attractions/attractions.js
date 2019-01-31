@@ -86,6 +86,17 @@ const AttractionSchema = new SimpleSchema({
       }
     }
   },
+  telephone: {
+    type: Array,
+    label: 'Teléfono'
+  },
+  'telephone.$': {
+    type: Number,
+    label: 'Teléfono',
+    regEx: RegExObj.isNumber,
+    min: 10000000,
+    max: 99999999
+  },
   coin: {
     type: Array,
     label: 'Monedas aceptadas',

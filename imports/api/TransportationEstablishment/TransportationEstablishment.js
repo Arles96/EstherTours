@@ -63,8 +63,10 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   'phone.$': {
     type: Number,
-    label: 'Teléfonos',
-    regEx: RegExObj.isNumber
+    label: 'Teléfono',
+    regEx: RegExObj.isNumber,
+    min: 10000000,
+    max: 99999999
   },
   type: {
     type: String,
