@@ -36,23 +36,9 @@
         <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
           <div class="form-group mt-1">
             <label class="mb-3">{{textCategorization renter.categorization }}</label>
-            <fieldset id="group">
-              <p class="categorization">
-                <input id="categorization1" name="group" value="5" type="radio">
-                <label id="_categorization1" for="categorization1">★</label>
-                <input id="categorization2" name="group" value="4" type="radio">
-                <label id="_categorization2" for="categorization2">★</label>
-                <input id="categorization3" name="group" value="3" type="radio">
-                <label id="_categorization3" for="categorization3">★</label>
-                <input id="categorization4" name="group" value="2" type="radio">
-                <label id="_categorization4" for="categorization4">★</label>
-                <input id="categorization5" name="group" value="1" type="radio">
-                <label id="_categorization5" for="categorization5">★</label>
-              </p>
-            </fieldset>
+            {{>updateStarRenter}}
           </div>
-          {{>afQuickField name="categorization" value="categorization" }}
-          {{loadStars renter.categorization }}
+          {{>afQuickField name="categorization" value=categorization }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
           {{>afQuickField name="paymentMethods" }}
@@ -69,5 +55,15 @@
       </div>
       {{/autoForm}}
     </div>
+  </div>
+</template>
+
+<template name="updateStarRenter" >
+  <div>
+    <p>
+      {{#each list}}
+        <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
   </div>
 </template>
