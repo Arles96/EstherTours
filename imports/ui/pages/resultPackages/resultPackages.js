@@ -58,7 +58,8 @@ Template.resultPackages.events({
             const filename = `Consulta de paquetes (${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}).csv`;
             const data = encodeURI(csv);
             const link = document.createElement('a');
-            link.setAttribute('href', data);
+            document.body.appendChild(link);
+            link.href = data;
             link.setAttribute('download', filename);
             link.click();
             toastr.success('Se ha exportado a Excel exitosamente.');

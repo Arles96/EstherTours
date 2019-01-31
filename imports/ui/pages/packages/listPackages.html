@@ -6,9 +6,9 @@
     <div class="card-body">
       <!-- Export to CSV -->
       <div class="form-group">
-        <button type="button" class="export-csv btn btn-outline-success">
+        <a type="button" id="export-csv" class="export-csv btn btn-outline-success">
           Exportar a Excel
-        </button>
+        </a>
       </div>
       <div class="table-responsive">
         {{> tabular table=TabularTables.Packages class="table table-hover table-bordered"}}
