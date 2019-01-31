@@ -58,16 +58,16 @@ Meteor.methods({
         Hotel: (item.idHotel ? Hotels.findOne({
           _id: item.idHotel
         }, { name: 1 }).name : 'Indefinido'),
-        'Habitacion de hotel': (item.idRoom ? RoomHotel.findOne({
+        'Habitación de hotel': (item.idRoom ? RoomHotel.findOne({
           _id: item.idRoom
         }, { type: 1 }).type : 'Indefinido'),
-        Guia: (item.idGuide ? Guide.findOne({
+        Guía: (item.idGuide ? Guide.findOne({
           _id: item.idGuide
         }, { name: 1 }).name : 'Indefinido'),
         Restaurante: (item.idRestaurant ? Restaurants.findOne({
           _id: item.idRestaurant
         }, { name: 1 }).name : 'Indefinido'),
-        Observacion: (item.observation ? item.observation : 'Indefinido')
+        Observación: (item.observation ? item.observation : 'Indefinido')
       }))
     });
   }
