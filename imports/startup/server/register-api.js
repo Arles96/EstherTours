@@ -25,3 +25,6 @@ import '../../api/guide/server/publication';
 // Api de paquetes
 import '../../api/packages/method';
 import '../../api/packages/server/publications';
+
+// Api de imagenes de perfil
+import '../../api/profileImage/publication';
