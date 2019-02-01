@@ -4,6 +4,15 @@
       <i class="fas fa-user"></i> Actualizar Perfil
     </div>
     <div class="card-body">
+      {{>uploadImageModal}}
+      <div class="mb-4 text-center d-flex justify-content-center">
+        {{#if profileImage }}
+          <img src="{{profileImage.link}}" style="width: 100px; height: 100px;" class="rounded-circle border" alt="image profile">
+        {{else}}
+          <i class="fas fa-user display-4 p-2 bg-white rounded-circle border border-primary"></i>
+        {{/if}}
+          <i class="fas fa-plus-circle h4 align-self-end" style="cursor: pointer;" alt="Add" data-toggle="modal" data-target="#uploadImageModal"></i>
+      </div>
       {{#autoForm
         id="updateProfileForm"
         schema=UpdateProfileSchema
