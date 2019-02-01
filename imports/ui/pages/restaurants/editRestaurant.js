@@ -16,7 +16,7 @@ Template.editRestaurant.helpers({
       return [];
     }
   },
-  mainOffices: () => Restaurants.find({ branchOffice: false })
+  mainOffices: _id => Restaurants.find({ branchOffice: false, _id: { $ne: _id } })
     .map(doc => ({ value: doc._id, label: doc.name })),
   firstOption: () => Session.get('firstOptionMunicipalityRestaurant'),
   textCategorization: function (text) {
