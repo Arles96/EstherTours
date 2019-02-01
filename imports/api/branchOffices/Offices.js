@@ -1,16 +1,26 @@
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
-import { messages } from '../regEx';
+import { messages, RegExObj } from '../regEx';
+import departments from '../departments/departments';
 
 SimpleSchema.extendOptions(['autoform']);
 
 const branchOffices = new Mongo.Collection('offices');
 
 const branchOfficeSchema = new SimpleSchema({
-  location: {
+  municipality: {
     type: String,
-    label: 'Ubicación'
+    label: 'Municipio',
+    regEx: RegExObj.names
+  },
+  departament: {
+    type: String,
+    label: 'Departamento',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => departments
+    }
   },
   phone: {
     type: String,

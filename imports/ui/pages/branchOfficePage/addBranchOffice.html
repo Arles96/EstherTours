@@ -17,7 +17,8 @@
             type="method"
             meteormethod="insertOffice"
           }}
-            {{>afQuickField name="location" }}
+            {{>afQuickField name="departament" }}
+            {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue name="departament") ) }}
             {{>afQuickField name="phone" }}
         
             <div class="text-center">
