@@ -1,7 +1,7 @@
 import './addRestaurant.html';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
-import { RestaurantSchema } from '../../../api/restaurants/restaurants';
+import { RestaurantSchema, Restaurants } from '../../../api/restaurants/restaurants';
 import municipalities from '../../../api/municipalities/municipality';
 
 Template.addRestaurant.helpers({
@@ -16,6 +16,8 @@ Template.addRestaurant.helpers({
       return [];
     }
   },
+  mainOffices: () => Restaurants.find({ branchOffice: false })
+    .map(doc => ({ value: doc._id, label: doc.name })),
   firstOption: () => Session.get('firstOptionMunicipalityRestaurant')
 });
 

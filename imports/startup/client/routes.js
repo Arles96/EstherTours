@@ -198,6 +198,9 @@ Router.route('/addRestaurant', {
   name: 'addRestaurants',
   template: 'addRestaurant',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return Meteor.subscribe('restaurant.all');
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Restaurante']);
     Session.set('rating', undefined);
@@ -235,7 +238,10 @@ Router.route('/show-restaurant/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('restaurant.one', id);
+    return [
+      Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurant.all', id)
+    ];
   },
   onBeforeAction: function () {
     const { id } = this.params;
@@ -261,7 +267,10 @@ Router.route('/edit-restaurant/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('restaurant.one', id);
+    return [
+      Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurant.all', id)
+    ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Restaurantes', 'Actualizando Información de Restaurante']);

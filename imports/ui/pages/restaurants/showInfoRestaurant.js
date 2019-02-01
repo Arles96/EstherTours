@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { restaurantOffers } from '../../../api/restaurants/restaurantOffers';
+import { Restaurants } from '../../../api/restaurants/restaurants';
 
 Template.showInfoRestaurant.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -40,6 +41,12 @@ Template.showInfoRestaurant.onCreated(() => {
 Template.showInfoRestaurant.helpers({
   selector: function () {
     return { idRestaurant: Session.get('idRestaurant') };
+  },
+  getMainOffice: function (_id) {
+    return Restaurants.findOne({ _id }).name;
+  },
+  getBranchOffices: function (_id) {
+    return Restaurants.find({ mainOffice: _id, branchOffice: true }).map(doc => doc.name);
   }
 });
 
