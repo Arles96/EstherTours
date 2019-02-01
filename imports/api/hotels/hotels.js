@@ -12,6 +12,10 @@ SimpleSchema.extendOptions(['autoform']);
 const Hotels = new Mongo.Collection('hotels');
 
 const HotelSchema = new SimpleSchema({
+  isSucursal:{
+    type: Boolean,
+    label: 'Es sucursal'
+  },
   name: {
     type: String,
     label: 'Nombre'
