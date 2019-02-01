@@ -6,6 +6,11 @@ import { operator, consultant } from '../roles/roles';
 Meteor.methods({
   addRenter: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      if (doc.branchOffice && !doc.mainOffice) {
+        // no selecciono una oficina principal
+        // TODO mostrar error
+        return;
+      }
       RentersSchema.validate(doc);
       Renters.insert(doc);
     } else {
