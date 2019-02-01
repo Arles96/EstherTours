@@ -63,14 +63,26 @@ const RentersSchema = new SimpleSchema({
   },
   telephone: {
     type: Array,
-    label: 'Teléfono'
+    label: 'Teléfono',
+    custom: function () {
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.value.length; i++) {
+        // eslint-disable-next-line no-plusplus
+        for (let j = i + 1; j < this.value.length; j++) {
+          if (this.value[j] === this.value[i]) {
+            return 'duplicatePhones';
+          }
+        }
+      }
+      return 1;
+    }
   },
   'telephone.$': {
-    type: Number,
+    type: String,
     label: 'Teléfono',
     regEx: RegExObj.isNumber,
-    min: 10000000,
-    max: 99999999
+    min: 8,
+    max: 8
   },
   services: {
     type: Array,

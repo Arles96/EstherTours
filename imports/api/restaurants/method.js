@@ -107,9 +107,16 @@ Meteor.methods({
       const data = doc.modifier.$set;
       const { _id } = doc;
       restaurantOffersSchema.validate(data);
-      restaurantOffers.update({ _id: _id }, {
-        $set: data
-      });
+      const value = doc.telephone;
+      if (!Restaurants.findOne(
+        { telephone: { $in: value } }
+      )) {
+        Restaurants.update({ _id: _id }, {
+          $set: data
+        });
+      } else {
+        throw new Meteor.Error('No se permiten valores repetidos en telefonos.');
+      }
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
