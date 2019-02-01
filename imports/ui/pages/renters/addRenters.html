@@ -11,6 +11,16 @@
       meteormethod="addRenter"
       }}
       <div class="row">
+        <!-- TODO bug cuando seleccionamos el checkbox pero no seleccionamos ninguna arrendadora -->
+        <!-- TODO bug cuando agregamos deja de funcionar el checkbox -->
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="branchOffice"}}
+        </div>
+        {{#if afFieldValue name="branchOffice"}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="mainOffice" firstOption="(Seleccione Uno)" options=mainOffices}}
+          </div>
+        {{/if}}
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="name"}}
         </div>

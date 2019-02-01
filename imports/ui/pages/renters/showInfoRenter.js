@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
+import { Renters } from '../../../api/renters/renters';
 
 Template.showInfoRenter.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -40,6 +41,12 @@ Template.showInfoRenter.onCreated(() => {
 Template.showInfoRenter.helpers({
   selector: function () {
     return { idRenter: Session.get('idRenter') };
+  },
+  getMainOffice: function (_id) {
+    return Renters.findOne({ _id }).name;
+  },
+  getBranchOffices: function (_id) {
+    return Renters.find({ mainOffice: _id, branchOffice: true }).map(doc => doc.name);
   }
 });
 

@@ -1,7 +1,7 @@
 import './editRenter.html';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
-import { RentersSchema } from '../../../api/renters/renters';
+import { RentersSchema, Renters } from '../../../api/renters/renters';
 import municipalities from '../../../api/municipalities/municipality';
 
 Template.editRenter.helpers({
@@ -16,6 +16,8 @@ Template.editRenter.helpers({
       return [];
     }
   },
+  mainOffices: _id => Renters.find({ branchOffice: false, _id: { $ne: _id } })
+    .map(doc => ({ value: doc._id, label: doc.name })),
   firstOption: () => Session.get('firstOptionMunicipalityEditRenter'),
   textCategorization: function (text) {
     Session.set('editRenterCategorization', text);

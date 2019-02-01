@@ -1,7 +1,7 @@
 import './addRenters.html';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
-import { RentersSchema } from '../../../api/renters/renters';
+import { RentersSchema, Renters } from '../../../api/renters/renters';
 import municipalities from '../../../api/municipalities/municipality';
 
 Template.addRenters.helpers({
@@ -16,6 +16,8 @@ Template.addRenters.helpers({
       return [];
     }
   },
+  mainOffices: () => Renters.find({ branchOffice: false })
+    .map(doc => ({ value: doc._id, label: doc.name })),
   firstOption: () => Session.get('firstOptionMunicipalityRenter')
 });
 

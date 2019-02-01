@@ -6,6 +6,31 @@
     <div class="card-body">
       <div class="row">
         {{#with renter}}
+          {{#if branchOffice}}
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Oficina principal:</b>
+                  {{getMainOffice(mainOffice)}}
+                </label>
+              </div>
+            </div>
+          {{else}}
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Sucursales:</b>
+                  <ul>
+                    {{#let branches=(getBranchOffices _id)}}
+                      {{#each branch in branches}}
+                        <li>{{branch}}</li>
+                      {{/each}}
+                    {{/let}}
+                  </ul>
+                </label>
+              </div>
+            </div>
+          {{/if}}
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">

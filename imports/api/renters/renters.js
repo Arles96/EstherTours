@@ -95,6 +95,15 @@ const RentersSchema = new SimpleSchema({
   'money.$': {
     type: String,
     label: 'Moneda'
+  },
+  branchOffice: {
+    type: Boolean,
+    label: 'Es sucursal'
+  },
+  mainOffice: {
+    type: String,
+    label: 'Oficina principal',
+    optional: true
   }
 }, { check: check, tracker: Tracker });
 
