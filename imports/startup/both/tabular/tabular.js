@@ -13,6 +13,7 @@ import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
 import { Guide } from '../../../api/guide/guide';
 import { Packages } from '../../../api/packages/packages';
+import { branchOffices } from '../../../api/branchOffices/Offices';
 
 const TabularTables = {};
 
@@ -58,6 +59,30 @@ TabularTables.Users = new Tabular.Table({
           slug: rowData.slug
         }, cell);
       }
+    }
+  ]
+});
+
+TabularTables.Offices = new Tabular.Table({
+  name: 'Offices',
+  collection: branchOffices,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  columns: [
+    {
+      class: 'text-center',
+      data: 'location',
+      title: 'Ubicación'
+    },
+    {
+      class: 'text-center',
+      data: 'phone',
+      title: 'Telefono'
     }
   ]
 });

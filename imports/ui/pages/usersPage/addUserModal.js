@@ -1,9 +1,14 @@
 import './addUserModal.html';
 import toastr from 'toastr';
 import UserProfileSchema from '../../../api/users/profileUsers';
+import { branchOffices } from '../../../api/branchOffices/Offices';
 
 Template.addUserModal.helpers({
-  UserProfileSchema: () => UserProfileSchema
+  UserProfileSchema: () => UserProfileSchema,
+  branchOffices: () => (branchOffices.find().map(doc => ({
+    label: `${doc.location}`,
+    value: doc._id
+  })))
 });
 
 AutoForm.addHooks('addUserForm', {

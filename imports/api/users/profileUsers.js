@@ -48,6 +48,11 @@ const ProfileUserSchema = new SimpleSchema({
         ];
       }
     }
+  },
+  idOffice: {
+    type: String,
+    label: 'Sucursal',
+    optional: true
   }
 }, { check: check, tracker: Tracker });
 
