@@ -618,7 +618,6 @@ Router.route('/list-attractions', {
   }
 });
 
-
 /**
  * Ruta para editar atracciones
  */
@@ -626,11 +625,11 @@ Router.route('/edit-attractions/:id', {
   name: 'editAttractions',
   template: 'editAttractions',
   layoutTemplate: 'bodyAdmin',
-  waitOn: function (){
+  waitOn: function () {
     return [
       Meteor.subscribe('attraction.one', this.params.id),
       Meteor.subscribe('guide.all')
-    ]
+    ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Atracciones', 'Actualizando Información de Atraccion']);
@@ -644,7 +643,6 @@ Router.route('/edit-attractions/:id', {
     };
   }
 });
-
 
 /**
  * Ruta para mostrar la información de la atraccion seleccionado para el operador
