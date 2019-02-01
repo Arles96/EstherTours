@@ -1,5 +1,3 @@
-/* eslint-disable prefer-template */
-/* eslint-disable no-param-reassign */
 import { Meteor } from 'meteor/meteor';
 import { RestaurantSchema, Restaurants } from './restaurants';
 import { restaurantOffers, restaurantOffersSchema } from './restaurantOffers';
@@ -8,6 +6,11 @@ import { operator } from '../roles/roles';
 
 Meteor.methods({
   addRestaurant: function (doc) {
+    if (doc.branchOffice && !doc.mainOffice) {
+      // no selecciono una oficina principal
+      // TODO mostrar error
+      return;
+    }
     RestaurantSchema.validate(doc);
     Restaurants.insert(doc);
   },
