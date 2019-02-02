@@ -30,9 +30,6 @@
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue name="department") ) }}
         </div>
-        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="telephone" }}
-        </div>
         <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
           <div class="form-group mt-1">
             <label class="mb-3">{{textCategorization renter.categorization }}</label>
@@ -45,6 +42,9 @@
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
           {{>afQuickField name="money" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          {{>afQuickField name="telephone" }}
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           {{>afQuickField name="services" }}

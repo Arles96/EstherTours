@@ -18,8 +18,10 @@
               <div class="form-group">
                 <label for="">
                   <b>Teléfono:</b>
-                  {{telephone}}
                 </label>
+                {{#each telephone }}
+                  <li>{{this}}</li>
+                {{/each}}
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
