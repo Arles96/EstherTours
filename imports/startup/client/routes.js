@@ -269,7 +269,7 @@ Router.route('/edit-restaurant/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('restaurant.one', id),
-      Meteor.subscribe('restaurantImage.all')  
+      Meteor.subscribe('restaurantImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -634,7 +634,7 @@ Router.route('/add-attractions', {
     return [
       Meteor.subscribe('guide.all'),
       Meteor.subscribe('attractionImage.all')
-  ];
+    ];
   }
 });
 
@@ -691,7 +691,7 @@ Router.route('/show-attraction/:id', {
       Meteor.subscribe('attraction.one', id),
       Meteor.subscribe('guide.all'),
       Meteor.subscribe('attractionImage.all')
-  ];
+    ];
   },
   onBeforeAction: function () {
     const { id } = this.params;
