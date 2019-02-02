@@ -12,7 +12,6 @@ Template.showInfoUserModal.helpers({
   }))),
   user: function () {
     const user = Meteor.users.findOne({ _id: Session.get('idUserInfo') });
-    console.log(branchOffices.findOne({ _id: user.profile.idOffice }));
     return {
       firstName: user.profile.firstName,
       lastName: user.profile.lastName,
