@@ -7,7 +7,8 @@ const RegExObj = {
   password: /^[a-zA-Z\d]{6,}$/,
   lettersAndNumbers: /([A-Z||\u00f1\u00d1]*)([A-Z]*)([a-z]*)([a-z||\u00f1\u00d1]*)\w+/,
   isNumber: /^-?\d+\.?\d*$/,
-  phone: SimpleSchema.RegEx.Phone
+  phone: SimpleSchema.RegEx.Phone,
+  website: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/
 };
 
 const RegExMessages = [
@@ -16,7 +17,8 @@ const RegExMessages = [
   { exp: RegExObj.lettersAndNumbers, msg: 'inválido' },
   { exp: RegExObj.password, msg: 'inválida. Debe ser mayor de 6 caracteres, tener al menos una mayúscula y un numero' },
   { exp: RegExObj.isNumber, msg: 'inválido. Solo debe contener numeros.' },
-  { exp: RegExObj.phone, msg: 'inválido' }
+  { exp: RegExObj.phone, msg: 'inválido' },
+  { exp: RegExObj.website, msg: 'inválido' }
 ];
 
 const messages = {

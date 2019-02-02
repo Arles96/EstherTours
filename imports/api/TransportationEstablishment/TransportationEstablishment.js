@@ -48,6 +48,12 @@ const TransportationEstablishmentSchema = new SimpleSchema({
     label: 'Correo Electrónico',
     regEx: RegExObj.email
   },
+  website: {
+    type: String,
+    label: 'Sitio web',
+    regEx: RegExObj.website,
+    optional: true
+  },
   street: {
     type: String,
     label: 'Calle'

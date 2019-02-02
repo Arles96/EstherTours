@@ -56,6 +56,8 @@ Template.showButtonsGuide.events({
     });
   },
   'click .infoGuideModal': function () {
+    // TODO website undefined
+    console.log(Guide.findOne({ _id: this._id }));
     Session.set('guide', Guide.findOne({ _id: this._id }));
   }
 });
