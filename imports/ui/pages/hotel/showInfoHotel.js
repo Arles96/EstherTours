@@ -101,5 +101,11 @@ Template.showButtonRateHotel.events({
 Template.showInfoHotel.helpers({
   selector: function () {
     return { idHotel: Session.get('idHotel') };
+  },
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
   }
 });

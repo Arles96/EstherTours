@@ -202,6 +202,11 @@ Router.route('/addRestaurant', {
     listBreadcrumb(['Agregar Restaurante']);
     Session.set('rating', undefined);
     isOperator(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('restaurantImage.all')
+    ];
   }
 });
 
@@ -235,6 +240,7 @@ Router.route('/show-restaurant/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
+    Meteor.subscribe('restaurantImage.all');
     return Meteor.subscribe('restaurant.one', id);
   },
   onBeforeAction: function () {
@@ -261,7 +267,10 @@ Router.route('/edit-restaurant/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('restaurant.one', id);
+    return [
+      Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurantImage.all')  
+    ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Restaurantes', 'Actualizando Información de Restaurante']);
@@ -622,7 +631,10 @@ Router.route('/add-attractions', {
     isOperator(this);
   },
   waitOn: function () {
-    return [Meteor.subscribe('guide.all')];
+    return [
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('attractionImage.all')
+  ];
   }
 });
 
@@ -649,7 +661,8 @@ Router.route('/edit-attractions/:id', {
   waitOn: function () {
     return [
       Meteor.subscribe('attraction.one', this.params.id),
-      Meteor.subscribe('guide.all')
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('attractionImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -674,7 +687,11 @@ Router.route('/show-attraction/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return [Meteor.subscribe('attraction.one', id), Meteor.subscribe('guide.all')];
+    return [
+      Meteor.subscribe('attraction.one', id),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('attractionImage.all')
+  ];
   },
   onBeforeAction: function () {
     const { id } = this.params;
