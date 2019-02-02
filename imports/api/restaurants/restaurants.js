@@ -6,6 +6,7 @@ import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
 import { paymentMethods, money } from '../money/money';
 import municipalities from '../municipalities/municipality';
+import RestaurantImage from './restaurantImage';
 
 const Restaurants = new Mongo.Collection('restaurants');
 
@@ -143,6 +144,20 @@ const RestaurantSchema = new SimpleSchema({
     type: String,
     label: 'Menaje'
   },
+  images: {
+    type: Array,
+    label: 'Imagenes (Opcional)',
+    optional: true
+  },
+  'images.$': {
+    type: String,
+    autoform: {
+      afFieldInput: {
+        type: 'fileUpload',
+        collection: 'RestaurantImages'
+      }
+    }
+  },
   ambience: {
     type: Array,
     label: 'Ambiente'
@@ -230,6 +245,12 @@ const RestaurantSchema = new SimpleSchema({
 
 RestaurantSchema.messageBox.messages(messages);
 Restaurants.attachSchema(RestaurantSchema);
+
+Restaurants.helpers({
+  restaurantImages: function () {
+    return this.images.map(_id => RestaurantImage.findOne({ _id }));
+  }
+});
 
 export {
   RestaurantSchema,
