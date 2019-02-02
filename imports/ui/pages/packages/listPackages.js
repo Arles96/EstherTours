@@ -31,6 +31,39 @@ Template.listPackages.onCreated(() => {
   });
 });
 
+Template.listPackages.events({
+  'click .export-csv': function () {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: `¿Está seguro de exportar los paquetes a Excel?`,
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        // Formatear en serverSide
+        Meteor.call('exportToCSV', {}, (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            // Descargar
+            const csv = `data:text/csv;charset=utf-8,
+                ${result}`;
+            const filename = `Paquetes (${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}).csv`;
+            const data = encodeURI(csv);
+            const link = document.createElement('a');
+            document.body.appendChild(link);
+            link.href = data;
+            link.setAttribute('download', filename);
+            link.click();
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
+  }
+});
+
 Template.showButtonPackages.events({
   'click .deletePackages': function () {
     const id = this._id;

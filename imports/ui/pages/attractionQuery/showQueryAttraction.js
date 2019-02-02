@@ -35,7 +35,22 @@ Template.showQueryAttraction.helpers({
   selector: function () {
     return Session.get('attractionQueryDoc').doc;
   },
-  guideInfo: guide => Guide.findOne({ _id: guide }).name
+  guideInfo: guide => Guide.findOne({ _id: guide }).name,
+  urlTag: url => {
+    if (!url) {
+      return null;
+    }
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
+  },
+  urlInfo: url => {
+    if (!url) {
+      return 'No tiene';
+    }
+    return url;
+  }
 });
 
 Template.showButtonQueryAttractions.events({

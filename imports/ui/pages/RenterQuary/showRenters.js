@@ -34,6 +34,12 @@ Template.showRenters.onCreated(() => {
 });
 
 Template.showRenters.helpers({
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
+  },
   data: () => Session.get('findRenter').doc,
   query: () => Session.get('findRenter').query
 });

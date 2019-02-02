@@ -30,6 +30,12 @@ Meteor.methods({
       docVals.type = 'No definido.';
     }
 
+    if (cDoc.website) {
+      cDoc.website = new RegExp(`.*${cDoc.website}.*`, 'i');
+    } else {
+      docVals.website = 'No definido.';
+    }
+
     if (cDoc.price) {
       cDoc.price = new RegExp(`.*${cDoc.price}.*`, 'i');
     } else {
