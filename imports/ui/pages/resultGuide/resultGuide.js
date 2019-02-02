@@ -32,6 +32,12 @@ Template.resultGuide.onCreated(() => {
 });
 
 Template.resultGuide.helpers({
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
+  },
   data: () => Session.get('resultFindGuide').doc,
   query: () => Session.get('resultFindGuide').query
 });

@@ -40,6 +40,12 @@ const GuideSchema = new SimpleSchema({
     label: 'Correo',
     regEx: RegExObj.email
   },
+  website: {
+    type: String,
+    label: 'Sitio web',
+    regEx: RegExObj.website,
+    optional: true
+  },
   street: {
     type: String,
     label: 'Calle'
@@ -171,6 +177,8 @@ const GuideSchema = new SimpleSchema({
 }, { check: check, tracker: Tracker });
 
 GuideSchema.messageBox.messages(messages);
+
+Guide.attachSchema(GuideSchema);
 
 export {
   Guide,
