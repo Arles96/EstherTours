@@ -13,6 +13,19 @@ SimpleSchema.extendOptions(['autoform']);
 
 const Attractions = new Mongo.Collection('attractions');
 
+const branchContactsSchema = new SimpleSchema({
+  name: {
+    type: String,
+    label: 'Nombre',
+    optional: true
+  },
+  role: {
+    type: String,
+    label: 'Rol',
+    optional: true
+  }
+});
+
 const AttractionSchema = new SimpleSchema({
   name: {
     type: String,
@@ -147,6 +160,18 @@ const AttractionSchema = new SimpleSchema({
         collection: 'AttractionImages'
       }
     }
+  },
+  branchContacts: {
+    type: Array,
+    label: 'Contactos',
+    minCount: 1,
+    maxCount: 10,
+    optional: true
+  },
+  'branchContacts.$': {
+    type: branchContactsSchema,
+    label: '',
+    optional: true
   }
 }, { check: check, tracker: Tracker });
 
