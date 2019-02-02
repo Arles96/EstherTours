@@ -431,6 +431,11 @@ Router.route('/add-hotels', {
     listBreadcrumb(['Agregar hoteles']);
     Session.set('hotelCategorization', undefined);
     isOperator(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotelImage.all')
+    ];
   }
 });
 
@@ -443,7 +448,9 @@ Router.route('/edit-renter/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('renter.one', id);
+    return [
+      Meteor.subscribe('renter.one', id)
+    ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Arrendadoras', 'Actualizando Información de Arrendadora']);
@@ -506,7 +513,10 @@ Router.route('/edit-hotel/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('hotel.one', id);
+    return [
+      Meteor.subscribe('hotel.one', id),
+      Meteor.subscribe('hotelImage.all')
+    ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Hoteles', 'Actualizando Información de Hotel']);
@@ -545,7 +555,10 @@ Router.route('/show-hotel/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('hotel.one', id);
+    return [
+      Meteor.subscribe('hotel.one', id),
+      Meteor.subscribe('hotelImage.all')
+    ];
   },
   onBeforeAction: function () {
     const { id } = this.params;
