@@ -77,8 +77,23 @@ TabularTables.Offices = new Tabular.Table({
   columns: [
     {
       class: 'text-center',
-      data: 'location',
-      title: 'Ubicación'
+      data: 'departament',
+      title: 'Departamento'
+    },
+    {
+      class: 'text-center',
+      data: 'municipality',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'street',
+      title: 'Calle'
     },
     {
       class: 'text-center',

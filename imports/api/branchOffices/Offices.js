@@ -22,6 +22,14 @@ const branchOfficeSchema = new SimpleSchema({
       options: () => departments
     }
   },
+  city: {
+    type: String,
+    label: 'Ciudad'
+  },
+  street: {
+    type: String,
+    label: 'Calle'
+  },
   phone: {
     type: String,
     label: 'Telefono'

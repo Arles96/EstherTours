@@ -4,6 +4,7 @@ import '../../api/users/method';
 
 // Api de sucursales
 import '../../api/branchOffices/method';
+import '../../api/branchOffices/server/publication';
 
 // Api de arrendadoras
 import '../../api/renters/method';

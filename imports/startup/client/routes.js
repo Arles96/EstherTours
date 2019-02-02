@@ -154,6 +154,9 @@ Router.route('/users', {
   name: 'users',
   template: 'usersPage',
   layoutTemplate: 'bodyAdmin',
+  waiton: function () {
+    return Meteor.subscribe('branchOffices.all');
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Usuarios']);
     isAdmin(this);

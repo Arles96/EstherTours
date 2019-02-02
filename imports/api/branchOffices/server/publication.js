@@ -3,4 +3,4 @@ import { branchOffices } from '../Offices';
 
 Meteor.publish('branchOffice.one', id => branchOffices.find({ _id: id }));
 
-Meteor.publish('branchOffice.all', () => branchOffices.find());
+Meteor.publish('branchOffices.all', () => branchOffices.find());

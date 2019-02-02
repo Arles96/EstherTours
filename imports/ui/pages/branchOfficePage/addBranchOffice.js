@@ -1,5 +1,6 @@
 import './addBranchOffice.html';
 import toastr from 'toastr';
+import { Session } from 'meteor/session';
 import { branchOfficeSchema } from '../../../api/branchOffices/Offices';
 import municipalities from '../../../api/municipalities/municipality';
 
