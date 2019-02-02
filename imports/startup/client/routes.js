@@ -845,6 +845,7 @@ Router.route('/list-packages', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Paquetes']);
+    Session.set('listPackages', undefined);
     isOperator(this);
   }
 });
