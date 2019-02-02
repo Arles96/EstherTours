@@ -39,6 +39,12 @@ Template.showQueryHotel.helpers({
   selector: function () {
     console.log(Session.get('hotelQueryDoc').doc);
     return Session.get('hotelQueryDoc').doc;
+  },
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
   }
 });
 
