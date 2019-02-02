@@ -32,7 +32,10 @@ const branchOfficeSchema = new SimpleSchema({
   },
   phone: {
     type: String,
-    label: 'Telefono'
+    label: 'Teléfono',
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
   }
 }, { check: check, tracker: Tracker });
 
