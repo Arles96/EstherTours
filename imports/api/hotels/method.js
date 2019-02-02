@@ -97,6 +97,12 @@ Meteor.methods({
     var docVals = JSON.parse(JSON.stringify(doc));
     // if (Roles.userIsInRole(Meteor.userId(), operator)) {
     // Hotels.find(doc);
+    if (doc.website) {
+      doc.website = new RegExp(`.*${doc.website}.*`, 'i');
+    } else {
+      docVals.website = 'No definido.';
+    }
+
     if (doc.name)
       doc.name = new RegExp('.*' + doc.name + '.*', "i");
     else
@@ -120,9 +126,6 @@ Meteor.methods({
     if (!doc.departament)
       docVals.departament = "No definido.";
 
-    if (!doc.phone)
-      docVals.phone = "No definido.";
-
     if (!doc.categorization)
       docVals.categorization = "No definido.";
     else {
@@ -133,6 +136,13 @@ Meteor.methods({
       doc.coin = {$in : doc.coin};
     } else {
       docVals.coin = ["No definido."];
+    }
+
+    if (doc.phone){
+      const arr = doc.phone.map(Element => new RegExp(`.*${Element}.*`,'i'));
+      doc.phone = {$in : arr};
+    } else {
+      docVals.phone = ["No definido."];
     }
 
     if (doc.services) {
@@ -153,6 +163,13 @@ Meteor.methods({
       doc.informationsAB = {$in : arr};
     } else {
       docVals.informationsAB = ["No definido."];
+    }
+
+    if (doc.contact){
+      const arr = doc.contact.map(Element => new RegExp(`.*${Element}.*`,'i'));
+      doc.contact = {$in : arr};
+    } else {
+      docVals.contact = ["No definido."];
     }
 
     if (doc.activities){

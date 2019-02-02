@@ -17,9 +17,27 @@
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           <div class="form-group">
             <label for="">
+              <b>Sitio web:</b>
+                {{#if website}}
+                  <a href="{{urlTag(website)}}">{{website}}</a>
+                {{else}}
+                  No tiene
+                {{/if}}
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
               <b>Teléfono:</b>
               {{phone}}
+              <b>Teléfono(s):</b>
             </label>
+            <ul>
+              {{#each phone}}
+              <li>{{this}}</li>
+              {{/each}}
+            </ul>
           </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -68,6 +86,18 @@
               <b>Categorización:</b>
             </label>
             <p>{{categorization}} estrellas </p>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="">
+              <b>Contactos</b>
+            </label>
+            <ul>
+              {{#each branchContacts }}
+                <li>{{name}}</li>
+              {{/each}}
+            </ul>
           </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
