@@ -24,7 +24,8 @@ const RegExMessages = [
 const messages = {
   en: {
     exceedWithdrawLimit: ({ label }) => `${label} excede el limite`,
-    passwordMismatch: 'Contraseñas no coinciden',
+    passwordMismatch: 'Contraseñas no coinciden.',
+    duplicatePhones: 'No se permiten repetidos.',
     existFleetRenter: 'Debe seleccionar una flota',
     existRenter: 'Debe seleccionar una arrendadora',
     existRouteTransport: 'Debe seleccionar una ruta',

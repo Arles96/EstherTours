@@ -62,5 +62,12 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
+  },
+  updateUserProfileImage: function (image) {
+    Meteor.users.update({ _id: Meteor.userId() }, {
+      $set: {
+        'profile.profileImage': image
+      }
+    });
   }
 });
