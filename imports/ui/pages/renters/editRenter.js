@@ -3,6 +3,9 @@ import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { RentersSchema } from '../../../api/renters/renters';
 import municipalities from '../../../api/municipalities/municipality';
+import RenterImage from '../../../api/renters/renterImage';
+
+window.RenterImage = RenterImage;
 
 Template.editRenter.helpers({
   RentersSchema: () => RentersSchema,
