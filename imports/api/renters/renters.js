@@ -98,11 +98,19 @@ const RentersSchema = new SimpleSchema({
   },
   branchOffice: {
     type: Boolean,
-    label: 'Es sucursal'
+    label: 'Es sucursal',
+    defaultValue: false
   },
   mainOffice: {
     type: String,
     label: 'Oficina principal',
+    custom: function () {
+      if (!this.value && this.field('branchOffice')) {
+        return 'required';
+      } else {
+        return 1;
+      }
+    },
     optional: true
   }
 }, { check: check, tracker: Tracker });
