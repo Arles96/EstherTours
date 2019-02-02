@@ -322,6 +322,11 @@ Router.route('/list-renters', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Arrendadoras']);
     isOperator(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('FleetRenterImage.all')
+    ];
   }
 });
 
@@ -496,7 +501,10 @@ Router.route('/show-renter/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('renter.one', id);
+    return [
+      Meteor.subscribe('renter.one', id),
+      Meteor.subscribe('FleetRenterImage.all')
+    ];
   },
   onBeforeAction: function () {
     const { id } = this.params;
