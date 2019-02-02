@@ -21,6 +21,12 @@ const RestaurantConsultSchema = new SimpleSchema({
     regEx: RegExObj.email,
     optional: true
   },
+  website: {
+    type: String,
+    label: 'Sitio web',
+    regEx: RegExObj.website,
+    optional: true
+  },
   street: {
     type: String,
     label: 'Calle',

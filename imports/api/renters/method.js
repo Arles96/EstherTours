@@ -72,6 +72,11 @@ Meteor.methods({
         const regex = new RegExp(regStr, 'i');
         query.email = { $regex: regex };
       }
+      if (query.website) {
+        const regStr = query.website.split(/ /).join('|');
+        const regex = new RegExp(regStr, 'i');
+        query.website = { $regex: regex };
+      }
       if (query.street) {
         const regStr = query.street.split(/ /).join('|');
         const regex = new RegExp(regStr, 'i');
