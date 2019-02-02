@@ -7,6 +7,7 @@ import departments from '../departments/departments';
 import { paymentMethods, money } from '../money/money';
 import municipalities from '../municipalities/municipality';
 import types from './types';
+import AttractionImages from './attractionImage';
 
 SimpleSchema.extendOptions(['autoform']);
 
@@ -146,6 +147,20 @@ const AttractionSchema = new SimpleSchema({
     type: String,
     label: 'Metodos de pago'
   },
+  images: {
+    type: Array,
+    label: 'Imagenes (Opcional)',
+    optional: true
+  },
+  'images.$': {
+    type: String,
+    autoform: {
+      afFieldInput: {
+        type: 'fileUpload',
+        collection: 'AttractionImages'
+      }
+    }
+  },
   branchContacts: {
     type: Array,
     label: 'Contactos',
@@ -161,6 +176,12 @@ const AttractionSchema = new SimpleSchema({
 }, { check: check, tracker: Tracker });
 
 AttractionSchema.messageBox.messages(messages);
+
+Attractions.helpers({
+  attractionImages: function () {
+    return this.images.map(_id => AttractionImages.findOne({ _id }));
+  }
+});
 
 Attractions.attachSchema(AttractionSchema);
 

@@ -623,7 +623,10 @@ Router.route('/add-attractions', {
     isOperator(this);
   },
   waitOn: function () {
-    return [Meteor.subscribe('guide.all')];
+    return [
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('attractionImage.all')
+  ];
   }
 });
 
@@ -650,7 +653,8 @@ Router.route('/edit-attractions/:id', {
   waitOn: function () {
     return [
       Meteor.subscribe('attraction.one', this.params.id),
-      Meteor.subscribe('guide.all')
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('attractionImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -675,7 +679,11 @@ Router.route('/show-attraction/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return [Meteor.subscribe('attraction.one', id), Meteor.subscribe('guide.all')];
+    return [
+      Meteor.subscribe('attraction.one', id),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('attractionImage.all')
+  ];
   },
   onBeforeAction: function () {
     const { id } = this.params;
