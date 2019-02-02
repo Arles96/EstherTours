@@ -9,6 +9,7 @@ import { Hotels } from '../../api/hotels/hotels';
 import { Restaurants } from '../../api/restaurants/restaurants';
 import { Guide } from '../../api/guide/guide';
 import { Packages } from '../../api/packages/packages';
+import { Attractions } from '../../api/attractions/attractions';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -41,6 +42,12 @@ import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
 import '../../ui/pages/hotel/showInfoHotel';
 import '../../ui/pages/hotel/editHotel';
+import '../../ui/pages/attraction/addAttractions';
+import '../../ui/pages/attraction/listAttractions';
+import '../../ui/pages/attraction/editAttractions';
+import '../../ui/pages/attractionQuery/attractionQuery';
+import '../../ui/pages/attractionQuery/showQueryAttraction';
+import '../../ui/pages/attraction/showInfoAttraction';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
@@ -163,6 +170,11 @@ Router.route('/update-profile', {
   onBeforeAction: function () {
     listBreadcrumb(['Actualizando Perfil']);
     isLoggedIn2(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('imageProfile.all')
+    ];
   }
 });
 
@@ -576,6 +588,120 @@ Router.route('/show-query-hotel', {
   }
 });
 
+/*
+ * Ruta para agregar atracciones
+ */
+Router.route('/add-attractions', {
+  name: 'addAttractions',
+  template: 'addAttractions',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregar atracciones']);
+    Session.set('attractionCategorization', undefined);
+    isOperator(this);
+  },
+  waitOn: function () {
+    return [Meteor.subscribe('guide.all')];
+  }
+});
+
+/**
+ * Ruta para listar atracciones
+ */
+Router.route('/list-attractions', {
+  name: 'listAttractions',
+  template: 'listAttractions',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Atracciones']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para editar atracciones
+ */
+Router.route('/edit-attractions/:id', {
+  name: 'editAttractions',
+  template: 'editAttractions',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('attraction.one', this.params.id),
+      Meteor.subscribe('guide.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Atracciones', 'Actualizando Información de Atraccion']);
+    Session.set('editAttractionCategorization', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      attractions: Attractions.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para mostrar la información de la atraccion seleccionado para el operador
+ */
+Router.route('/show-attraction/:id', {
+  name: 'showInfoAttraction',
+  template: 'showInfoAttraction',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [Meteor.subscribe('attraction.one', id), Meteor.subscribe('guide.all')];
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const attraction = Attractions.findOne({ _id: id });
+    Session.set('idAttraction', id);
+    listBreadcrumb(['Listar Atracciones', `Mostrando Información de ${attraction.name}`]);
+    isLoggedIn2(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      attraction: Attractions.findOne({ _id: id })
+    };
+  }
+});
+
+Router.route('/attraction-query', {
+  name: 'attractionQuery',
+  template: 'attractionQuery',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de Atracciones']);
+    Session.set('attractionQCategorization', undefined);
+    isConsultant(this);
+  },
+  waitOn: function () {
+    return [Meteor.subscribe('guide.all')];
+  }
+});
+
+Router.route('/show-query-attraction', {
+  name: 'showQueryAttraction',
+  template: 'showQueryAttraction',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Consulta de atracciones']);
+    isConsultant(this);
+  },
+  data: function () {
+    return {
+      attraction: Session.get('attractionQueryDoc').docVals
+    };
+  },
+  waitOn: function () {
+    return [Meteor.subscribe('guide.all')];
+  }
+});
+
 /**
  * Ruta para listar los guías
  */
@@ -673,6 +799,7 @@ Router.route('/add-packages', {
   waitOn: function () {
     return [
       Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('attractions.all'),
       Meteor.subscribe('guide.all'),
       Meteor.subscribe('renter.all'),
       Meteor.subscribe('restaurant.all'),
@@ -697,6 +824,7 @@ Router.route('/list-packages', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Paquetes']);
+    Session.set('listPackages', undefined);
     isOperator(this);
   }
 });
@@ -712,6 +840,7 @@ Router.route('/edit-package/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('attractions.all'),
       Meteor.subscribe('guide.all'),
       Meteor.subscribe('renter.all'),
       Meteor.subscribe('restaurant.all'),
@@ -745,6 +874,7 @@ Router.route('/show-package/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('attractions.all'),
       Meteor.subscribe('guide.all'),
       Meteor.subscribe('renter.all'),
       Meteor.subscribe('restaurant.all'),
@@ -777,6 +907,7 @@ Router.route('/find-packages', {
   waitOn: function () {
     return [
       Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('attractions.all'),
       Meteor.subscribe('guide.all'),
       Meteor.subscribe('renter.all'),
       Meteor.subscribe('restaurant.all'),

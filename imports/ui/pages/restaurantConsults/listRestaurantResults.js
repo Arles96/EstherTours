@@ -1,4 +1,6 @@
 import './listRestaurantResults.html';
+import '../../components/addRestaurantOffer/addRestaurantOffer';
+import '../../components/infoRestaurantOffer/infoRestaurantOffer';
 import { Session } from 'meteor/session';
 
 Template.listRestaurantResults.onCreated(() => {

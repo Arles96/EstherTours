@@ -24,7 +24,8 @@ const RegExMessages = [
 const messages = {
   en: {
     exceedWithdrawLimit: ({ label }) => `${label} excede el limite`,
-    passwordMismatch: 'Contraseñas no coinciden',
+    passwordMismatch: 'Contraseñas no coinciden.',
+    duplicatePhones: 'No se permiten repetidos.',
     existFleetRenter: 'Debe seleccionar una flota',
     existRenter: 'Debe seleccionar una arrendadora',
     existRouteTransport: 'Debe seleccionar una ruta',
@@ -32,13 +33,13 @@ const messages = {
     existRoomHotel: 'Debe seleccionar una habitación',
     existHotel: 'Debe seleccionar un hotel',
     lessZero: 'No puede ser menor que cero.',
-    required: ({ label }) => `Se requiere ${label}`,
+    required: ({ label }) => `Se requiere "${label}" valido`,
     minString: ({ label, min }) => `${label} debe tener como mínimo ${min} caracteres`,
     maxString: ({ label, max }) => `${label} no puede exceder de ${max} caracteres`,
     regEx: function ({ label, regExp }) {
       let msgObj;
       if (regExp) {
-        msgObj = RegExMessages.find((o) => { return o.exp && o.exp.toString() === regExp; }); // eslint-disable-line
+        msgObj = RegExMessages.find(o => o.exp && o.exp.toString() === regExp);
       }
       const regExpMessage = msgObj ? msgObj.msg : 'inválido';
       return `${label} ${regExpMessage}`;

@@ -73,11 +73,14 @@ const RestaurantConsultSchema = new SimpleSchema({
     }
   },
   telephone: {
-    type: String,
+    type: Array,
+    label: 'Teléfono',
+    optional: true
+  },
+  'telephone.$': {
+    type: Number,
     label: 'Teléfono',
     regEx: RegExObj.isNumber,
-    min: 8,
-    max: 8,
     optional: true
   },
   services: {
