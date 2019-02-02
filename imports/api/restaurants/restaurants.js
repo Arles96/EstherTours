@@ -11,6 +11,19 @@ const Restaurants = new Mongo.Collection('restaurants');
 
 SimpleSchema.extendOptions(['autoform']);
 
+const branchContactsSchema = new SimpleSchema({
+  name: {
+    type: String,
+    label: 'Nombre',
+    optional: true
+  },
+  role: {
+    type: String,
+    label: 'Rol',
+    optional: true
+  }
+});
+
 const RestaurantSchema = new SimpleSchema({
   name: {
     type: String,
@@ -143,6 +156,18 @@ const RestaurantSchema = new SimpleSchema({
   },
   'menu.$': {
     type: String
+  },
+  branchContacts: {
+    type: Array,
+    label: 'Contactos',
+    minCount: 1,
+    maxCount: 10,
+    optional: true
+  },
+  'branchContacts.$': {
+    type: branchContactsSchema,
+    label: '',
+    optional: true
   },
   numbersTables: {
     type: Number,

@@ -15,6 +15,6 @@ import { consultant } from '../../api/roles/roles';
         createAt: new Date()
       }
     });
-    Roles.addUsersToRoles(id, consultant);
+    Roles.addUsersToRoles(id, operator);
   }
 });

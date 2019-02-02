@@ -165,6 +165,13 @@ Meteor.methods({
       docVals.informationsAB = ["No definido."];
     }
 
+    if (doc.contact){
+      const arr = doc.contact.map(Element => new RegExp(`.*${Element}.*`,'i'));
+      doc.contact = {$in : arr};
+    } else {
+      docVals.contact = ["No definido."];
+    }
+
     if (doc.activities){
       const arr = doc.activities.map(Element => new RegExp(`.*${Element}.*`,'i'));
       doc.activities = {$in : arr};

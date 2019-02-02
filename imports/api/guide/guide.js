@@ -30,6 +30,19 @@ const licences = [
   }
 ];
 
+const branchContactsSchema = new SimpleSchema({
+  name: {
+    type: String,
+    label: 'Nombre',
+    optional: true
+  },
+  role: {
+    type: String,
+    label: 'Rol',
+    optional: true
+  }
+});
+
 const GuideSchema = new SimpleSchema({
   name: {
     type: String,
@@ -160,6 +173,18 @@ const GuideSchema = new SimpleSchema({
   'languages.$': {
     type: String,
     label: 'Lenguaje'
+  },
+  branchContacts: {
+    type: Array,
+    label: 'Contactos',
+    minCount: 1,
+    maxCount: 10,
+    optional: true
+  },
+  'branchContacts.$': {
+    type: branchContactsSchema,
+    label: '',
+    optional: true
   },
   creditCards: {
     type: Array,
