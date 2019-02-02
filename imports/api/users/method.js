@@ -20,7 +20,8 @@ Meteor.methods({
           lastName: doc.lastName,
           blocked: false,
           position: doc.position,
-          createdAt: new Date()
+          createdAt: new Date(),
+          idOffice: doc.idOffice
         }
       });
       Roles.addUsersToRoles(user, doc.role);
