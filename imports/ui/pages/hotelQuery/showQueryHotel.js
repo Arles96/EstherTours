@@ -37,7 +37,7 @@ Template.showQueryHotel.onCreated(() => {
 
 Template.showQueryHotel.helpers({
   selector: function () {
-    console.log(Session.get('hotelQueryDoc'));
+    console.log(Session.get('hotelQueryDoc').doc);
     return Session.get('hotelQueryDoc').doc;
   },
   urlTag: url => {

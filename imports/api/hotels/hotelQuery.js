@@ -51,11 +51,14 @@ const HotelQuerySchema = new SimpleSchema({
     optional: true
   },
   phone: {
-    type: String,
+    type: Array,
+    label: 'Teléfono',
+    optional: true
+  },
+  'phone.$': {
+    type: Number,
     label: 'Teléfono',
     regEx: RegExObj.isNumber,
-    min: 8,
-    max: 8,
     optional: true
   },
   categorization: {
