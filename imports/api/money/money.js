@@ -97,6 +97,10 @@ const paymentMethods = [
   {
     label: 'Cheque',
     value: 'Cheque'
+  },
+  {
+    label: 'Tarjeta de Crédito o Débito',
+    value: 'Tarjeta de Crédito o Débito'
   }
 ];
 

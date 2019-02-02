@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { Renters } from '../../../api/renters/renters';
 import { TransportationEstablishments } from '../../../api/TransportationEstablishment/TransportationEstablishment';
 import { Hotels } from '../../../api/hotels/hotels';
+import { Attractions } from '../../../api/attractions/attractions';
 import { Restaurants } from '../../../api/restaurants/restaurants';
 import { restaurantOffers } from '../../../api/restaurants/restaurantOffers';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
@@ -404,6 +405,122 @@ TabularTables.RateHotel = new Tabular.Table({
       class: 'text-center',
       createdCell: Meteor.isClient && function showButtonRateHotel (cell, cellData, rowData) {
         return Blaze.renderWithData(Template.showButtonRateHotel, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
+  ]
+});
+
+TabularTables.Attractions = new Tabular.Table({
+  name: 'Attractions',
+  collection: Attractions,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  columns: [
+    {
+      class: 'text-center',
+      data: 'name',
+      title: 'Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'type',
+      title: 'Tipo'
+    },
+    {
+      class: 'text-center',
+      data: 'price',
+      title: 'Costo'
+    },
+    {
+      class: 'text-center',
+      data: 'street',
+      title: 'Calle'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'municipality',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'departament',
+      title: 'Departamento'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsAttractions (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonAttractions, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
+  ]
+});
+
+TabularTables.AttractionsQuery = new Tabular.Table({
+  name: 'AttractionsQuery',
+  collection: Attractions,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  columns: [
+    {
+      class: 'text-center',
+      data: 'name',
+      title: 'Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'type',
+      title: 'Tipo'
+    },
+    {
+      class: 'text-center',
+      data: 'price',
+      title: 'Costo'
+    },
+    {
+      class: 'text-center',
+      data: 'street',
+      title: 'Calle'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'municipality',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'departament',
+      title: 'Departamento'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsAttractions (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonQueryAttractions, {
           _id: rowData._id,
           slug: rowData.slug
         }, cell);
