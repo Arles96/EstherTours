@@ -76,6 +76,13 @@ Meteor.methods({
       docVals.coin = ['No definido.'];
     }
 
+    if (doc.contact){
+      const arr = doc.contact.map(Element => new RegExp(`.*${Element}.*`,'i'));
+      doc.contact = {$in : arr};
+    } else {
+      docVals.contact = ["No definido."];
+    }
+
     if (cDoc.paymentsMethod) {
       cDoc.paymentsMethod = { $in: cDoc.paymentsMethod };
     } else {
