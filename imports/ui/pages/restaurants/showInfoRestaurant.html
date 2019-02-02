@@ -17,9 +17,23 @@
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <div class="form-group">
                 <label for="">
-                  <b>Teléfono:</b>
-                  {{telephone}}
+                  <b>Sitio web:</b>
+                    {{#if website}}
+                      <a href="{{urlTag(website)}}">{{website}}</a>
+                    {{else}}
+                      No tiene
+                    {{/if}}
                 </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Teléfono:</b>
+                </label>
+                {{#each telephone }}
+                  <li>{{this}}</li>
+                {{/each}}
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">

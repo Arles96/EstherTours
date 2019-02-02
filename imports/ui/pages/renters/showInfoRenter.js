@@ -40,6 +40,12 @@ Template.showInfoRenter.onCreated(() => {
 Template.showInfoRenter.helpers({
   selector: function () {
     return { idRenter: Session.get('idRenter') };
+  },
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
   }
 });
 
