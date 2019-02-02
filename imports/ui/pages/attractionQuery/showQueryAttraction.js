@@ -1,12 +1,8 @@
-import './showQueryHotel.html';
-import '../../components/addRoomHotel/addRoomHotel';
-import '../../components/addRateHotel/addRateHotel';
+import './showQueryAttraction.html';
 import { Session } from 'meteor/session';
-import Swal from 'sweetalert2';
-import toastr from 'toastr';
-import { Hotels } from '../../../api/hotels/hotels';
+import { Guide } from '../../../api/guide/guide';
 
-Template.showQueryHotel.onCreated(() => {
+Template.showQueryAttraction.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
       sLengthMenu: 'Mostrar _MENU_ registros',
@@ -35,31 +31,25 @@ Template.showQueryHotel.onCreated(() => {
   });
 });
 
-Template.showQueryHotel.helpers({
+Template.showQueryAttraction.helpers({
   selector: function () {
-    console.log(Session.get('hotelQueryDoc').doc);
-    return Session.get('hotelQueryDoc').doc;
-  }
+    return Session.get('attractionQueryDoc').doc;
+  },
+  guideInfo: guide => Guide.findOne({ _id: guide }).name
 });
 
-Template.showButtonQueryHotels.events({
-  'click .addRoomHotel': function () {
-    Session.set('idHotel', this._id);
-  },
-  'click .addRateHotel': function () {
-    Session.set('idHotel', this._id);
-  },
-  'click .deleteHotel': function () {
+Template.showButtonQueryAttractions.events({
+  'click .deleteAttraction': function () {
     const id = this._id;
-    const hotel = Hotels.findOne({ _id: id });
+    const attraction = Attractions.findOne({ _id: id });
     Swal({
-      title: 'Eliminar Registro de Hotel',
-      text: `Esta seguro de eliminar este registro de ${hotel.name}`,
+      title: 'Eliminar Registro de Atracciones',
+      text: `Esta seguro de eliminar este registro de ${attraction.name}`,
       cancelButtonText: 'Cancelar',
       showCancelButton: true
     }).then(res => {
       if (res.value) {
-        Meteor.call('deleteHotel', id, (error, result) => {
+        Meteor.call('deleteAttraction', id, (error, result) => {
           if (error) {
             toastr.error('Error al eliminar el registro.');
           } else {

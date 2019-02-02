@@ -145,6 +145,12 @@
           {{/with}}
         </div>
       </div>
+      <!-- Export to CSV -->
+      <div class="form-group">
+        <button type="button" class="export-csv btn btn-outline-success">
+          Exportar a Excel
+        </button>
+      </div>
       <div class="table-responsive">
         {{#if query }}
           {{> tabular table=TabularTables.Packages selector=query class="table table-hover table-bordered"}}

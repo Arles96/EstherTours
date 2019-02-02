@@ -1,33 +1,26 @@
-<template name="addRenters" >
-  <div class="card mb-3" >
-    <div class="card-header" >
-      <i class="fas fa-home"></i> Agregar Arrendadora
+<template name="addAttractions">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Agregar Atracciones
     </div>
     <div class="card-body">
       {{#autoForm
-      id="addRentersForms"
-      schema=RentersSchema
-      type="method"
-      meteormethod="addRenter"
+        id="addAttractionsForm"
+        schema=AttractionSchema
+        type="method"
+        meteormethod="insertAttraction"
       }}
+
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="name"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="email" }}
+          {{>afQuickField name="price"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="street" }}
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="city" }}
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="department" }}
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue name="department") ) }}
+          {{>afQuickField name="guide" options=data}}
         </div>
         <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
           <div class="form-group mt-1">
@@ -49,21 +42,36 @@
           </div>
           {{>afQuickField name="categorization" value=categorization }}
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
-          {{>afQuickField name="paymentMethods" }}
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="street" }}
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
-          {{>afQuickField name="money" }}
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="city" }}
         </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="departament" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue name="departament") ) }}
+        </div>
+        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="type" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="coin" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="paymentsMethod" }}
+        </div>
+        <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-12">
           {{>afQuickField name="telephone" }}
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-          {{>afQuickField name="services" }}
+          {{>afQuickField name="images" }}
         </div>
       </div>
-      <div class="col-12 mt-4 text-center col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <button type="submit" class="btn w-75 btn-primary" >Guardar</button>
+      <div class="text-center mt-4">
+        <button type="submit" class="btn mx-auto btn-primary w-75" >Agregar</button>
       </div>
       {{/autoForm}}
     </div>

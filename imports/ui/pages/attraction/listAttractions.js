@@ -1,9 +1,10 @@
-import './listRestaurantResults.html';
-import '../../components/addRestaurantOffer/addRestaurantOffer';
-import '../../components/infoRestaurantOffer/infoRestaurantOffer';
-import { Session } from 'meteor/session';
+import './listAttractions.html';
+import toastr from 'toastr';
+import { Meteor } from 'meteor/meteor';
+import Swal from 'sweetalert2';
+import { Attractions } from '../../../api/attractions/attractions';
 
-Template.listRestaurantResults.onCreated(() => {
+Template.listAttractions.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
       sLengthMenu: 'Mostrar _MENU_ registros',
@@ -32,7 +33,27 @@ Template.listRestaurantResults.onCreated(() => {
   });
 });
 
-Template.listRestaurantResults.helpers({
-  data: () => Session.get('restaurantQuery').doc,
-  query: () => Session.get('restaurantQuery').query
+Template.showButtonAttractions.events({
+  'click .deleteAttraction': function () {
+    const id = this._id;
+    const rest = Attractions.findOne({ _id: id });
+    Swal({
+      title: 'Eliminar Registro de Atracciones',
+      text: `Esta seguro de eliminar este registro de ${rest.name}`,
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true,
+      focusCancel: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('deleteAttraction', id, (error, result) => {
+          if (error) {
+            toastr.error('Error al eliminar el registro.');
+          } else {
+            toastr.success('Se ha eliminado el registro.');
+          }
+        });
+      }
+    });
+  }
+
 });
