@@ -3,6 +3,9 @@ import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { TransportationEstablishmentSchema } from '../../../api/TransportationEstablishment/TransportationEstablishment';
 import municipalities from '../../../api/municipalities/municipality';
+import TransportationImage from '../../../api/TransportationEstablishment/transportationImage';
+
+window.TransportationImage = TransportationImage;
 
 Template.editTransportationEstablishment.helpers({
   TransportationEstablishmentSchema: () => TransportationEstablishmentSchema,
