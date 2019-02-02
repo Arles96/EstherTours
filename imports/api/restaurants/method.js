@@ -6,11 +6,6 @@ import { operator } from '../roles/roles';
 
 Meteor.methods({
   addRestaurant: function (doc) {
-    if (doc.branchOffice && !doc.mainOffice) {
-      // no selecciono una oficina principal
-      // TODO mostrar error
-      return;
-    }
     RestaurantSchema.validate(doc);
     Restaurants.insert(doc);
   },
