@@ -1,12 +1,12 @@
-import './editRestaurant.html';
+import './branchRestaurant.html';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
-import { RestaurantSchema } from '../../../api/restaurants/restaurants';
+import { RestaurantSchema, Restaurants } from '../../../api/restaurants/restaurants';
 import municipalities from '../../../api/municipalities/municipality';
 
-Template.editRestaurant.helpers({
+Template.branchRestaurant.helpers({
   RestaurantSchema: () => RestaurantSchema,
-  rating: () => Session.get('editRestaurantRating'),
+  rating: () => Session.get('branchRestaurantRating'),
   municipalities: department => {
     if (department) {
       Session.set('firstOptionMunicipalityRestaurant', '(Seleccione uno)');
@@ -16,22 +16,24 @@ Template.editRestaurant.helpers({
       return [];
     }
   },
+  mainOffices: _id => Restaurants.find({ branchOffice: false, _id: { $ne: _id } })
+    .map(doc => ({ value: doc._id, label: doc.name })),
   firstOption: () => Session.get('firstOptionMunicipalityRestaurant'),
   textCategorization: function (text) {
-    Session.set('editRestaurantRating', text);
+    Session.set('branchRestaurantRating', text);
     return 'Categorización';
   }
 });
 
-Template.editRestaurant.events({
+Template.branchRestaurant.events({
   'change .categorization [type=radio]' (event) {
-    Session.set('editRestaurantRating', event.currentTarget.value);
+    Session.set('branchRestaurantRating', event.currentTarget.value);
   }
 });
 
-AutoForm.addHooks('editRestaurantsForms', {
+AutoForm.addHooks('branchRestaurantsForms', {
   onSuccess: function (formtype, result) {
-    toastr.success('Se ha actualizado el registro del restaurante exitosamente.');
+    toastr.success('Se ha agregado la sucursal del restaurante exitosamente.');
     Router.go('/listRestaurants');
   },
   onError: function (formtype, error) {
@@ -39,11 +41,11 @@ AutoForm.addHooks('editRestaurantsForms', {
   }
 });
 
-Template.updateStarRestaurant.helpers({
+Template.updateBranchStarRestaurant.helpers({
   list: () => {
     const list = [];
     for (let index = 1; index <= 5; index += 1) {
-      if (index <= parseInt(Session.get('editRestaurantRating'), 10)) {
+      if (index <= parseInt(Session.get('branchRestaurantRating'), 10)) {
         list.push({
           class: 'fas fa-star colorOrange',
           id: `start${index}`
@@ -59,20 +61,20 @@ Template.updateStarRestaurant.helpers({
   }
 });
 
-Template.updateStarRestaurant.events({
+Template.updateBranchStarRestaurant.events({
   'click #start1': function () {
-    Session.set('editRestaurantRating', '1');
+    Session.set('branchRestaurantRating', '1');
   },
   'click #start2': function () {
-    Session.set('editRestaurantRating', '2');
+    Session.set('branchRestaurantRating', '2');
   },
   'click #start3': function () {
-    Session.set('editRestaurantRating', '3');
+    Session.set('branchRestaurantRating', '3');
   },
   'click #start4': function () {
-    Session.set('editRestaurantRating', '4');
+    Session.set('branchRestaurantRating', '4');
   },
   'click #start5': function () {
-    Session.set('editRestaurantRating', '5');
+    Session.set('branchRestaurantRating', '5');
   }
 });

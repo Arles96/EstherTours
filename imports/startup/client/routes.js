@@ -23,6 +23,7 @@ import '../../ui/pages/usersPage/usersPage';
 import '../../ui/pages/restaurants/addRestaurant';
 import '../../ui/pages/restaurants/listRestaurants';
 import '../../ui/pages/restaurants/editRestaurant';
+import '../../ui/pages/restaurants/branchRestaurant';
 import '../../ui/pages/restaurants/showInfoRestaurant';
 import '../../ui/pages/restaurantConsults/consultRestaurant';
 import '../../ui/pages/restaurantConsults/listRestaurantResults';
@@ -223,6 +224,11 @@ Router.route('/listRestaurants', {
   name: 'listRestaurants',
   template: 'listRestaurants',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('restaurant.one')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Restaurantes']);
     isOperator(this);
@@ -275,6 +281,33 @@ Router.route('/edit-restaurant/:id', {
   onBeforeAction: function () {
     listBreadcrumb(['Listar Restaurantes', 'Actualizando Información de Restaurante']);
     Session.set('editRestaurantRating', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      restaurant: Restaurants.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para agregar sucursal a un restaurante
+ */
+Router.route('/branch-restaurant/:id', {
+  name: 'branchRestaurant',
+  template: 'branchRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurant.all', id)
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Listar Restaurantes', 'Agregar sucursal a Restaurante']);
+    Session.set('branchRestaurantRating', undefined);
     isOperator(this);
   },
   data: function () {

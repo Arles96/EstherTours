@@ -35,6 +35,12 @@ Template.listRestaurants.onCreated(() => {
   });
 });
 
+Template.showButtonRestaurant.helpers({
+  isBranch: function () {
+    return Restaurants.findOne({ _id: this._id }).branchOffice;
+  }
+});
+
 Template.showButtonRestaurant.events({
   'click .addRestaurantOffer': function () {
     Session.set('idRestaurant', this._id);

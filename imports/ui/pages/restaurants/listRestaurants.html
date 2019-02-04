@@ -24,6 +24,11 @@
       <span data-toggle="tooltip" data-placement="top" title="Agregar Oferta" >
           <i style="cursor: pointer;" data-id="{{_id}}" class="addRestaurantOffer fas fa-plus mr-2" data-toggle="modal" data-target="#addRestaurantOffer"></i>
       </span>
+      {{#unless isBranch}}
+        <a style="text-decoration: none;" href="/branch-restaurant/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Agregar sucursal" >
+          <i style="cursor: pointer;" class="fas fa-building mr-2"></i>
+        </a>
+      {{/unless}}
       <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
         <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRestaurant far fa-trash-alt"></i>
       </span>

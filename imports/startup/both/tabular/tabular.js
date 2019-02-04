@@ -176,6 +176,13 @@ TabularTables.Restaurants = new Tabular.Table({
       data: 'department',
       title: 'Departamento'
     },
+    // TODO quitar esto de aqui
+    {
+      hidden: true,
+      class: 'text-center',
+      data: 'branchOffice',
+      title: 'Sucursal'
+    },
     {
       class: 'text-center',
       createdCell: Meteor.isClient && function showButtonsRestaurant (cell, cellData, rowData) {

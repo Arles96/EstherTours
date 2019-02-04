@@ -1,18 +1,24 @@
-<template name="editRestaurant">
+<template name="branchRestaurant">
     <div class="card mb-3">
       <div class="card-header">
         <i class="fas fa-table"></i>
-        Editando Restaurante
+        Agregar sucursal a Restaurante
       </div>
       <div class="card-body">
         {{#autoForm
-          id="editRestaurantsForms"
+          id="branchRestaurantsForms"
           schema=RestaurantSchema
-          type="method-update"
-          meteormethod="editRestaurant"
+          type="method"
+          meteormethod="addRestaurant"
           doc=restaurant
         }}
         <div class="row">
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="branchOffice" value=true}}
+          </div>
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 hidden">
+            {{>afQuickField name="mainOffice" value=restaurant._id }}
+          </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="name"}}
           </div>
@@ -82,14 +88,14 @@
           </div>
         </div>
         <div class="text-center mt-2" >
-          <button type="submit" class="btn btn-primary w-75">Actualizar</button>
+          <button type="submit" class="btn btn-primary w-75">Agregar sucursal</button>
         </div>
       {{/autoForm}}
     </div>
   </div>
 </template>
 
-<template name="updateStarRestaurant" >
+<template name="updateBranchStarRestaurant" >
   <div>
     <p>
       {{#each list}}
