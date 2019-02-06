@@ -35,10 +35,8 @@ Template.listRestaurants.onCreated(() => {
   });
 });
 
-Template.showButtonRestaurant.helpers({
-  isBranch: function () {
-    return Restaurants.findOne({ _id: this._id }).branchOffice;
-  }
+Template.listRestaurants.helpers({
+  selector: () => ({ branchOffice: false })
 });
 
 Template.showButtonRestaurant.events({

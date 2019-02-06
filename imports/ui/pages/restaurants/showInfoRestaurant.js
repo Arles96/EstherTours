@@ -42,11 +42,20 @@ Template.showInfoRestaurant.helpers({
   selector: function () {
     return { idRestaurant: Session.get('idRestaurant') };
   },
+  branchSelector: function (_id) {
+    return { mainOffice: _id, branchOffice: true };
+  },
   getMainOffice: function (_id) {
     return Restaurants.findOne({ _id }).name;
   },
   getBranchOffices: function (_id) {
     return Restaurants.find({ mainOffice: _id, branchOffice: true }).map(doc => doc.name);
+  },
+  showBranches: function (isOperator) {
+    if (!isOperator || this.restaurant.branchOffice) {
+      return false;
+    }
+    return true;
   }
 });
 
@@ -73,5 +82,29 @@ Template.showButtonRestaurantOffers.events({
   },
   'click .infoRestaurantOffer': function () {
     Session.set('restaurantOffers', restaurantOffers.findOne({ _id: this._id }));
+  }
+});
+
+Template.showButtonRestaurantBranches.events({
+  'click .deleteRestaurant': function () {
+    const id = this._id;
+    const rest = Restaurants.findOne({ _id: id });
+    Swal({
+      title: 'Eliminar Registro de Restaurante',
+      text: `Esta seguro de eliminar este registro de ${rest.name}`,
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true,
+      focusCancel: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('deleteRestaurant', id, (error, result) => {
+          if (error) {
+            toastr.error('Error al eliminar el registro.');
+          } else {
+            toastr.success('Se ha eliminado el registro.');
+          }
+        });
+      }
+    });
   }
 });

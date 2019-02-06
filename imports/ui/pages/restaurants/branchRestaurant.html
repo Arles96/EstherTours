@@ -1,29 +1,29 @@
 <template name="branchRestaurant">
-    <div class="card mb-3">
-      <div class="card-header">
-        <i class="fas fa-table"></i>
-        Agregar sucursal a Restaurante
-      </div>
-      <div class="card-body">
-        {{#autoForm
-          id="branchRestaurantsForms"
-          schema=RestaurantSchema
-          type="method"
-          meteormethod="addRestaurant"
-          doc=restaurant
-        }}
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Agregar sucursal a {{restaurant.name}}
+    </div>
+    <div class="card-body">
+      {{#autoForm
+        id="branchRestaurantsForms"
+        schema=RestaurantSchema
+        type="method"
+        meteormethod="addRestaurant"
+        doc=restaurant
+      }}
         <div class="row">
           <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="branchOffice" value=true}}
           </div>
-          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 hidden">
-            {{>afQuickField name="mainOffice" value=restaurant._id }}
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="mainOffice" value=restaurant._id}}
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="name"}}
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="email" }}
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="email"}}
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="street" }}

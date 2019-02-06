@@ -187,7 +187,7 @@ const RestaurantSchema = new SimpleSchema({
     type: String,
     label: 'Oficina principal',
     custom: function () {
-      if (!this.value && this.field('branchOffice')) {
+      if (!this.value && this.field('branchOffice').value) {
         return 'required';
       } else {
         return 1;

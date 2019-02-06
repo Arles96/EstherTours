@@ -155,6 +155,7 @@ TabularTables.Restaurants = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
+  extraFields: ['branchOffice'],
   columns: [
     {
       class: 'text-center',
@@ -176,17 +177,54 @@ TabularTables.Restaurants = new Tabular.Table({
       data: 'department',
       title: 'Departamento'
     },
-    // TODO quitar esto de aqui
-    {
-      hidden: true,
-      class: 'text-center',
-      data: 'branchOffice',
-      title: 'Sucursal'
-    },
     {
       class: 'text-center',
       createdCell: Meteor.isClient && function showButtonsRestaurant (cell, cellData, rowData) {
         return Blaze.renderWithData(Template.showButtonRestaurant, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
+  ]
+});
+
+TabularTables.restaurantBranches = new Tabular.Table({
+  name: 'restaurantBranches',
+  collection: Restaurants,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: ['mainOffice', 'branchOffice'],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'street',
+      title: 'Calle'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'municipality',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'department',
+      title: 'Departamento'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsRestaurant (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonRestaurantBranches, {
           _id: rowData._id,
           slug: rowData.slug
         }, cell);
