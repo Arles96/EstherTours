@@ -45,12 +45,6 @@ Template.showInfoRestaurant.helpers({
   branchSelector: function (_id) {
     return { mainOffice: _id, branchOffice: true };
   },
-  getMainOffice: function (_id) {
-    return Restaurants.findOne({ _id }).name;
-  },
-  getBranchOffices: function (_id) {
-    return Restaurants.find({ mainOffice: _id, branchOffice: true }).map(doc => doc.name);
-  },
   showBranches: function (isOperator) {
     if (!isOperator || this.restaurant.branchOffice) {
       return false;
