@@ -1,7 +1,7 @@
 import './branchRestaurant.html';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
-import { RestaurantSchema, Restaurants } from '../../../api/restaurants/restaurants';
+import { RestaurantSchema } from '../../../api/restaurants/restaurants';
 import municipalities from '../../../api/municipalities/municipality';
 
 Template.branchRestaurant.helpers({
@@ -16,8 +16,6 @@ Template.branchRestaurant.helpers({
       return [];
     }
   },
-  mainOffices: _id => Restaurants.find({ branchOffice: false, _id: { $ne: _id } })
-    .map(doc => ({ value: doc._id, label: doc.name })),
   firstOption: () => Session.get('firstOptionMunicipalityRestaurant'),
   textCategorization: function (text) {
     Session.set('branchRestaurantRating', text);

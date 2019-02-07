@@ -301,8 +301,7 @@ Router.route('/branch-restaurant/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
-      Meteor.subscribe('restaurant.one', id),
-      Meteor.subscribe('restaurant.all', id)
+      Meteor.subscribe('restaurant.one', id)
     ];
   },
   onBeforeAction: function () {
