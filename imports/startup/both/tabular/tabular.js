@@ -134,6 +134,11 @@ TabularTables.FleetsRenter = new Tabular.Table({
     },
     {
       class: 'text-center',
+      data: 'vehicleTypes',
+      title: 'Tipo de Vehículo'
+    },
+    {
+      class: 'text-center',
       createdCell: Meteor.isClient && function showButtonsFleetRenters (cell, cellData, rowData) {
         return Blaze.renderWithData(Template.showButtonFleetRenters, {
           _id: rowData._id,
