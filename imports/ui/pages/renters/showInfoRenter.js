@@ -46,7 +46,7 @@ Template.showInfoRenter.helpers({
     return { mainOffice: _id, branchOffice: true };
   },
   showBranches: function (isOperator) {
-    if (!isOperator || this.restaurant.branchOffice) {
+    if (!isOperator || this.renter.branchOffice) {
       return false;
     }
     return true;

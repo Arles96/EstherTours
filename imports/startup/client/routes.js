@@ -474,8 +474,8 @@ Router.route('/edit-renter/:id', {
  * Ruta para agregar sucursal a una arrendadora
  */
 Router.route('/branch-renter/:id', {
-  name: 'branchRestaurant',
-  template: 'branchRestaurant',
+  name: 'branchRenter',
+  template: 'branchRenter',
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
