@@ -1,24 +1,28 @@
-<template name="addRenters" >
+<template name="branchRenter">
   <div class="card mb-3" >
     <div class="card-header" >
-      <i class="fas fa-home"></i> Agregar Arrendadora
+      <i class="fas fa-home"></i> Agregar sucursal a {{renter.name}}
     </div>
     <div class="card-body">
       {{#autoForm
-      id="addRentersForms"
-      schema=RentersSchema
-      type="method"
-      meteormethod="addRenter"
+        id="branchRentersForms"
+        schema=RentersSchema
+        type="method"
+        meteormethod="addRenter"
+        doc=renter
       }}
       <div class="row">
         <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="branchOffice" value=false}}
+          {{>afQuickField name="branchOffice" value=true}}
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="mainOffice" value=renter._id}}
+        </div>
+        <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="name"}}
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="email" }}
+        <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="email"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="street" }}
@@ -70,5 +74,15 @@
       </div>
       {{/autoForm}}
     </div>
+  </div>
+</template>
+
+<template name="updateBranchStarRenter">
+  <div>
+    <p>
+      {{#each list}}
+        <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
   </div>
 </template>
