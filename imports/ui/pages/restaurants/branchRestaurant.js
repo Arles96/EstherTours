@@ -32,10 +32,14 @@ Template.branchRestaurant.events({
 AutoForm.addHooks('branchRestaurantsForms', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha agregado la sucursal del restaurante exitosamente.');
-    Router.go('/listRestaurants');
+    Router.go(`/show-restaurant/${this.docId}`);
   },
   onError: function (formtype, error) {
-    toastr.error(error);
+    if (error.error === 'Repeated Branch') {
+      toastr.error(new Error('Ya existe una sucursal con esas direcciones!'));
+    } else {
+      toastr.error(error);
+    }
   }
 });
 

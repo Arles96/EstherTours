@@ -305,7 +305,9 @@ Router.route('/branch-restaurant/:id', {
     ];
   },
   onBeforeAction: function () {
-    listBreadcrumb(['Listar Restaurantes', 'Agregar sucursal a Restaurante']);
+    const { id } = this.params;
+    const restaurant = Restaurants.findOne({ _id: id });
+    listBreadcrumb(['Listar Restaurantes', `Agregar sucursal a ${restaurant.name}`]);
     Session.set('branchRestaurantRating', undefined);
     isOperator(this);
   },

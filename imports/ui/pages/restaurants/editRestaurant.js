@@ -32,7 +32,11 @@ Template.editRestaurant.events({
 AutoForm.addHooks('editRestaurantsForms', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha actualizado el registro del restaurante exitosamente.');
-    Router.go('/listRestaurants');
+    if (this.currentDoc.branchOffice) {
+      Router.go(`/show-restaurant/${this.currentDoc.mainOffice}`);
+    } else {
+      Router.go('/listRestaurants');
+    }
   },
   onError: function (formtype, error) {
     toastr.error(error);

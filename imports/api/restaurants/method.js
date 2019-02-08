@@ -9,6 +9,22 @@ Meteor.methods({
     RestaurantSchema.validate(doc);
     Restaurants.insert(doc);
   },
+  addRestaurantBranch: function (doc) {
+    RestaurantSchema.validate(doc);
+
+    const query = {
+      street: doc.street,
+      municipality: doc.municipality,
+      city: doc.city,
+      department: doc.department
+    };
+
+    if (Restaurants.find(query).map(d => d).length > 0) {
+      throw new Meteor.Error('Repeated Branch');
+    } else {
+      Restaurants.insert(doc);
+    }
+  },
   consultRestaurant: function (doc) {
     RestaurantConsultSchema.validate(doc);
     const query = JSON.parse(JSON.stringify(doc));

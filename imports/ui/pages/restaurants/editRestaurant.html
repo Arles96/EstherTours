@@ -19,12 +19,21 @@
           <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="mainOffice" value=mainOffice}}
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="name"}}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="email" }}
-          </div>
+          {{#if restaurant.branchOffice}}
+            <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              {{>afQuickField name="name"}}
+            </div>
+            <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              {{>afQuickField name="email" }}
+            </div>
+          {{else}}
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              {{>afQuickField name="name"}}
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              {{>afQuickField name="email" }}
+            </div>
+          {{/if}}
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="street" }}
           </div>
