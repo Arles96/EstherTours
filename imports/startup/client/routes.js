@@ -485,7 +485,9 @@ Router.route('/branch-renter/:id', {
     ];
   },
   onBeforeAction: function () {
-    listBreadcrumb(['Listar Arrendadoras', 'Agregar sucursal a Arrendadora']);
+    const { id } = this.params;
+    const renter = Renters.findOne({ _id: id });
+    listBreadcrumb(['Listar Arrendadoras', `Agregar sucursal a ${renter.name}`]);
     Session.set('branchRenterRating', undefined);
     isOperator(this);
   },

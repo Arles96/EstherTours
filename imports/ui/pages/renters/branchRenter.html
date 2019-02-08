@@ -1,14 +1,15 @@
 <template name="branchRenter">
   <div class="card mb-3" >
     <div class="card-header" >
-      <i class="fas fa-home"></i> Agregar sucursal a {{renter.name}}
+      <i class="fas fa-home"></i>
+      Agregar sucursal a <b>{{renter.name}}</b>
     </div>
     <div class="card-body">
       {{#autoForm
         id="branchRentersForms"
         schema=RentersSchema
         type="method"
-        meteormethod="addRenter"
+        meteormethod="addRenterBranch"
         doc=renter
       }}
       <div class="row">
@@ -40,25 +41,12 @@
           {{>afQuickField name="telephone" }}
         </div>
         <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
-          <div class="form-group mt-1">
-            <label class="mb-3">Categorización</label>
-            <fieldset id="group">
-              <p class="categorization">
-                <input id="categorization1" name="group" value="5" type="radio">
-                <label for="categorization1">★</label>
-                <input id="categorization2" name="group" value="4" type="radio">
-                <label for="categorization2">★</label>
-                <input id="categorization3" name="group" value="3" type="radio">
-                <label for="categorization3">★</label>
-                <input id="categorization4" name="group" value="2" type="radio">
-                <label for="categorization4">★</label>
-                <input id="categorization5" name="group" value="1" type="radio">
-                <label for="categorization5">★</label>
-              </p>
-            </fieldset>
+            <div class="form-group mt-1">
+              <label class="mb-3">{{textCategorization '0'}}</label>
+              {{>updateBranchStarRenter}}
+            </div>
+            {{>afQuickField name="categorization" value=categorization }}
           </div>
-          {{>afQuickField name="categorization" value=categorization }}
-        </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
           {{>afQuickField name="paymentMethods" }}
         </div>
@@ -70,7 +58,7 @@
         </div>
       </div>
       <div class="col-12 mt-4 text-center col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <button type="submit" class="btn w-75 btn-primary" >Guardar</button>
+        <button type="submit" class="btn w-75 btn-primary" >Agregar sucursal</button>
       </div>
       {{/autoForm}}
     </div>

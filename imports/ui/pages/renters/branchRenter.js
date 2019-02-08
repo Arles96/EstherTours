@@ -32,10 +32,14 @@ Template.branchRenter.events({
 AutoForm.addHooks('branchRentersForms', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha agregado la sucursal de la arrendadora exitosamente.');
-    Router.go('/list-renters');
+    Router.go(`/show-renter/${this.docId}`);
   },
   onError: function (formtype, error) {
-    toastr.error(error);
+    if (error.error === 'Repeated Branch') {
+      toastr.error(new Error('Ya existe una sucursal con esas direcciones!'));
+    } else {
+      toastr.error(error);
+    }
   }
 });
 
