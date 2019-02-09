@@ -17,9 +17,23 @@
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <div class="form-group">
                 <label for="">
-                  <b>Teléfono:</b>
-                  {{telephone}}
+                  <b>Sitio web:</b>
+                    {{#if website}}
+                      <a href="{{urlTag(website)}}">{{website}}</a>
+                    {{else}}
+                      No tiene
+                    {{/if}}
                 </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
+                  <b>Teléfono:</b>
+                </label>
+                {{#each telephone }}
+                  <li>{{this}}</li>
+                {{/each}}
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -133,6 +147,18 @@
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <div class="form-group">
                 <label for="">
+                  <b>Contactos</b>
+                </label>
+                <ul>
+                  {{#each branchContacts }}
+                    <li>{{name}}</li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-group">
+                <label for="">
                   <b>Métodos de Pago:</b>
                 </label>
                 <ul>
@@ -182,6 +208,19 @@
                 </ul>
               </div>
             </div>
+            {{#if images}}
+            <br>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              <h2 class="mt-4 text-center" >Imagenes</h2>
+              <div class="row">
+                {{#each restaurantImages }}
+                  <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <img class="img-thumbnail" src="{{link}}" alt="{{name}}">
+                  </div>
+                {{/each}}
+              </div>
+            </div>
+          {{/if}}
           {{/with}}
           <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <h4 class="text-center mt-3">Ofertas de {{restaurant.name}}</h4>

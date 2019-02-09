@@ -19,6 +19,9 @@
           {{>afQuickField name="email" }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="website" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="street" }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -36,7 +39,7 @@
         <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="license" }}
         </div>
-        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           {{>afQuickField name="telephone" }}
         </div>
         <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
@@ -62,9 +65,13 @@
           {{>afQuickField name="services" }}
         </div>
       </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        {{>afQuickField name="branchContacts" }}
+      </div>
       <div class="text-center mt-2" >
         <button type="submit" class="btn btn-primary w-75" >Actualizar</button>
       </div>
+
       {{/autoForm}}
     </div>
   </div>

@@ -4,6 +4,9 @@ import { Session } from 'meteor/session';
 import { AttractionSchema } from '../../../api/attractions/attractions';
 import municipalities from '../../../api/municipalities/municipality';
 import { Guide } from '../../../api/guide/guide';
+import AttractionImages from '../../../api/attractions/attractionImage';
+
+window.AttractionImages = AttractionImages;
 
 Template.editAttractions.helpers({
   AttractionSchema: () => AttractionSchema,

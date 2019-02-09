@@ -50,6 +50,12 @@ Template.showInfoRestaurant.helpers({
       return false;
     }
     return true;
+  },
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
   }
 });
 

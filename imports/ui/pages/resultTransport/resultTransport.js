@@ -31,6 +31,12 @@ Template.resultTransport.onCreated(() => {
 });
 
 Template.resultTransport.helpers({
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
+  },
   data: () => Session.get('resultFindTransport').doc,
   query: () => Session.get('resultFindTransport').query
 });

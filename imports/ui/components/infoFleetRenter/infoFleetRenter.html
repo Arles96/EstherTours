@@ -27,6 +27,16 @@
               {{/each}}
             </ul>
           </div>
+          {{#if images }}
+            <div class="form-group" data-ride="carousel">
+              <h5 class="text-center" >Imagenes</h5>
+              {{#each images}}
+                {{#with (FindImage this)}}
+                    <img class="img-thumbnail" src="{{link}}" alt="{{name}}">
+                {{/with}}
+              {{/each}}
+            </div>
+          {{/if}}
           {{/with}}
         </div>
         <div class="modal-footer text-center">
