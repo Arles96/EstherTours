@@ -1,0 +1,56 @@
+<template name="addBranchOfficeTransportationEstablishment">
+  <div class="modal fade" id="addBranchOfficeTransportationEstablishment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregando sucursal</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{#autoForm
+          id = "addBranchOfficeTransportationEstablishmentForm"
+          schema = BranchOfficeTransportationEstablishmentSchema
+          type= "method"
+          doc= branchOfficeTransportationEstablishment
+          meteormethod="addBranchOfficeTransportationEstablishment"
+          }}
+          {{>afQuickField name="idTransportationEstablishment" value=idTransportationEstablishment }}
+          {{>afQuickField name="name" value=TransportationEstablishment.name }}
+          {{>afQuickField name="email" value=TransportationEstablishment.email }}
+          {{>afQuickField name="website" }}
+          {{>afQuickField name="street" }}
+          {{>afQuickField name="city" }}
+          {{>afQuickField name="department" }}
+          {{>afQuickField name="town" firstOption=firstOption options=(municipalities (afFieldValue name="department") ) }}
+          {{>afQuickField name="phone" }}
+          {{>afQuickField name="branchContacts" }}
+          {{>afQuickField name="type" }}
+          <div class="form-group mt-1">
+            <label class="mb-3">{{labelCategortization "0" }}</label>
+            {{>updateStarBranchOfficeTransportationEstablishment}}
+          </div>
+          {{>afQuickField name="categorization" value="0" }}
+          {{>afQuickField name="paymentMethods" }}
+          {{>afQuickField name="money" }}
+          <div class="text-center mt-4">
+            <button class="btn btn-primary w-75" type="submit">Agregar</button>
+          </div>
+          {{/autoForm}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="updateStarBranchOfficeTransportationEstablishment">
+  <div>
+    <p>
+      {{#each list}}
+      <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
+  </div>
+</template>

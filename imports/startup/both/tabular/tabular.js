@@ -10,6 +10,7 @@ import { restaurantOffers } from '../../../api/restaurants/restaurantOffers';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
 import { FleetTransportationEstablishment } from '../../../api/TransportationEstablishment/FleetTransportationEstablishment';
 import { RouteTransportationEstablishment } from '../../../api/TransportationEstablishment/RouteTransportationEstablishment';
+import { BranchOfficeTransportationEstablishment } from '../../../api/TransportationEstablishment/BranchOfficeTransportationEstablishment';
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
 import { Guide } from '../../../api/guide/guide';
@@ -565,6 +566,51 @@ TabularTables.TransportationEstablishments = new Tabular.Table({
       createdCell: Meteor.isClient && function showButtonsTransportationEstablishments
       (cell, cellData, rowData) {
         return Blaze.renderWithData(Template.showButtonTransportationEstablishments, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
+  ]
+});
+
+TabularTables.BranchOfficeTransportationEstablishment = new Tabular.Table({
+  name: 'BranchOfficeTransportationEstablishment',
+  collection: BranchOfficeTransportationEstablishment,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: ['idTransportationEstablishment'],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'department',
+      title: 'Departmento'
+    },
+    {
+      class: 'text-center',
+      data: 'town',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'street',
+      title: 'Calle'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonBranchOfficeTransportationEstablishments
+      (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonBranchOfficeTransportationEstablishments, {
           _id: rowData._id,
           slug: rowData.slug
         }, cell);

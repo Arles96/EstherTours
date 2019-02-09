@@ -122,6 +122,20 @@
         </div>
         {{/with}}
         <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <h4 class="text-center mt-3">Sucursales de {{TransportationEstablishment.name}}</h4>
+          {{#if isOperator}}
+            <div>
+              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addBranchOfficeTransportationEstablishment" >
+                Agregar
+              </button>
+            </div>
+          {{/if}}
+          {{> tabular table=TabularTables.BranchOfficeTransportationEstablishment selector=selector class="table table-hover table-bordered"}}
+          {{#if isOperator}}
+            {{>addBranchOfficeTransportationEstablishment}}
+          {{/if}}
+        </div>
+        <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <h4 class="text-center mt-3">Flota de {{TransportationEstablishment.name}}</h4>
           {{#if isOperator}}
             <div>
@@ -156,6 +170,20 @@
   </div>
   {{>infoFleetTransportationEstablishment}}
   {{>infoRouteTransportationEstablishment}}
+</template>
+
+<template name="showButtonBranchOfficeTransportationEstablishments" >
+  <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
+    <i style="cursor: pointer;" data-id="{{_id}}" class="infoBranchOfficeTransportationEstablishment far fa-eye mr-2" data-toggle="modal" data-target="#infoBranchOfficeTransportationEstablishment" ></i>
+  </span>
+  {{#if isOperator}}
+    <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="infoBranchOfficeTransportationEstablishment far fa-edit mr-2" data-toggle="modal" data-target="#editBranchOfficeTransportationEstablishment"></i>
+    </span>
+    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="deleteBranchOfficeTransportationEstablishment far fa-trash-alt"></i>
+    </span>
+  {{/if}}
 </template>
 
 <template name="showButtonFleetTransportationEstablishments" >

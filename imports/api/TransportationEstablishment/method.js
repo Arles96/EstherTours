@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { TransportationEstablishments, TransportationEstablishmentSchema } from './TransportationEstablishment';
 import { FleetTransportationEstablishment, FleetTransportationEstablishmentSchema } from './FleetTransportationEstablishment';
 import { RouteTransportationEstablishment, RouteTransportationEstablishmentSchema } from './RouteTransportationEstablishment';
+import { BranchOfficeTransportationEstablishment, BranchOfficeTransportationEstablishmentSchema } from './BranchOfficeTransportationEstablishment';
 import { operator } from '../roles/roles';
 import TransportConsultSchema from './transportConsult';
 
@@ -124,6 +125,33 @@ Meteor.methods({
       const { _id } = doc;
       RouteTransportationEstablishmentSchema.validate(data);
       RouteTransportationEstablishment.update({ _id: _id }, {
+        $set: data
+      });
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
+  },
+  addBranchOfficeTransportationEstablishment: function (doc) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      BranchOfficeTransportationEstablishmentSchema.validate(doc);
+      BranchOfficeTransportationEstablishment.insert(doc);
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
+  },
+  deleteBranchOfficeTransportationEstablishment: function (id) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      BranchOfficeTransportationEstablishment.remove({ _id: id });
+    } else {
+      throw new Meteor.Error('Permiso Denegado.');
+    }
+  },
+  editBranchOfficeTransportationEstablishment: function (doc) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      const data = doc.modifier.$set;
+      const { _id } = doc;
+      BranchOfficeTransportationEstablishmentSchema.validate(data);
+      BranchOfficeTransportationEstablishment.update({ _id: _id }, {
         $set: data
       });
     } else {
