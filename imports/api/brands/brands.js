@@ -1,77 +1,154 @@
-const brands = [
+const brands = {
+  Económico: [
     {
-      value: 'Atlántida',
-      label: 'Atlántida'
+      value: 'Económico',
+      label: 'Económico'
     },
     {
-      value: 'Choluteca',
-      label: 'Choluteca'
-    },
-    {
-      value: 'Colón',
-      label: 'Colón'
-    },
-    {
-      value: 'Comayagua',
-      label: 'Comayagua'
-    },
-    {
-      value: 'Copán',
-      label: 'Copán'
-    },
-    {
-      value: 'Cortés',
-      label: 'Cortés'
-    },
-    {
-      value: 'El Paraíso',
-      label: 'El Paraíso'
-    },
-    {
-      value: 'Francisco Morazán',
-      label: 'Francisco Morazán'
-    },
-    {
-      value: 'Gracias a Dios',
-      label: 'Gracias a Dios'
-    },
-    {
-      value: 'Intibucá',
-      label: 'Intibucá'
-    },
-    {
-      value: 'Islas de la Bahía',
-      label: 'Islas de la Bahía'
-    },
-    {
-      value: 'La Paz',
-      label: 'La Paz'
-    },
-    {
-      value: 'Lempira',
-      label: 'Lempira'
-    },
-    {
-      value: 'Ocotepeque',
-      label: 'Ocotepeque'
-    },
-    {
-      value: 'Olancho',
-      label: 'Olancho'
-    },
-    {
-      value: 'Santa Bárbara',
-      label: 'Santa Bárbara'
-    },
-    {
-      value: 'Valle',
-      label: 'Valle'
-    },
-    {
-      value: 'Yoro',
-      label: 'Yoro'
+      value: 'Compacto',
+      label: 'Compacto'
     }
-  ];
-  
-  export default brands;
-  
+  ],
+  Compacto: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Intermedio: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  SUV: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  PickUp: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Lujo: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Coaster: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Pullman: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Avion: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Helicoptero: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Planeador: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Lancha: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Velero: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Ferry: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Canoa: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ]
+};
+
+export default brands;
