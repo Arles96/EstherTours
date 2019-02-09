@@ -3,6 +3,7 @@ import { Session } from 'meteor/session';
 import toastr from 'toastr';
 import { FleetRenterSchema } from '../../../api/renters/fleetRenter';
 import vehicleTypes from '../../../api/vehicleTypes/vehicleTypes';
+import brands from '../../../api/brands/brands';
 
 Template.editFleetRenter.helpers({
   FleetRenterSchema: () => FleetRenterSchema,
@@ -16,7 +17,16 @@ Template.editFleetRenter.helpers({
       return [];
     }
   },
-  firstOption: () => Session.get('firstOptionVehicleTypesRenter')
+  firstOption: () => Session.get('firstOptionVehicleTypesRenter'),
+  brands: vehicleTypes => {
+    if (vehicleTypes) {
+      Session.set('firstOptionBrandsRenter', '(Seleccione uno)');
+      return brands[vehicleTypes];
+    } else {
+      Session.set('firstOptionBrandsRenter', '(Seleccione Tipo de Flota)');
+      return [];
+    }
+  },
 });
 
 AutoForm.addHooks('editFleetForm', {
