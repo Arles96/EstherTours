@@ -203,6 +203,11 @@ Router.route('/addRestaurant', {
     listBreadcrumb(['Agregar Restaurante']);
     Session.set('rating', undefined);
     isOperator(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('restaurantImage.all')
+    ];
   }
 });
 
@@ -236,6 +241,7 @@ Router.route('/show-restaurant/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
+    Meteor.subscribe('restaurantImage.all');
     return Meteor.subscribe('restaurant.one', id);
   },
   onBeforeAction: function () {
@@ -262,7 +268,10 @@ Router.route('/edit-restaurant/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('restaurant.one', id);
+    return [
+      Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurantImage.all')
+    ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Restaurantes', 'Actualizando Información de Restaurante']);
@@ -316,6 +325,7 @@ Router.route('/list-renters', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     return [
+      Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('renter.one')
     ];
   },
@@ -440,6 +450,11 @@ Router.route('/add-hotels', {
     listBreadcrumb(['Agregar hoteles']);
     Session.set('hotelCategorization', undefined);
     isOperator(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotelImage.all')
+    ];
   }
 });
 
@@ -523,7 +538,8 @@ Router.route('/show-renter/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('renter.one', id),
-      Meteor.subscribe('renter.all', id)
+      Meteor.subscribe('renter.all', id),
+      Meteor.subscribe('FleetRenterImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -550,7 +566,10 @@ Router.route('/edit-hotel/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('hotel.one', id);
+    return [
+      Meteor.subscribe('hotel.one', id),
+      Meteor.subscribe('hotelImage.all')
+    ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Hoteles', 'Actualizando Información de Hotel']);
@@ -589,7 +608,10 @@ Router.route('/show-hotel/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('hotel.one', id);
+    return [
+      Meteor.subscribe('hotel.one', id),
+      Meteor.subscribe('hotelImage.all')
+    ];
   },
   onBeforeAction: function () {
     const { id } = this.params;
@@ -645,7 +667,10 @@ Router.route('/add-attractions', {
     isOperator(this);
   },
   waitOn: function () {
-    return [Meteor.subscribe('guide.all')];
+    return [
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('attractionImage.all')
+    ];
   }
 });
 
@@ -672,7 +697,8 @@ Router.route('/edit-attractions/:id', {
   waitOn: function () {
     return [
       Meteor.subscribe('attraction.one', this.params.id),
-      Meteor.subscribe('guide.all')
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('attractionImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -697,7 +723,11 @@ Router.route('/show-attraction/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return [Meteor.subscribe('attraction.one', id), Meteor.subscribe('guide.all')];
+    return [
+      Meteor.subscribe('attraction.one', id),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('attractionImage.all')
+    ];
   },
   onBeforeAction: function () {
     const { id } = this.params;
@@ -868,6 +898,7 @@ Router.route('/list-packages', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Paquetes']);
+    Session.set('listPackages', undefined);
     isOperator(this);
   }
 });

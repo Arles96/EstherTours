@@ -3,6 +3,9 @@ import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { RestaurantSchema } from '../../../api/restaurants/restaurants';
 import municipalities from '../../../api/municipalities/municipality';
+import RestaurantImage from '../../../api/restaurants/restaurantImage';
+
+window.RestaurantImage = RestaurantImage;
 
 Template.editRestaurant.helpers({
   RestaurantSchema: () => RestaurantSchema,

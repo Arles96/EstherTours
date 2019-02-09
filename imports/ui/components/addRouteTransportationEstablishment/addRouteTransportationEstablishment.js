@@ -21,7 +21,7 @@ Template.addRouteTransportationEstablishment.helpers({
 
 AutoForm.addHooks('addTransportationEstablishmentRouteForm', {
   onSuccess: function (formtype, result) {
-    toastr.success('Se ha agregado la flota exitosamente.');
+    toastr.success('Se ha agregado una ruta exitosamente.');
   },
   onError: function (formtype, error) {
     toastr.error(error);

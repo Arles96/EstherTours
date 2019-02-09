@@ -56,6 +56,12 @@ Template.showInfoRenter.helpers({
   },
   getBranchOffices: function (_id) {
     return Renters.find({ mainOffice: _id, branchOffice: true }).map(doc => doc.name);
+  },
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
   }
 });
 
