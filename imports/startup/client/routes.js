@@ -42,6 +42,7 @@ import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
 import '../../ui/pages/hotel/showInfoHotel';
 import '../../ui/pages/hotel/editHotel';
+import '../../ui/pages/attraction/filterAttractions';
 import '../../ui/pages/attraction/addAttractions';
 import '../../ui/pages/attraction/listAttractions';
 import '../../ui/pages/attraction/editAttractions';
@@ -615,6 +616,26 @@ Router.route('/show-query-hotel', {
     return {
       hotel: Session.get('hotelQueryDoc').docVals
     };
+  }
+});
+
+/*
+ * Ruta para filtrar atracciones
+ */
+Router.route('/filter-attractions', {
+  name: 'filterAttractions',
+  template: 'filterAttractions',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('attractions.all'),
+      Meteor.subscribe('attraction.one'),
+      Meteor.subscribe('attractionImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar atracciones']);
+    isOperator(this);
   }
 });
 

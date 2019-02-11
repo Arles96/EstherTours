@@ -1,0 +1,36 @@
+<template name="filterAttractions">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-mosque"></i>
+      Filtrar Atracciones
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <label for="slider"><b>Precio maximo:</b> Lps. {{precioMax}}</label>
+          <br >
+          <input type="range" id="sliderMax" min="100" max="1000" value="{{precioMax}}" class="slider">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-search-location"></i>
+      Resultados
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {{#each buscar}}
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {{>filterResult attraction=this}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="filterResult">
+  {{attraction}}
+</template>
