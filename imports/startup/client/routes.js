@@ -419,6 +419,10 @@ Router.route('/add-hotels', {
     listBreadcrumb(['Agregar hoteles']);
     Session.set('hotelCategorization', undefined);
     isOperator(this);
+  },
+  waitOn: function () {
+    const { id } = this.params;
+    return [Meteor.subscribe('hotel.one', id), Meteor.subscribe('hotels.main')];
   }
 });
 
@@ -494,7 +498,7 @@ Router.route('/edit-hotel/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('hotel.one', id);
+    return [Meteor.subscribe('hotel.one', id), Meteor.subscribe('hotels.main')];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Hoteles', 'Actualizando Información de Hotel']);

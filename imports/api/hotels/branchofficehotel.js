@@ -2,19 +2,34 @@ import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
+import { Hotels } from './hotels';
 import { messages, RegExObj } from '../regEx';
 import departments from '../departments/departments';
 import { paymentMethods, money } from '../money/money';
 
 SimpleSchema.extendOptions(['autoform']);
 
-const Hotels = new Mongo.Collection('hotels');
+const BranchOfficeHotel = new Mongo.Collection('BranchOfficeHotel');
 
-const HotelSchema = new SimpleSchema({
+const BranchOfficeHotelSchema = new SimpleSchema({
+  idHotel: {
+    type: String,
+    label: false,
+    autoform: {
+      readonly: true,
+      omit: true,
+      afFieldInput: {
+        type: 'hidden'
+      },
+      afFormGroup: {
+        label: false
+      }
+    }
+  }, /*
   name: {
     type: String,
     label: 'Nombre'
-  },
+  }, */
   email: {
     type: String,
     optional: true,
@@ -51,7 +66,7 @@ const HotelSchema = new SimpleSchema({
   },
   categorization: {
     type: String,
-    label: 'Categorización',
+    label: 'Categorización' /* ,
     autoform: {
       readonly: true,
       omit: true,
@@ -61,7 +76,7 @@ const HotelSchema = new SimpleSchema({
       afFormGroup: {
         label: false
       }
-    }
+    } */
   },
   coin: {
     type: Array,
@@ -113,8 +128,12 @@ const HotelSchema = new SimpleSchema({
   }
 }, { check: check, tracker: Tracker });
 
-HotelSchema.messageBox.messages(messages);
+BranchOfficeHotelSchema.messageBox.messages(messages);
 
-Hotels.attachSchema(HotelSchema);
+BranchOfficeHotel.helpers({
+  getHotelName: function () {
+    return Hotels.findOne({ _id: this.idHotel }).name;
+  }
+});
 
-export { HotelSchema, Hotels };
+export { BranchOfficeHotel, BranchOfficeHotelSchema };

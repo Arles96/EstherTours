@@ -171,10 +171,27 @@
             {{>editRateHotel}}
           {{/if}}
         </div>
+        {{>infoRateHotel}}
+        <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <h4 class="text-center mt-3">Sucursales de {{hotel.name}}</h4>
+          {{#if isOperator}}
+          <div>
+            <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addBranchHotel" >
+              Agregar
+            </button>
+          </div>
+          {{/if}}
+          {{> tabular table=TabularTables.BranchHotel selector=selector class="table table-hover table-bordered"}}
+          {{#if isOperator}}
+            {{>addBranchHotel}}
+            {{>editBranchHotel}}
+          {{/if}}
+        </div>
+        {{>infoRoomHotel}}
       </div>
     </div>
   </div>
-  {{>infoRateHotel}}
+  
 </template>
 
 <template name="showButtonRoomHotel" >
@@ -203,4 +220,18 @@
         <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRateHotel far fa-trash-alt"></i>
       </span>
     {{/if}}
-  </template>
+</template>
+
+<template name="showButtonBranchHotel" >
+  <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
+    <i style="cursor: pointer;" data-id="{{_id}}" class="infoBranchHotel far fa-eye mr-2" data-toggle="modal" data-target="#infoBranchHotel" ></i>
+  </span>
+  {{#if isOperator}}
+    <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="infoBranchHotel far fa-edit mr-2" data-toggle="modal" data-target="#editBranchHotel"></i>
+    </span>
+    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="deleteBranchHotel far fa-trash-alt"></i>
+    </span>
+  {{/if}}
+</template>

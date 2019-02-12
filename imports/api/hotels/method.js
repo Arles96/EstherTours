@@ -2,7 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { HotelSchema, Hotels } from './hotels';
 import { RoomHotelSchema, RoomHotel } from './roomhotel';
 import { RateHotelSchema, RateHotel } from './ratehotel';
-import { operator } from '../roles/roles';
+import { BranchOfficeHotel, BranchOfficeHotelSchema } from './branchofficehotel';
+import { operator } from '../roles/roles';  
 import HotelQuerySchema from './hotelQuery';
 
 Meteor.methods({
@@ -88,6 +89,34 @@ Meteor.methods({
   deleteRateHotel: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       RateHotel.remove({ _id: id });
+    } else {
+      throw new Meteor.Error('Permiso Denegado.');
+    }
+  },
+  // Metodos para sucursales
+  addBranchHotel: function (doc) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      BranchOfficeHotelSchema.validate(doc);
+      BranchOfficeHotel.insert(doc);
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
+  },
+  editBranchHotel: function (doc) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      const data = doc.modifier.$set;
+      const { _id } = doc;
+      BranchOfficeHotelSchema.validate(data);
+      BranchOfficeHotel.update({ _id: _id }, {
+        $set: data
+      });
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
+  },
+  deleteBranchHotel: function (id) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      BranchOfficeHotel.remove({ _id: id });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }

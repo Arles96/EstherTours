@@ -10,6 +10,7 @@
     </div>
     {{>addRoomHotel}}
     {{>addRateHotel}}
+    {{>addBranchHotel}}
     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
   </div>
 </template>
@@ -26,6 +27,9 @@
   </span>
   <span data-toggle="tooltip" data-placement="top" title="Agregar tarifa" >
       <i style="cursor: pointer;" data-id="{{_id}}" class="addRateHotel fas fa-money-check mr-2" data-toggle="modal" data-target="#addRateHotel"></i>
+  </span>
+  <span data-toggle="tooltip" data-placement="top" title="Agregar sucursal" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="addBranchHotel far fa-building mr-2" data-toggle="modal" data-target="#addBranchHotel"></i>
   </span>
   <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
     <i style="cursor: pointer;" data-id="{{_id}}" class="deleteHotel far fa-trash-alt"></i>

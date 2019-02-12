@@ -1,16 +1,20 @@
 import './showInfoHotel.html';
 import '../../components/addRoomHotel/addRoomHotel';
 import '../../components/addRateHotel/addRateHotel';
+import '../../components/addBranchOfficeHotel/addBranchOfficeHotel';
 import '../../components/infoRoomHotel/infoRoomHotel';
 import '../../components/infoRateHotel/infoRateHotel';
+import '../../components/infoBranchHotel/infoBranchHotel';
 import './editRateHotel';
 import './editRoomHotel';
+import './editBranchHotel';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
+import { BranchOfficeHotel } from '../../../api/hotels/branchofficehotel';
 
 Template.showInfoHotel.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -90,6 +94,32 @@ Template.showButtonRateHotel.events({
   },
   'click .infoRateHotel': function () {
     Session.set('rateHotel', RateHotel.findOne({ _id: this._id }));
+  }
+});
+
+Template.showButtonBranchHotel.events({
+  'click .deleteBranchHotel': function () {
+    const id = this._id;
+    Swal({
+      title: 'Eliminar Sucursal',
+      text: 'Esta seguro de eliminar este registro.',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true,
+      focusCancel: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('deleteBranchHotel', id, (error, result) => {
+          if (error) {
+            toastr.error('Error al eliminar el registro.');
+          } else {
+            toastr.success('Se eliminó el registro exitósamente.');
+          }
+        });
+      }
+    });
+  },
+  'click .infoBranchHotel': function () {
+    Session.set('branchHotel', BranchOfficeHotel.findOne({ _id: this._id }));
   }
 });
 
