@@ -181,7 +181,7 @@ const RestaurantSchema = new SimpleSchema({
   },
   'branchContacts.$': {
     type: branchContactsSchema,
-    label: 'Contactos',
+    label: '',
     optional: true
   },
   numbersTables: {
