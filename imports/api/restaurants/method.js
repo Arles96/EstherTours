@@ -24,6 +24,11 @@ Meteor.methods({
       const regex = new RegExp(regStr, 'i');
       query.email = { $regex: regex };
     }
+    if (query.website) {
+      const regStr = query.website.split(/ /).join('|');
+      const regex = new RegExp(regStr, 'i');
+      query.website = { $regex: regex };
+    }
     if (query.street) {
       const regStr = query.street.split(/ /).join('|');
       const regex = new RegExp(regStr, 'i');
@@ -52,6 +57,10 @@ Meteor.methods({
     if (query.menages) {
       const arr = query.menages.map(Element => new RegExp(`.*${Element}.*`, 'i'));
       query.menages = { $in: arr };
+    }
+    if (query.telephone) {
+      const arr = query.telephone.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      query.telephone = { $in: arr };
     }
     if (query.ambience) {
       const arr = query.ambience.map(Element => new RegExp(`.*${Element}.*`, 'i'));
@@ -103,9 +112,16 @@ Meteor.methods({
       const data = doc.modifier.$set;
       const { _id } = doc;
       restaurantOffersSchema.validate(data);
-      restaurantOffers.update({ _id: _id }, {
-        $set: data
-      });
+      const value = doc.telephone;
+      if (!Restaurants.findOne(
+        { telephone: { $in: value } }
+      )) {
+        Restaurants.update({ _id: _id }, {
+          $set: data
+        });
+      } else {
+        throw new Meteor.Error('No se permiten valores repetidos en telefonos.');
+      }
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }

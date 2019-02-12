@@ -3,6 +3,9 @@ import { Session } from 'meteor/session';
 import toastr from 'toastr';
 import { FleetRenterSchema } from '../../../api/renters/fleetRenter';
 import vehicleTypes from '../../../api/vehicleTypes/vehicleTypes';
+import FleetRenterImage from '../../../api/renters/fleetRenterImage';
+
+window.FleetRenterImage = FleetRenterImage;
 
 Template.editFleetRenter.helpers({
   FleetRenterSchema: () => FleetRenterSchema,

@@ -11,6 +11,7 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
+import HotelImage from '../../../api/hotels/hotelImage';
 
 Template.showInfoHotel.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -39,6 +40,10 @@ Template.showInfoHotel.onCreated(() => {
       }
     }
   });
+});
+
+Template.showInfoHotel.helpers({
+  findImage: _id => HotelImage.findOne({ _id })
 });
 
 Template.showButtonRoomHotel.events({
@@ -96,5 +101,11 @@ Template.showButtonRateHotel.events({
 Template.showInfoHotel.helpers({
   selector: function () {
     return { idHotel: Session.get('idHotel') };
+  },
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
   }
 });

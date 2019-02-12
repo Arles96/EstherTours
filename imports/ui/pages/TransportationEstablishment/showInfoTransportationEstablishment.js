@@ -44,6 +44,12 @@ Template.showInfoTransportationEstablishment.onCreated(() => {
 Template.showInfoTransportationEstablishment.helpers({
   selector: function () {
     return { idTransportationEstablishment: Session.get('idTransportationEstablishment') };
+  },
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
   }
 });
 
@@ -54,7 +60,8 @@ Template.showButtonFleetTransportationEstablishments.events({
       title: 'Eliminar Flota',
       text: 'Esta seguro de eliminar este registro.',
       cancelButtonText: 'Cancelar',
-      showCancelButton: true
+      showCancelButton: true,
+      focusCancel: true
     }).then(res => {
       if (res.value) {
         Meteor.call('deleteFleetTransportationEstablishment', id, (error, result) => {
