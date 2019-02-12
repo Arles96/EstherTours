@@ -10,9 +10,9 @@ import toastr from 'toastr';
 import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
+import { TransportationEstablishments } from '../../../api/TransportationEstablishment/TransportationEstablishment';
 import { FleetTransportationEstablishment } from '../../../api/TransportationEstablishment/FleetTransportationEstablishment';
 import { RouteTransportationEstablishment } from '../../../api/TransportationEstablishment/RouteTransportationEstablishment';
-import { BranchOfficeTransportationEstablishment } from '../../../api/TransportationEstablishment/BranchOfficeTransportationEstablishment';
 
 Template.showInfoTransportationEstablishment.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -52,32 +52,40 @@ Template.showInfoTransportationEstablishment.helpers({
       return url;
     }
     return `https://${url}`;
+  },
+  isBranch: function (branchOffice) {
+    console.log(branchOffice);
+    return !branchOffice;
   }
 });
 
 Template.showButtonBranchOfficeTransportationEstablishments.events({
-  'click .deleteBranchOfficeTransportationEstablishment': function () {
+  'click .addFleetTransportationEstablishment': function () {
+    Session.set('idTransportationEstablishment', this._id);
+  },
+  'click .addRouteTransportationEstablishment': function () {
+    Session.set('idTransportationEstablishment', this._id);
+  },
+  'click .deleteTransportationEstablishment': function () {
     const id = this._id;
+    const TransportationEstablishment = TransportationEstablishments.findOne({ _id: id });
     Swal({
-      title: 'Eliminar sucursal',
-      text: 'Esta seguro de eliminar este registro.',
+      title: 'Eliminar sucursal de transporte',
+      text: `Esta seguro de eliminar esta sucursal de ${TransportationEstablishment.name}`,
       cancelButtonText: 'Cancelar',
       showCancelButton: true,
       focusCancel: true
     }).then(res => {
       if (res.value) {
-        Meteor.call('deleteBranchOfficeTransportationEstablishment', id, (error, result) => {
+        Meteor.call('deleteTransportationEstablishment', id, (error, result) => {
           if (error) {
-            toastr.error('Error al eliminar el registro.');
+            toastr.error('Error al eliminar la sucursal.');
           } else {
-            toastr.success('Se eliminó el registro exitosamente.');
+            toastr.success('Se ha eliminado la sucursal.');
           }
         });
       }
     });
-  },
-  'click .infoBranchOfficeTransportationEstablishment': function () {
-    Session.set('branchOfficeTransportationEstablishment', BranchOfficeTransportationEstablishment.findOne({ _id: this._id }));
   }
 });
 

@@ -18,23 +18,40 @@
           meteormethod="addBranchOfficeTransportationEstablishment"
           }}
           {{>afQuickField name="idTransportationEstablishment" value=idTransportationEstablishment }}
-          {{>afQuickField name="name" value=TransportationEstablishment.name }}
-          {{>afQuickField name="email" value=TransportationEstablishment.email }}
+          {{>afQuickField name="name" value=TransportationEstablishment.name readonly=true omit=true type='hidden' }}
+          {{>afQuickField name="email" value=TransportationEstablishment.email readonly=true omit=true type='hidden' }}
           {{>afQuickField name="website" }}
           {{>afQuickField name="street" }}
           {{>afQuickField name="city" }}
           {{>afQuickField name="department" }}
-          {{>afQuickField name="town" firstOption=firstOption options=(municipalities (afFieldValue name="department") ) }}
+          {{>afQuickField name="town" firstOption=firstOption options=(municipalities (afFieldValue name="department")
+          ) }}
           {{>afQuickField name="phone" }}
           {{>afQuickField name="branchContacts" }}
           {{>afQuickField name="type" }}
-          <div class="form-group mt-1">
-            <label class="mb-3">{{labelCategortization "0" }}</label>
-            {{>updateStarBranchOfficeTransportationEstablishment}}
+          <div>
+            <div class="form-group mt-1">
+              <label class="mb-3">Categorización</label>
+              <fieldset id="group">
+                <p class="categorization">
+                  <input id="categorization1" name="group" value="5" type="radio">
+                  <label for="categorization1">★</label>
+                  <input id="categorization2" name="group" value="4" type="radio">
+                  <label for="categorization2">★</label>
+                  <input id="categorization3" name="group" value="3" type="radio">
+                  <label for="categorization3">★</label>
+                  <input id="categorization4" name="group" value="2" type="radio">
+                  <label for="categorization4">★</label>
+                  <input id="categorization5" name="group" value="1" type="radio">
+                  <label for="categorization5">★</label>
+                </p>
+              </fieldset>
+            </div>
+            {{>afQuickField name="categorization" value=categorization }}
           </div>
-          {{>afQuickField name="categorization" value="0" }}
           {{>afQuickField name="paymentMethods" }}
           {{>afQuickField name="money" }}
+          {{>afQuickField name="branchOffice" value=imABranch }}
           <div class="text-center mt-4">
             <button class="btn btn-primary w-75" type="submit">Agregar</button>
           </div>
@@ -42,15 +59,5 @@
         </div>
       </div>
     </div>
-  </div>
-</template>
-
-<template name="updateStarBranchOfficeTransportationEstablishment">
-  <div>
-    <p>
-      {{#each list}}
-      <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
-      {{/each}}
-    </p>
   </div>
 </template>

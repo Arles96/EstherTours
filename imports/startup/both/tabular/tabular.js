@@ -10,7 +10,6 @@ import { restaurantOffers } from '../../../api/restaurants/restaurantOffers';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
 import { FleetTransportationEstablishment } from '../../../api/TransportationEstablishment/FleetTransportationEstablishment';
 import { RouteTransportationEstablishment } from '../../../api/TransportationEstablishment/RouteTransportationEstablishment';
-import { BranchOfficeTransportationEstablishment } from '../../../api/TransportationEstablishment/BranchOfficeTransportationEstablishment';
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
 import { Guide } from '../../../api/guide/guide';
@@ -576,7 +575,7 @@ TabularTables.TransportationEstablishments = new Tabular.Table({
 
 TabularTables.BranchOfficeTransportationEstablishment = new Tabular.Table({
   name: 'BranchOfficeTransportationEstablishment',
-  collection: BranchOfficeTransportationEstablishment,
+  collection: TransportationEstablishments,
   responsive: true,
   autoWidth: false,
   search: {
@@ -584,12 +583,13 @@ TabularTables.BranchOfficeTransportationEstablishment = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['idTransportationEstablishment'],
+  extraFields: ['idTransportationEstablishment', 'name', 'email', 'website',
+    'phone', 'type', 'categorization', 'branchContacts', 'paymentMethods', 'money', 'branchOffice'],
   columns: [
     {
       class: 'text-center',
       data: 'department',
-      title: 'Departmento'
+      title: 'Departamento'
     },
     {
       class: 'text-center',
