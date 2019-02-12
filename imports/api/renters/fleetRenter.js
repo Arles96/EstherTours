@@ -73,6 +73,20 @@ const FleetRenterSchema = new SimpleSchema({
   },
   'menage.$': {
     type: String
+  },
+  images: {
+    type: Array,
+    label: 'Imagenes (Opcional)',
+    optional: true
+  },
+  'images.$': {
+    type: String,
+    autoform: {
+      afFieldInput: {
+        type: 'fileUpload',
+        collection: 'fleetRenterImage'
+      }
+    }
   }
 }, { check: check, tracker: Tracker });
 

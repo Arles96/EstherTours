@@ -145,7 +145,7 @@ Packages.helpers({
     return `${route.city}, ${route.type}`;
   },
   textRestaurant: function () {
-    const restaurant = Restaurants.findOne({ _id: this.idRestaurante });
+    const restaurant = Restaurants.findOne({ _id: this.idRestaurant });
     return `${restaurant.name}, ${restaurant.municipality}, ${restaurant.department}`;
   },
   textGuide: function () {

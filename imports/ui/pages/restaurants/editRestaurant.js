@@ -3,6 +3,9 @@ import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { RestaurantSchema } from '../../../api/restaurants/restaurants';
 import municipalities from '../../../api/municipalities/municipality';
+import RestaurantImage from '../../../api/restaurants/restaurantImage';
+
+window.RestaurantImage = RestaurantImage;
 
 Template.editRestaurant.helpers({
   RestaurantSchema: () => RestaurantSchema,
@@ -16,7 +19,11 @@ Template.editRestaurant.helpers({
       return [];
     }
   },
-  firstOption: () => Session.get('firstOptionMunicipalityRestaurant')
+  firstOption: () => Session.get('firstOptionMunicipalityRestaurant'),
+  textCategorization: function (text) {
+    Session.set('editRestaurantRating', text);
+    return 'Categorización';
+  }
 });
 
 Template.editRestaurant.events({
@@ -32,5 +39,43 @@ AutoForm.addHooks('editRestaurantsForms', {
   },
   onError: function (formtype, error) {
     toastr.error(error);
+  }
+});
+
+Template.updateStarRestaurant.helpers({
+  list: () => {
+    const list = [];
+    for (let index = 1; index <= 5; index += 1) {
+      if (index <= parseInt(Session.get('editRestaurantRating'), 10)) {
+        list.push({
+          class: 'fas fa-star colorOrange',
+          id: `start${index}`
+        });
+      } else {
+        list.push({
+          class: 'fas fa-star',
+          id: `start${index}`
+        });
+      }
+    }
+    return list;
+  }
+});
+
+Template.updateStarRestaurant.events({
+  'click #start1': function () {
+    Session.set('editRestaurantRating', '1');
+  },
+  'click #start2': function () {
+    Session.set('editRestaurantRating', '2');
+  },
+  'click #start3': function () {
+    Session.set('editRestaurantRating', '3');
+  },
+  'click #start4': function () {
+    Session.set('editRestaurantRating', '4');
+  },
+  'click #start5': function () {
+    Session.set('editRestaurantRating', '5');
   }
 });

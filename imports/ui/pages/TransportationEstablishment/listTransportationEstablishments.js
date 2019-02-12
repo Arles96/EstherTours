@@ -50,7 +50,8 @@ Template.showButtonTransportationEstablishments.events({
       title: 'Eliminar Registro de Transporte',
       text: `Esta seguro de eliminar este registro de ${TransportationEstablishment.name}`,
       cancelButtonText: 'Cancelar',
-      showCancelButton: true
+      showCancelButton: true,
+      focusCancel: true
     }).then(res => {
       if (res.value) {
         Meteor.call('deleteTransportationEstablishment', id, (error, result) => {

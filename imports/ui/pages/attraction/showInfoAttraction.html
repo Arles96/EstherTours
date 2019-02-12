@@ -1,0 +1,146 @@
+<template name="showInfoAttraction" >
+  <div class="card mb-3" >
+    <div class="card-header" >
+        <i class="fas fa-home"></i> Mostrando datos de <b>{{attraction.name}}</b>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {{#with attraction}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Nombre:</b>
+                {{name}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Costo:</b>
+                {{price}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Guia:</b>
+                {{guideInfo(guide)}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Calle:</b>
+                {{street}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Ciudad:</b>
+                {{city}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Categorización:</b>
+              </label>
+              {{categorization}} estrellas
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Municipio:</b>
+                {{municipality}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Departamento:</b>
+                {{departament}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Teléfono:</b>
+              </label>
+              {{#each telephone }}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Contactos</b>
+              </label>
+              <ul>
+                {{#each branchContacts }}
+                  <li>{{name}}, {{role}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Métodos de Pago:</b>
+              </label>
+              <ul>
+                {{#each paymentsMethod}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Monedas aceptadas:</b>
+              </label>
+              <ul>
+                {{#each coin}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+                <label for=""><b>Tipo de atraccion:</b></label>
+              <ul>
+                {{#each type}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          {{#if images}}
+            <br>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              <h2 class="mt-4 text-center" >Imagenes</h2>
+              <div class="row">
+                {{#each attractionImages }}
+                  <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <img class="img-thumbnail" src="{{link}}" alt="{{name}}">
+                  </div>
+                {{/each}}
+              </div>
+            </div>
+          {{/if}}
+        {{/with}}
+      </div>
+    </div>
+  </div>
+</template>
