@@ -26,7 +26,11 @@ Template.editRenter.helpers({
 AutoForm.addHooks('editRentersForms', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha actualizado el registro de la arrendadora exitosamente.');
-    Router.go('/list-renters');
+    if (this.currentDoc.branchOffice) {
+      Router.go(`/show-renter/${this.currentDoc.mainOffice}`);
+    } else {
+      Router.go('/list-renters');
+    }
   },
   onError: function (formtype, error) {
     toastr.error(error);

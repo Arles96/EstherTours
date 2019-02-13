@@ -31,6 +31,7 @@ import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
+import '../../ui/pages/renters/branchRenter';
 import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/listTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstablishment';
@@ -344,6 +345,9 @@ Router.route('/add-renters', {
   name: 'addRenters',
   template: 'addRenters',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return Meteor.subscribe('renter.all');
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Arrendadora']);
     Session.set('categorization', undefined);
@@ -358,14 +362,15 @@ Router.route('/list-renters', {
   name: 'listRenters',
   template: 'listRenters',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('FleetRenterImage.all'),
+      Meteor.subscribe('renter.one')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Arrendadoras']);
     isOperator(this);
-  },
-  waitOn: function () {
-    return [
-      Meteor.subscribe('FleetRenterImage.all')
-    ];
   }
 });
 
@@ -502,12 +507,42 @@ Router.route('/edit-renter/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
-      Meteor.subscribe('renter.one', id)
+      Meteor.subscribe('renter.one', id),
+      Meteor.subscribe('renter.all', id)
     ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Arrendadoras', 'Actualizando Información de Arrendadora']);
     Session.set('editRenterCategorization', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      renter: Renters.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para agregar sucursal a una arrendadora
+ */
+Router.route('/branch-renter/:id', {
+  name: 'branchRenter',
+  template: 'branchRenter',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('renter.one', id),
+      Meteor.subscribe('renter.all', id)
+    ];
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const renter = Renters.findOne({ _id: id });
+    listBreadcrumb(['Listar Arrendadoras', `Agregar sucursal a ${renter.name}`]);
+    Session.set('branchRenterRating', undefined);
     isOperator(this);
   },
   data: function () {
@@ -542,6 +577,7 @@ Router.route('/show-renter/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('renter.one', id),
+      Meteor.subscribe('renter.all', id),
       Meteor.subscribe('FleetRenterImage.all')
     ];
   },
