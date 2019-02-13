@@ -36,6 +36,10 @@ AutoForm.addHooks('addBranchOfficeTransportationEstablishmentForm', {
     toastr.success('Se ha agregado la sucursal exitosamente.');
   },
   onError: function (formtype, error) {
-    toastr.error(error);
+    if (error.error === 'Ubicación duplicada.') {
+      toastr.error(new Error('¡Ya existe una sucursal con esas direcciones!'));
+    } else {
+      toastr.error(error);
+    }
   }
 });
