@@ -23,6 +23,7 @@ import '../../ui/pages/usersPage/usersPage';
 import '../../ui/pages/restaurants/addRestaurant';
 import '../../ui/pages/restaurants/listRestaurants';
 import '../../ui/pages/restaurants/editRestaurant';
+import '../../ui/pages/restaurants/branchRestaurant';
 import '../../ui/pages/restaurants/showInfoRestaurant';
 import '../../ui/pages/restaurantConsults/consultRestaurant';
 import '../../ui/pages/restaurantConsults/listRestaurantResults';
@@ -199,15 +200,16 @@ Router.route('/addRestaurant', {
   name: 'addRestaurants',
   template: 'addRestaurant',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('restaurantImage.all'),
+      Meteor.subscribe('restaurant.all')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Restaurante']);
     Session.set('rating', undefined);
     isOperator(this);
-  },
-  waitOn: function () {
-    return [
-      Meteor.subscribe('restaurantImage.all')
-    ];
   }
 });
 
@@ -226,6 +228,11 @@ Router.route('/listRestaurants', {
   name: 'listRestaurants',
   template: 'listRestaurants',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('restaurant.one')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Restaurantes']);
     isOperator(this);
@@ -241,8 +248,11 @@ Router.route('/show-restaurant/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    Meteor.subscribe('restaurantImage.all');
-    return Meteor.subscribe('restaurant.one', id);
+    return [
+      Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurant.all', id),
+      Meteor.subscribe('restaurantImage.all')
+    ];
   },
   onBeforeAction: function () {
     const { id } = this.params;
@@ -270,12 +280,41 @@ Router.route('/edit-restaurant/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurant.all', id),
       Meteor.subscribe('restaurantImage.all')
     ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Restaurantes', 'Actualizando Información de Restaurante']);
     Session.set('editRestaurantRating', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      restaurant: Restaurants.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para agregar sucursal a un restaurante
+ */
+Router.route('/branch-restaurant/:id', {
+  name: 'branchRestaurant',
+  template: 'branchRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('restaurant.one', id)
+    ];
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const restaurant = Restaurants.findOne({ _id: id });
+    listBreadcrumb(['Listar Restaurantes', `Agregar sucursal a ${restaurant.name}`]);
+    Session.set('branchRestaurantRating', undefined);
     isOperator(this);
   },
   data: function () {
