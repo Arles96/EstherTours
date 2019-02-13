@@ -535,8 +535,7 @@ Router.route('/branch-renter/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
-      Meteor.subscribe('renter.one', id),
-      Meteor.subscribe('renter.all', id)
+      Meteor.subscribe('renter.one', id)
     ];
   },
   onBeforeAction: function () {
