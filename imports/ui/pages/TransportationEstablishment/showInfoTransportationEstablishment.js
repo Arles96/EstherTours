@@ -54,7 +54,6 @@ Template.showInfoTransportationEstablishment.helpers({
     return `https://${url}`;
   },
   isBranch: function (branchOffice) {
-    console.log(branchOffice);
     return !branchOffice;
   }
 });
