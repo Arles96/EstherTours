@@ -20,6 +20,10 @@ Template.editTransportationEstablishment.helpers({
   textCategorization: function (text) {
     Session.set('editTransportationEstablishmentCategorization', text);
     return 'Categorización';
+  },
+  isBranch: function (branchOffice) {
+    console.log(branchOffice);
+    return branchOffice;
   }
 });
 
