@@ -133,11 +133,19 @@ Meteor.methods({
   addBranchOfficeTransportationEstablishment: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       const validate = TransportationEstablishments.findOne({
-        idTransportationEstablishment: doc.idTransportationEstablishment,
-        street: doc.street,
-        city: doc.city,
-        department: doc.department,
-        town: doc.town
+        $or: [{
+          idTransportationEstablishment: doc.idTransportationEstablishment,
+          street: doc.street,
+          city: doc.city,
+          department: doc.department,
+          town: doc.town
+        }, {
+          _id: doc.idTransportationEstablishment,
+          street: doc.street,
+          city: doc.city,
+          department: doc.department,
+          town: doc.town
+        }]
       });
       if (validate) {
         throw new Meteor.Error('Ubicación duplicada.');
