@@ -23,6 +23,7 @@ import '../../ui/pages/usersPage/usersPage';
 import '../../ui/pages/restaurants/addRestaurant';
 import '../../ui/pages/restaurants/listRestaurants';
 import '../../ui/pages/restaurants/editRestaurant';
+import '../../ui/pages/restaurants/branchRestaurant';
 import '../../ui/pages/restaurants/showInfoRestaurant';
 import '../../ui/pages/restaurantConsults/consultRestaurant';
 import '../../ui/pages/restaurantConsults/listRestaurantResults';
@@ -30,6 +31,7 @@ import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
+import '../../ui/pages/renters/branchRenter';
 import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/listTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstablishment';
@@ -199,15 +201,16 @@ Router.route('/addRestaurant', {
   name: 'addRestaurants',
   template: 'addRestaurant',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('restaurantImage.all'),
+      Meteor.subscribe('restaurant.all')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Restaurante']);
     Session.set('rating', undefined);
     isOperator(this);
-  },
-  waitOn: function () {
-    return [
-      Meteor.subscribe('restaurantImage.all')
-    ];
   }
 });
 
@@ -226,6 +229,11 @@ Router.route('/listRestaurants', {
   name: 'listRestaurants',
   template: 'listRestaurants',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('restaurant.one')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Restaurantes']);
     isOperator(this);
@@ -241,8 +249,11 @@ Router.route('/show-restaurant/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    Meteor.subscribe('restaurantImage.all');
-    return Meteor.subscribe('restaurant.one', id);
+    return [
+      Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurant.all', id),
+      Meteor.subscribe('restaurantImage.all')
+    ];
   },
   onBeforeAction: function () {
     const { id } = this.params;
@@ -270,12 +281,41 @@ Router.route('/edit-restaurant/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurant.all', id),
       Meteor.subscribe('restaurantImage.all')
     ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Restaurantes', 'Actualizando Información de Restaurante']);
     Session.set('editRestaurantRating', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      restaurant: Restaurants.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para agregar sucursal a un restaurante
+ */
+Router.route('/branch-restaurant/:id', {
+  name: 'branchRestaurant',
+  template: 'branchRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('restaurant.one', id)
+    ];
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const restaurant = Restaurants.findOne({ _id: id });
+    listBreadcrumb(['Listar Restaurantes', `Agregar sucursal a ${restaurant.name}`]);
+    Session.set('branchRestaurantRating', undefined);
     isOperator(this);
   },
   data: function () {
@@ -306,6 +346,9 @@ Router.route('/add-renters', {
   name: 'addRenters',
   template: 'addRenters',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return Meteor.subscribe('renter.all');
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Arrendadora']);
     Session.set('categorization', undefined);
@@ -320,14 +363,15 @@ Router.route('/list-renters', {
   name: 'listRenters',
   template: 'listRenters',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('FleetRenterImage.all'),
+      Meteor.subscribe('renter.one')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Arrendadoras']);
     isOperator(this);
-  },
-  waitOn: function () {
-    return [
-      Meteor.subscribe('FleetRenterImage.all')
-    ];
   }
 });
 
@@ -464,12 +508,42 @@ Router.route('/edit-renter/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
-      Meteor.subscribe('renter.one', id)
+      Meteor.subscribe('renter.one', id),
+      Meteor.subscribe('renter.all', id)
     ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Arrendadoras', 'Actualizando Información de Arrendadora']);
     Session.set('editRenterCategorization', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      renter: Renters.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para agregar sucursal a una arrendadora
+ */
+Router.route('/branch-renter/:id', {
+  name: 'branchRenter',
+  template: 'branchRenter',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('renter.one', id),
+      Meteor.subscribe('renter.all', id)
+    ];
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const renter = Renters.findOne({ _id: id });
+    listBreadcrumb(['Listar Arrendadoras', `Agregar sucursal a ${renter.name}`]);
+    Session.set('branchRenterRating', undefined);
     isOperator(this);
   },
   data: function () {
@@ -504,6 +578,7 @@ Router.route('/show-renter/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('renter.one', id),
+      Meteor.subscribe('renter.all', id),
       Meteor.subscribe('FleetRenterImage.all')
     ];
   },
