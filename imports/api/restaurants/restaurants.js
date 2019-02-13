@@ -239,8 +239,24 @@ const RestaurantSchema = new SimpleSchema({
   waitingRoom: {
     type: Boolean,
     label: 'Sala de Espera'
+  },
+  branchOffice: {
+    type: Boolean,
+    label: 'Es sucursal',
+    defaultValue: false
+  },
+  mainOffice: {
+    type: String,
+    label: 'Oficina principal',
+    custom: function () {
+      if (!this.value && this.field('branchOffice').value) {
+        return 'required';
+      } else {
+        return 1;
+      }
+    },
+    optional: true
   }
-
 }, { check: check, tracker: Tracker });
 
 RestaurantSchema.messageBox.messages(messages);
