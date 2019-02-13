@@ -34,6 +34,22 @@
         </div>
       </li>
       <li class="nav-item dropdown no-arrow mx-1">
+        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-box"></i>
+          {{#if isCreatePackage}}
+            <span class="badge badge-danger">.</span>
+          {{/if}}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+          {{#if isCreatePackage}}
+            <a class="dropdown-item" href="#">Ver Paquete</a>
+            <a id="deletePackage" class="dropdown-item" href="#">Eliminar Paquete</a>
+          {{else}}
+            <a id="createPackage" class="dropdown-item" href="#">Iniciar empaquetado</a>
+          {{/if}}
+        </div>
+      </li>
+      <li class="nav-item dropdown no-arrow mx-1">
         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-envelope fa-fw"></i>
           <span class="badge badge-danger">7</span>
@@ -58,4 +74,5 @@
       </li>
     </ul>
   </nav>
+  {{>namePackageModal title="Agregando Nombre Paquete" }}
 </template>
