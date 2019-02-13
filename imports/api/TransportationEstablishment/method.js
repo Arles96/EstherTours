@@ -60,6 +60,42 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       const data = doc.modifier.$set;
       const { _id } = doc;
+      const validate = TransportationEstablishments.find({
+        $or: [{
+          idTransportationEstablishment: data.idTransportationEstablishment,
+          street: data.street,
+          city: data.city,
+          department: data.department,
+          town: data.town
+        }, {
+          _id: data.idTransportationEstablishment,
+          street: data.street,
+          city: data.city,
+          department: data.department,
+          town: data.town
+        }, {
+          _id: _id,
+          street: data.street,
+          city: data.city,
+          department: data.department,
+          town: data.town
+        }, {
+          idTransportationEstablishment: _id,
+          street: data.street,
+          city: data.city,
+          department: data.department,
+          town: data.town
+        }]
+      }).fetch();
+      if (validate.length > 0) {
+        validate.forEach(value => {
+          if (value._id !== doc._id) {
+            console.log(doc);
+            console.log(value);
+            throw new Meteor.Error('Ubicación duplicada.');
+          }
+        });
+      }
       TransportationEstablishmentSchema.validate(data);
       TransportationEstablishments.update({ _id: _id }, {
         $set: data
