@@ -90,8 +90,6 @@ Meteor.methods({
       if (validate.length > 0) {
         validate.forEach(value => {
           if (value._id !== doc._id) {
-            console.log(doc);
-            console.log(value);
             throw new Meteor.Error('Ubicación duplicada.');
           }
         });
