@@ -5,6 +5,7 @@ import '../imports/startup/both';
 import '../imports/startup/client';
 import toastr from 'toastr';
 import { Template } from 'meteor/templating';
+import { Session } from 'meteor/session';
 import { Meteor } from 'meteor/meteor';
 import { admin, consultant, operator } from '../imports/api/roles/roles';
 
@@ -49,3 +50,8 @@ Template.registerHelper('isConsultant', () => Roles.userIsInRole(Meteor.userId()
  * Esta función se usa en Blaze
  */
 Template.registerHelper('isLoggedIn', () => Meteor.user());
+
+/**
+ * Helper para saber si se esta creando un empaquetado
+ */
+Template.registerHelper('isCreatePackage', () => Session.get('isCreatePackage'));

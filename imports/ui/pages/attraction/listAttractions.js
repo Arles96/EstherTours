@@ -54,6 +54,10 @@ Template.showButtonAttractions.events({
         });
       }
     });
+  },
+  'click .packageEntity': function () {
+    const { name, _id, price } = Attractions.findOne({ _id: this._id });
+    localStorage.setItem('packageAttraction', { name, _id, price });
+    toastr.success(`Se ha empaquetado la atracción ${name}`);
   }
-
 });

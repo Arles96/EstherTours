@@ -9,10 +9,6 @@ Template.dashboardNavbar.onCreated(() => {
   Session.set('isCreatePackage', localStorage.getItem('createPackage'));
 });
 
-Template.dashboardNavbar.helpers({
-  isCreatePackage: () => Session.get('isCreatePackage')
-});
-
 Template.dashboardNavbar.events({
   'click #logout': function () {
     Accounts.logout();

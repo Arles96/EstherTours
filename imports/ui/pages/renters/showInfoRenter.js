@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
+import { Renters } from '../../../api/renters/renters';
 
 Template.showInfoRenter.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -72,5 +73,8 @@ Template.showButtonFleetRenters.events({
   },
   'click .infoFleetRenter': function () {
     Session.set('fleetRenter', FleetRenter.findOne({ _id: this._id }));
+  },
+  'click .packageEntity': function () {
+    const { idRenter, type, rate } = FleetRenter.findOne({ _id: this._id });
   }
 });

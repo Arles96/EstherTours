@@ -11,6 +11,7 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
+import { Hotels } from '../../../api/hotels/hotels';
 import HotelImage from '../../../api/hotels/hotelImage';
 
 Template.showInfoHotel.onCreated(() => {
@@ -69,6 +70,22 @@ Template.showButtonRoomHotel.events({
   },
   'click .infoRoomHotel': function () {
     Session.set('roomHotel', RoomHotel.findOne({ _id: this._id }));
+  },
+  'click .packageEntity': function () {
+    const {
+      _id,
+      idHotel,
+      price,
+      type
+    } = RoomHotel.findOne({ _id: this._id });
+    const { name } = Hotels.findOne({ _id: idHotel });
+    localStorage.setItem('packageRoomHotel', {
+      _id,
+      idHotel,
+      price,
+      type,
+      name
+    });
   }
 });
 

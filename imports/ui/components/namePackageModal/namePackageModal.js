@@ -10,5 +10,6 @@ Template.namePackageModal.events({
     localStorage.setItem('createPackage', true);
     toastr.success('Iniciando creación de paquete');
     Session.set('isCreatePackage', true);
+    $('#namePackageModal').modal('hide');
   }
 });
