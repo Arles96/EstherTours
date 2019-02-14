@@ -19,7 +19,6 @@ import boats from '../../../api/brands/boats';
 import sailboats from '../../../api/brands/sailboats';
 import ferrys from '../../../api/brands/ferrys';
 import canoes from '../../../api/brands/canoes';
-import models from '../../../api/models/models';
 import FleetRenterImage from '../../../api/renters/fleetRenterImage';
 
 window.FleetRenterImage = FleetRenterImage;
@@ -87,7 +86,7 @@ Template.addFleetRenter.helpers({
     } else if (variable === 'Velero') {
       Session.set('firstOptionModelsRenter', '(Seleccione uno)');
       return sailboats[brand];
-    }else if (variable === 'Ferry') {
+    } else if (variable === 'Ferry') {
       Session.set('firstOptionModelsRenter', '(Seleccione uno)');
       return ferrys[brand];
     } else if (variable === 'Canoa') {
