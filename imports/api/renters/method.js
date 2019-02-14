@@ -12,6 +12,22 @@ Meteor.methods({
       throw new Meteor.Error('Permiso Denegado');
     }
   },
+  addRenterBranch: function (doc) {
+    RentersSchema.validate(doc);
+
+    const query = {
+      street: doc.street,
+      municipality: doc.municipality,
+      city: doc.city,
+      department: doc.department
+    };
+
+    if (Renters.find(query).map(d => d).length > 0) {
+      throw new Meteor.Error('Repeated Branch');
+    } else {
+      Renters.insert(doc);
+    }
+  },
   editRenter: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       const data = doc.modifier.$set;

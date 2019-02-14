@@ -35,6 +35,10 @@ Template.listRenters.onCreated(() => {
   });
 });
 
+Template.listRenters.helpers({
+  selector: () => ({ branchOffice: false })
+});
+
 Template.showButtonRenters.events({
   'click .addFleetRenter': function () {
     Session.set('idRenter', this._id);

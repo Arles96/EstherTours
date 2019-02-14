@@ -1,5 +1,3 @@
-/* eslint-disable prefer-template */
-/* eslint-disable no-param-reassign */
 import { Meteor } from 'meteor/meteor';
 import { RestaurantSchema, Restaurants } from './restaurants';
 import { restaurantOffers, restaurantOffersSchema } from './restaurantOffers';
@@ -10,6 +8,22 @@ Meteor.methods({
   addRestaurant: function (doc) {
     RestaurantSchema.validate(doc);
     Restaurants.insert(doc);
+  },
+  addRestaurantBranch: function (doc) {
+    RestaurantSchema.validate(doc);
+
+    const query = {
+      street: doc.street,
+      municipality: doc.municipality,
+      city: doc.city,
+      department: doc.department
+    };
+
+    if (Restaurants.find(query).map(d => d).length > 0) {
+      throw new Meteor.Error('Repeated Branch');
+    } else {
+      Restaurants.insert(doc);
+    }
   },
   consultRestaurant: function (doc) {
     RestaurantConsultSchema.validate(doc);
