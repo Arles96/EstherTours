@@ -6,6 +6,7 @@ import departments from '../departments/departments';
 import { messages, RegExObj } from '../regEx';
 import { paymentMethods, money } from '../money/money';
 import municipalities from '../municipalities/municipality';
+import RestaurantImage from './restaurantImage';
 
 const Restaurants = new Mongo.Collection('restaurants');
 
@@ -34,6 +35,12 @@ const RestaurantSchema = new SimpleSchema({
     type: String,
     label: 'Correo',
     regEx: RegExObj.email
+  },
+  website: {
+    type: String,
+    label: 'Sitio web',
+    regEx: RegExObj.website,
+    optional: true
   },
   street: {
     type: String,
@@ -75,6 +82,22 @@ const RestaurantSchema = new SimpleSchema({
     }
   },
   telephone: {
+    type: Array,
+    label: 'Teléfono',
+    custom: function () {
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.value.length; i++) {
+        // eslint-disable-next-line no-plusplus
+        for (let j = i + 1; j < this.value.length; j++) {
+          if (this.value[j] === this.value[i]) {
+            return 'duplicatePhones';
+          }
+        }
+      }
+      return 1;
+    }
+  },
+  'telephone.$': {
     type: String,
     label: 'Teléfono',
     regEx: RegExObj.isNumber,
@@ -120,6 +143,20 @@ const RestaurantSchema = new SimpleSchema({
   'menages.$': {
     type: String,
     label: 'Menaje'
+  },
+  images: {
+    type: Array,
+    label: 'Imagenes (Opcional)',
+    optional: true
+  },
+  'images.$': {
+    type: String,
+    autoform: {
+      afFieldInput: {
+        type: 'fileUpload',
+        collection: 'RestaurantImages'
+      }
+    }
   },
   ambience: {
     type: Array,
@@ -202,12 +239,34 @@ const RestaurantSchema = new SimpleSchema({
   waitingRoom: {
     type: Boolean,
     label: 'Sala de Espera'
+  },
+  branchOffice: {
+    type: Boolean,
+    label: 'Es sucursal',
+    defaultValue: false
+  },
+  mainOffice: {
+    type: String,
+    label: 'Oficina principal',
+    custom: function () {
+      if (!this.value && this.field('branchOffice').value) {
+        return 'required';
+      } else {
+        return 1;
+      }
+    },
+    optional: true
   }
-
 }, { check: check, tracker: Tracker });
 
 RestaurantSchema.messageBox.messages(messages);
 Restaurants.attachSchema(RestaurantSchema);
+
+Restaurants.helpers({
+  restaurantImages: function () {
+    return this.images.map(_id => RestaurantImage.findOne({ _id }));
+  }
+});
 
 export {
   RestaurantSchema,

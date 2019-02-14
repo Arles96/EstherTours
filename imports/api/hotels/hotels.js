@@ -33,6 +33,12 @@ const HotelSchema = new SimpleSchema({
     optional: true,
     label: 'Correo (Opcional)'
   },
+  website: {
+    type: String,
+    label: 'Sitio web',
+    regEx: RegExObj.website,
+    optional: true
+  },
   street: {
     type: String,
     label: 'Calle'
@@ -54,13 +60,6 @@ const HotelSchema = new SimpleSchema({
       firstOption: '(Seleccione Uno)',
       options: () => departments
     }
-  },
-  phone: {
-    type: String,
-    label: 'Teléfono',
-    regEx: RegExObj.isNumber,
-    min: 8,
-    max: 8
   },
   categorization: {
     type: String,
@@ -87,6 +86,29 @@ const HotelSchema = new SimpleSchema({
   'coin.$': {
     type: String,
     label: 'Moneda'
+  },
+  phone: {
+    type: Array,
+    label: 'Teléfono',
+    custom: function () {
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.value.length; i++) {
+        // eslint-disable-next-line no-plusplus
+        for (let j = i + 1; j < this.value.length; j++) {
+          if (this.value[j] === this.value[i]) {
+            return 'duplicatePhones';
+          }
+        }
+      }
+      return 1;
+    }
+  },
+  'phone.$': {
+    type: String,
+    label: 'Teléfono',
+    regEx: RegExObj.isNumber,
+    min: 8,
+    max: 8
   },
   services: {
     type: Array,
@@ -123,6 +145,20 @@ const HotelSchema = new SimpleSchema({
   'activities.$': {
     type: String,
     label: 'Actividad'
+  },
+  images: {
+    type: Array,
+    label: 'Imagenes (Opcional)',
+    optional: true
+  },
+  'images.$': {
+    type: String,
+    autoform: {
+      afFieldInput: {
+        type: 'fileUpload',
+        collection: 'HotelImages'
+      }
+    }
   },
   branchContacts: {
     type: Array,

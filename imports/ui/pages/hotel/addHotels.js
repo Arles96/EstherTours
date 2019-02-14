@@ -3,6 +3,9 @@ import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { HotelSchema } from '../../../api/hotels/hotels';
 import municipalities from '../../../api/municipalities/municipality';
+import HotelImage from '../../../api/hotels/hotelImage';
+
+window.HotelImage = HotelImage;
 
 Template.addHotels.helpers({
   HotelSchema: () => HotelSchema,

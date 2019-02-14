@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { restaurantOffers } from '../../../api/restaurants/restaurantOffers';
+import { Restaurants } from '../../../api/restaurants/restaurants';
 
 Template.showInfoRestaurant.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -40,6 +41,21 @@ Template.showInfoRestaurant.onCreated(() => {
 Template.showInfoRestaurant.helpers({
   selector: function () {
     return { idRestaurant: Session.get('idRestaurant') };
+  },
+  branchSelector: function (_id) {
+    return { mainOffice: _id, branchOffice: true };
+  },
+  showBranches: function (isOperator) {
+    if (!isOperator || this.restaurant.branchOffice) {
+      return false;
+    }
+    return true;
+  },
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
   }
 });
 
@@ -66,5 +82,29 @@ Template.showButtonRestaurantOffers.events({
   },
   'click .infoRestaurantOffer': function () {
     Session.set('restaurantOffers', restaurantOffers.findOne({ _id: this._id }));
+  }
+});
+
+Template.showButtonRestaurantBranches.events({
+  'click .deleteRestaurant': function () {
+    const id = this._id;
+    const rest = Restaurants.findOne({ _id: id });
+    Swal({
+      title: 'Eliminar Registro de Restaurante',
+      text: `Esta seguro de eliminar este registro de ${rest.name}`,
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true,
+      focusCancel: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('deleteRestaurant', id, (error, result) => {
+          if (error) {
+            toastr.error('Error al eliminar el registro.');
+          } else {
+            toastr.success('Se ha eliminado el registro.');
+          }
+        });
+      }
+    });
   }
 });

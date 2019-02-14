@@ -1,25 +1,29 @@
-<template name="editGuide" >
+<template name="branchRenter">
   <div class="card mb-3" >
     <div class="card-header" >
-      <i class="fas fa-home"></i> Actualizar Guías
+      <i class="fas fa-home"></i>
+      Agregar sucursal a <b>{{renter.name}}</b>
     </div>
     <div class="card-body">
       {{#autoForm
-        id="editGuideForms"
-        schema=GuideSchema
-        type="method-update"
-        meteormethod="updateGuide"
-        doc = guide
+        id="branchRentersForms"
+        schema=RentersSchema
+        type="method"
+        meteormethod="addRenterBranch"
+        doc=renter
       }}
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="branchOffice" value=true}}
+        </div>
+        <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="mainOffice" value=renter._id}}
+        </div>
+        <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="name"}}
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="email" }}
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="website" }}
+        <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="email"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="street" }}
@@ -34,50 +38,34 @@
           {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue name="department") ) }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="destination" }}
-        </div>
-        <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="license" }}
-        </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           {{>afQuickField name="telephone" }}
         </div>
         <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
-          <div class="form-group mt-1">
-            <label class="mb-3">{{labelCategortization guide.categorization }}</label>
-            {{>updateStarGuide}}
+            <div class="form-group mt-1">
+              <label class="mb-3">{{textCategorization '0'}}</label>
+              {{>updateBranchStarRenter}}
+            </div>
+            {{>afQuickField name="categorization" value=categorization }}
           </div>
-          {{>afQuickField name="categorization" value=categorization }}
-        </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
           {{>afQuickField name="paymentMethods" }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
           {{>afQuickField name="money" }}
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
-          {{>afQuickField name="languages" }}
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
-          {{>afQuickField name="creditCards" }}
-        </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           {{>afQuickField name="services" }}
         </div>
       </div>
-      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        {{>afQuickField name="branchContacts" }}
+      <div class="col-12 mt-4 text-center col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <button type="submit" class="btn w-75 btn-primary" >Agregar sucursal</button>
       </div>
-      <div class="text-center mt-2" >
-        <button type="submit" class="btn btn-primary w-75" >Actualizar</button>
-      </div>
-
       {{/autoForm}}
     </div>
   </div>
 </template>
 
-<template name="updateStarGuide" >
+<template name="updateBranchStarRenter">
   <div>
     <p>
       {{#each list}}

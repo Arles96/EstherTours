@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
+import { Renters } from '../../../api/renters/renters';
 
 Template.showInfoRenter.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -40,6 +41,27 @@ Template.showInfoRenter.onCreated(() => {
 Template.showInfoRenter.helpers({
   selector: function () {
     return { idRenter: Session.get('idRenter') };
+  },
+  branchSelector: function (_id) {
+    return { mainOffice: _id, branchOffice: true };
+  },
+  showBranches: function (isOperator) {
+    if (!isOperator || this.renter.branchOffice) {
+      return false;
+    }
+    return true;
+  },
+  getMainOffice: function (_id) {
+    return Renters.findOne({ _id }).name;
+  },
+  getBranchOffices: function (_id) {
+    return Renters.find({ mainOffice: _id, branchOffice: true }).map(doc => doc.name);
+  },
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
   }
 });
 
@@ -66,5 +88,29 @@ Template.showButtonFleetRenters.events({
   },
   'click .infoFleetRenter': function () {
     Session.set('fleetRenter', FleetRenter.findOne({ _id: this._id }));
+  }
+});
+
+Template.showButtonRenterBranches.events({
+  'click .deleteRenter': function () {
+    const id = this._id;
+    const renter = Renters.findOne({ _id: id });
+    Swal({
+      title: 'Eliminar Registro de Arrendadora',
+      text: `Esta seguro de eliminar este registro de ${renter.name}`,
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true,
+      focusCancel: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('deleteRenter', id, (error, result) => {
+          if (error) {
+            toastr.error('Error al eliminar el registro.');
+          } else {
+            toastr.success('Se ha eliminado el registro.');
+          }
+        });
+      }
+    });
   }
 });
