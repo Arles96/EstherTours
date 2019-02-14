@@ -1,0 +1,30 @@
+<template name="officeEdit" >
+    <!-- Add User Modal -->
+    <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"> Cambiando Sucursal</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Cuerpo del Modal (Agregar Usuario) -->
+          <div class="modal-body">
+            {{#autoForm
+              id="editUserForm"
+              schema=userOfficeSchema
+              type="method"
+              meteormethod="updateProfileOffice"
+            }}
+              {{>afQuickField name="idOffice" firstOption="(Seleccione Uno)" options=branchOffices }}
+  
+              <div class="text-center">
+                <button type="submit" class="btn mx-auto btn-primary w-75" >Cambiar</button>
+              </div>
+            {{/autoForm}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>

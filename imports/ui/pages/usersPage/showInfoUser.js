@@ -7,7 +7,7 @@ import { branchOffices } from '../../../api/branchOffices/Offices';
 Template.showInfoUserModal.helpers({
   UserProfileSchema: () => UserProfileSchema,
   branchOffices: () => (branchOffices.find().map(doc => ({
-    label: `${doc.departament}`,
+    label: `${doc.city}`,
     value: doc._id
   }))),
   user: function () {

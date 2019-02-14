@@ -19,7 +19,7 @@ Template.addUserModal.helpers({
   }
 });
 
-AutoForm.addHooks('addUserForm', {
+AutoForm.addHooks('editUserForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha creado el usuario exitosamente.');
   },

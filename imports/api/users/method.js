@@ -57,7 +57,20 @@ Meteor.methods({
       Meteor.users.update({ _id: Meteor.userId() }, {
         $set: {
           'profile.firstName': doc.firstName,
-          'profile.lastName': doc.lastName
+          'profile.lastName': doc.lastName,
+          'profile.idOffice': doc.idOffice
+        }
+      });
+    } else {
+      throw new Meteor.Error('Permiso Denegado.');
+    }
+  },
+  updateProfileOffice: function (doc) {
+    if (Meteor.user()) {
+      UpdateProfileSchema.validate(doc);
+      Meteor.users.update({ _id: Meteor.userId() }, {
+        $set: {
+          'profile.idOffice': doc.idOffice
         }
       });
     } else {

@@ -99,6 +99,15 @@ TabularTables.Offices = new Tabular.Table({
       class: 'text-center',
       data: 'phone',
       title: 'Telefono'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonOffice (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonOffice, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
     }
   ]
 });

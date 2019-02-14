@@ -1,9 +1,11 @@
 import './officesPage.html';
 import './addBranchOffice';
+import './editBranchOffice';
 import { Meteor } from 'meteor/meteor';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
 import { Session } from 'meteor/session';
+import { branchOffices } from '../../../api/branchOffices/Offices';
 
 Template.officePage.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -32,4 +34,30 @@ Template.officePage.onCreated(() => {
       }
     }
   });
+});
+
+Template.showButtonOffice.events({
+  'click .deleteOffice': function () {
+    const id = this._id;
+    Swal({
+      title: 'Eliminar Sucursal',
+      text: 'Esta seguro de eliminar este registro.',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true,
+      focusCancel: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('deleteOffice', id, (error, result) => {
+          if (error) {
+            toastr.error('Error al eliminar el registro.');
+          } else {
+            toastr.success('Se eliminó el registro exitósamente.');
+          }
+        });
+      }
+    });
+  },
+  'click .infoOffice': function () {
+    Session.set('branchOffices', branchOffices.findOne({ _id: this._id }));
+  }
 });
