@@ -1,7 +1,6 @@
 import './listHotels.html';
 import '../../components/addRoomHotel/addRoomHotel';
 import '../../components/addRateHotel/addRateHotel';
-import '../../components/addBranchOfficeHotel/addBranchOfficeHotel';
 import { Session } from 'meteor/session';
 import toastr from 'toastr';
 import { Meteor } from 'meteor/meteor';
@@ -37,14 +36,15 @@ Template.listHotels.onCreated(() => {
   });
 });
 
+Template.listHotels.helpers({
+  selector: () => ({ branchOffice: false })
+});
+
 Template.showButtonHotels.events({
   'click .addRoomHotel': function () {
     Session.set('idHotel', this._id);
   },
   'click .addRateHotel': function () {
-    Session.set('idHotel', this._id);
-  },
-  'click .addBranchHotel': function () {
     Session.set('idHotel', this._id);
   },
   'click .deleteHotel': function () {

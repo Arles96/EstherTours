@@ -12,7 +12,6 @@ import { FleetTransportationEstablishment } from '../../../api/TransportationEst
 import { RouteTransportationEstablishment } from '../../../api/TransportationEstablishment/RouteTransportationEstablishment';
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
-import { BranchOfficeHotel } from '../../../api/hotels/branchofficehotel';
 import { Guide } from '../../../api/guide/guide';
 import { Packages } from '../../../api/packages/packages';
 
@@ -240,6 +239,7 @@ TabularTables.Hotels = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
+  extraFields: ['branchOffice'],
   columns: [
     {
       class: 'text-center',
@@ -258,11 +258,6 @@ TabularTables.Hotels = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'branchOffice',
-      title: 'Sucursales'
-    },
-    /* {
-      class: 'text-center',
       data: 'municipality',
       title: 'Municipio'
     },
@@ -270,7 +265,7 @@ TabularTables.Hotels = new Tabular.Table({
       class: 'text-center',
       data: 'departament',
       title: 'Departamento'
-    }, */
+    },
     {
       class: 'text-center',
       data: 'phone',
@@ -280,6 +275,50 @@ TabularTables.Hotels = new Tabular.Table({
       class: 'text-center',
       createdCell: Meteor.isClient && function showButtonsHotels (cell, cellData, rowData) {
         return Blaze.renderWithData(Template.showButtonHotels, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
+  ]
+});
+
+TabularTables.hotelBranches = new Tabular.Table({
+  name: 'hotelBranches',
+  collection: Hotels,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: ['mainOffice', 'branchOffice'],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'street',
+      title: 'Calle'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'municipality',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'departament',
+      title: 'Departamento'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsHotel (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonBranchHotel, {
           _id: rowData._id,
           slug: rowData.slug
         }, cell);
@@ -752,40 +791,6 @@ TabularTables.Packages = new Tabular.Table({
       class: 'text-center',
       createdCell: Meteor.isClient && function showButtonsGuide (cell, cellData, rowData) {
         return Blaze.renderWithData(Template.showButtonPackages, {
-          _id: rowData._id,
-          slug: rowData.slug
-        }, cell);
-      }
-    }
-  ]
-});
-
-TabularTables.BranchHotel = new Tabular.Table({
-  name: 'BranchHotel',
-  collection: BranchOfficeHotel,
-  responsive: true,
-  autoWidth: false,
-  search: {
-    caseInsesitive: true,
-    smart: true,
-    onEnterOnly: false
-  },
-  extraFields: ['idHotel'],
-  columns: [
-    {
-      class: 'text-center',
-      data: 'municipality',
-      title: 'Municipio'
-    },
-    {
-      class: 'text-center',
-      data: 'departament',
-      title: 'Departamento'
-    },
-    {
-      class: 'text-center',
-      createdCell: Meteor.isClient && function showButtonBranchHotel (cell, cellData, rowData) {
-        return Blaze.renderWithData(Template.showButtonBranchHotel, {
           _id: rowData._id,
           slug: rowData.slug
         }, cell);
