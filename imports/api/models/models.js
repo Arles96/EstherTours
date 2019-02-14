@@ -1,21 +1,54 @@
-const models = [
+const models = {
+  Ferry: [
     {
-      value: 'Toyota',
-      label: 'Toyota'
+      value: 'Económico',
+      label: 'Económico'
     },
     {
-      value: 'Nissan',
-      label: 'Nissan'
-    },
-    {
-      value: 'Ford',
-      label: 'Ford'
-    },
-    {
-      value: 'Suzuki',
-      label: 'Suzuki'
+      value: 'Compacto',
+      label: 'Compacto'
     }
-  ];
-  
-  export default models;
-  
+  ],
+  Lancha: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Velero: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Ferry: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ],
+  Canoa: [
+    {
+      value: 'Económico',
+      label: 'Económico'
+    },
+    {
+      value: 'Compacto',
+      label: 'Compacto'
+    }
+  ]
+};
+
+export default models;

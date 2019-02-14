@@ -4,9 +4,6 @@ import SimpleSchema from 'simpl-schema';
 import { Mongo } from 'meteor/mongo';
 import { messages, RegExObj } from '../regEx';
 import { Renters } from './renters';
-// import vehicleTypes from '../vehicleTypes/vehicleTypes';
-// import models from '../models/models';
-// import brands from '../brands/brands';
 
 const FleetRenter = new Mongo.Collection('renterFleet');
 
@@ -65,22 +62,15 @@ const FleetRenterSchema = new SimpleSchema({
     label: 'Tipo de Vehículo',
     regEx: RegExObj.names
   },
-  /* model: {
-    type: String,
-    label: 'Modelo de Vehículo',
-    autoform: {
-      firstOption: '(Seleccione Uno)',
-      options: () => vehicleType
-    }
-  },
-  brand: {
+  brands: {
     type: String,
     label: 'Marca de Vehículo',
-    autoform: {
-      firstOption: '(Seleccione Uno)',
-      options: () => model
-    }
-  }, */
+    regEx: RegExObj.names
+  },
+  models: {
+    type: String,
+    label: 'Modelo de Vehículo'
+  },
   rate: {
     type: Number,
     label: 'Tarifa',

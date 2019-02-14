@@ -1,102 +1,102 @@
 const brands = {
   Económico: [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Toyota',
+      label: 'Toyota'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Hyundai',
+      label: 'Hyundai'
     }
   ],
   Compacto: [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Ford',
+      label: 'Ford'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Kia',
+      label: 'Kia'
     }
   ],
   Intermedio: [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Isuzu',
+      label: 'Isuzu'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Volvo',
+      label: 'Volvo'
     }
   ],
   SUV: [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Peugeot',
+      label: 'Peugeot'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Mazda',
+      label: 'Mazda'
     }
   ],
-  PickUp: [
+  'Pick-Up': [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Nissan',
+      label: 'Nissan'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Chevrolet',
+      label: 'Chevrolet'
     }
   ],
-  Lujo: [
+  'De Lujo': [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Mercedes Benz',
+      label: 'Mercedes Benz'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Audi',
+      label: 'Audi'
     }
   ],
   Coaster: [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Toyota',
+      label: 'Toyota'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Hyundai',
+      label: 'Hyundai'
     }
   ],
   Pullman: [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Blue Bird',
+      label: 'Blue Bird'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Thomas',
+      label: 'Thomas'
     }
   ],
-  Avion: [
+  Avión: [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Boeing',
+      label: 'Boeing'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Airbus',
+      label: 'Airbus'
     }
   ],
-  Helicoptero: [
+  Helicóptero: [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Bell',
+      label: 'Bell'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'AgustaWestland',
+      label: 'AgustaWestland'
     }
   ],
   Planeador: [
@@ -111,42 +111,42 @@ const brands = {
   ],
   Lancha: [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Malibú',
+      label: 'Malibú'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Mastercraft',
+      label: 'Mastercraft'
     }
   ],
   Velero: [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Jeanneau',
+      label: 'Jeanneau'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Bavaria',
+      label: 'Bavaria'
     }
   ],
   Ferry: [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Viking Line',
+      label: 'Viking Line'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Silja Line',
+      label: 'Silja Line'
     }
   ],
   Canoa: [
     {
-      value: 'Económico',
-      label: 'Económico'
+      value: 'Venture Kayak',
+      label: 'Venture Kayak'
     },
     {
-      value: 'Compacto',
-      label: 'Compacto'
+      value: 'Old Town',
+      label: 'Old Town'
     }
   ]
 };

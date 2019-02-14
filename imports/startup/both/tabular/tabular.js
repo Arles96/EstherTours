@@ -116,7 +116,7 @@ TabularTables.FleetsRenter = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['menage', 'idRenter', 'images'],
+  extraFields: ['menage', 'idRenter', 'models', 'brands', 'images'],
   columns: [
     {
       class: 'text-center',

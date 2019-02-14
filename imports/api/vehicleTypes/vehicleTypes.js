@@ -21,8 +21,8 @@ const vehicleTypes = {
       label: 'Pick-Up'
     },
     {
-      value: 'Lujo',
-      label: 'Lujo'
+      value: 'De Lujo',
+      label: 'De Lujo'
     },
     {
       value: 'Coaster',
