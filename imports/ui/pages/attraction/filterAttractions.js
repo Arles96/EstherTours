@@ -9,13 +9,13 @@ import AttractionImages from '../../../api/attractions/attractionImage';
 // TODO mostrar por paginas
 
 Template.filterAttractions.onCreated(function createVars () {
-  this.precioMax = new ReactiveVar(0);
+  this.precioMax = new ReactiveVar(2500);
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterAttractionStars', 0);
+  Session.set('filterAttractionStars', '5');
 });
 
 Template.filterAttractions.helpers({
@@ -102,10 +102,6 @@ Template.filterAttractions.events({
   'change #municipality' (event, templateInstance) {
     templateInstance.municipality.set(event.currentTarget.value);
   }
-});
-
-Template.filterAttractions.onCreated(function createVars () {
-  this.precioMax = new ReactiveVar(0);
 });
 
 Template.filterResult.helpers({

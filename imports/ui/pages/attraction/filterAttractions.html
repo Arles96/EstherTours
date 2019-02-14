@@ -67,7 +67,7 @@
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
           <label for="slider"><b>Precio maximo:</b> Lps. {{precioMax}}</label>
           <br >
-          <input type="range" id="sliderMax" min="0" max="1000" value="{{precioMax}}" class="slider" style="width: 100%;">
+          <input type="range" id="sliderMax" min="0" max="5000" step="100" value="{{precioMax}}" class="slider" style="width: 100%;">
         </div>
       </div>
     </div>
@@ -127,30 +127,45 @@
           <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <div class="form-group">
               <label>
-                <b>Calle:</b> {{street}}
+                <b>Teléfonos:</b>
               </label>
+              {{#each telephone}}
+                <li>{{this}}</li>
+              {{/each}}
             </div>
             <div class="form-group">
               <label>
-                <b>Ciudad:</b> {{city}}
+                <b>Contactos:</b>
               </label>
+              {{#each branchContacts}}
+                <li>{{name}}, {{role}}</li>
+              {{/each}}
             </div>
             <div class="form-group">
               <label>
-                <b>Costo:</b> Lps. {{price}}
+                <b>Metodos de pago:</b>
               </label>
+              {{#each paymentsMethod}}
+                <li>{{this}}</li>
+              {{/each}}
             </div>
           </div>
           <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <div class="form-group">
               <label>
-                <b>Municipio:</b> {{municipality}}
+                <b>Monedas aceptadas:</b>
               </label>
+              {{#each coin}}
+                <li>{{this}}</li>
+              {{/each}}
             </div>
             <div class="form-group">
               <label>
-                <b>Departamento:</b> {{departament}}
+                <b>Tipo de atraccion:</b>
               </label>
+              {{#each type}}
+                <li>{{this}}</li>
+              {{/each}}
             </div>
           </div>
         </div>
