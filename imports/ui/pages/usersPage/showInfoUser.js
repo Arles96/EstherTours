@@ -12,13 +12,17 @@ Template.showInfoUserModal.helpers({
   }))),
   user: function () {
     const user = Meteor.users.findOne({ _id: Session.get('idUserInfo') });
-    return {
-      firstName: user.profile.firstName,
-      lastName: user.profile.lastName,
-      email: user.emails[0].address,
-      position: user.profile.position,
-      role: user.roles[0],
-      idOffice: branchOffices.findOne({ _id: user.profile.idOffice }).city
-    };
+    if (user) {
+      return {
+        firstName: user.profile.firstName,
+        lastName: user.profile.lastName,
+        email: user.emails[0].address,
+        position: user.profile.position,
+        role: user.roles[0],
+        idOffice: branchOffices.findOne({ _id: user.profile.idOffice }).city
+      };
+    } else {
+      return undefined;
+    }
   }
 });

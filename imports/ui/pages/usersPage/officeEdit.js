@@ -1,9 +1,10 @@
 import './officeEdit.html';
 import toastr from 'toastr';
+import { Session } from 'meteor/session';
 import userOfficeSchema from '../../../api/users/officeUser';
 import { branchOffices } from '../../../api/branchOffices/Offices';
 
-Template.officeEdit.onCreated(() =>{ 
+Template.officeEdit.onCreated(() => {
   Meteor.subscribe('branchOffices.all');
 });
 

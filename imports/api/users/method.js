@@ -6,6 +6,7 @@ import { SSR } from 'meteor/meteorhacks:ssr';
 import UserProfileSchema from './profileUsers';
 import { admin } from '../roles/roles';
 import UpdateProfileSchema from './updateProfile';
+import officeUsersSchema from './officeUser';
 
 Meteor.methods({
   insertUser: function (doc) {
@@ -67,7 +68,7 @@ Meteor.methods({
   },
   updateProfileOffice: function (doc) {
     if (Meteor.user()) {
-      UpdateProfileSchema.validate(doc);
+      officeUsersSchema.validate(doc);
       Meteor.users.update({ _id: Meteor.userId() }, {
         $set: {
           'profile.idOffice': doc.idOffice

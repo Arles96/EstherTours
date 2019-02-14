@@ -6,7 +6,7 @@ import municipalities from '../../../api/municipalities/municipality';
 
 Template.editBranchOffice.helpers({
   branchOfficeSchema: () => branchOfficeSchema,
-  officeBranch: () => Session.get('officeBranch'),
+  officeBranch: () => Session.get('branchOffices'),
   municipalities: department => {
     if (department) {
       Session.set('firstOptionMunicipalityOffice', '(Seleccione uno)');
