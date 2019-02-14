@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
-import { messages, RegExObj } from '../regEx';
+import { messages } from '../regEx';
 
 SimpleSchema.extendOptions(['autoform']);
 

@@ -57,7 +57,8 @@ Template.showButtonOffice.events({
       }
     });
   },
-  'click .infoOffice': function () {
+  'click .updateOffice': function () {
     Session.set('branchOffices', branchOffices.findOne({ _id: this._id }));
+    $('#editOffice').modal('show');
   }
 });

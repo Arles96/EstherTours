@@ -21,11 +21,9 @@ Template.editBranchOffice.helpers({
 AutoForm.addHooks('editOfficeForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha actualizado los datos de la sucursal exitosamente.');
-    $('#editBranchOffice').modal('hide');
+    $('#editOffice').modal('hide');
   },
   onError: function (formtype, error) {
     toastr.error(error);
-    toastr.success('Se ha actualizado los datos de la sucursal exitosamente.');
-    $('#editBranchOffice').modal('hide');
   }
 });

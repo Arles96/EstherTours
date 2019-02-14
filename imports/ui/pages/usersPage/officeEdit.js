@@ -9,7 +9,7 @@ Template.officeEdit.onCreated(() =>{
 
 Template.officeEdit.helpers({
   userOfficeSchema: () => userOfficeSchema,
-  officeBranch: () => Session.get('officeBranch'),
+  officeUser: () => Session.get('officeUser'),
   branchOffices: () => (branchOffices.find().map(doc => ({
     label: `${doc.city}`,
     value: doc._id
