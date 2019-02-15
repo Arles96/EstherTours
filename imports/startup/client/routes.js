@@ -583,7 +583,7 @@ Router.route('/filter-room-hotel', {
     ];
   },
   onBeforeAction: function () {
-    listBreadcrumb(['Filtrar atracciones']);
+    listBreadcrumb(['Filtrar habitaciones']);
     isOperator(this);
   }
 });
