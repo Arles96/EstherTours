@@ -210,7 +210,7 @@ TabularTables.FleetsRenter = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['menage', 'idRenter', 'images'],
+  extraFields: ['menage', 'idRenter', 'models', 'brands', 'images'],
   columns: [
     {
       class: 'text-center',
@@ -226,6 +226,11 @@ TabularTables.FleetsRenter = new Tabular.Table({
       class: 'text-center',
       data: 'rate',
       title: 'Tarifa'
+    },
+    {
+      class: 'text-center',
+      data: 'vehicleTypes',
+      title: 'Tipo de Vehículo'
     },
     {
       class: 'text-center',
