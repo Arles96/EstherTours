@@ -18,9 +18,9 @@
             {{>afQuickField name="idRenter" value=idRenter }}
             {{>afQuickField name="total" }}
             {{>afQuickField name="type" }}
-            {{>afQuickField name="vehicleTypes" firstOption=firstOptionVehicleTypesRenter options=(vehicleTypes (afFieldValue name="type") ) }}
-            {{>afQuickField name="brands" firstOption=firstOptionBrandsRenter options=(brands (afFieldValue name="vehicleTypes") ) }}
-            {{>afQuickField name="models" firstOption=firstOptionModelsRenter options=(models (afFieldValue name="brands") (afFieldValue name="vehicleTypes")) }}
+            {{>afQuickField name="vehicleTypes" firstOption=vehicleTypeFirstOption options=(vehicleTypes (afFieldValue name="type") ) }}
+            {{>afQuickField name="brands" firstOption=brandsfirstOption options=(brands (afFieldValue name="vehicleTypes") ) }}
+            {{>afQuickField name="models" firstOption=modelsfirstOption options=(models (afFieldValue name="brands") (afFieldValue name="vehicleTypes")) }}
             {{>afQuickField name="rate" }}
             {{>afQuickField name="menage" }}
             {{>afQuickField name="images" }}

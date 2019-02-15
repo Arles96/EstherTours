@@ -47,7 +47,10 @@ Template.editFleetRenter.helpers({
   },
   brandsfirstOption: () => Session.get('firstOptionBrandsRenter'),
   models: (brand, variable) => {
-    if (variable === 'Económico') {
+    if (!brand) {
+      Session.set('firstOptionModelsRenter', '(Seleccione Marca)');
+      return [];
+    } else if (variable === 'Económico') {
       Session.set('firstOptionModelsRenter', '(Seleccione uno)');
       return economics[brand];
     } else if (variable === 'Compacto') {

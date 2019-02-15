@@ -23,6 +23,12 @@ import FleetRenterImage from '../../../api/renters/fleetRenterImage';
 
 window.FleetRenterImage = FleetRenterImage;
 
+Template.addFleetRenter.onCreated(() => {
+  Session.set('firstOptionVehicleTypesRenter', '(Seleccione uno)');
+  Session.set('firstOptionBrandsRenter', '(Seleccione uno)');
+  Session.set('firstOptionModelsRenter', '(Seleccione uno)');
+});
+
 Template.addFleetRenter.helpers({
   FleetRenterSchema: () => FleetRenterSchema,
   idRenter: () => Session.get('idRenter'),
@@ -47,7 +53,10 @@ Template.addFleetRenter.helpers({
   },
   brandsfirstOption: () => Session.get('firstOptionBrandsRenter'),
   models: (brand, variable) => {
-    if (variable === 'Económico') {
+    if (!brand) {
+      Session.set('firstOptionModelsRenter', '(Seleccione Marca)');
+      return [];
+    } else if (variable === 'Económico') {
       Session.set('firstOptionModelsRenter', '(Seleccione uno)');
       return economics[brand];
     } else if (variable === 'Compacto') {
