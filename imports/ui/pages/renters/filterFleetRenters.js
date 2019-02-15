@@ -18,7 +18,7 @@ Template.filterFleetRenters.onCreated(function createVars () {
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterFleetRenterStars', '5');
+  Session.set('filterFleetRenterStars', '0');
 });
 
 Template.filterFleetRenters.helpers({
