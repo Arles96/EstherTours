@@ -6,6 +6,7 @@ import { SSR } from 'meteor/meteorhacks:ssr';
 import UserProfileSchema from './profileUsers';
 import { admin } from '../roles/roles';
 import UpdateProfileSchema from './updateProfile';
+import officeUsersSchema from './officeUser';
 
 Meteor.methods({
   insertUser: function (doc) {
@@ -20,7 +21,8 @@ Meteor.methods({
           lastName: doc.lastName,
           blocked: false,
           position: doc.position,
-          createdAt: new Date()
+          createdAt: new Date(),
+          idOffice: doc.idOffice
         }
       });
       Roles.addUsersToRoles(user, doc.role);
@@ -56,7 +58,20 @@ Meteor.methods({
       Meteor.users.update({ _id: Meteor.userId() }, {
         $set: {
           'profile.firstName': doc.firstName,
-          'profile.lastName': doc.lastName
+          'profile.lastName': doc.lastName,
+          'profile.idOffice': doc.idOffice
+        }
+      });
+    } else {
+      throw new Meteor.Error('Permiso Denegado.');
+    }
+  },
+  updateProfileOffice: function (doc) {
+    if (Meteor.user()) {
+      officeUsersSchema.validate(doc);
+      Meteor.users.update({ _id: Meteor.userId() }, {
+        $set: {
+          'profile.idOffice': doc.idOffice
         }
       });
     } else {
