@@ -1,4 +1,5 @@
 import './showInfoTransportationEstablishment.html';
+import '../../components/addBranchOfficeTransportationEstablishment/addBranchOfficeTransportationEstablishment';
 import '../../components/addFleetTransportationEstablishment/addFleetTransportationEstablishment';
 import '../../components/infoFleetTransportationEstablishment/infoFleetTransportationEstablishment';
 import './editFleetTransportationEstablishment';
@@ -9,6 +10,7 @@ import toastr from 'toastr';
 import Swal from 'sweetalert2';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
+import { TransportationEstablishments } from '../../../api/TransportationEstablishment/TransportationEstablishment';
 import { FleetTransportationEstablishment } from '../../../api/TransportationEstablishment/FleetTransportationEstablishment';
 import { RouteTransportationEstablishment } from '../../../api/TransportationEstablishment/RouteTransportationEstablishment';
 
@@ -50,6 +52,39 @@ Template.showInfoTransportationEstablishment.helpers({
       return url;
     }
     return `https://${url}`;
+  },
+  isBranch: function (branchOffice) {
+    return !branchOffice;
+  }
+});
+
+Template.showButtonBranchOfficeTransportationEstablishments.events({
+  'click .addFleetTransportationEstablishment': function () {
+    Session.set('idTransportationEstablishment', this._id);
+  },
+  'click .addRouteTransportationEstablishment': function () {
+    Session.set('idTransportationEstablishment', this._id);
+  },
+  'click .deleteTransportationEstablishment': function () {
+    const id = this._id;
+    const TransportationEstablishment = TransportationEstablishments.findOne({ _id: id });
+    Swal({
+      title: 'Eliminar sucursal de transporte',
+      text: `Esta seguro de eliminar esta sucursal de ${TransportationEstablishment.name}`,
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true,
+      focusCancel: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('deleteTransportationEstablishment', id, (error, result) => {
+          if (error) {
+            toastr.error('Error al eliminar la sucursal.');
+          } else {
+            toastr.success('Se ha eliminado la sucursal.');
+          }
+        });
+      }
+    });
   }
 });
 
@@ -68,7 +103,7 @@ Template.showButtonFleetTransportationEstablishments.events({
           if (error) {
             toastr.error('Error al eliminar el registro.');
           } else {
-            toastr.success('Se eliminó el registro exitósamente.');
+            toastr.success('Se eliminó el registro exitosamente.');
           }
         });
       }
@@ -93,7 +128,7 @@ Template.showButtonRouteTransportationEstablishments.events({
           if (error) {
             toastr.error('Error al eliminar el registro.');
           } else {
-            toastr.success('Se eliminó el registro exitósamente.');
+            toastr.success('Se eliminó el registro exitosamente.');
           }
         });
       }
