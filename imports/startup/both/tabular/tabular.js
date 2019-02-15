@@ -708,6 +708,52 @@ TabularTables.TransportationEstablishments = new Tabular.Table({
   ]
 });
 
+TabularTables.BranchOfficeTransportationEstablishment = new Tabular.Table({
+  name: 'BranchOfficeTransportationEstablishment',
+  collection: TransportationEstablishments,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: ['idTransportationEstablishment', 'name', 'email', 'website',
+    'phone', 'type', 'categorization', 'branchContacts', 'paymentMethods', 'money', 'branchOffice'],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'department',
+      title: 'Departamento'
+    },
+    {
+      class: 'text-center',
+      data: 'town',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'street',
+      title: 'Calle'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonBranchOfficeTransportationEstablishments
+      (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonBranchOfficeTransportationEstablishments, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
+  ]
+});
+
 TabularTables.FleetTransportationEstablishment = new Tabular.Table({
   name: 'FleetTransportationEstablishment',
   collection: FleetTransportationEstablishment,
