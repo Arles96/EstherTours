@@ -23,12 +23,12 @@
 
 <template name="showInfoUser" >
   <th class="text-center" >
-    <i class="fas fa-eye mr-2 showInfo" data-id="{{_id}}" style="cursor: pointer;" data-toggle="modal" data-target="#showInfoUser"></i>
+    <i class="fas fa-eye mr-2 showInfo" data-id="{{_id}}" style="cursor: pointer;" data-toggle="modal" data-target="#showInfoUser" title="Ver Informacion"></i>
     {{#if (isBlocked _id)}}
     <i class="fas fa-lock unlock" data-id="{{_id}}" style="cursor: pointer" data-toggle="tooltip" data-placement="top" title="Desbloquear"></i>
     {{else}}
     <i class="fas fa-lock-open lock" data-id="{{_id}}" style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="Bloquear"></i>
     {{/if}}
-    <i class="fas fa-building editInfo" data-id="{{_id}}" style="cursor: pointer;" data-toggle="modal" data-target="#editUser"></i>
+    <i class="fas fa-building editInfo" data-id="{{_id}}" style="cursor: pointer;" data-toggle="modal" data-target="#editUser" title="Actualizar Sucursal"></i>
   </th>
 </template>
