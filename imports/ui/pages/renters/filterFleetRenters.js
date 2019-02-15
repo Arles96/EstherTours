@@ -78,7 +78,7 @@ Template.filterFleetRenters.helpers({
     };
 
     if (department) {
-      queryR.departament = department;
+      queryR.department = department;
     }
 
     if (municipality) {
