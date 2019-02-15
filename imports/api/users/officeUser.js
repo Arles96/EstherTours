@@ -6,6 +6,19 @@ import { messages } from '../regEx';
 SimpleSchema.extendOptions(['autoform']);
 
 const userOfficeSchema = new SimpleSchema({
+  idUser: {
+    type: String,
+    autoform: {
+      readonly: true,
+      omit: true,
+      afFieldInput: {
+        type: 'hidden'
+      },
+      afFormGroup: {
+        label: false
+      }
+    }
+  },
   idOffice: {
     type: String,
     label: 'Sucursal'

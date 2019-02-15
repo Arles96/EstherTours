@@ -33,7 +33,6 @@ Template.addAttractions.events({
   }
 });
 
-
 AutoForm.addHooks('addAttractionsForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha creado la atraccion exitosamente.');

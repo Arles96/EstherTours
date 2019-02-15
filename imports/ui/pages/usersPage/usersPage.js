@@ -50,7 +50,10 @@ Template.showInfoUser.events({
     Session.set('idUserInfo', this._id);
   },
   'click .editInfo': function () {
-    Session.set('idUser', this.idOffice);
+    Session.set('officeUser', {
+      idOffice: Meteor.users.findOne({ _id: this._id }).profile.idOffice,
+      idUser: this._id
+    });
   },
   'click .lock': function () {
     const id = this._id;
