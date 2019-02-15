@@ -60,6 +60,40 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       const data = doc.modifier.$set;
       const { _id } = doc;
+      const validate = TransportationEstablishments.find({
+        $or: [{
+          idTransportationEstablishment: data.idTransportationEstablishment,
+          street: data.street,
+          city: data.city,
+          department: data.department,
+          town: data.town
+        }, {
+          _id: data.idTransportationEstablishment,
+          street: data.street,
+          city: data.city,
+          department: data.department,
+          town: data.town
+        }, {
+          _id: _id,
+          street: data.street,
+          city: data.city,
+          department: data.department,
+          town: data.town
+        }, {
+          idTransportationEstablishment: _id,
+          street: data.street,
+          city: data.city,
+          department: data.department,
+          town: data.town
+        }]
+      }).fetch();
+      if (validate.length > 0) {
+        validate.forEach(value => {
+          if (value._id !== doc._id) {
+            throw new Meteor.Error('Ubicación duplicada.');
+          }
+        });
+      }
       TransportationEstablishmentSchema.validate(data);
       TransportationEstablishments.update({ _id: _id }, {
         $set: data
@@ -132,6 +166,24 @@ Meteor.methods({
   },
   addBranchOfficeTransportationEstablishment: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      const validate = TransportationEstablishments.findOne({
+        $or: [{
+          idTransportationEstablishment: doc.idTransportationEstablishment,
+          street: doc.street,
+          city: doc.city,
+          department: doc.department,
+          town: doc.town
+        }, {
+          _id: doc.idTransportationEstablishment,
+          street: doc.street,
+          city: doc.city,
+          department: doc.department,
+          town: doc.town
+        }]
+      });
+      if (validate) {
+        throw new Meteor.Error('Ubicación duplicada.');
+      }
       TransportationEstablishmentSchema.validate(doc);
       TransportationEstablishments.insert(doc);
     } else {
