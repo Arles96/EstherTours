@@ -9,13 +9,23 @@ import municipalities from '../../../api/municipalities/municipality';
 import HotelImages from '../../../api/hotels/hotelImage';
 import { PackagesSchema } from '../../../api/packages/packages';
 
+Template.addPackages.onCreated(() => {
+  Session.set('packageHotelId', undefined);
+  Session.set('packageRoomId', undefined);
+});
+
 Template.addPackages.helpers({
-  PackagesSchema: () => PackagesSchema
+  PackagesSchema: () => PackagesSchema,
+  hotel: () => Session.get('packageHotelId'),
+  room: () => Session.get('packageRoomId'),
+  roomSelected: () => Session.get('packageHotelId') && Session.get('packageRoomId')
 });
 
 AutoForm.addHooks('addPackagesForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha creado el paquete exitosamente.');
+    Session.set('packageHotelId', undefined);
+    Session.set('packageRoomId', undefined);
   },
   onError: function (formtype, error) {
     toastr.error(error);
@@ -141,6 +151,13 @@ Template.packageResultRoomHotel.helpers({
   },
   first (index) {
     return index === 0;
+  }
+});
+
+Template.packageResultRoomHotel.events({
+  'click #packageAddRoom' (event, templateInstance) {
+    Session.set('packageHotelId', this.idHotel);
+    Session.set('packageRoomId', this._id);
   }
 });
 

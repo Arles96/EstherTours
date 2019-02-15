@@ -34,10 +34,10 @@
             {{>afQuickField name="idTransportRoute"}}
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idHotel"}}
+            {{>afQuickField name="idHotel" value=hotel}}
           </div>
           <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRoom"}}
+            {{>afQuickField name="idRoom" value=room}}
           </div>
           <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
             {{>afQuickField name="idGuide"}}
@@ -54,7 +54,7 @@
   </div>
   <nav>
     <!-- Cuando este listo: -->
-    <!-- <i class="fas fa-check-circle"></i> -->
+    <!--  -->
     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
       <a class="nav-item nav-link" id="nav-renter-fleet-tab" data-toggle="tab" href="#nav-renter-fleet" role="tab" aria-controls="nav-renter-fleet" title="Flota de Arrendadora" aria-selected="false">
         <i class="fas fa-2x fa-car"></i>
@@ -64,6 +64,9 @@
       </a>
       <a class="nav-item nav-link" id="nav-room-hotel-tab" data-toggle="tab" href="#nav-room-hotel" role="tab" aria-controls="nav-room-hotel" title="Habitación de Hotel" aria-selected="false">
         <i class="fas fa-2x fa-hotel"></i>
+        {{#if roomSelected}}
+          <i class="fas fa-2x fa-check-square"></i>
+        {{/if}}
       </a>
       <a class="nav-item nav-link" id="nav-restaurant-tab" data-toggle="tab" href="#nav-restaurant" role="tab" aria-controls="nav-restaurant" title="Restaurante" aria-selected="false">
         <i class="fas fa-2x fa-utensils"></i>
@@ -279,9 +282,9 @@
         </div>
       </div>
       <div class="card-footer small text-muted">
-        <a style="text-decoration: none;" href="/show-hotel/{{idHotel}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
-          <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
-        </a>
+        <button class="btn btn-outline-primary ml-3" id="packageAddRoom" hotel="{{idHotel}}" room="{{_id}}">
+          <i class="fas fa-plus-square"></i> Agregar
+        </button>
       </div>
     </div>
   {{/with}}
