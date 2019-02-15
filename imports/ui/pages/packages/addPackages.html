@@ -1,8 +1,8 @@
-<template name="addPackages" >
+<template name="addPackages">
   <div class="card mb-3">
     <div class="card-header">
       <i class="fas fa-table"></i>
-      Agregar Paquetes
+      <b>Agregar Paquetes</b>
     </div>
     <div class="card-body">
       {{#autoForm
@@ -16,40 +16,285 @@
             {{>afQuickField name="name"}}
           </div>
           <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="price" }}
-          </div>
-          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRenter" firstOption="(Seleccione Uno)" options=Renters }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idFleetRenter" firstOption="(Seleccione Uno)" options=(FleetRenter (afFieldValue name="idRenter") ) }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idTransport" firstOption="(Seleccione Uno)" options=TransportationEstablishments }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idTransportRoute" firstOption="(Seleccione Uno)" options=(RouteTransportationEstablishment (afFieldValue name="idTransport") ) }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idHotel" firstOption="(Seleccione Uno)" options=Hotels }}
-          </div>
-          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRoom" firstOption="(Seleccione Uno)" options=(RoomHotel (afFieldValue name="idHotel") ) }}
-          </div>
-          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
-            {{>afQuickField name="idGuide" firstOption="(Seleccione Uno)" options=Guide }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRestaurant" firstOption="(Seleccione Uno)" options=Restaurants }}
+            {{>afQuickField name="price"}}
           </div>
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            {{>afQuickField name="observation" firstOption="(Seleccione Uno)" options=Restaurants }}
+            {{>afQuickField name="observation"}}
+          </div>
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idRenter"}}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idFleetRenter"}}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idTransport"}}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idTransportRoute"}}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idHotel"}}
+          </div>
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idRoom"}}
+          </div>
+          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+            {{>afQuickField name="idGuide"}}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idRestaurant"}}
           </div>
         </div>
         <div class="text-center mt-4">
-          <button type="submit" class="btn mx-auto btn-primary w-75" >Agregar</button>
+          <button type="submit" class="btn mx-auto btn-primary w-75" >Agregar Paquete</button>
         </div>
       {{/autoForm}}
     </div>
   </div>
+  <nav>
+    <!-- Cuando este listo: -->
+    <!-- <i class="fas fa-check-circle"></i> -->
+    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link" id="nav-renter-fleet-tab" data-toggle="tab" href="#nav-renter-fleet" role="tab" aria-controls="nav-renter-fleet" title="Flota de Arrendadora" aria-selected="false">
+        <i class="fas fa-2x fa-car"></i>
+      </a>
+      <a class="nav-item nav-link" id="nav-route-te-tab" data-toggle="tab" href="#nav-route-te" role="tab" aria-controls="nav-route-te" title="Ruta del Establecimiento de Transporte" aria-selected="false">
+        <i class="fas fa-2x fa-map-marked-alt"></i>
+      </a>
+      <a class="nav-item nav-link" id="nav-room-hotel-tab" data-toggle="tab" href="#nav-room-hotel" role="tab" aria-controls="nav-room-hotel" title="Habitación de Hotel" aria-selected="false">
+        <i class="fas fa-2x fa-hotel"></i>
+      </a>
+      <a class="nav-item nav-link" id="nav-restaurant-tab" data-toggle="tab" href="#nav-restaurant" role="tab" aria-controls="nav-restaurant" title="Restaurante" aria-selected="false">
+        <i class="fas fa-2x fa-utensils"></i>
+      </a>
+      <a class="nav-item nav-link" id="nav-guide-tab" data-toggle="tab" href="#nav-guide" role="tab" aria-controls="nav-guide" title="Guía" aria-selected="false">
+        <i class="fas fa-2x fa-hiking"></i>
+      </a>
+    </div>
+  </nav>
+  <br >
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade" id="nav-renter-fleet" role="tabpanel" aria-labelledby="nav-renter-fleet-tab">
+
+    </div>
+    <div class="tab-pane fade" id="nav-route-te" role="tabpanel" aria-labelledby="nav-route-te-tab">
+
+    </div>
+    <div class="tab-pane fade" id="nav-room-hotel" role="tabpanel" aria-labelledby="nav-room-hotel-tab">
+      {{>packageRoomHotel}}
+    </div>
+    <div class="tab-pane fade" id="nav-restaurant" role="tabpanel" aria-labelledby="nav-restaurant-tab">
+
+    </div>
+    <div class="tab-pane fade" id="nav-guide" role="tabpanel" aria-labelledby="nav-guide-tab">
+
+    </div>
+  </div>
 </template>
+
+<!-- Inicio busqueda de cuartos de hotel -->
+
+<template name="packageRoomHotel">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-search-location"></i>
+      <b>Filtrar Cuartos de Hotel</b>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Nombre de hotel:</b>
+          </label>
+          <br >
+          <input type="text" id="name" value="{{name}}" class="form-control">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Departamento:</b>
+          </label>
+          <br >
+          <select id="department" name="department" class="form-control">
+            <option value="">(Seleccione Uno)</option>
+            {{#each listDepartment}}
+              <option value="{{value}}">{{label}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Municipio:</b>
+          </label>
+          <br >
+          {{#if deptSelected}}
+            <select id="municipality" name="municipality" class="form-control">
+              <option value="">(Seleccione Uno)</option>
+              {{#each listMunicipality}}
+                <option value="{{value}}">{{label}}</option>
+              {{/each}}
+            </select>
+          {{else}}
+            <select id="municipality" name="municipality" class="form-control">
+              <option value="">(Seleccione Departamento)</option>
+            </select>
+          {{/if}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Ciudad:</b>
+          </label>
+          <br >
+          <input type="text" id="city" value="{{city}}" class="form-control">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Calle:</b>
+          </label>
+          <br >
+          <input type="text" id="street" value="{{street}}" class="form-control">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group mt-1">
+          <label>
+            <b>Categorizacion:</b>
+          </label>
+          <br >
+          {{>packageStarRoomHotel}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label for="slider"><b>Precio maximo:</b> Lps. {{precioMax}}</label>
+          <br >
+          <input type="range" id="sliderMax" min="0" max="5000" step="100" value="{{precioMax}}" class="slider" style="width: 100%;">
+        </div>
+      </div>
+    </div>
+  </div>
+  {{#each buscar}}
+    {{>packageResultRoomHotel hotel=this}}
+  {{/each}}
+</template>
+
+<template name="packageResultRoomHotel">
+  {{#with hotel}}
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fas fa-mosque"></i>
+        <b>{{name}}</b>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-auto">
+            {{#if images}}
+              <div id="contrCarous{{_id}}" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  {{#each images}}
+                    {{#with (findImg this)}}
+                      {{#if first @index}}
+                        <div class="carousel-item active">
+                          <img class="d-block" src="{{link}}" alt="{{name}}" width="256" height="256">
+                        </div>
+                      {{else}}
+                        <div class="carousel-item">
+                          <img class="d-block" src="{{link}}" alt="{{name}}" width="256" height="256">
+                        </div>
+                      {{/if}}
+                    {{/with}}
+                  {{/each}}
+                </div>
+                <a class="carousel-control-prev" href="#contrCarous{{_id}}" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Anteroir</span>
+                </a>
+                <a class="carousel-control-next" href="#contrCarous{{_id}}" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+              </div>
+            {{else}}
+              <div class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img class="d-block" src="/img/placeholder.png" alt="placeholder.jpg" width="256" height="256">
+                  </div>
+                </div>
+              </div>
+            {{/if}}
+          </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              <label>
+                <b>Teléfonos:</b>
+              </label>
+              {{#each phone}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Contactos:</b>
+              </label>
+              {{#each branchContacts}}
+                <li>{{name}}, {{role}}</li>
+              {{/each}}
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Metodos de pago:</b>
+              </label>
+              {{#each paymentsMethod}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Monedas aceptadas:</b>
+              </label>
+              {{#each coin}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              <label>
+                <b>Precio:</b> Lps. {{price}}
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Tipo de habitacion:</b> {{type}}
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Camas extra:</b> {{extraBed}}
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Tamaño:</b> {{roomSize}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer small text-muted">
+        <a style="text-decoration: none;" href="/show-hotel/{{idHotel}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+          <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+        </a>
+      </div>
+    </div>
+  {{/with}}
+</template>
+
+<template name="packageStarRoomHotel">
+  <div>
+    <p>
+      {{#each list}}
+        <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
+  </div>
+</template>
+
+<!-- Fin busqueda de cuartos de hotel -->
