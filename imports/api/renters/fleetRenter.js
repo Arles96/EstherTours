@@ -90,7 +90,7 @@ const FleetRenterSchema = new SimpleSchema({
   },
   images: {
     type: Array,
-    label: 'Imagenes (Opcional)',
+    label: 'Imágenes (Opcional)',
     optional: true
   },
   'images.$': {
