@@ -13,10 +13,18 @@
       }}
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="name"}}
+          {{#if (isBranch TransportationEstablishment.branchOffice) }}
+            {{>afQuickField name="name" value=TransportationEstablishment.name readonly=true omit=true type='hidden' }}
+          {{else}}
+            {{>afQuickField name="name"}}
+          {{/if}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="email"}}
+          {{#if (isBranch TransportationEstablishment.branchOffice) }}
+            {{>afQuickField name="email" value=TransportationEstablishment.email readonly=true omit=true type='hidden' }}
+          {{else}}
+            {{>afQuickField name="name"}}
+          {{/if}}
         </div>
         <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="website" }}
@@ -31,7 +39,8 @@
           {{>afQuickField name="department"}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          {{>afQuickField name="town" firstOption=firstOption options=(municipalities (afFieldValue name="department") ) }}
+          {{>afQuickField name="town" firstOption=firstOption options=(municipalities (afFieldValue name="department")
+          ) }}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{>afQuickField name="type"}}
@@ -64,11 +73,11 @@
   </div>
 </template>
 
-<template name="updateStarTransport" >
+<template name="updateStarTransport">
   <div>
     <p>
       {{#each list}}
-        <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+      <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
       {{/each}}
     </p>
   </div>

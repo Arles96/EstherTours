@@ -36,6 +36,12 @@ Template.listTransportationEstablishments.onCreated(() => {
   });
 });
 
+Template.listTransportationEstablishments.helpers({
+  selector: function () {
+    return { branchOffice: false };
+  }
+});
+
 Template.showButtonTransportationEstablishments.events({
   'click .addFleetTransportationEstablishment': function () {
     Session.set('idTransportationEstablishment', this._id);

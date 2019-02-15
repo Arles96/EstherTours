@@ -16,7 +16,8 @@ Template.addTransportationEstablishments.helpers({
       return [];
     }
   },
-  firstOption: () => Session.get('firstOptionMunicipalityTransport')
+  firstOption: () => Session.get('firstOptionMunicipalityTransport'),
+  iAmNotBranch: false
 });
 
 Template.addTransportationEstablishments.events({
