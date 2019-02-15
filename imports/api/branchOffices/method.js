@@ -7,7 +7,7 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), admin)) {
       const validate = branchOffices.findOne({
         $or: [{
-          municipality: doc.idTransportationEstablishment,
+          municipality: doc.municipality,
           street: doc.street,
           city: doc.city,
           departament: doc.departament,
@@ -15,8 +15,8 @@ Meteor.methods({
         }, {
           street: doc.street,
           city: doc.city,
-          departament: doc.departament,
-          phone: doc.phone
+          municipality: doc.municipality,
+          departament: doc.departament
         }]
       });
       if (validate) {
@@ -56,6 +56,7 @@ Meteor.methods({
           town: data.town
         }]
       }).fetch();
+      console.log(validate);
       if (validate.length > 0) {
         validate.forEach(value => {
           if (value._id !== doc._id) {

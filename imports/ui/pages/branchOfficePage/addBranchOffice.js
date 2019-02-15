@@ -23,7 +23,7 @@ AutoForm.addHooks('addOfficeForm', {
     toastr.success('Se ha creado la sucursal exitosamente.');
   },
   onError: function (formtype, error) {
-    if (error.error === 403) {
+    if (error.error) {
       toastr.error('Error la sucursal ya existe.');
     } else {
       toastr.error(error);
