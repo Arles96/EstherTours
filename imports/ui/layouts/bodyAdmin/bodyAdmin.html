@@ -1,9 +1,13 @@
 <template name="bodyAdmin">
-  {{>dashboardNavbar}}
   {{#if isBlocked }}
-  <h1>Your user has been locked by administrator!</h1>
-  <h3>Please, contact the administrator for more information.</h3>
+  <h1 style="text-align: center">¡Su usuario ha sido bloqueado por el administrador!</h1>
+  <h3 style="text-align: center">Por favor, contáctese con el administrador para más información.</h3><br>
+  <div class="center">
+
+    <button type="button" id="logout" class="btn btn-outline-danger btn-block w-75 mx-auto">Salir</button>
+  </div>
   {{else}}
+  {{>dashboardNavbar}}
   <div id="wrapper">
     {{>leftMenu}}
     <div id="content-wrapper" style="height: 90vh; overflow-y: auto;">

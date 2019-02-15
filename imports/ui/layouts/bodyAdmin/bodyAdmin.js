@@ -15,3 +15,10 @@ Template.bodyAdmin.helpers({
     }
   }
 });
+
+Template.bodyAdmin.events({
+  'click #logout': function () {
+    Accounts.logout();
+    window.location = '/';
+  }
+});
