@@ -1,0 +1,31 @@
+<template name="officePage" >
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i> Sucursal
+    </div>
+    <div class="card-body">
+      <!-- Add Button -->
+      <div class="form-group">
+        <button id="myButton" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addOffice">
+          Agregar Sucursal
+        </button>
+      </div>
+      <div class="table-responsive">
+        {{> tabular table=TabularTables.Offices class="table table-hover table-bordered"}}
+      </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    {{>addBranchOffice}}
+    {{>editBranchOffice}}
+  </div>
+</template>
+
+<template name="showButtonOffice" >
+  {{#if isAdmin}}
+   <i style="cursor: pointer;" data-id="{{_id}}" class="updateOffice far fa-edit mr-2" title="Editar"></i>
+
+    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="deleteOffice far fa-trash-alt" title="Borrar"></i>
+    </span>
+  {{/if}}
+</template>

@@ -1,12 +1,25 @@
 import './addUserModal.html';
 import toastr from 'toastr';
 import UserProfileSchema from '../../../api/users/profileUsers';
+import { branchOffices } from '../../../api/branchOffices/Offices';
 
-Template.addUserModal.helpers({
-  UserProfileSchema: () => UserProfileSchema
+Template.addUserModal.onCreated(() => { 
+  Meteor.subscribe('branchOffices.all');
 });
 
-AutoForm.addHooks('addUserForm', {
+Template.addUserModal.helpers({
+  UserProfileSchema: () => UserProfileSchema,
+  branchOffices: () => (branchOffices.find().map(doc => ({
+    label: `${doc.departament}`,
+    value: doc._id
+  }))),
+  prueba: function () {
+    console.log(branchOffices.find().fetch());
+    return 'prueba';
+  }
+});
+
+AutoForm.addHooks('editUserForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha creado el usuario exitosamente.');
   },

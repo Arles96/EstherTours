@@ -65,7 +65,7 @@ import '../../ui/pages/RenterQuary/findRenters';
 import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
-
+import '../../ui/pages/branchOfficePage/officesPage';
 /**
  *Función para listar en el componente breadcrumb
  * @param {Array} list
@@ -156,8 +156,24 @@ Router.route('/users', {
   name: 'users',
   template: 'usersPage',
   layoutTemplate: 'bodyAdmin',
+  waiton: function () {
+    return Meteor.subscribe('branchOffices.all');
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Usuarios']);
+    isAdmin(this);
+  }
+});
+
+/**
+ * Rutas para sucursales
+ */
+Router.route('/offices', {
+  name: 'offices',
+  template: 'officePage',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Sucursales']);
     isAdmin(this);
   }
 });
