@@ -58,7 +58,7 @@ Template.filterFleetRenters.helpers({
     return department !== '';
   },
   buscar () {
-    // filtrar por hotel primero
+    // filtrar por arrendadora primero
     const tarifaMax = Template.instance().tarifaMax.get();
     const total = Template.instance().total.get();
     const type = Template.instance().type.get();
@@ -89,7 +89,7 @@ Template.filterFleetRenters.helpers({
       .find(queryR)
       .map(doc => doc);
 
-    // con las arrendadoras obtenidos, filtrar por habitacion
+    // con las arrendadoras obtenidos, filtrar por flota
     const query = {
       idRenter: {
         $in: filteredRenters.map(doc => doc._id)
@@ -103,7 +103,7 @@ Template.filterFleetRenters.helpers({
       }
     };
 
-    // unir documentos del documento con los cuartos encontrados
+    // unir documentos del documento con las flotas encontrados
     const filteredFleets = FleetRenter
       .find(query, { sort: { price: 1 } })
       .map(doc => ({ ...filteredRenters.find(({ _id }) => doc.idRenter === _id), ...doc }));
