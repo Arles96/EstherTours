@@ -209,15 +209,20 @@
 </template>
 
 <template name="showButtonRouteTransportationEstablishments" >
-    <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
-      <i style="cursor: pointer;" data-id="{{_id}}" class="infoRouteTransportationEstablishment far fa-eye mr-2" data-toggle="modal" data-target="#infoRouteTransportationEstablishment" ></i>
+  {{#if isCreatePackage}}
+    <span data-toggle="tooltip" data-placement="top" title="Empaquetar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="packageEntity fas fa-box"></i>
     </span>
-    {{#if isOperator}}
-      <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
-        <i style="cursor: pointer;" data-id="{{_id}}" class="infoRouteTransportationEstablishment far fa-edit mr-2" data-toggle="modal" data-target="#editRouteTransportationEstablishment"></i>
-      </span>
-      <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
-        <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRouteTransportationEstablishment far fa-trash-alt"></i>
-      </span>
-    {{/if}}
+  {{/if}}
+  <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
+    <i style="cursor: pointer;" data-id="{{_id}}" class="infoRouteTransportationEstablishment far fa-eye mr-2" data-toggle="modal" data-target="#infoRouteTransportationEstablishment" ></i>
+  </span>
+  {{#if isOperator}}
+    <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="infoRouteTransportationEstablishment far fa-edit mr-2" data-toggle="modal" data-target="#editRouteTransportationEstablishment"></i>
+    </span>
+    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRouteTransportationEstablishment far fa-trash-alt"></i>
+    </span>
+  {{/if}}
   </template>

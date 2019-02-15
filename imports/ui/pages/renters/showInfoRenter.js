@@ -90,7 +90,21 @@ Template.showButtonFleetRenters.events({
     Session.set('fleetRenter', FleetRenter.findOne({ _id: this._id }));
   },
   'click .packageEntity': function () {
-    const { idRenter, type, rate } = FleetRenter.findOne({ _id: this._id });
+    const {
+      idRenter,
+      type,
+      rate,
+      _id
+    } = FleetRenter.findOne({ _id: this._id });
+    const { name } = Renters.findOne({ _id: idRenter });
+    localStorage.setItem('PackageFleetRenter', {
+      _id,
+      idRenter,
+      type,
+      rate,
+      name
+    });
+    toastr.success('Se ha empaquetado la flota exitosamente');
   }
 });
 

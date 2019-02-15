@@ -86,6 +86,7 @@ Template.showButtonRoomHotel.events({
       type,
       name
     });
+    toastr.success('Se ha empaquetado la habitación exitosamente');
   }
 });
 

@@ -136,5 +136,20 @@ Template.showButtonRouteTransportationEstablishments.events({
   },
   'click .infoRouteTransportationEstablishment': function () {
     Session.set('routeTransportationEstablishment', RouteTransportationEstablishment.findOne({ _id: this._id }));
+  },
+  'click .packageEntity': function () {
+    const {
+      _id,
+      idTransportationEstablishment,
+      type
+    } = RouteTransportationEstablishment.findOne({ _id: this._id });
+    const { name } = TransportationEstablishments.findOne({ _id: idTransportationEstablishment });
+    localStorage.setItem('packageRputeTransport', {
+      _id,
+      idTransportationEstablishment,
+      type,
+      name
+    });
+    toastr.success('Se ha empaquetado la ruta exitosamente');
   }
 });

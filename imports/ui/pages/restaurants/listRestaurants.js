@@ -63,5 +63,13 @@ Template.showButtonRestaurant.events({
         });
       }
     });
+  },
+  'click .packageEntity': function () {
+    const { _id, name } = Restaurants.findOne({ _id: this._id });
+    localStorage.setItem('packageRestaurant', {
+      _id,
+      name
+    });
+    toastr.success('Se ha empaquetado el restaurante exitosamente.');
   }
 });
