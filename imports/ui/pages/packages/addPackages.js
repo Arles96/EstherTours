@@ -1,6 +1,7 @@
 import '../../components/packageRoomHotel/packageRoomHotel';
 import '../../components/packageRouteTE/packageRouteTE';
 import '../../components/packageFleetRenters/packageFleetRenters';
+import '../../components/packageRestaurants/packageRestaurants';
 import './addPackages.html';
 import { Session } from 'meteor/session';
 import toastr from 'toastr';
@@ -13,6 +14,7 @@ Template.addPackages.onCreated(() => {
   Session.set('packageRouteId', undefined);
   Session.set('packageRenterId', undefined);
   Session.set('packageFleetId', undefined);
+  Session.set('packageRestaurantId', undefined);
 });
 
 Template.addPackages.helpers({
@@ -25,7 +27,8 @@ Template.addPackages.helpers({
   routeSelected: () => Session.get('packageTEId') && Session.get('packageRouteId'),
   renter: () => Session.get('packageRenterId'),
   fleet: () => Session.get('packageFleetId'),
-  fleetSelected: () => Session.get('packageRenterId') && Session.get('packageFleetId')
+  fleetSelected: () => Session.get('packageRenterId') && Session.get('packageFleetId'),
+  restaurant: () => Session.get('packageRestaurantId')
 });
 
 AutoForm.addHooks('addPackagesForm', {
@@ -37,6 +40,7 @@ AutoForm.addHooks('addPackagesForm', {
     Session.set('packageRouteId', undefined);
     Session.set('packageRenterId', undefined);
     Session.set('packageFleetId', undefined);
+    Session.set('packageRestaurantId', undefined);
   },
   onError: function (formtype, error) {
     toastr.error(error);

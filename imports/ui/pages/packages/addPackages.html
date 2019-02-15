@@ -43,7 +43,7 @@
             {{>afQuickField name="idGuide"}}
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRestaurant"}}
+            {{>afQuickField name="idRestaurant" value=restaurant}}
           </div>
         </div>
         <div class="text-center mt-4">
@@ -74,6 +74,9 @@
       </a>
       <a class="nav-item nav-link" id="nav-restaurant-tab" data-toggle="tab" href="#nav-restaurant" role="tab" aria-controls="nav-restaurant" title="Restaurante" aria-selected="false">
         <i class="fas fa-2x fa-utensils"></i>
+        {{#if restaurant}}
+          <i class="fas fa-2x fa-check-square"></i>
+        {{/if}}
       </a>
       <a class="nav-item nav-link" id="nav-guide-tab" data-toggle="tab" href="#nav-guide" role="tab" aria-controls="nav-guide" title="Guía" aria-selected="false">
         <i class="fas fa-2x fa-hiking"></i>
@@ -92,7 +95,7 @@
       {{>packageRoomHotel}}
     </div>
     <div class="tab-pane fade" id="nav-restaurant" role="tabpanel" aria-labelledby="nav-restaurant-tab">
-
+      {{>packageRestaurants}}
     </div>
     <div class="tab-pane fade" id="nav-guide" role="tabpanel" aria-labelledby="nav-guide-tab">
 

@@ -918,7 +918,9 @@ Router.route('/add-packages', {
       Meteor.subscribe('Routes.all'),
       Meteor.subscribe('renter.all'),
       Meteor.subscribe('FleetRenterImage.all'),
-      Meteor.subscribe('fleetRenter.all')
+      Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('restaurantImage.all')
     ];
   },
   onBeforeAction: function () {
