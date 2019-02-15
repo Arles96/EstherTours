@@ -126,16 +126,16 @@ Template.showButtonRateHotel.events({
 Template.showButtonBranchHotel.events({
   'click .deleteHotel': function () {
     const id = this._id;
-    const renter = Hotels.findOne({ _id: id });
+    const hotel = Hotels.findOne({ _id: id });
     Swal({
-      title: 'Eliminar Registro de Arrendadora',
-      text: `Esta seguro de eliminar este registro de ${renter.name}`,
+      title: 'Eliminar sucursal de Hotel',
+      text: `Esta seguro de eliminar este registro de ${hotel.name}`,
       cancelButtonText: 'Cancelar',
       showCancelButton: true,
       focusCancel: true
     }).then(res => {
       if (res.value) {
-        Meteor.call('deleteRenter', id, (error, result) => {
+        Meteor.call('deleteHotel', id, (error, result) => {
           if (error) {
             toastr.error('Error al eliminar el registro.');
           } else {
