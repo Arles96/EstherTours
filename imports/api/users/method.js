@@ -67,11 +67,12 @@ Meteor.methods({
     }
   },
   updateProfileOffice: function (doc) {
-    if (Meteor.user()) {
-      officeUsersSchema.validate(doc);
-      Meteor.users.update({ _id: Meteor.userId() }, {
+    const data = doc.modifier.$set;
+    if (Roles.userIsInRole(Meteor.userId(), admin)) {
+      officeUsersSchema.validate(data);
+      Meteor.users.update({ _id: data.idUser }, {
         $set: {
-          'profile.idOffice': doc.idOffice
+          'profile.idOffice': data.idOffice
         }
       });
     } else {

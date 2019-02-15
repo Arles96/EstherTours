@@ -17,10 +17,10 @@ Template.officeEdit.helpers({
   })))
 });
 
-AutoForm.addHooks('editUserForm', {
+AutoForm.addHooks('editUserOfficeForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha actualizado los datos de la habitación exitosamente.');
-    $('#officeEdit').modal('hide');
+    $('#editUser').modal('hide');
   },
   onError: function (formtype, error) {
     toastr.error(error);

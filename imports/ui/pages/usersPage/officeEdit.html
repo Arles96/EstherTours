@@ -12,14 +12,14 @@
           <!-- Cuerpo del Modal (Agregar Usuario) -->
           <div class="modal-body">
             {{#autoForm
-              id="editUserForm"
+              id="editUserOfficeForm"
               schema=userOfficeSchema
-              type="method"
+              type="method-update"
               meteormethod="updateProfileOffice"
               doc = officeUser
             }}
               {{>afQuickField name="idOffice" firstOption="(Seleccione Uno)" options=branchOffices }}
-  
+              {{>afQuickField name="idUser" }}
               <div class="text-center">
                 <button type="submit" class="btn mx-auto btn-primary w-75" >Cambiar</button>
               </div>
