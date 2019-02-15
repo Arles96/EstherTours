@@ -2,7 +2,7 @@
   <div class="card mb-3">
     <div class="card-header">
       <i class="fas fa-search-location"></i>
-      Filtrar Flotas de Arrendaroas
+      <b>Filtrar Flotas de Arrendadoras</b>
     </div>
     <div class="card-body">
       <div class="row">
@@ -57,17 +57,34 @@
           <br >
           <input type="text" id="street" value="{{street}}" class="form-control">
         </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Tipo de flota:</b>
+          </label>
+          <br >
+          <select id="type" name="type" class="form-control">
+            <option value="">(Seleccione Uno)</option>
+            <option value="Terrestre">Terrestre</option>
+            <option value="Aérea">Aérea</option>
+            <option value="Marítima">Marítima</option>
+          </select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label for="slider"><b>Total de flota:</b> {{total}}</label>
+          <br >
+          <input type="range" id="sliderMaxTotal" min="0" max="100" step="5" value="{{total}}" class="slider" style="width: 100%;">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label for="slider"><b>Tarifa de flota máxima:</b> Lps. {{tarifaMax}}</label>
+          <br >
+          <input type="range" id="sliderMaxRate" min="0" max="5000" step="100" value="{{tarifaMax}}" class="slider" style="width: 100%;">
+        </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group mt-1">
           <label>
             <b>Categorizacion:</b>
           </label>
           <br >
           {{>filterStarFleetRenter}}
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>Tarifa de flota máximo:</b> Lps. {{tarifaMax}}</label>
-          <br >
-          <input type="range" id="sliderMax" min="0" max="5000" step="100" value="{{tarifaMax}}" class="slider" style="width: 100%;">
         </div>
       </div>
     </div>
@@ -122,7 +139,7 @@
                 </div>
               </div>
             {{/if}}
-            <a style="text-decoration: none;" href="/show-renter/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+            <a style="text-decoration: none;" href="/show-renter/{{idRenter}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
               <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
             </a>
           </div>
@@ -131,7 +148,7 @@
               <label>
                 <b>Teléfonos:</b>
               </label>
-              {{#each phone}}
+              {{#each telephone}}
                 <li>{{this}}</li>
               {{/each}}
             </div>
@@ -147,7 +164,7 @@
               <label>
                 <b>Metodos de pago:</b>
               </label>
-              {{#each paymentsMethod}}
+              {{#each paymentMethods}}
                 <li>{{this}}</li>
               {{/each}}
             </div>
@@ -155,7 +172,7 @@
               <label>
                 <b>Monedas aceptadas:</b>
               </label>
-              {{#each coin}}
+              {{#each money}}
                 <li>{{this}}</li>
               {{/each}}
             </div>
@@ -163,23 +180,26 @@
           <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <div class="form-group">
               <label>
-                <b>Precio:</b> Lps. {{price}}
+                <b>Total de flota:</b> {{total}}
               </label>
             </div>
             <div class="form-group">
               <label>
-                <b>Tipo de habitacion:</b> {{type}}
+                <b>Tarifa:</b> Lps. {{rate}}
               </label>
             </div>
             <div class="form-group">
               <label>
-                <b>Camas extra:</b> {{extraBed}}
+                <b>Tipo de flota:</b> {{type}}
               </label>
             </div>
             <div class="form-group">
               <label>
-                <b>Tamaño:</b> {{roomSize}}
+                <b>Menajes:</b>
               </label>
+              {{#each menage}}
+                <li>{{this}}</li>
+              {{/each}}
             </div>
           </div>
         </div>

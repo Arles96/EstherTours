@@ -1,16 +1,18 @@
 import './filterFleetRenters.html';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { RoomHotel } from '../../../api/hotels/roomhotel';
-import { Hotels } from '../../../api/hotels/hotels';
+import { FleetRenter } from '../../../api/renters/fleetRenter';
+import { Renters } from '../../../api/renters/renters';
 import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
-import HotelImages from '../../../api/hotels/hotelImage';
+import RenterImages from '../../../api/renters/fleetRenterImage';
 
 // TODO mostrar por paginas
 
 Template.filterFleetRenters.onCreated(function createVars () {
   this.tarifaMax = new ReactiveVar(2500);
+  this.total = new ReactiveVar(50);
+  this.type = new ReactiveVar('');
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
@@ -22,6 +24,12 @@ Template.filterFleetRenters.onCreated(function createVars () {
 Template.filterFleetRenters.helpers({
   tarifaMax () {
     return Template.instance().tarifaMax.get();
+  },
+  total () {
+    return Template.instance().total.get();
+  },
+  type () {
+    return Template.instance().type.get();
   },
   name () {
     return Template.instance().name.get();
@@ -52,6 +60,8 @@ Template.filterFleetRenters.helpers({
   buscar () {
     // filtrar por hotel primero
     const tarifaMax = Template.instance().tarifaMax.get();
+    const total = Template.instance().total.get();
+    const type = Template.instance().type.get();
     const name = Template.instance().name.get();
     const street = Template.instance().street.get();
     const city = Template.instance().city.get();
@@ -75,32 +85,39 @@ Template.filterFleetRenters.helpers({
       queryR.municipality = municipality;
     }
 
-    const filteredHotels = Hotels
+    const filteredRenters = Renters
       .find(queryR)
       .map(doc => doc);
 
     // con las arrendadoras obtenidos, filtrar por habitacion
     const query = {
-      idHotel: {
-        $in: filteredHotels.map(doc => doc._id)
+      idRenter: {
+        $in: filteredRenters.map(doc => doc._id)
       },
-      price: {
+      type: new RegExp(`.*${type}.*`, 'i'),
+      total: {
+        $lte: parseInt(total, 10)
+      },
+      rate: {
         $lte: parseInt(tarifaMax, 10)
       }
     };
 
     // unir documentos del documento con los cuartos encontrados
-    const filteredRooms = RoomHotel
+    const filteredFleets = FleetRenter
       .find(query, { sort: { price: 1 } })
-      .map(doc => ({ ...filteredHotels.find(({ _id }) => doc.idHotel === _id), ...doc }));
+      .map(doc => ({ ...filteredRenters.find(({ _id }) => doc.idRenter === _id), ...doc }));
 
-    return filteredRooms;
+    return filteredFleets;
   }
 });
 
 Template.filterFleetRenters.events({
-  'input #sliderMax' (event, templateInstance) {
+  'input #sliderMaxRate' (event, templateInstance) {
     templateInstance.tarifaMax.set(event.currentTarget.value);
+  },
+  'input #sliderMaxTotal' (event, templateInstance) {
+    templateInstance.total.set(event.currentTarget.value);
   },
   'input #name' (event, templateInstance) {
     templateInstance.name.set(event.currentTarget.value);
@@ -110,6 +127,9 @@ Template.filterFleetRenters.events({
   },
   'input #city' (event, templateInstance) {
     templateInstance.city.set(event.currentTarget.value);
+  },
+  'change #type' (event, templateInstance) {
+    templateInstance.type.set(event.currentTarget.value);
   },
   'change #department' (event, templateInstance) {
     templateInstance.department.set(event.currentTarget.value);
@@ -122,7 +142,7 @@ Template.filterFleetRenters.events({
 
 Template.filterResultFleetRenter.helpers({
   findImg (_id) {
-    return HotelImages.findOne({ _id });
+    return RenterImages.findOne({ _id });
   },
   first (index) {
     return index === 0;
