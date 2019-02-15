@@ -382,3 +382,5 @@ Template.packageStarRouteTE.events({
     Session.set('packageRouteTEStars', '5');
   }
 });
+
+// Fin busqueda de rutas de transporte

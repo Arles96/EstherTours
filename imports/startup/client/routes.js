@@ -915,7 +915,10 @@ Router.route('/add-packages', {
       Meteor.subscribe('hotelImage.all'),
       Meteor.subscribe('RoomHotel.all'),
       Meteor.subscribe('transport.all'),
-      Meteor.subscribe('Routes.all')
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('FleetRenterImage.all'),
+      Meteor.subscribe('fleetRenter.all')
     ];
   },
   onBeforeAction: function () {
