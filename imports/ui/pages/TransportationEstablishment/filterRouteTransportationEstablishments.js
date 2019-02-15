@@ -86,7 +86,7 @@ Template.filterRouteTE.helpers({
       query.town = municipality;
     }
 
-    // unir documentos del documento con los cuartos encontrados
+    // unir documentos del documento con las rutas encontradas
     const filteredRoutes = RouteTransportationEstablishment
       .find(query)
       .map(doc => ({
