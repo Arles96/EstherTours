@@ -913,7 +913,9 @@ Router.route('/add-packages', {
     return [
       Meteor.subscribe('hotels.all'),
       Meteor.subscribe('hotelImage.all'),
-      Meteor.subscribe('RoomHotel.all')
+      Meteor.subscribe('RoomHotel.all'),
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all')
     ];
   },
   onBeforeAction: function () {
