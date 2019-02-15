@@ -135,6 +135,23 @@ const RentersSchema = new SimpleSchema({
     type: String,
     label: 'Moneda'
   },
+  branchOffice: {
+    type: Boolean,
+    label: 'Es sucursal',
+    defaultValue: false
+  },
+  mainOffice: {
+    type: String,
+    label: 'Oficina principal',
+    custom: function () {
+      if (!this.value && this.field('branchOffice').value) {
+        return 'required';
+      } else {
+        return 1;
+      }
+    },
+    optional: true
+  },
   branchContacts: {
     type: Array,
     label: 'Contactos',
