@@ -137,6 +137,12 @@ Meteor.methods({
   },
   deleteRestaurant: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      Restaurants
+        .find({ branchOffice: true, mainOffice: id })
+        .forEach(doc => {
+          Restaurants.remove({ _id: doc._id });
+          restaurantOffers.remove({ idRestaurant: doc._id });
+        });
       Restaurants.remove({ _id: id });
       restaurantOffers.remove({ idRestaurant: id });
     } else {

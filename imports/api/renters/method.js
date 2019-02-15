@@ -79,6 +79,12 @@ Meteor.methods({
   },
   deleteRenter: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      Renters
+        .find({ branchOffice: true, mainOffice: id })
+        .forEach(doc => {
+          Renters.remove({ _id: doc._id });
+          FleetRenter.remove({ idRenter: doc._id });
+        });
       Renters.remove({ _id: id });
       FleetRenter.remove({ idRenter: id });
     } else {
