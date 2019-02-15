@@ -39,6 +39,37 @@ const branchContactsSchema = new SimpleSchema({
 });
 
 const TransportationEstablishmentSchema = new SimpleSchema({
+  idTransportationEstablishment: {
+    type: String,
+    label: false,
+    optional: true,
+    autoform: {
+      readonly: true,
+      omit: true,
+      afFieldInput: {
+        type: 'hidden'
+      },
+      afFormGroup: {
+        label: false
+      }
+    }
+  },
+  branchOffice: {
+    type: Boolean,
+    label: false,
+    optional: true,
+    defaultValue: false,
+    autoform: {
+      readonly: true,
+      omit: true,
+      afFieldInput: {
+        type: 'hidden'
+      },
+      afFormGroup: {
+        label: false
+      }
+    }
+  },
   name: {
     type: String,
     label: 'Nombre'
