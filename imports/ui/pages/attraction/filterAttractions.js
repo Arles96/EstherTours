@@ -55,27 +55,30 @@ Template.filterAttractions.helpers({
     const city = Template.instance().city.get();
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
-
-    const query = {
-      name: new RegExp(`.*${name}.*`, 'i'),
-      price: {
+    const query = {};
+    if (name) {
+      query.name = new RegExp(`.*${name}.*`, 'i');
+    }
+    if (precioMax) {
+      query.price = {
         $lt: parseInt(precioMax, 10)
-      },
-      categorization: {
-        $lte: Session.get('filterAttractionStars')
-      },
-      street: new RegExp(`.*${street}.*`, 'i'),
-      city: new RegExp(`.*${city}.*`, 'i')
-    };
-
+      };
+    }
+    if (Session.get('filterAttractionStars')) {
+      query.categorization = Session.get('filterAttractionStars');
+    }
     if (department) {
       query.departament = department;
     }
-
     if (municipality) {
       query.municipality = municipality;
     }
-
+    if (street) {
+      query.street = new RegExp(`.*${street}.*`, 'i');
+    }
+    if (city) {
+      query.city = new RegExp(`.*${city}.*`, 'i');
+    }
     return Attractions
       .find(query, { sort: { price: 1 } })
       .map(doc => doc);
