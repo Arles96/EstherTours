@@ -1,13 +1,18 @@
-<template name="bodyAdmin" >
-{{>dashboardNavbar}}
-<div id="wrapper">
-  {{>leftMenu}}
-  <div id="content-wrapper" style="height: 90vh; overflow-y: auto;">
-    <div class="container-fluid">
-      {{>breadcrumb}}
-      {{>yield}}
+<template name="bodyAdmin">
+  {{>dashboardNavbar}}
+  {{#if isBlocked }}
+  <h1>Your user has been locked by administrator!</h1>
+  <h3>Please, contact the administrator for more information.</h3>
+  {{else}}
+  <div id="wrapper">
+    {{>leftMenu}}
+    <div id="content-wrapper" style="height: 90vh; overflow-y: auto;">
+      <div class="container-fluid">
+        {{>breadcrumb}}
+        {{>yield}}
+      </div>
     </div>
   </div>
-</div>
-{{>scripts}}
+  {{/if}}
+  {{>scripts}}
 </template>
