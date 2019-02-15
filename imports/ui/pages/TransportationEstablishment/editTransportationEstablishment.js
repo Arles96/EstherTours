@@ -20,6 +20,9 @@ Template.editTransportationEstablishment.helpers({
   textCategorization: function (text) {
     Session.set('editTransportationEstablishmentCategorization', text);
     return 'Categorización';
+  },
+  isBranch: function (branchOffice) {
+    return branchOffice;
   }
 });
 
@@ -35,7 +38,11 @@ AutoForm.addHooks('editTransportationEstablishmentsForms', {
     Router.go('/list-transportation-establishment');
   },
   onError: function (formtype, error) {
-    toastr.error(error);
+    if (error.error === 'Ubicación duplicada.') {
+      toastr.error(new Error('¡Ya existe una agencia con esas direcciones!'));
+    } else {
+      toastr.error(error);
+    }
   }
 });
 

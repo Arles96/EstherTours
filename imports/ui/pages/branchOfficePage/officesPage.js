@@ -1,12 +1,13 @@
-import './listRestaurants.html';
-import '../../components/addRestaurantOffer/addRestaurantOffer';
-import { Session } from 'meteor/session';
-import toastr from 'toastr';
+import './officesPage.html';
+import './addBranchOffice';
+import './editBranchOffice';
 import { Meteor } from 'meteor/meteor';
+import toastr from 'toastr';
 import Swal from 'sweetalert2';
-import { Restaurants } from '../../../api/restaurants/restaurants';
+import { Session } from 'meteor/session';
+import { branchOffices } from '../../../api/branchOffices/Offices';
 
-Template.listRestaurants.onCreated(() => {
+Template.officePage.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
       sLengthMenu: 'Mostrar _MENU_ registros',
@@ -35,33 +36,29 @@ Template.listRestaurants.onCreated(() => {
   });
 });
 
-Template.listRestaurants.helpers({
-  selector: () => ({ branchOffice: false })
-});
-
-Template.showButtonRestaurant.events({
-  'click .addRestaurantOffer': function () {
-    Session.set('idRestaurant', this._id);
-  },
-  'click .deleteRestaurant': function () {
+Template.showButtonOffice.events({
+  'click .deleteOffice': function () {
     const id = this._id;
-    const rest = Restaurants.findOne({ _id: id });
     Swal({
-      title: 'Eliminar Registro de Restaurante',
-      text: `Esta seguro de eliminar este registro de ${rest.name}`,
+      title: 'Eliminar Sucursal',
+      text: 'Esta seguro de eliminar este registro.',
       cancelButtonText: 'Cancelar',
       showCancelButton: true,
       focusCancel: true
     }).then(res => {
       if (res.value) {
-        Meteor.call('deleteRestaurant', id, (error, result) => {
+        Meteor.call('deleteOffice', id, (error, result) => {
           if (error) {
             toastr.error('Error al eliminar el registro.');
           } else {
-            toastr.success('Se ha eliminado el registro.');
+            toastr.success('Se eliminó el registro exitósamente.');
           }
         });
       }
     });
+  },
+  'click .updateOffice': function () {
+    Session.set('branchOffices', branchOffices.findOne({ _id: this._id }));
+    $('#editOffice').modal('show');
   }
 });

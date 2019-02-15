@@ -1,6 +1,7 @@
 import './usersPage.html';
 import './addUserModal';
 import './showInfoUser';
+import './officeEdit';
 import { Meteor } from 'meteor/meteor';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
@@ -47,6 +48,9 @@ Template.showInfoUser.helpers({
 Template.showInfoUser.events({
   'click .showInfo': function () {
     Session.set('idUserInfo', this._id);
+  },
+  'click .editInfo': function () {
+    Session.set('idUser', this.idOffice);
   },
   'click .lock': function () {
     const id = this._id;

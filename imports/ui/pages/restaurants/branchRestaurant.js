@@ -1,15 +1,12 @@
-import './editRestaurant.html';
+import './branchRestaurant.html';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { RestaurantSchema } from '../../../api/restaurants/restaurants';
 import municipalities from '../../../api/municipalities/municipality';
-import RestaurantImage from '../../../api/restaurants/restaurantImage';
 
-window.RestaurantImage = RestaurantImage;
-
-Template.editRestaurant.helpers({
+Template.branchRestaurant.helpers({
   RestaurantSchema: () => RestaurantSchema,
-  rating: () => Session.get('editRestaurantRating'),
+  rating: () => Session.get('branchRestaurantRating'),
   municipalities: department => {
     if (department) {
       Session.set('firstOptionMunicipalityRestaurant', '(Seleccione uno)');
@@ -21,36 +18,36 @@ Template.editRestaurant.helpers({
   },
   firstOption: () => Session.get('firstOptionMunicipalityRestaurant'),
   textCategorization: function (text) {
-    Session.set('editRestaurantRating', text);
+    Session.set('branchRestaurantRating', text);
     return 'Categorización';
   }
 });
 
-Template.editRestaurant.events({
+Template.branchRestaurant.events({
   'change .categorization [type=radio]' (event) {
-    Session.set('editRestaurantRating', event.currentTarget.value);
+    Session.set('branchRestaurantRating', event.currentTarget.value);
   }
 });
 
-AutoForm.addHooks('editRestaurantsForms', {
+AutoForm.addHooks('branchRestaurantsForms', {
   onSuccess: function (formtype, result) {
-    toastr.success('Se ha actualizado el registro del restaurante exitosamente.');
-    if (this.currentDoc.branchOffice) {
-      Router.go(`/show-restaurant/${this.currentDoc.mainOffice}`);
-    } else {
-      Router.go('/listRestaurants');
-    }
+    toastr.success('Se ha agregado la sucursal del restaurante exitosamente.');
+    Router.go(`/show-restaurant/${this.docId}`);
   },
   onError: function (formtype, error) {
-    toastr.error(error);
+    if (error.error === 'Repeated Branch') {
+      toastr.error(new Error('Ya existe una sucursal con esas direcciones!'));
+    } else {
+      toastr.error(error);
+    }
   }
 });
 
-Template.updateStarRestaurant.helpers({
+Template.updateBranchStarRestaurant.helpers({
   list: () => {
     const list = [];
     for (let index = 1; index <= 5; index += 1) {
-      if (index <= parseInt(Session.get('editRestaurantRating'), 10)) {
+      if (index <= parseInt(Session.get('branchRestaurantRating'), 10)) {
         list.push({
           class: 'fas fa-star colorOrange',
           id: `start${index}`
@@ -66,20 +63,20 @@ Template.updateStarRestaurant.helpers({
   }
 });
 
-Template.updateStarRestaurant.events({
+Template.updateBranchStarRestaurant.events({
   'click #start1': function () {
-    Session.set('editRestaurantRating', '1');
+    Session.set('branchRestaurantRating', '1');
   },
   'click #start2': function () {
-    Session.set('editRestaurantRating', '2');
+    Session.set('branchRestaurantRating', '2');
   },
   'click #start3': function () {
-    Session.set('editRestaurantRating', '3');
+    Session.set('branchRestaurantRating', '3');
   },
   'click #start4': function () {
-    Session.set('editRestaurantRating', '4');
+    Session.set('branchRestaurantRating', '4');
   },
   'click #start5': function () {
-    Session.set('editRestaurantRating', '5');
+    Session.set('branchRestaurantRating', '5');
   }
 });
