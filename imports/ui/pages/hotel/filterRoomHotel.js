@@ -16,7 +16,7 @@ Template.filterRoomHotel.onCreated(function createVars () {
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterRoomHotelStars', '5');
+  Session.set('filterRoomHotelStars', '0');
 });
 
 Template.filterRoomHotel.helpers({
