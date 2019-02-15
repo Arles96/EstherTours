@@ -34,6 +34,7 @@ import '../../ui/pages/renters/listRenters';
 import '../../ui/pages/renters/branchRenter';
 import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/listTransportationEstablishments';
+import '../../ui/pages/TransportationEstablishment/filterRouteTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstablishment';
 import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
 import '../../ui/pages/hotel/addHotels';
@@ -424,6 +425,25 @@ Router.route('/list-transportation-establishment', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Tabla Transporte']);
+    isOperator(this);
+  }
+});
+
+/*
+ * Ruta para filtrar rutas de transporte
+ */
+Router.route('/filter-route-transportation-establishment', {
+  name: 'filterRouteTE',
+  template: 'filterRouteTE',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar rutas']);
     isOperator(this);
   }
 });
