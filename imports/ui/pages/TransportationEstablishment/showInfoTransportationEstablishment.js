@@ -55,6 +55,10 @@ Template.showInfoTransportationEstablishment.helpers({
   },
   isBranch: function (branchOffice) {
     return !branchOffice;
+  },
+  textCategorization: function (text) {
+    Session.set('showTransportationRating', text);
+    return 'Categorización';
   }
 });
 

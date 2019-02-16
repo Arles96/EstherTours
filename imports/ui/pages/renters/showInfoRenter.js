@@ -62,6 +62,10 @@ Template.showInfoRenter.helpers({
       return url;
     }
     return `https://${url}`;
+  },
+  textCategorization: function (text) {
+    Session.set('showRenterRating', text);
+    return 'Categorización';
   }
 });
 

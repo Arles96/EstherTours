@@ -38,6 +38,13 @@
             </ul>
           </div>
         </div>
+        <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="form-group mt-1">
+            <label class="mb-3">{{textCategorization TransportationEstablishments.rating }}</label>
+            {{>updateStarTransport}}
+          </div>
+            {{>afQuickField name="rating" value=rating }}
+        </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           <div class="form-group">
             <label for="">
@@ -79,12 +86,6 @@
           </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          <div class="form-group">
-            <label for="">
-              <b>Categorización:</b>
-            </label>
-            <p>{{categorization}} estrellas </p>
-          </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           <div class="form-group">
@@ -220,4 +221,15 @@
         <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRouteTransportationEstablishment far fa-trash-alt"></i>
       </span>
     {{/if}}
+  </template>
+
+
+  <template name="showStarTransportation" >
+    <div>
+      <p>
+        {{#each list}}
+          <i style="font-size: 1.3rem;  pointer-events: none;" id="{{id}}" class="{{class}}"></i>
+        {{/each}}
+      </p>
+    </div>
   </template>

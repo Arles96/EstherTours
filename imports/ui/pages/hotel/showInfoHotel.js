@@ -43,7 +43,11 @@ Template.showInfoHotel.onCreated(() => {
 });
 
 Template.showInfoHotel.helpers({
-  findImage: _id => HotelImage.findOne({ _id })
+  findImage: _id => HotelImage.findOne({ _id }),
+  textCategorization: function (text) {
+    Session.set('showHotelRating', text);
+    return 'Categorización';
+  }
 });
 
 Template.showButtonRoomHotel.events({

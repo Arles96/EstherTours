@@ -39,6 +39,7 @@ Template.showInfoRestaurant.onCreated(() => {
 });
 
 Template.showInfoRestaurant.helpers({
+  rating: () => Session.get('showRestaurantRating'),
   selector: function () {
     return { 
       idRestaurant: Session.get('idRestaurant') };
@@ -57,29 +58,12 @@ Template.showInfoRestaurant.helpers({
       return url;
     }
     return `https://${url}`;
+  },
+  textCategorization: function (text) {
+    Session.set('showRestaurantRating', text);
+    return 'Categorización';
   }
 });
-
-Template.updateStarRestaurant.helpers({
-  list: () => {
-    const list = [];
-    for (let index = 1; index <= 5; index += 1) {
-      if (index <= parseInt(Session.get('RestaurantRating'), 10)) {
-        list.push({
-          class: 'fas fa-star colorOrange',
-          id: `start${index}`
-        });
-      } else {
-        list.push({
-          class: 'fas fa-star',
-          id: `start${index}`
-        });
-      }
-    }
-    return list;
-  }
-});
-
 
 Template.showButtonRestaurantOffers.events({
   'click .deleteRestaurantOffer': function () {
@@ -107,7 +91,7 @@ Template.showButtonRestaurantOffers.events({
   }
 });
 
-Template.showButtonRestaurantBranches.events({
+/*Template.showButtonRestaurantBranches.events({
   'click .deleteRestaurant': function () {
     const id = this._id;
     const rest = Restaurants.findOne({ _id: id });
@@ -130,3 +114,4 @@ Template.showButtonRestaurantBranches.events({
     });
   }
 });
+*/
