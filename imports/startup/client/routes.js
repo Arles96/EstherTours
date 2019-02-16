@@ -40,6 +40,7 @@ import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstabli
 import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
 import '../../ui/pages/TransportationEstablishment/reportTransportationEstablishment/reportTransportationEstablishment';
 import '../../ui/pages/hotel/addHotels';
+import '../../ui/pages/hotel/branchHotel';
 import '../../ui/pages/hotel/listHotels';
 import '../../ui/pages/hotel/filterRoomHotel';
 import '../../ui/pages/hotelQuery/hotelQuery';
@@ -719,8 +720,33 @@ Router.route('/list-hotels', {
   template: 'listHotels',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Listar Hoteles']);
+    listBreadcrumb(['Tabla de Hoteles']);
     isOperator(this);
+  }
+});
+
+Router.route('/branch-hotel/:id', {
+  name: 'branchHotel',
+  template: 'branchHotel',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('hotel.one', id)
+    ];
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const hotel = Hotels.findOne({ _id: id });
+    listBreadcrumb(['Listar Hoteles', `Agregar sucursal a ${hotel.name}`]);
+    Session.set('branchHotelRating', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      hotel: Hotels.findOne({ _id: id })
+    };
   }
 });
 
@@ -1111,14 +1137,15 @@ Router.route('/add-packages', {
   waitOn: function () {
     return [
       Meteor.subscribe('hotels.all'),
-      Meteor.subscribe('attractions.all'),
-      Meteor.subscribe('guide.all'),
-      Meteor.subscribe('renter.all'),
-      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('RoomHotel.all'),
       Meteor.subscribe('transport.all'),
       Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('fleetRenter.all'),
-      Meteor.subscribe('RoomHotel.all')
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('restaurantImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -1152,14 +1179,15 @@ Router.route('/edit-package/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('hotels.all'),
-      Meteor.subscribe('attractions.all'),
-      Meteor.subscribe('guide.all'),
-      Meteor.subscribe('renter.all'),
-      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('RoomHotel.all'),
       Meteor.subscribe('transport.all'),
       Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('fleetRenter.all'),
-      Meteor.subscribe('RoomHotel.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('restaurantImage.all'),
       Meteor.subscribe('OnePackage', id)
     ];
   },

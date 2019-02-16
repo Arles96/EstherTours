@@ -15,6 +15,27 @@ Meteor.methods({
       throw new Meteor.Error('Permiso Denegado');
     }
   },
+  addBranchHotel: function (doc) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      HotelSchema.validate(doc);
+
+      const query = {
+        street: doc.street,
+        municipality: doc.municipality,
+        city: doc.city,
+        department: doc.department
+      };
+
+      if (Hotels.find(query).map(d => d).length > 0) {
+        throw new Meteor.Error('Repeated Branch');
+      } else {
+        Hotels.insert(doc);
+      }
+
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
+  },
   editHotel: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       const data = doc.modifier.$set;
@@ -178,9 +199,6 @@ Meteor.methods({
     } else {
       docVals.activities = ["No definido."];
     }
-
-    console.log(doc);
-    console.log(docVals);
     return {doc: doc, docVals: docVals};
   },
   reportHotels: function (year) {
