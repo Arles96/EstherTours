@@ -45,7 +45,7 @@ Meteor.methods({
   },
   actionBlockedUser: function (doc) {
     if (!Roles.userIsInRole(doc._id, admin)) {
-      Meteor.users.update({ _id: doc._id }, { $set: { profile: { blocked: doc.blocked } } });
+      Meteor.users.update({ _id: doc._id }, { $set: { 'profile.blocked': doc.blocked } });
     } else {
       throw new Meteor.Error('Error, no se puede bloquear a un administrador global');
     }
