@@ -52,6 +52,11 @@ const ProfileUserSchema = new SimpleSchema({
   idOffice: {
     type: String,
     label: 'Sucursal'
+  },
+  createAt: {
+    type: Date,
+    optional: true,
+    autoValue: () => new Date()
   }
 }, { check: check, tracker: Tracker });
 

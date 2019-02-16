@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Renters, RentersSchema } from './renters';
 import { FleetRenter, FleetRenterSchema } from './fleetRenter';
-import { operator, consultant } from '../roles/roles';
+import { operator, consultant, admin } from '../roles/roles';
 
 Meteor.methods({
   addRenter: function (doc) {
@@ -156,6 +156,23 @@ Meteor.methods({
       return { doc, query };
     } else {
       throw new Meteor.Error('Permiso Denegado.');
+    }
+  },
+  reportRenter: function (year) {
+    if (Roles.userIsInRole(Meteor.userId(), operator) ||
+      Roles.userIsInRole(Meteor.userId(), consultant) ||
+      Roles.userIsInRole(Meteor.userId(), admin)
+    ) {
+      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      Renters.find().fetch().forEach(item => {
+        const date = new Date(item.createAt);
+        if (date.getFullYear() === year.year) {
+          monthsCount[date.getMonth()] += 1;
+        }
+      });
+      return monthsCount;
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
     }
   }
 });

@@ -114,6 +114,11 @@ const PackagesSchema = new SimpleSchema({
     autoform: {
       type: 'textarea'
     }
+  },
+  createAt: {
+    type: Date,
+    optional: true,
+    autoValue: () => new Date()
   }
 }, { check: check, tracker: Tracker });
 

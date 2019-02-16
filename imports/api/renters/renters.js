@@ -162,6 +162,11 @@ const RentersSchema = new SimpleSchema({
   'branchContacts.$': {
     type: branchContactsSchema,
     label: ''
+  },
+  createAt: {
+    type: Date,
+    optional: true,
+    autoValue: () => new Date()
   }
 }, { check: check, tracker: Tracker });
 
