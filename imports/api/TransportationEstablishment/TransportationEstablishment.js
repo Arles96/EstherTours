@@ -200,5 +200,3 @@ export {
   TransportationEstablishments,
   TransportationEstablishmentSchema
 };
-
-// "createAt" : ISODate("2019-02-16T06:21:41.628Z")
