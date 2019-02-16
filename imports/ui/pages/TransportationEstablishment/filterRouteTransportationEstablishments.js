@@ -15,7 +15,7 @@ Template.filterRouteTE.onCreated(function createVars () {
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterRouteTEStars', '0');
+  Session.set('filterRouteTEStars', '');
 });
 
 Template.filterRouteTE.helpers({
@@ -56,45 +56,62 @@ Template.filterRouteTE.helpers({
     const city = Template.instance().city.get();
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
-
-    const queryR = {
-      name: new RegExp(`.*${name}.*`, 'i'),
-      categorization: {
-        $lte: Session.get('filterRouteTEStars')
-      }
-    };
-
-    const filteredTE = TransportationEstablishments
-      .find(queryR)
-      .map(doc => doc);
-
+    let checker = false;
+    let checker2 = false;
+    const queryR = {};
+    if (name) {
+      queryR.name = new RegExp(`.*${name}.*`, 'i');
+      checker2 = true;
+    }
+    if (Session.get('filterRouteTEStars')) {
+      queryR.categorization = Session.get('filterRouteTEStars');
+      checker2 = true;
+    }
+    let filteredTE = null;
+    if (checker2) {
+      filteredTE = TransportationEstablishments
+        .find(queryR)
+        .map(doc => doc);
+    }
     // con los establecimientos obtenidos, filtrar por ruta
-    const query = {
-      idTransportationEstablishment: {
+    const query = {};
+    if (filteredTE) {
+      query.idTransportationEstablishment = {
         $in: filteredTE.map(doc => doc._id)
-      },
-      street: new RegExp(`.*${street}.*`, 'i'),
-      city: new RegExp(`.*${city}.*`, 'i'),
-      type: new RegExp(`.*${type}.*`, 'i')
-    };
-
+      };
+      checker = true;
+    }
+    if (street) {
+      query.street = new RegExp(`.*${street}.*`, 'i');
+      checker = true;
+    }
+    if (city) {
+      query.city = new RegExp(`.*${city}.*`, 'i');
+      checker = true;
+    }
     if (department) {
       query.department = department;
     }
-
+    if (type) {
+      query.type = new RegExp(`.*${type}.*`, 'i');
+      checker = true;
+    }
     if (municipality) {
       query.town = municipality;
+      checker = true;
     }
-
-    // unir documentos del documento con las rutas encontradas
-    const filteredRoutes = RouteTransportationEstablishment
-      .find(query)
-      .map(doc => ({
-        ...filteredTE.find(({ _id }) => doc.idTransportationEstablishment === _id),
-        ...doc
-      }));
-
-    return filteredRoutes;
+    console.log(query);
+    if (checker) {
+      // unir documentos del documento con las rutas encontradas
+      return RouteTransportationEstablishment
+        .find(query)
+        .map(doc => ({
+          ...filteredTE.find(({ _id }) => doc.idTransportationEstablishment === _id),
+          ...doc
+        }));
+    } else {
+      return [];
+    }
   }
 });
 

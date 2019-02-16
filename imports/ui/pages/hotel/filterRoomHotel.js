@@ -16,7 +16,7 @@ Template.filterRoomHotel.onCreated(function createVars () {
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterRoomHotelStars', '0');
+  Session.set('filterRoomHotelStars', '');
 });
 
 Template.filterRoomHotel.helpers({
@@ -57,47 +57,39 @@ Template.filterRoomHotel.helpers({
     const city = Template.instance().city.get();
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
-
     const queryH = {};
-
     if (name) {
       queryH.name = new RegExp(`.*${name}.*`, 'i');
     }
-
     if (Session.get('filterRoomHotelStars')) {
       queryH.categorization = Session.get('filterRoomHotelStars');
     }
-
     if (street) {
       queryH.street = new RegExp(`.*${street}.*`, 'i');
     }
-
     if (city) {
       queryH.city = new RegExp(`.*${city}.*`, 'i');
     }
-
     if (department) {
       queryH.departament = department;
     }
-
     if (municipality) {
       queryH.municipality = municipality;
     }
-
     const filteredHotels = Hotels
       .find(queryH)
       .map(doc => doc);
-
     // con los hoteles obtenidos, filtrar por habitacion
     const query = {
-      idHotel: {
-        $in: filteredHotels.map(doc => doc._id)
-      },
       price: {
         $lte: parseInt(precioMax, 10)
       }
     };
-
+    if (filteredHotels) {
+      query.idHotel = {
+        $in: filteredHotels.map(doc => doc._id)
+      };
+    }
     // unir documentos del documento con los cuartos encontrados
     const filteredRooms = RoomHotel
       .find(query, { sort: { price: 1 } })
