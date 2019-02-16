@@ -23,6 +23,7 @@ import '../../ui/pages/usersPage/usersPage';
 import '../../ui/pages/restaurants/addRestaurant';
 import '../../ui/pages/restaurants/listRestaurants';
 import '../../ui/pages/restaurants/editRestaurant';
+import '../../ui/pages/restaurants/branchRestaurant';
 import '../../ui/pages/restaurants/showInfoRestaurant';
 import '../../ui/pages/restaurantConsults/consultRestaurant';
 import '../../ui/pages/restaurantConsults/listRestaurantResults';
@@ -43,6 +44,7 @@ import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
 import '../../ui/pages/hotel/showInfoHotel';
 import '../../ui/pages/hotel/editHotel';
+import '../../ui/pages/attraction/filterAttractions';
 import '../../ui/pages/attraction/addAttractions';
 import '../../ui/pages/attraction/listAttractions';
 import '../../ui/pages/attraction/editAttractions';
@@ -64,7 +66,7 @@ import '../../ui/pages/RenterQuary/findRenters';
 import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
-
+import '../../ui/pages/branchOfficePage/officesPage';
 /**
  *Función para listar en el componente breadcrumb
  * @param {Array} list
@@ -155,8 +157,24 @@ Router.route('/users', {
   name: 'users',
   template: 'usersPage',
   layoutTemplate: 'bodyAdmin',
+  waiton: function () {
+    return Meteor.subscribe('branchOffices.all');
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Usuarios']);
+    isAdmin(this);
+  }
+});
+
+/**
+ * Rutas para sucursales
+ */
+Router.route('/offices', {
+  name: 'offices',
+  template: 'officePage',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Sucursales']);
     isAdmin(this);
   }
 });
@@ -199,15 +217,16 @@ Router.route('/addRestaurant', {
   name: 'addRestaurants',
   template: 'addRestaurant',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('restaurantImage.all'),
+      Meteor.subscribe('restaurant.all')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Restaurante']);
     Session.set('rating', undefined);
     isOperator(this);
-  },
-  waitOn: function () {
-    return [
-      Meteor.subscribe('restaurantImage.all')
-    ];
   }
 });
 
@@ -226,6 +245,11 @@ Router.route('/listRestaurants', {
   name: 'listRestaurants',
   template: 'listRestaurants',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('restaurant.one')
+    ];
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Restaurantes']);
     isOperator(this);
@@ -241,8 +265,11 @@ Router.route('/show-restaurant/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    Meteor.subscribe('restaurantImage.all');
-    return Meteor.subscribe('restaurant.one', id);
+    return [
+      Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurant.all', id),
+      Meteor.subscribe('restaurantImage.all')
+    ];
   },
   onBeforeAction: function () {
     const { id } = this.params;
@@ -270,12 +297,41 @@ Router.route('/edit-restaurant/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurant.all', id),
       Meteor.subscribe('restaurantImage.all')
     ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Listar Restaurantes', 'Actualizando Información de Restaurante']);
     Session.set('editRestaurantRating', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      restaurant: Restaurants.findOne({ _id: id })
+    };
+  }
+});
+
+/**
+ * Ruta para agregar sucursal a un restaurante
+ */
+Router.route('/branch-restaurant/:id', {
+  name: 'branchRestaurant',
+  template: 'branchRestaurant',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('restaurant.one', id)
+    ];
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const restaurant = Restaurants.findOne({ _id: id });
+    listBreadcrumb(['Listar Restaurantes', `Agregar sucursal a ${restaurant.name}`]);
+    Session.set('branchRestaurantRating', undefined);
     isOperator(this);
   },
   data: function () {
@@ -325,17 +381,13 @@ Router.route('/list-renters', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     return [
+      Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('renter.one')
     ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Arrendadoras']);
     isOperator(this);
-  },
-  waitOn: function () {
-    return [
-      Meteor.subscribe('FleetRenterImage.all')
-    ];
   }
 });
 
@@ -499,8 +551,7 @@ Router.route('/branch-renter/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
-      Meteor.subscribe('renter.one', id),
-      Meteor.subscribe('renter.all', id)
+      Meteor.subscribe('renter.one', id)
     ];
   },
   onBeforeAction: function () {
@@ -542,8 +593,8 @@ Router.route('/show-renter/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('renter.one', id),
-      Meteor.subscribe('FleetRenterImage.all'),
-      Meteor.subscribe('renter.all', id)
+      Meteor.subscribe('renter.all', id),
+      Meteor.subscribe('FleetRenterImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -655,6 +706,26 @@ Router.route('/show-query-hotel', {
     return {
       hotel: Session.get('hotelQueryDoc').docVals
     };
+  }
+});
+
+/*
+ * Ruta para filtrar atracciones
+ */
+Router.route('/filter-attractions', {
+  name: 'filterAttractions',
+  template: 'filterAttractions',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('attractions.all'),
+      Meteor.subscribe('attraction.one'),
+      Meteor.subscribe('attractionImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar atracciones']);
+    isOperator(this);
   }
 });
 

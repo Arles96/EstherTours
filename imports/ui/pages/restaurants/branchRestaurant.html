@@ -1,0 +1,109 @@
+<template name="branchRestaurant">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Agregar sucursal a <b>{{restaurant.name}}</b>
+    </div>
+    <div class="card-body">
+      {{#autoForm
+        id="branchRestaurantsForms"
+        schema=RestaurantSchema
+        type="method"
+        meteormethod="addRestaurantBranch"
+        doc=restaurant
+      }}
+        <div class="row">
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="branchOffice" value=true}}
+          </div>
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="mainOffice" value=restaurant._id}}
+          </div>
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="name"}}
+          </div>
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="email"}}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="website" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="street" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              {{>afQuickField name="city" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="department" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue name="department") ) }}
+          </div>
+          <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-6">
+            {{>afQuickField name="telephone" }}
+          </div>
+          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="form-group mt-1">
+              <label class="mb-3">{{textCategorization '0'}}</label>
+              {{>updateBranchStarRestaurant}}
+            </div>
+              {{>afQuickField name="rating" value=rating}}
+          </div>
+          <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-6">
+            {{>afQuickField name="numbersTables" }}
+          </div>
+          <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-6">
+            {{>afQuickField name="numbersChairs" }}
+          </div>
+          <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-6">
+            {{>afQuickField name="numbersChairsBabies" }}
+          </div>
+          <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-6">
+            {{>afQuickField name="maxPersonCapacity" }}
+          </div>
+          <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-6">
+            {{>afQuickField name="facilityPeople" }}
+          </div>
+          <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-6">
+            {{>afQuickField name="bar" }}
+          </div>
+          <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-6">
+            {{>afQuickField name="waitingRoom" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+            {{>afQuickField name="money" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+            {{>afQuickField name="paymentMethods" }}
+          </div>
+          <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-12">
+            {{>afQuickField name="menu" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {{>afQuickField name="services" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+            {{>afQuickField name="ambience" }}
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+            {{>afQuickField name="menages" }}
+          </div>
+        </div>
+        <div class="text-center mt-2" >
+          <button type="submit" class="btn btn-primary w-75">Agregar sucursal</button>
+        </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
+
+<template name="updateBranchStarRestaurant" >
+  <div>
+    <p>
+      {{#each list}}
+        <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
+  </div>
+</template>

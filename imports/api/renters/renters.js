@@ -135,17 +135,6 @@ const RentersSchema = new SimpleSchema({
     type: String,
     label: 'Moneda'
   },
-  branchContacts: {
-    type: Array,
-    label: 'Contactos',
-    minCount: 1,
-    maxCount: 10,
-    optional: true
-  },
-  'branchContacts.$': {
-    type: branchContactsSchema,
-    label: ''
-  },
   branchOffice: {
     type: Boolean,
     label: 'Es sucursal',
@@ -162,6 +151,17 @@ const RentersSchema = new SimpleSchema({
       }
     },
     optional: true
+  },
+  branchContacts: {
+    type: Array,
+    label: 'Contactos',
+    minCount: 1,
+    maxCount: 10,
+    optional: true
+  },
+  'branchContacts.$': {
+    type: branchContactsSchema,
+    label: ''
   }
 }, { check: check, tracker: Tracker });
 

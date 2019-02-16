@@ -1,0 +1,34 @@
+<template name="editBranchOffice" >
+    <div class="modal fade" id="editOffice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar Sucursal</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{#autoForm
+              id="editOfficeForm"
+              schema=branchOfficeSchema
+              type= "method-update"
+              doc = officeBranch
+              meteormethod="updateOffice"
+            }}
+            {{>afQuickField name="departament" }}
+            {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue name="departament") ) }}
+            {{>afQuickField name="city" }}
+            {{>afQuickField name="street" }}
+            {{>afQuickField name="phone" }}
+              <div class="text-center mt-4">
+                <button class="btn btn-primary w-75" type="submit">Actualizar</button>
+              </div>
+            {{/autoForm}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  

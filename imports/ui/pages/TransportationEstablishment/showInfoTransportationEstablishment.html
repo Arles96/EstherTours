@@ -121,6 +121,22 @@
           </div>
         </div>
         {{/with}}
+        {{#if (isBranch TransportationEstablishment.branchOffice) }}
+        <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <h4 class="text-center mt-3">Sucursales de {{TransportationEstablishment.name}}</h4>
+          {{#if isOperator}}
+            <div>
+              <button class="btn btn-outline-primary ml-3" data-toggle="modal" data-target="#addBranchOfficeTransportationEstablishment" >
+                Agregar
+              </button>
+            </div>
+          {{/if}}
+          {{> tabular table=TabularTables.BranchOfficeTransportationEstablishment selector=selector class="table table-hover table-bordered"}}
+          {{#if isOperator}}
+          {{>addBranchOfficeTransportationEstablishment}}
+          {{/if}}
+        </div>
+        {{/if}}
         <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <h4 class="text-center mt-3">Flota de {{TransportationEstablishment.name}}</h4>
           {{#if isOperator}}
@@ -157,6 +173,26 @@
   {{>infoFleetTransportationEstablishment}}
   {{>infoRouteTransportationEstablishment}}
 </template>
+
+<template name="showButtonBranchOfficeTransportationEstablishments" >
+    <a style="text-decoration: none;" href="/show-TransportationEstablishment/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+      <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+    </a>
+    {{#if isOperator}}
+      <a style="text-decoration: none;" href="/edit-TransportationEstablishment/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+        <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
+      </a>
+      <span data-toggle="tooltip" data-placement="top" title="Agregar Flota" >
+          <i style="cursor: pointer;" data-id="{{_id}}" class="addFleetTransportationEstablishment fas fa-bus mr-2" data-toggle="modal" data-target="#addFleetTransportationEstablishment"></i>
+      </span>
+      <span data-toggle="tooltip" data-placement="top" title="Agregar Ruta" >
+          <i style="cursor: pointer;" data-id="{{_id}}" class="addRouteTransportationEstablishment fas fa-location-arrow mr-2" data-toggle="modal" data-target="#addRouteTransportationEstablishment"></i>
+      </span>
+      <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="deleteTransportationEstablishment far fa-trash-alt"></i>
+      </span>
+    {{/if}}
+  </template>
 
 <template name="showButtonFleetTransportationEstablishments" >
   <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >

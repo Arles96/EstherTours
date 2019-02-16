@@ -14,12 +14,27 @@
         }}
         <!--TODO Arreglar conflicto de listas-->
         <div class="row">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="name"}}
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="branchOffice" value=branchOffice}}
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="email" }}
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="mainOffice" value=mainOffice}}
           </div>
+          {{#if restaurant.branchOffice}}
+            <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              {{>afQuickField name="name"}}
+            </div>
+            <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              {{>afQuickField name="email" }}
+            </div>
+          {{else}}
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              {{>afQuickField name="name"}}
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              {{>afQuickField name="email" }}
+            </div>
+          {{/if}}
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="website" }}
           </div>
@@ -100,11 +115,11 @@
 </template>
 
 <template name="updateStarRestaurant" >
-<div>
-  <p>
-    {{#each list}}
-      <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
-    {{/each}}
-  </p>
-</div>
+  <div>
+    <p>
+      {{#each list}}
+        <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
+  </div>
 </template>
