@@ -12,14 +12,27 @@ Meteor.methods({
   addRestaurantBranch: function (doc) {
     RestaurantSchema.validate(doc);
 
-    const query = {
+    const queryP = {
+      _id: doc.mainOffice,
       street: doc.street,
       municipality: doc.municipality,
       city: doc.city,
       department: doc.department
     };
 
-    if (Restaurants.find(query).map(d => d).length > 0) {
+    const queryS = {
+      street: doc.street,
+      municipality: doc.municipality,
+      city: doc.city,
+      department: doc.department,
+      branchOffice: true,
+      mainOffice: doc.mainOffice
+    };
+
+    const parentCheck = Restaurants.find(queryP).map(d => d);
+    const siblingCheck = Restaurants.find(queryS).map(d => d);
+
+    if (parentCheck.length > 0 || siblingCheck.length > 0) {
       throw new Meteor.Error('Repeated Branch');
     } else {
       Restaurants.insert(doc);
@@ -91,9 +104,25 @@ Meteor.methods({
       const data = doc.modifier.$set;
       const { _id } = doc;
       RestaurantSchema.validate(data);
-      Restaurants.update({ _id: _id }, {
-        $set: data
-      });
+
+      const query = {
+        street: data.street,
+        municipality: data.municipality,
+        city: data.city,
+        department: data.department,
+        branchOffice: true,
+        mainOffice: data.mainOffice
+      };
+
+      const repeatedCheck = Restaurants.find(query).map(d => d);
+
+      if (repeatedCheck.length > 0) {
+        throw new Meteor.Error('Repeated Branch');
+      } else {
+        Restaurants.update({ _id: _id }, {
+          $set: data
+        });
+      }
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -108,6 +137,12 @@ Meteor.methods({
   },
   deleteRestaurant: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      Restaurants
+        .find({ branchOffice: true, mainOffice: id })
+        .forEach(doc => {
+          Restaurants.remove({ _id: doc._id });
+          restaurantOffers.remove({ idRestaurant: doc._id });
+        });
       Restaurants.remove({ _id: id });
       restaurantOffers.remove({ idRestaurant: id });
     } else {

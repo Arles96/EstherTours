@@ -33,7 +33,11 @@ AutoForm.addHooks('editRentersForms', {
     }
   },
   onError: function (formtype, error) {
-    toastr.error(error);
+    if (error.error === 'Repeated Branch') {
+      toastr.error(new Error('Ya existe una sucursal con esas direcciones!'));
+    } else {
+      toastr.error(error);
+    }
   }
 });
 
