@@ -1039,14 +1039,15 @@ Router.route('/add-packages', {
   waitOn: function () {
     return [
       Meteor.subscribe('hotels.all'),
-      Meteor.subscribe('attractions.all'),
-      Meteor.subscribe('guide.all'),
-      Meteor.subscribe('renter.all'),
-      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('RoomHotel.all'),
       Meteor.subscribe('transport.all'),
       Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('fleetRenter.all'),
-      Meteor.subscribe('RoomHotel.all')
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('restaurantImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -1080,14 +1081,15 @@ Router.route('/edit-package/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('hotels.all'),
-      Meteor.subscribe('attractions.all'),
-      Meteor.subscribe('guide.all'),
-      Meteor.subscribe('renter.all'),
-      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('RoomHotel.all'),
       Meteor.subscribe('transport.all'),
       Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('fleetRenter.all'),
-      Meteor.subscribe('RoomHotel.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('restaurantImage.all'),
       Meteor.subscribe('OnePackage', id)
     ];
   },
