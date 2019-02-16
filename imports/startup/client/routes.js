@@ -44,26 +44,32 @@ import '../../ui/pages/hotel/listHotels';
 import '../../ui/pages/hotel/filterRoomHotel';
 import '../../ui/pages/hotelQuery/hotelQuery';
 import '../../ui/pages/hotelQuery/showQueryHotel';
+import '../../ui/pages/hotel/reportHotels/reportHotels';
 import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
+import '../../ui/pages/renters/reportRenters/reportRenters';
 import '../../ui/pages/hotel/showInfoHotel';
 import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/attraction/filterAttractions';
 import '../../ui/pages/attraction/addAttractions';
 import '../../ui/pages/attraction/listAttractions';
 import '../../ui/pages/attraction/editAttractions';
+import '../../ui/pages/attraction/reportAttractions/reportAttractions';
 import '../../ui/pages/attractionQuery/attractionQuery';
 import '../../ui/pages/attractionQuery/showQueryAttraction';
 import '../../ui/pages/attraction/showInfoAttraction';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
+import '../../ui/pages/guide/reportGuides/reportGuides';
 import '../../ui/pages/findGuide/findGuide';
 import '../../ui/pages/resultGuide/resultGuide';
 import '../../ui/pages/packages/addPackages';
 import '../../ui/pages/packages/listPackages';
 import '../../ui/pages/packages/editPackages';
 import '../../ui/pages/packages/showPackage';
+import '../../ui/pages/packages/reportPackages/reportPackages';
+import '../../ui/pages/restaurants/reportRestaurants/reportRestaurants';
 import '../../ui/pages/findPackage/findPackage';
 import '../../ui/pages/resultPackages/resultPackages';
 import '../../ui/pages/RenterQuary/findRenters';
@@ -549,7 +555,84 @@ Router.route('/report-transportation-establishment', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar transportes']);
-    Session.set('reportTransportCategorization', undefined);
+    isLoggedIn(this);
+  }
+});
+
+/**
+ * Ruta de reportes de arrendadoras
+ */
+Router.route('/report-renters', {
+  name: 'reportRenters',
+  template: 'reportRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar arrendadoras']);
+    isLoggedIn(this);
+  }
+});
+
+/**
+ * Ruta de reportes de hoteles
+ */
+Router.route('/report-hotels', {
+  name: 'reportHotels',
+  template: 'reportHotels',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar hoteles']);
+    isLoggedIn(this);
+  }
+});
+
+/**
+ * Ruta de reportes de guías
+ */
+Router.route('/report-guides', {
+  name: 'reportGuides',
+  template: 'reportGuides',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar guías']);
+    isLoggedIn(this);
+  }
+});
+
+/**
+ * Ruta de reportes de atracciones
+ */
+Router.route('/report-attractions', {
+  name: 'reportAttractions',
+  template: 'reportAttractions',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar atracciones']);
+    isLoggedIn(this);
+  }
+});
+
+/**
+ * Ruta de reportes de restaurantes
+ */
+Router.route('/report-restaurants', {
+  name: 'reportRestaurants',
+  template: 'reportRestaurants',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar restaurantes']);
+    isLoggedIn(this);
+  }
+});
+
+/**
+ * Ruta de reportes de paquetes
+ */
+Router.route('/report-packages', {
+  name: 'reportPackages',
+  template: 'reportPackages',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar paquetes']);
     isLoggedIn(this);
   }
 });

@@ -175,7 +175,7 @@ Meteor.methods({
       throw new Meteor.Error('Permiso Denegado');
     }
   },
-  reportRestaurant: function (year) {
+  reportRestaurants: function (year) {
     if (Roles.userIsInRole(Meteor.userId(), operator) ||
       Roles.userIsInRole(Meteor.userId(), consultant) ||
       Roles.userIsInRole(Meteor.userId(), admin)

@@ -183,7 +183,7 @@ Meteor.methods({
     console.log(docVals);
     return {doc: doc, docVals: docVals};
   },
-  reportHotel: function (year) {
+  reportHotels: function (year) {
     if (Roles.userIsInRole(Meteor.userId(), operator) ||
       Roles.userIsInRole(Meteor.userId(), consultant) ||
       Roles.userIsInRole(Meteor.userId(), admin)

@@ -2,15 +2,15 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import Chart from 'chart.js';
 import toastr from 'toastr';
-import './reportTransportationEstablishment.html';
+import './reportAttractions.html';
 
-Template.reportTransportationEstablishments.onCreated(function createVars () {
+Template.reportAttractions.onCreated(function createVars () {
   const date = new Date();
   this.maxYear = new ReactiveVar(date.getFullYear());
   this.currentYear = new ReactiveVar(date.getFullYear());
 });
 
-Template.reportTransportationEstablishments.helpers({
+Template.reportAttractions.helpers({
   currentYear () {
     return Template.instance().currentYear.get();
   },
@@ -19,21 +19,21 @@ Template.reportTransportationEstablishments.helpers({
   }
 });
 
-Template.reportTransportationEstablishments.events({
+Template.reportAttractions.events({
   'input #rangeControl' (event, templateInstance) {
     templateInstance.currentYear.set(event.currentTarget.value);
     draw(event.currentTarget.value);
   }
 });
 
-Template.reportTransportationEstablishments.onRendered(() => {
+Template.reportAttractions.onRendered(() => {
   const date = new Date();
   draw(date.getFullYear());
 });
 
 function draw (selectedYear) {
   const ctx = document.getElementById('reportChart');
-  Meteor.call('reportTransportationEstablishment', { year: Number(selectedYear) }, (error, result) => {
+  Meteor.call('reportAttractions', { year: Number(selectedYear) }, (error, result) => {
     if (error) {
       toastr.error('Error al procesar el reporte.');
     } else {
@@ -43,7 +43,7 @@ function draw (selectedYear) {
           labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
             'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
           datasets: [{
-            label: `Creación de trasportes del ${this.currentYear}`,
+            label: `Creación de atracciones del ${this.currentYear}`,
             data: result,
             backgroundColor: [
               '#34495E',

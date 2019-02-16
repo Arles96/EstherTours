@@ -82,7 +82,7 @@ Meteor.methods({
     }
     return { doc, query };
   },
-  reportGuide: function (year) {
+  reportGuides: function (year) {
     if (Roles.userIsInRole(Meteor.userId(), operator) ||
       Roles.userIsInRole(Meteor.userId(), consultant) ||
       Roles.userIsInRole(Meteor.userId(), admin)

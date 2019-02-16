@@ -72,7 +72,7 @@ Meteor.methods({
       }))
     });
   },
-  reportPackage: function (year) {
+  reportPackages: function (year) {
     if (Roles.userIsInRole(Meteor.userId(), operator) ||
       Roles.userIsInRole(Meteor.userId(), consultant) ||
       Roles.userIsInRole(Meteor.userId(), admin)
