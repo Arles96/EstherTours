@@ -31,9 +31,11 @@ import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
+import '../../ui/pages/renters/filterFleetRenters';
 import '../../ui/pages/renters/branchRenter';
 import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/listTransportationEstablishments';
+import '../../ui/pages/TransportationEstablishment/filterRouteTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstablishment';
 import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
 import '../../ui/pages/TransportationEstablishment/reportTransportationEstablishment/reportTransportationEstablishment';
@@ -326,7 +328,8 @@ Router.route('/branch-restaurant/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
-      Meteor.subscribe('restaurant.one', id)
+      Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurantImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -393,6 +396,27 @@ Router.route('/list-renters', {
   }
 });
 
+/*
+ * Ruta para filtrar flota de arrendadoras
+ */
+Router.route('/filter-fleet-renters', {
+  name: 'filterFleetRenters',
+  template: 'filterFleetRenters',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('renter.one'),
+      Meteor.subscribe('FleetRenterImage.all'),
+      Meteor.subscribe('fleetRenter.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar flotas']);
+    isOperator(this);
+  }
+});
+
 /**
  * Ruta para consulta de Arrendadoras
  */
@@ -443,6 +467,25 @@ Router.route('/list-transportation-establishment', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Tabla Transporte']);
+    isOperator(this);
+  }
+});
+
+/*
+ * Ruta para filtrar rutas de transporte
+ */
+Router.route('/filter-route-transportation-establishment', {
+  name: 'filterRouteTE',
+  template: 'filterRouteTE',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar rutas']);
     isOperator(this);
   }
 });

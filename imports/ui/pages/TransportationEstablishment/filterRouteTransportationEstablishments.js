@@ -1,26 +1,26 @@
-import './filterAttractions.html';
+import './filterRouteTransportationEstablishments.html';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { Attractions } from '../../../api/attractions/attractions';
+import { RouteTransportationEstablishment } from '../../../api/TransportationEstablishment/RouteTransportationEstablishment';
+import { TransportationEstablishments } from '../../../api/TransportationEstablishment/TransportationEstablishment';
 import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
-import AttractionImages from '../../../api/attractions/attractionImage';
 
 // TODO mostrar por paginas
 
-Template.filterAttractions.onCreated(function createVars () {
-  this.precioMax = new ReactiveVar(2500);
+Template.filterRouteTE.onCreated(function createVars () {
+  this.type = new ReactiveVar('');
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterAttractionStars', '');
+  Session.set('filterRouteTEStars', '');
 });
 
-Template.filterAttractions.helpers({
-  precioMax () {
-    return Template.instance().precioMax.get();
+Template.filterRouteTE.helpers({
+  type () {
+    return Template.instance().type.get();
   },
   name () {
     return Template.instance().name.get();
@@ -49,45 +49,78 @@ Template.filterAttractions.helpers({
     return department !== '';
   },
   buscar () {
-    const precioMax = Template.instance().precioMax.get();
+    // filtrar por establecimiento de transporte primero
+    const type = Template.instance().type.get();
     const name = Template.instance().name.get();
     const street = Template.instance().street.get();
     const city = Template.instance().city.get();
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
-    const query = {};
+    let checker = false;
+    let checker2 = false;
+    const queryR = {};
     if (name) {
-      query.name = new RegExp(`.*${name}.*`, 'i');
+      queryR.name = new RegExp(`.*${name}.*`, 'i');
+      checker2 = true;
     }
-    if (precioMax) {
-      query.price = {
-        $lt: parseInt(precioMax, 10)
+    if (Session.get('filterRouteTEStars')) {
+      queryR.categorization = Session.get('filterRouteTEStars');
+      checker2 = true;
+    }
+    let filteredTE = null;
+    if (checker2) {
+      filteredTE = TransportationEstablishments
+        .find(queryR)
+        .map(doc => doc);
+    }
+    // con los establecimientos obtenidos, filtrar por ruta
+    const query = {};
+    if (filteredTE) {
+      query.idTransportationEstablishment = {
+        $in: filteredTE.map(doc => doc._id)
       };
-    }
-    if (Session.get('filterAttractionStars')) {
-      query.categorization = Session.get('filterAttractionStars');
-    }
-    if (department) {
-      query.departament = department;
-    }
-    if (municipality) {
-      query.municipality = municipality;
+      checker = true;
     }
     if (street) {
       query.street = new RegExp(`.*${street}.*`, 'i');
+      checker = true;
     }
     if (city) {
       query.city = new RegExp(`.*${city}.*`, 'i');
+      checker = true;
     }
-    return Attractions
-      .find(query, { sort: { price: 1 } })
-      .map(doc => doc);
+    if (department) {
+      query.department = department;
+    }
+    if (type) {
+      query.type = new RegExp(`.*${type}.*`, 'i');
+      checker = true;
+    }
+    if (municipality) {
+      query.town = municipality;
+      checker = true;
+    }
+    console.log(query);
+    if (checker) {
+      // unir documentos del documento con las rutas encontradas
+      return RouteTransportationEstablishment
+        .find(query)
+        .map(doc => ({
+          ...filteredTE.find(({ _id }) => doc.idTransportationEstablishment === _id),
+          ...doc
+        }));
+    } else {
+      return [];
+    }
   }
 });
 
-Template.filterAttractions.events({
-  'input #sliderMax' (event, templateInstance) {
-    templateInstance.precioMax.set(event.currentTarget.value);
+Template.filterRouteTE.events({
+  'input #sliderMaxRate' (event, templateInstance) {
+    templateInstance.tarifaMax.set(event.currentTarget.value);
+  },
+  'input #sliderMaxTotal' (event, templateInstance) {
+    templateInstance.total.set(event.currentTarget.value);
   },
   'input #name' (event, templateInstance) {
     templateInstance.name.set(event.currentTarget.value);
@@ -98,6 +131,9 @@ Template.filterAttractions.events({
   'input #city' (event, templateInstance) {
     templateInstance.city.set(event.currentTarget.value);
   },
+  'change #type' (event, templateInstance) {
+    templateInstance.type.set(event.currentTarget.value);
+  },
   'change #department' (event, templateInstance) {
     templateInstance.department.set(event.currentTarget.value);
     templateInstance.municipality.set('');
@@ -107,20 +143,17 @@ Template.filterAttractions.events({
   }
 });
 
-Template.filterResult.helpers({
-  findImg (_id) {
-    return AttractionImages.find({ _id }).map(doc => doc)[0];
-  },
+Template.filterResultRouteTE.helpers({
   first (index) {
     return index === 0;
   }
 });
 
-Template.filterStarAttraction.helpers({
+Template.filterStarRouteTE.helpers({
   list: () => {
     const list = [];
     for (let index = 1; index <= 5; index += 1) {
-      if (index <= parseInt(Session.get('filterAttractionStars'), 10)) {
+      if (index <= parseInt(Session.get('filterRouteTEStars'), 10)) {
         list.push({
           class: 'fas fa-star colorOrange',
           id: `star${index}`
@@ -136,20 +169,20 @@ Template.filterStarAttraction.helpers({
   }
 });
 
-Template.filterStarAttraction.events({
+Template.filterStarRouteTE.events({
   'click #star1': function () {
-    Session.set('filterAttractionStars', '1');
+    Session.set('filterRouteTEStars', '1');
   },
   'click #star2': function () {
-    Session.set('filterAttractionStars', '2');
+    Session.set('filterRouteTEStars', '2');
   },
   'click #star3': function () {
-    Session.set('filterAttractionStars', '3');
+    Session.set('filterRouteTEStars', '3');
   },
   'click #star4': function () {
-    Session.set('filterAttractionStars', '4');
+    Session.set('filterRouteTEStars', '4');
   },
   'click #star5': function () {
-    Session.set('filterAttractionStars', '5');
+    Session.set('filterRouteTEStars', '5');
   }
 });

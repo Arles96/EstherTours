@@ -1,27 +1,35 @@
-import './filterRoomHotel.html';
+import './filterFleetRenters.html';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { RoomHotel } from '../../../api/hotels/roomhotel';
-import { Hotels } from '../../../api/hotels/hotels';
+import { FleetRenter } from '../../../api/renters/fleetRenter';
+import { Renters } from '../../../api/renters/renters';
 import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
-import HotelImages from '../../../api/hotels/hotelImage';
+import RenterImages from '../../../api/renters/fleetRenterImage';
 
 // TODO mostrar por paginas
 
-Template.filterRoomHotel.onCreated(function createVars () {
-  this.precioMax = new ReactiveVar(2500);
+Template.filterFleetRenters.onCreated(function createVars () {
+  this.tarifaMax = new ReactiveVar(2500);
+  this.total = new ReactiveVar(50);
+  this.type = new ReactiveVar('');
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterRoomHotelStars', '');
+  Session.set('filterFleetRenterStars', '0');
 });
 
-Template.filterRoomHotel.helpers({
-  precioMax () {
-    return Template.instance().precioMax.get();
+Template.filterFleetRenters.helpers({
+  tarifaMax () {
+    return Template.instance().tarifaMax.get();
+  },
+  total () {
+    return Template.instance().total.get();
+  },
+  type () {
+    return Template.instance().type.get();
   },
   name () {
     return Template.instance().name.get();
@@ -50,58 +58,66 @@ Template.filterRoomHotel.helpers({
     return department !== '';
   },
   buscar () {
-    // filtrar por hotel primero
-    const precioMax = Template.instance().precioMax.get();
+    // filtrar por arrendadora primero
+    const tarifaMax = Template.instance().tarifaMax.get();
+    const total = Template.instance().total.get();
+    const type = Template.instance().type.get();
     const name = Template.instance().name.get();
     const street = Template.instance().street.get();
     const city = Template.instance().city.get();
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
-    const queryH = {};
-    if (name) {
-      queryH.name = new RegExp(`.*${name}.*`, 'i');
-    }
-    if (Session.get('filterRoomHotelStars')) {
-      queryH.categorization = Session.get('filterRoomHotelStars');
-    }
-    if (street) {
-      queryH.street = new RegExp(`.*${street}.*`, 'i');
-    }
-    if (city) {
-      queryH.city = new RegExp(`.*${city}.*`, 'i');
-    }
+
+    const queryR = {
+      name: new RegExp(`.*${name}.*`, 'i'),
+      categorization: {
+        $lte: Session.get('filterFleetRenterStars')
+      },
+      street: new RegExp(`.*${street}.*`, 'i'),
+      city: new RegExp(`.*${city}.*`, 'i')
+    };
+
     if (department) {
-      queryH.departament = department;
+      queryR.department = department;
     }
+
     if (municipality) {
-      queryH.municipality = municipality;
+      queryR.municipality = municipality;
     }
-    const filteredHotels = Hotels
-      .find(queryH)
+
+    const filteredRenters = Renters
+      .find(queryR)
       .map(doc => doc);
-    // con los hoteles obtenidos, filtrar por habitacion
+
+    // con las arrendadoras obtenidos, filtrar por flota
     const query = {
-      price: {
-        $lte: parseInt(precioMax, 10)
+      idRenter: {
+        $in: filteredRenters.map(doc => doc._id)
+      },
+      type: new RegExp(`.*${type}.*`, 'i'),
+      total: {
+        $lte: parseInt(total, 10)
+      },
+      rate: {
+        $lte: parseInt(tarifaMax, 10)
       }
     };
-    if (filteredHotels) {
-      query.idHotel = {
-        $in: filteredHotels.map(doc => doc._id)
-      };
-    }
-    // unir documentos del documento con los cuartos encontrados
-    const filteredRooms = RoomHotel
-      .find(query, { sort: { price: 1 } })
-      .map(doc => ({ ...filteredHotels.find(({ _id }) => doc.idHotel === _id), ...doc }));
 
-    return filteredRooms;
+    // unir documentos del documento con las flotas encontrados
+    const filteredFleets = FleetRenter
+      .find(query, { sort: { price: 1 } })
+      .map(doc => ({ ...filteredRenters.find(({ _id }) => doc.idRenter === _id), ...doc }));
+
+    return filteredFleets;
   }
 });
 
-Template.filterRoomHotel.events({
-  'input #sliderMax' (event, templateInstance) {
-    templateInstance.precioMax.set(event.currentTarget.value);
+Template.filterFleetRenters.events({
+  'input #sliderMaxRate' (event, templateInstance) {
+    templateInstance.tarifaMax.set(event.currentTarget.value);
+  },
+  'input #sliderMaxTotal' (event, templateInstance) {
+    templateInstance.total.set(event.currentTarget.value);
   },
   'input #name' (event, templateInstance) {
     templateInstance.name.set(event.currentTarget.value);
@@ -112,6 +128,9 @@ Template.filterRoomHotel.events({
   'input #city' (event, templateInstance) {
     templateInstance.city.set(event.currentTarget.value);
   },
+  'change #type' (event, templateInstance) {
+    templateInstance.type.set(event.currentTarget.value);
+  },
   'change #department' (event, templateInstance) {
     templateInstance.department.set(event.currentTarget.value);
     templateInstance.municipality.set('');
@@ -121,20 +140,20 @@ Template.filterRoomHotel.events({
   }
 });
 
-Template.filterResultRoomHotel.helpers({
+Template.filterResultFleetRenter.helpers({
   findImg (_id) {
-    return HotelImages.findOne({ _id });
+    return RenterImages.findOne({ _id });
   },
   first (index) {
     return index === 0;
   }
 });
 
-Template.filterStarRoomHotel.helpers({
+Template.filterStarFleetRenter.helpers({
   list: () => {
     const list = [];
     for (let index = 1; index <= 5; index += 1) {
-      if (index <= parseInt(Session.get('filterRoomHotelStars'), 10)) {
+      if (index <= parseInt(Session.get('filterFleetRenterStars'), 10)) {
         list.push({
           class: 'fas fa-star colorOrange',
           id: `star${index}`
@@ -150,20 +169,20 @@ Template.filterStarRoomHotel.helpers({
   }
 });
 
-Template.filterStarRoomHotel.events({
+Template.filterStarFleetRenter.events({
   'click #star1': function () {
-    Session.set('filterRoomHotelStars', '1');
+    Session.set('filterFleetRenterStars', '1');
   },
   'click #star2': function () {
-    Session.set('filterRoomHotelStars', '2');
+    Session.set('filterFleetRenterStars', '2');
   },
   'click #star3': function () {
-    Session.set('filterRoomHotelStars', '3');
+    Session.set('filterFleetRenterStars', '3');
   },
   'click #star4': function () {
-    Session.set('filterRoomHotelStars', '4');
+    Session.set('filterFleetRenterStars', '4');
   },
   'click #star5': function () {
-    Session.set('filterRoomHotelStars', '5');
+    Session.set('filterFleetRenterStars', '5');
   }
 });
