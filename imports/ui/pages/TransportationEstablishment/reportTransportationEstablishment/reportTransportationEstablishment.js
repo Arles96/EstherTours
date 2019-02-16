@@ -5,12 +5,14 @@ import './reportTransportationEstablishment.html';
 Template.reportTransportationEstablishments.onRendered(() => {
   const ctx = document.getElementById('myChart');
   /* eslint-disable */
+  
   const myChart = new Chart(ctx, {
     type: 'polarArea',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
       datasets: [{
-        label: '# of Votes',
+        label: `Creación de trasportes del ${year}`,
         data: [11, 16, 7, 3, 14],
         backgroundColor: [
           'rgb(255, 99, 132)',
