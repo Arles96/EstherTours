@@ -188,6 +188,11 @@ const HotelSchema = new SimpleSchema({
     type: branchContactsSchema,
     label: '',
     optional: true
+  },
+  createAt: {
+    type: Date,
+    optional: true,
+    autoValue: () => new Date()
   }
 }, { check: check, tracker: Tracker });
 
