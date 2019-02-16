@@ -9,7 +9,7 @@ import municipalities from '../../../api/municipalities/municipality';
 import HotelImages from '../../../api/hotels/hotelImage';
 
 Template.packageRoomHotel.onCreated(function createVars () {
-  this.precioMax = new ReactiveVar(2500);
+  this.precioMax = new ReactiveVar(10000);
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');

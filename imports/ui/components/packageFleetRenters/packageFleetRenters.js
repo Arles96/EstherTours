@@ -9,8 +9,8 @@ import municipalities from '../../../api/municipalities/municipality';
 import RenterImages from '../../../api/renters/fleetRenterImage';
 
 Template.packageFleetRenters.onCreated(function createVars () {
-  this.tarifaMax = new ReactiveVar(2500);
-  this.total = new ReactiveVar(50);
+  this.tarifaMax = new ReactiveVar(10000);
+  this.total = new ReactiveVar(500);
   this.type = new ReactiveVar('');
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
@@ -102,7 +102,6 @@ Template.packageFleetRenters.helpers({
       idRenter: {
         $in: filteredRenters.map(doc => doc._id)
       },
-      type: new RegExp(`.*${type}.*`, 'i'),
       total: {
         $lte: parseInt(total, 10)
       },
@@ -111,9 +110,13 @@ Template.packageFleetRenters.helpers({
       }
     };
 
+    if (type) {
+      query.type = new RegExp(`.*${type}.*`, 'i');
+    }
+
     // unir documentos del documento con las flotas encontrados
     const filteredFleets = FleetRenter
-      .find(query, { sort: { price: 1 } })
+      .find(query)
       .map(doc => ({ ...filteredRenters.find(({ _id }) => doc.idRenter === _id), ...doc }));
 
     return filteredFleets;
