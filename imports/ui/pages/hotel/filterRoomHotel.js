@@ -58,14 +58,23 @@ Template.filterRoomHotel.helpers({
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
 
-    const queryH = {
-      name: new RegExp(`.*${name}.*`, 'i'),
-      categorization: {
-        $lte: Session.get('filterRoomHotelStars')
-      },
-      street: new RegExp(`.*${street}.*`, 'i'),
-      city: new RegExp(`.*${city}.*`, 'i')
-    };
+    const queryH = {};
+
+    if (name) {
+      queryH.name = new RegExp(`.*${name}.*`, 'i');
+    }
+
+    if (Session.get('filterRoomHotelStars')) {
+      queryH.categorization = Session.get('filterRoomHotelStars');
+    }
+
+    if (street) {
+      queryH.street = new RegExp(`.*${street}.*`, 'i');
+    }
+
+    if (city) {
+      queryH.city = new RegExp(`.*${city}.*`, 'i');
+    }
 
     if (department) {
       queryH.departament = department;
