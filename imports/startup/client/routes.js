@@ -39,6 +39,7 @@ import '../../ui/pages/TransportationEstablishment/filterRouteTransportationEsta
 import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstablishment';
 import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
 import '../../ui/pages/hotel/addHotels';
+import '../../ui/pages/hotel/branchHotel';
 import '../../ui/pages/hotel/listHotels';
 import '../../ui/pages/hotel/filterRoomHotel';
 import '../../ui/pages/hotelQuery/hotelQuery';
@@ -621,8 +622,33 @@ Router.route('/list-hotels', {
   template: 'listHotels',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Listar Hoteles']);
+    listBreadcrumb(['Tabla de Hoteles']);
     isOperator(this);
+  }
+});
+
+Router.route('/branch-hotel/:id', {
+  name: 'branchHotel',
+  template: 'branchHotel',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('hotel.one', id)
+    ];
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const hotel = Hotels.findOne({ _id: id });
+    listBreadcrumb(['Listar Hoteles', `Agregar sucursal a ${hotel.name}`]);
+    Session.set('branchHotelRating', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      hotel: Hotels.findOne({ _id: id })
+    };
   }
 });
 

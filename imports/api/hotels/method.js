@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { HotelSchema, Hotels } from './hotels';
 import { RoomHotelSchema, RoomHotel } from './roomhotel';
 import { RateHotelSchema, RateHotel } from './ratehotel';
-import { operator } from '../roles/roles';
+import { operator } from '../roles/roles';  
 import HotelQuerySchema from './hotelQuery';
 
 Meteor.methods({
@@ -11,6 +11,27 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       HotelSchema.validate(doc);
       Hotels.insert(doc);
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
+  },
+  addBranchHotel: function (doc) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      HotelSchema.validate(doc);
+
+      const query = {
+        street: doc.street,
+        municipality: doc.municipality,
+        city: doc.city,
+        department: doc.department
+      };
+  
+      if (Hotels.find(query).map(d => d).length > 0) {
+        throw new Meteor.Error('Repeated Branch');
+      } else {
+        Hotels.insert(doc);
+      }
+
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
