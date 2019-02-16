@@ -39,7 +39,7 @@ const restaurantOffersSchema = new SimpleSchema({
         return 'lessZero';
       }
       return 1;
-    }
+    },
   },
   dishName: {
     type: String,

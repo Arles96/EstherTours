@@ -62,6 +62,12 @@ Template.updateStarRestaurant.helpers({
   }
 });
 
+Template.addRestaurant.events({
+  'change .categorization [type=radio]' (event) {
+    Session.set('rating', event.currentTarget.value);
+  }
+});
+
 Template.updateStarRestaurant.events({
   'click #start1': function () {
     Session.set('editRestaurantRating', '1');

@@ -19,7 +19,7 @@
                 <label for="">
                   <b>Sitio web:</b>
                     {{#if website}}
-                      <a href="{{urlTag(website)}}">{{website}}</a>
+                      <a target="_blank" href="{{website}}">{{website}}</a>
                     {{else}}
                       No tiene
                     {{/if}}
@@ -124,14 +124,12 @@
                 </label>
               </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <div class="form-group">
-                  <label for="">
-                    <b>Categorización:</b>
-                  </label>
-                  <p>{{rating}} estrellas </p>
-                </div>
+            <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+              <div class="form-group mt-1">
+                <label class="mb-3">{{textCategorization restaurant.rating }}</label>
               </div>
+                {{>afQuickField name="rating" value=rating }}
+            </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <div class="form-group">
                 <label for="">
@@ -256,3 +254,13 @@
       </span>
     {{/if}}
   </template>
+
+  <template name="updateStarRestaurant" >
+    <div>
+      <p>
+        {{#each list}}
+          <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+        {{/each}}
+      </p>
+    </div>
+    </template>

@@ -39,7 +39,8 @@ Template.showInfoRestaurant.onCreated(() => {
 
 Template.showInfoRestaurant.helpers({
   selector: function () {
-    return { idRestaurant: Session.get('idRestaurant') };
+    return { 
+      idRestaurant: Session.get('idRestaurant') };
   },
   urlTag: url => {
     if (url.includes('http://') || url.includes('https://')) {
@@ -48,6 +49,27 @@ Template.showInfoRestaurant.helpers({
     return `https://${url}`;
   }
 });
+
+Template.updateStarRestaurant.helpers({
+  list: () => {
+    const list = [];
+    for (let index = 1; index <= 5; index += 1) {
+      if (index <= parseInt(Session.get('RestaurantRating'), 10)) {
+        list.push({
+          class: 'fas fa-star colorOrange',
+          id: `start${index}`
+        });
+      } else {
+        list.push({
+          class: 'fas fa-star',
+          id: `start${index}`
+        });
+      }
+    }
+    return list;
+  }
+});
+
 
 Template.showButtonRestaurantOffers.events({
   'click .deleteRestaurantOffer': function () {
