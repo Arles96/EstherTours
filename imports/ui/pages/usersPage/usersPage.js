@@ -67,7 +67,11 @@ Template.showInfoUser.events({
       if (res.value) {
         Meteor.call('actionBlockedUser', { _id: id, blocked: true }, (error, result) => {
           if (error) {
-            toastr.error('Error al bloquear al usuario.');
+            if (error.error === 'Error, no se puede bloquear a un administrador global') {
+              toastr.error('Error, no se puede bloquear a un administrador');
+            } else {
+              toastr.error('Error al bloquear al usuario.');
+            }
           } else {
             toastr.success('Se ha bloqueado al usuario exitosamente.');
           }
