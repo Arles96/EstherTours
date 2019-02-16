@@ -1,6 +1,7 @@
 import './usersPage.html';
 import './addUserModal';
 import './showInfoUser';
+import './officeEdit';
 import { Meteor } from 'meteor/meteor';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
@@ -48,6 +49,12 @@ Template.showInfoUser.events({
   'click .showInfo': function () {
     Session.set('idUserInfo', this._id);
   },
+  'click .editInfo': function () {
+    Session.set('officeUser', {
+      idOffice: Meteor.users.findOne({ _id: this._id }).profile.idOffice,
+      idUser: this._id
+    });
+  },
   'click .lock': function () {
     const id = this._id;
     Swal({
@@ -60,7 +67,11 @@ Template.showInfoUser.events({
       if (res.value) {
         Meteor.call('actionBlockedUser', { _id: id, blocked: true }, (error, result) => {
           if (error) {
-            toastr.error('Error al bloquear al usuario.');
+            if (error.error === 'Error, no se puede bloquear a un administrador global') {
+              toastr.error('Error, no se puede bloquear a un administrador');
+            } else {
+              toastr.error('Error al bloquear al usuario.');
+            }
           } else {
             toastr.success('Se ha bloqueado al usuario exitosamente.');
           }
