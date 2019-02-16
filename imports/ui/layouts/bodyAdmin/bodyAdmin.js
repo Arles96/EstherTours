@@ -7,8 +7,7 @@ import { Meteor } from 'meteor/meteor';
 
 Template.bodyAdmin.helpers({
   isBlocked: function () {
-    const validate = Meteor.users.findOne({ _id: Meteor.userId() });
-    if (validate.profile.blocked === true) {
+    if (Meteor.user().profile.blocked === true) {
       return true;
     } else {
       return false;
