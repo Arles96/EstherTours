@@ -14,7 +14,7 @@ Template.packageRouteTE.onCreated(function createVars () {
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('packageRouteTEStars', '0');
+  Session.set('packageRouteTEStars', undefined);
 });
 
 Template.packageRouteTE.helpers({
@@ -57,11 +57,12 @@ Template.packageRouteTE.helpers({
     const municipality = Template.instance().municipality.get();
 
     const queryR = {
-      name: new RegExp(`.*${name}.*`, 'i'),
-      categorization: {
-        $lte: Session.get('packageRouteTEStars')
-      }
+      name: new RegExp(`.*${name}.*`, 'i')
     };
+
+    if (Session.get('packageRouteTEStars')) {
+      queryR.categorization = Session.get('packageRouteTEStars');
+    }
 
     const filteredTE = TransportationEstablishments
       .find(queryR)

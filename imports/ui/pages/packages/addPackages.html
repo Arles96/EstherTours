@@ -21,28 +21,28 @@
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {{>afQuickField name="observation"}}
           </div>
-          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+          <div hidden class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="idRenter" value=renter}}
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="idFleetRenter" value=fleet}}
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="idTransport" value=TE}}
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="idTransportRoute" value=route}}
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="idHotel" value=hotel}}
           </div>
-          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+          <div hidden class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="idRoom" value=room}}
           </div>
-          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+          <div hidden class="col col-lg-6 col-md-6 col-sm-12 col-12">
             {{>afQuickField name="idGuide"}}
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             {{>afQuickField name="idRestaurant" value=restaurant}}
           </div>
         </div>
@@ -78,9 +78,6 @@
           <i class="fas fa-2x fa-check-square"></i>
         {{/if}}
       </a>
-      <a class="nav-item nav-link" id="nav-guide-tab" data-toggle="tab" href="#nav-guide" role="tab" aria-controls="nav-guide" title="Guía" aria-selected="false">
-        <i class="fas fa-2x fa-hiking"></i>
-      </a>
     </div>
   </nav>
   <br >
@@ -96,9 +93,6 @@
     </div>
     <div class="tab-pane fade" id="nav-restaurant" role="tabpanel" aria-labelledby="nav-restaurant-tab">
       {{>packageRestaurants}}
-    </div>
-    <div class="tab-pane fade" id="nav-guide" role="tabpanel" aria-labelledby="nav-guide-tab">
-
     </div>
   </div>
 </template>

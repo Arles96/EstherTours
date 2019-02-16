@@ -15,7 +15,7 @@ Template.packageRoomHotel.onCreated(function createVars () {
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('packageRoomHotelStars', '0');
+  Session.set('packageRoomHotelStars', undefined);
 });
 
 Template.packageRoomHotel.helpers({
@@ -59,12 +59,13 @@ Template.packageRoomHotel.helpers({
 
     const queryH = {
       name: new RegExp(`.*${name}.*`, 'i'),
-      categorization: {
-        $lte: Session.get('packageRoomHotelStars')
-      },
       street: new RegExp(`.*${street}.*`, 'i'),
       city: new RegExp(`.*${city}.*`, 'i')
     };
+
+    if (Session.get('packageRoomHotelStars')) {
+      queryH.categorization = Session.get('packageRoomHotelStars');
+    }
 
     if (department) {
       queryH.departament = department;

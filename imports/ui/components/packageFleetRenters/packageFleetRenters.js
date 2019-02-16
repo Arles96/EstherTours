@@ -17,7 +17,7 @@ Template.packageFleetRenters.onCreated(function createVars () {
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('packageFleetRenterStars', '0');
+  Session.set('packageFleetRenterStars', undefined);
 });
 
 Template.packageFleetRenters.helpers({
@@ -67,14 +67,23 @@ Template.packageFleetRenters.helpers({
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
 
-    const queryR = {
-      name: new RegExp(`.*${name}.*`, 'i'),
-      categorization: {
-        $lte: Session.get('packageFleetRenterStars')
-      },
-      street: new RegExp(`.*${street}.*`, 'i'),
-      city: new RegExp(`.*${city}.*`, 'i')
-    };
+    const queryR = {};
+
+    if (Session.get('packageFleetRenterStars')) {
+      queryR.categorization = Session.get('packageFleetRenterStars');
+    }
+
+    if (name) {
+      queryR.name = new RegExp(`.*${name}.*`, 'i');
+    }
+
+    if (street) {
+      queryR.street = new RegExp(`.*${street}.*`, 'i');
+    }
+
+    if (city) {
+      queryR.city = new RegExp(`.*${city}.*`, 'i');
+    }
 
     if (department) {
       queryR.department = department;

@@ -1,8 +1,8 @@
-<template name="editPackages" >
+<template name="editPackages">
   <div class="card mb-3">
     <div class="card-header">
       <i class="fas fa-table"></i>
-      Actualizar Paquetes
+      <b>Agregar Paquetes</b>
     </div>
     <div class="card-body">
       {{#autoForm
@@ -17,40 +17,83 @@
             {{>afQuickField name="name"}}
           </div>
           <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="price" }}
-          </div>
-          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRenter" firstOption="(Seleccione Uno)" options=Renters }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idFleetRenter" firstOption="(Seleccione Uno)" options=(FleetRenter (afFieldValue name="idRenter") ) }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idTransport" firstOption="(Seleccione Uno)" options=TransportationEstablishments }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idTransportRoute" firstOption="(Seleccione Uno)" options=(RouteTransportationEstablishment (afFieldValue name="idTransport") ) }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idHotel" firstOption="(Seleccione Uno)" options=Hotels }}
-          </div>
-          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRoom" firstOption="(Seleccione Uno)" options=(RoomHotel (afFieldValue name="idHotel") ) }}
-          </div>
-          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
-            {{>afQuickField name="idGuide" firstOption="(Seleccione Uno)" options=Guide }}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRestaurant" firstOption="(Seleccione Uno)" options=Restaurants }}
+            {{>afQuickField name="price"}}
           </div>
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            {{>afQuickField name="observation" firstOption="(Seleccione Uno)" options=Restaurants }}
+            {{>afQuickField name="observation"}}
+          </div>
+          <div hidden class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idRenter" value=renter}}
+          </div>
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idFleetRenter" value=fleet}}
+          </div>
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idTransport" value=TE}}
+          </div>
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idTransportRoute" value=route}}
+          </div>
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idHotel" value=hotel}}
+          </div>
+          <div hidden class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idRoom" value=room}}
+          </div>
+          <div hidden class="col col-lg-6 col-md-6 col-sm-12 col-12">
+            {{>afQuickField name="idGuide"}}
+          </div>
+          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="idRestaurant" value=restaurant}}
           </div>
         </div>
         <div class="text-center mt-4">
-          <button type="submit" class="btn mx-auto btn-primary w-75" >Actualizar</button>
+          <button type="submit" class="btn mx-auto btn-primary w-75" >Agregar Paquete</button>
         </div>
       {{/autoForm}}
+    </div>
+  </div>
+  <nav>
+    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link" id="nav-renter-fleet-tab" data-toggle="tab" href="#nav-renter-fleet" role="tab" aria-controls="nav-renter-fleet" title="Flota de Arrendadora" aria-selected="false">
+        <i class="fas fa-2x fa-car"></i>
+        {{#if fleetSelected}}
+          <i class="fas fa-2x fa-check-square"></i>
+        {{/if}}
+      </a>
+      <a class="nav-item nav-link" id="nav-route-te-tab" data-toggle="tab" href="#nav-route-te" role="tab" aria-controls="nav-route-te" title="Ruta del Establecimiento de Transporte" aria-selected="false">
+        <i class="fas fa-2x fa-map-marked-alt"></i>
+        {{#if routeSelected}}
+          <i class="fas fa-2x fa-check-square"></i>
+        {{/if}}
+      </a>
+      <a class="nav-item nav-link" id="nav-room-hotel-tab" data-toggle="tab" href="#nav-room-hotel" role="tab" aria-controls="nav-room-hotel" title="Habitación de Hotel" aria-selected="false">
+        <i class="fas fa-2x fa-hotel"></i>
+        {{#if roomSelected}}
+          <i class="fas fa-2x fa-check-square"></i>
+        {{/if}}
+      </a>
+      <a class="nav-item nav-link" id="nav-restaurant-tab" data-toggle="tab" href="#nav-restaurant" role="tab" aria-controls="nav-restaurant" title="Restaurante" aria-selected="false">
+        <i class="fas fa-2x fa-utensils"></i>
+        {{#if restaurant}}
+          <i class="fas fa-2x fa-check-square"></i>
+        {{/if}}
+      </a>
+    </div>
+  </nav>
+  <br >
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade" id="nav-renter-fleet" role="tabpanel" aria-labelledby="nav-renter-fleet-tab">
+      {{>packageFleetRenters}}
+    </div>
+    <div class="tab-pane fade" id="nav-route-te" role="tabpanel" aria-labelledby="nav-route-te-tab">
+      {{>packageRouteTE}}
+    </div>
+    <div class="tab-pane fade" id="nav-room-hotel" role="tabpanel" aria-labelledby="nav-room-hotel-tab">
+      {{>packageRoomHotel}}
+    </div>
+    <div class="tab-pane fade" id="nav-restaurant" role="tabpanel" aria-labelledby="nav-restaurant-tab">
+      {{>packageRestaurants}}
     </div>
   </div>
 </template>

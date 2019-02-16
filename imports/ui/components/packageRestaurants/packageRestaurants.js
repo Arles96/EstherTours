@@ -15,7 +15,7 @@ Template.packageRestaurants.onCreated(function createVars () {
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('packageRestaurantStars', '0');
+  Session.set('packageRestaurantStars', undefined);
 });
 
 Template.packageRestaurants.helpers({
