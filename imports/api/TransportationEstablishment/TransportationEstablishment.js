@@ -184,6 +184,11 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   'money.$': {
     type: String
+  },
+  createAt: {
+    type: Date,
+    optional: true,
+    autoValue: () => new Date()
   }
 }, { check: check, tracker: Tracker });
 
@@ -195,3 +200,5 @@ export {
   TransportationEstablishments,
   TransportationEstablishmentSchema
 };
+
+// "createAt" : ISODate("2019-02-16T06:21:41.628Z")

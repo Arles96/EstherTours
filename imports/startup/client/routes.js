@@ -36,6 +36,7 @@ import '../../ui/pages/TransportationEstablishment/addTransportationEstablishmen
 import '../../ui/pages/TransportationEstablishment/listTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstablishment';
 import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
+import '../../ui/pages/TransportationEstablishment/reportTransportationEstablishment/reportTransportationEstablishment';
 import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/listHotels';
 import '../../ui/pages/hotelQuery/hotelQuery';
@@ -492,6 +493,20 @@ Router.route('/edit-TransportationEstablishment/:id', {
     return {
       TransportationEstablishment: TransportationEstablishments.findOne({ _id: id })
     };
+  }
+});
+
+/**
+ * Ruta de reportes de transporte
+ */
+Router.route('/report-transportation-establishment', {
+  name: 'reportTransportationEstablishments',
+  template: 'reportTransportationEstablishments',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar transportes']);
+    Session.set('reportTransportCategorization', undefined);
+    isLoggedIn(this);
   }
 });
 
