@@ -38,6 +38,7 @@ import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstabli
 import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
 import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/listHotels';
+import '../../ui/pages/hotel/filterRoomHotel';
 import '../../ui/pages/hotelQuery/hotelQuery';
 import '../../ui/pages/hotelQuery/showQueryHotel';
 import '../../ui/pages/renters/editRenter';
@@ -578,6 +579,27 @@ Router.route('/list-hotels', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Listar Hoteles']);
+    isOperator(this);
+  }
+});
+
+/*
+ * Ruta para filtrar habitaciones
+ */
+Router.route('/filter-room-hotel', {
+  name: 'filterRoomHotel',
+  template: 'filterRoomHotel',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('hotel.one'),
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('RoomHotel.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar habitaciones']);
     isOperator(this);
   }
 });
