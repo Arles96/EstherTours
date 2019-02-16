@@ -121,6 +121,9 @@ Template.packageRoomHotel.events({
 });
 
 Template.packageResultRoomHotel.helpers({
+  selected (id) {
+    return id === Session.get('packageRoomId');
+  },
   findImg (_id) {
     return HotelImages.findOne({ _id });
   },

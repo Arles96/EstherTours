@@ -149,6 +149,9 @@ Template.packageFleetRenters.events({
 });
 
 Template.packageResultFleetRenter.helpers({
+  selected (id) {
+    return id === Session.get('packageFleetId');
+  },
   findImg (_id) {
     return RenterImages.findOne({ _id });
   },

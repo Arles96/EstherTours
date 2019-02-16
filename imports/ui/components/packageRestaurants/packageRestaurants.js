@@ -107,6 +107,9 @@ Template.packageRestaurants.events({
 });
 
 Template.packageResultRestaurant.helpers({
+  selected (id) {
+    return id === Session.get('packageRestaurantId');
+  },
   findImg (_id) {
     return RestaurantImages.findOne({ _id });
   },

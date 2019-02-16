@@ -127,6 +127,9 @@ Template.packageRouteTE.events({
 });
 
 Template.packageResultRouteTE.helpers({
+  selected (id) {
+    return id === Session.get('packageRouteId');
+  },
   first (index) {
     return index === 0;
   }

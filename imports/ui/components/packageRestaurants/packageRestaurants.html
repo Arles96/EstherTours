@@ -158,7 +158,11 @@
       </div>
       <div class="card-footer small text-muted">
         <button class="btn btn-outline-primary ml-3" id="packageAddRestaurant">
-          <i class="fas fa-plus-square"></i> Agregar
+          {{#if selected _id}}
+            <i class="fas fa-check-square"></i> Seleccionado
+          {{else}}
+            <i class="fas fa-plus-square"></i> Agregar
+          {{/if}}
         </button>
       </div>
     </div>
