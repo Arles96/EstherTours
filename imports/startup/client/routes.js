@@ -67,6 +67,7 @@ import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
 import '../../ui/pages/branchOfficePage/officesPage';
+import '../../ui/pages/Activities/activities';
 /**
  *Función para listar en el componente breadcrumb
  * @param {Array} list
@@ -1082,5 +1083,15 @@ Router.route('/result-find-packages', {
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Paquetes', 'Resultado Consulta Paquetes']);
     isConsultant(this);
+  }
+});
+
+Router.route('/activities', {
+  name: 'userActivities',
+  template: 'userActivities',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de actividades']);
+    isAdmin(this);
   }
 });

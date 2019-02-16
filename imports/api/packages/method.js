@@ -9,11 +9,21 @@ import { FleetRenter } from '../renters/fleetRenter';
 import { Restaurants } from '../restaurants/restaurants';
 import { TransportationEstablishments } from '../TransportationEstablishment/TransportationEstablishment';
 import { RouteTransportationEstablishment } from '../TransportationEstablishment/RouteTransportationEstablishment';
+import userActivities from '../userActivities/userActivities';
 
 Meteor.methods({
   insertPackages: function (doc) {
     PackagesSchema.validate(doc);
     Packages.insert(doc);
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: Meteor.user().profile.firstName,
+      activity: 'agregar',
+      collection: 'packages',
+      registerId: '',
+      register: doc.name,
+      date: new Date()
+    });
   },
   updatePackages: function (doc) {
     const data = doc.modifier.$set;
@@ -22,9 +32,27 @@ Meteor.methods({
     Packages.update({ _id: _id }, {
       $set: data
     });
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: Meteor.user().profile.firstName,
+      activity: 'editar',
+      collection: 'packages',
+      registerId: _id,
+      register: doc.name,
+      date: new Date()
+    });
   },
   deletePackage: function (id) {
     Packages.remove({ _id: id });
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: Meteor.user().profile.firstName,
+      activity: 'eliminar',
+      collection: 'packages',
+      registerId: '',
+      register: '',
+      date: new Date()
+    });
   },
   findPackages: function (doc) {
     PackagesSchemaConsult.validate(doc);

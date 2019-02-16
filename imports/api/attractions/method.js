@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { AttractionSchema, Attractions } from './attractions';
 import { operator } from '../roles/roles';
 import AttractionQuerySchema from './attractionQuery';
+import userActivities from '../userActivities/userActivities';
 
 Meteor.methods({
   // Metodos para attracciones
@@ -9,6 +10,16 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       AttractionSchema.validate(doc);
       Attractions.insert(doc);
+
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: Meteor.user().profile.firstName,
+        activity: 'agregar',
+        collection: 'attractions',
+        registerId: '',
+        register: doc.name,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -99,6 +110,16 @@ Meteor.methods({
       Attractions.update({ _id: _id }, {
         $set: data
       });
+
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: Meteor.user().profile.firstName,
+        activity: 'editar',
+        collection: 'attractions',
+        registerId: _id,
+        register: doc.name,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -106,6 +127,15 @@ Meteor.methods({
   deleteAttraction: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       Attractions.remove({ _id: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: Meteor.user().profile.firstName,
+        activity: 'eliminar',
+        collection: 'attractions',
+        registerId: '',
+        register: '',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }

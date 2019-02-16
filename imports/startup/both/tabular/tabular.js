@@ -15,6 +15,7 @@ import { RateHotel } from '../../../api/hotels/ratehotel';
 import { Guide } from '../../../api/guide/guide';
 import { Packages } from '../../../api/packages/packages';
 import { branchOffices } from '../../../api/branchOffices/Offices';
+import userActivities from '../../../api/userActivities/userActivities';
 
 const TabularTables = {};
 
@@ -940,6 +941,44 @@ TabularTables.Packages = new Tabular.Table({
           slug: rowData.slug
         }, cell);
       }
+    }
+  ]
+});
+
+TabularTables.userActivities = new Tabular.Table({
+  name: 'UserActivities',
+  collection: userActivities,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  // userId, user, activity, collection, registerId, register, date
+  extraFields: [
+    'userId', 'registerId', 'register'
+  ],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'user',
+      title: 'Usuario'
+    },
+    {
+      class: 'text-center',
+      data: 'activity',
+      title: 'Actividad'
+    },
+    {
+      class: 'text-center',
+      data: 'collection',
+      title: 'entidad'
+    },
+    {
+      class: 'text-center',
+      data: 'date',
+      title: 'Fecha'
     }
   ]
 });
