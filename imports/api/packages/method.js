@@ -79,6 +79,7 @@ Meteor.methods({
     ) {
       const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       Packages.find().fetch().forEach(item => {
+        console.log(item);
         const date = new Date(item.createAt);
         if (date.getFullYear() === year.year) {
           monthsCount[date.getMonth()] += 1;

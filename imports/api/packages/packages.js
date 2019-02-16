@@ -124,6 +124,8 @@ const PackagesSchema = new SimpleSchema({
 
 PackagesSchema.messageBox.messages(messages);
 
+Packages.attachSchema(PackagesSchema);
+
 Packages.helpers({
   textHotel: function () {
     const hotel = Hotels.findOne({ _id: this.idHotel });
