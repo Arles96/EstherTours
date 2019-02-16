@@ -129,7 +129,7 @@ Packages.attachSchema(PackagesSchema);
 Packages.helpers({
   textHotel: function () {
     const hotel = Hotels.findOne({ _id: this.idHotel });
-    return `${hotel.name}, ${hotel.municipality}, ${hotel.department}`;
+    return `${hotel.name}, ${hotel.municipality}, ${hotel.departament}`;
   },
   textRoomHotel: function () {
     const room = RoomHotel.findOne({ _id: this.idRoom });
@@ -145,7 +145,7 @@ Packages.helpers({
   },
   textTransport: function () {
     const transport = TransportationEstablishments.findOne({ _id: this.idTransport });
-    return `${transport.name}, ${transport.municipality}, ${transport.department}`;
+    return `${transport.name}, ${transport.town}, ${transport.department}`;
   },
   textRouteTransport: function () {
     const route = RouteTransportationEstablishment.findOne({ _id: this.idTransportRoute });
