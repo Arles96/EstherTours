@@ -31,7 +31,7 @@ Template.editPackages.helpers({
   restaurant: () => Session.get('packageRestaurantId')
 });
 
-AutoForm.addHooks('addPackagesForm', {
+AutoForm.addHooks('editPackagesForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha actualizado la información del paquete exitosamente.');
     Session.set('packageHotelId', undefined);
