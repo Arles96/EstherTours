@@ -44,6 +44,7 @@ import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
 import '../../ui/pages/hotel/showInfoHotel';
 import '../../ui/pages/hotel/editHotel';
+import '../../ui/pages/attraction/filterAttractions';
 import '../../ui/pages/attraction/addAttractions';
 import '../../ui/pages/attraction/listAttractions';
 import '../../ui/pages/attraction/editAttractions';
@@ -65,7 +66,7 @@ import '../../ui/pages/RenterQuary/findRenters';
 import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
-
+import '../../ui/pages/branchOfficePage/officesPage';
 /**
  *Función para listar en el componente breadcrumb
  * @param {Array} list
@@ -156,8 +157,24 @@ Router.route('/users', {
   name: 'users',
   template: 'usersPage',
   layoutTemplate: 'bodyAdmin',
+  waiton: function () {
+    return Meteor.subscribe('branchOffices.all');
+  },
   onBeforeAction: function () {
     listBreadcrumb(['Usuarios']);
+    isAdmin(this);
+  }
+});
+
+/**
+ * Rutas para sucursales
+ */
+Router.route('/offices', {
+  name: 'offices',
+  template: 'officePage',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Sucursales']);
     isAdmin(this);
   }
 });
@@ -534,8 +551,7 @@ Router.route('/branch-renter/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
-      Meteor.subscribe('renter.one', id),
-      Meteor.subscribe('renter.all', id)
+      Meteor.subscribe('renter.one', id)
     ];
   },
   onBeforeAction: function () {
@@ -690,6 +706,26 @@ Router.route('/show-query-hotel', {
     return {
       hotel: Session.get('hotelQueryDoc').docVals
     };
+  }
+});
+
+/*
+ * Ruta para filtrar atracciones
+ */
+Router.route('/filter-attractions', {
+  name: 'filterAttractions',
+  template: 'filterAttractions',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('attractions.all'),
+      Meteor.subscribe('attraction.one'),
+      Meteor.subscribe('attractionImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar atracciones']);
+    isOperator(this);
   }
 });
 
