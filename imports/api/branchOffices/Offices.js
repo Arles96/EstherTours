@@ -36,6 +36,11 @@ const branchOfficeSchema = new SimpleSchema({
     regEx: RegExObj.isNumber,
     min: 8,
     max: 8
+  },
+  createAt: {
+    type: Date,
+    optional: true,
+    autoValue: () => new Date()
   }
 }, { check: check, tracker: Tracker });
 

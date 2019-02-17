@@ -184,6 +184,11 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   },
   'money.$': {
     type: String
+  },
+  createAt: {
+    type: Date,
+    optional: true,
+    autoValue: () => new Date()
   }
 }, { check: check, tracker: Tracker });
 

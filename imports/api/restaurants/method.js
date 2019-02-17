@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { RestaurantSchema, Restaurants } from './restaurants';
 import { restaurantOffers, restaurantOffersSchema } from './restaurantOffers';
 import RestaurantConsultSchema from './restaurantConsult';
-import { operator } from '../roles/roles';
+import { operator, consultant, admin } from '../roles/roles';
 
 Meteor.methods({
   addRestaurant: function (doc) {
@@ -171,6 +171,23 @@ Meteor.methods({
       } else {
         throw new Meteor.Error('No se permiten valores repetidos en telefonos.');
       }
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
+  },
+  reportRestaurants: function (year) {
+    if (Roles.userIsInRole(Meteor.userId(), operator) ||
+      Roles.userIsInRole(Meteor.userId(), consultant) ||
+      Roles.userIsInRole(Meteor.userId(), admin)
+    ) {
+      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      Restaurants.find().fetch().forEach(item => {
+        const date = new Date(item.createAt);
+        if (date.getFullYear() === year.year) {
+          monthsCount[date.getMonth()] += 1;
+        }
+      });
+      return monthsCount;
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }

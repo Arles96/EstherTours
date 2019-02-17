@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { AttractionSchema, Attractions } from './attractions';
-import { operator } from '../roles/roles';
+import { operator, consultant, admin } from '../roles/roles';
 import AttractionQuerySchema from './attractionQuery';
 
 Meteor.methods({
@@ -76,11 +76,11 @@ Meteor.methods({
       docVals.coin = ['No definido.'];
     }
 
-    if (doc.contact){
-      const arr = doc.contact.map(Element => new RegExp(`.*${Element}.*`,'i'));
-      doc.contact = {$in : arr};
+    if (doc.contact) {
+      const arr = doc.contact.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      doc.contact = { $in: arr };
     } else {
-      docVals.contact = ["No definido."];
+      docVals.contact = ['No definido.'];
     }
 
     if (cDoc.paymentsMethod) {
@@ -108,6 +108,23 @@ Meteor.methods({
       Attractions.remove({ _id: id });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
+    }
+  },
+  reportAttractions: function (year) {
+    if (Roles.userIsInRole(Meteor.userId(), operator) ||
+      Roles.userIsInRole(Meteor.userId(), consultant) ||
+      Roles.userIsInRole(Meteor.userId(), admin)
+    ) {
+      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      Attractions.find().fetch().forEach(item => {
+        const date = new Date(item.createAt);
+        if (date.getFullYear() === year.year) {
+          monthsCount[date.getMonth()] += 1;
+        }
+      });
+      return monthsCount;
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
     }
   }
 

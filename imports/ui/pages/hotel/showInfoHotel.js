@@ -13,6 +13,7 @@ import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
 import { Hotels } from '../../../api/hotels/hotels';
 import HotelImage from '../../../api/hotels/hotelImage';
+import { Hotels } from '../../../api/hotels/hotels';
 
 Template.showInfoHotel.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -44,7 +45,31 @@ Template.showInfoHotel.onCreated(() => {
 });
 
 Template.showInfoHotel.helpers({
-  findImage: _id => HotelImage.findOne({ _id })
+  findImage: _id => HotelImage.findOne({ _id }),
+  selector: function () {
+    return { idHotel: Session.get('idHotel') };
+  },
+  branchSelector: function (_id) {
+    return { mainOffice: _id, branchOffice: true };
+  },
+  showBranches: function (isOperator) {
+    if (!isOperator || this.hotel.branchOffice) {
+      return false;
+    }
+    return true;
+  },
+  getMainOffice: function (_id) {
+    return Hotels.findOne({ _id }).name;
+  },
+  getBranchOffices: function (_id) {
+    return Hotels.find({ mainOffice: _id, branchOffice: true }).map(doc => doc.name);
+  },
+  urlTag: url => {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
+  }
 });
 
 Template.showButtonRoomHotel.events({
@@ -116,14 +141,26 @@ Template.showButtonRateHotel.events({
   }
 });
 
-Template.showInfoHotel.helpers({
-  selector: function () {
-    return { idHotel: Session.get('idHotel') };
-  },
-  urlTag: url => {
-    if (url.includes('http://') || url.includes('https://')) {
-      return url;
-    }
-    return `https://${url}`;
+Template.showButtonBranchHotel.events({
+  'click .deleteHotel': function () {
+    const id = this._id;
+    const hotel = Hotels.findOne({ _id: id });
+    Swal({
+      title: 'Eliminar sucursal de Hotel',
+      text: `Esta seguro de eliminar este registro de ${hotel.name}`,
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true,
+      focusCancel: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('deleteHotel', id, (error, result) => {
+          if (error) {
+            toastr.error('Error al eliminar el registro.');
+          } else {
+            toastr.success('Se ha eliminado el registro.');
+          }
+        });
+      }
+    });
   }
 });

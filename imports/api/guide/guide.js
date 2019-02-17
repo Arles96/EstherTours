@@ -198,6 +198,11 @@ const GuideSchema = new SimpleSchema({
   'creditCards.$': {
     type: String,
     label: 'Tarjeta de crédito'
+  },
+  createAt: {
+    type: Date,
+    optional: true,
+    autoValue: () => new Date()
   }
 }, { check: check, tracker: Tracker });
 
