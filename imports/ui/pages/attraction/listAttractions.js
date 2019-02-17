@@ -1,6 +1,7 @@
 import './listAttractions.html';
 import toastr from 'toastr';
 import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
 import Swal from 'sweetalert2';
 import { Attractions } from '../../../api/attractions/attractions';
 
@@ -56,8 +57,15 @@ Template.showButtonAttractions.events({
     });
   },
   'click .packageEntity': function () {
-    const { name, _id, price } = Attractions.findOne({ _id: this._id });
-    localStorage.setItem('packageAttraction', { name, _id, price });
+    const { name } = Attractions.findOne({ _id: this._id });
+    localStorage.setItem('packageAttraction', this._id);
+    Session.set('packageAttraction', this._id);
     toastr.success(`Se ha empaquetado la atracción ${name}`);
+  },
+  'click .unPackageEntity': function () {
+    const { name } = Attractions.findOne({ _id: this._id });
+    localStorage.setItem('packageAttraction', undefined);
+    Session.set('packageAttraction', undefined);
+    toastr.info(`Se ha desempaquetado la atracción ${name}`);
   }
 });

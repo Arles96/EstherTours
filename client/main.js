@@ -55,3 +55,33 @@ Template.registerHelper('isLoggedIn', () => Meteor.user());
  * Helper para saber si se esta creando un empaquetado
  */
 Template.registerHelper('isCreatePackage', () => Session.get('isCreatePackage'));
+
+/**
+ * Helper para empaquetado de atracciones
+ */
+Template.registerHelper('packageAttraction', () => Session.get('packageAttraction'));
+
+/**
+ * Helper para empaquetado de Habitaciones
+ */
+Template.registerHelper('packageRoomHotel', () => Session.get('packageRoomHotel'));
+
+/**
+ * Helper para empaquetado de Flota de arrendadoras
+ */
+Template.registerHelper('packageFleetRenter', () => Session.get('packageFleetRenter'));
+
+/**
+ * Helper para empaquetado de Restaurante
+ */
+Template.registerHelper('packageRestaurant', () => Session.get('packageRestaurant'));
+
+/**
+ * Helper para empaquetado de Rutas de Transporte
+ */
+Template.registerHelper('packageRouteTransport', () => Session.get('packageRouteTransport'));
+
+/**
+ * Comparar dos cadenas
+ */
+Template.registerHelper('isEqual', (text1, text2) => text1 === text2);

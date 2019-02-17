@@ -90,21 +90,19 @@ Template.showButtonFleetRenters.events({
     Session.set('fleetRenter', FleetRenter.findOne({ _id: this._id }));
   },
   'click .packageEntity': function () {
-    const {
-      idRenter,
-      type,
-      rate,
-      _id
-    } = FleetRenter.findOne({ _id: this._id });
-    const { name } = Renters.findOne({ _id: idRenter });
-    localStorage.setItem('PackageFleetRenter', {
-      _id,
-      idRenter,
-      type,
-      rate,
-      name
-    });
+    const { idRenter, _id } = FleetRenter.findOne({ _id: this._id });
+    localStorage.setItem('packageFleetRenter', _id);
+    localStorage.setItem('packageRenter', idRenter);
+    Session.set('packageFleetRenter', _id);
+    Session.set('packageRenter', idRenter);
     toastr.success('Se ha empaquetado la flota exitosamente');
+  },
+  'click .unPackageEntity': function () {
+    localStorage.setItem('packageFleetRenter', undefined);
+    localStorage.setItem('packageRenter', undefined);
+    Session.set('packageFleetRenter', undefined);
+    Session.set('packageRenter', undefined);
+    toastr.info('Se ha desempaquetado la flota exitosamente');
   }
 });
 

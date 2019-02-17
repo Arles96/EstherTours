@@ -157,9 +157,15 @@
 
 <template name="showButtonFleetRenters" >
   {{#if isCreatePackage}}
-    <span data-toggle="tooltip" data-placement="top" title="Empaquetar" >
-      <i style="cursor: pointer;" data-id="{{_id}}" class="packageEntity fas fa-box"></i>
-    </span>
+    {{#if (isEqual _id packageFleetRenter )}}
+      <span class="text-success" data-toggle="tooltip" data-placement="top" title="Desempaquetar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="unPackageEntity fas fa-box"></i>
+      </span>
+    {{else}}
+      <span data-toggle="tooltip" data-placement="top" title="Empaquetar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="packageEntity fas fa-box"></i>
+      </span>
+    {{/if}}
   {{/if}}
   <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
     <i style="cursor: pointer;" data-id="{{_id}}" class="infoFleetRenter far fa-eye mr-2" data-toggle="modal" data-target="#infoFleetRenter" ></i>

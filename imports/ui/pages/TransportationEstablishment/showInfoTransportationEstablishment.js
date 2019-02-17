@@ -140,16 +140,19 @@ Template.showButtonRouteTransportationEstablishments.events({
   'click .packageEntity': function () {
     const {
       _id,
-      idTransportationEstablishment,
-      type
+      idTransportationEstablishment
     } = RouteTransportationEstablishment.findOne({ _id: this._id });
-    const { name } = TransportationEstablishments.findOne({ _id: idTransportationEstablishment });
-    localStorage.setItem('packageRputeTransport', {
-      _id,
-      idTransportationEstablishment,
-      type,
-      name
-    });
+    localStorage.setItem('packageRouteTransport', _id);
+    localStorage.setItem('packageTransport', idTransportationEstablishment);
+    Session.set('packageRouteTransport', _id);
+    Session.set('packageTransport', idTransportationEstablishment);
     toastr.success('Se ha empaquetado la ruta exitosamente');
+  },
+  'click .unPackageEntity': function () {
+    localStorage.setItem('packageRouteTransport', undefined);
+    localStorage.setItem('packageTransport', undefined);
+    Session.set('packageRouteTransport', undefined);
+    Session.set('packageTransport', undefined);
+    toastr.info('Se ha desemaquetado la ruta exitosamente');
   }
 });

@@ -66,10 +66,14 @@ Template.showButtonRestaurant.events({
   },
   'click .packageEntity': function () {
     const { _id, name } = Restaurants.findOne({ _id: this._id });
-    localStorage.setItem('packageRestaurant', {
-      _id,
-      name
-    });
-    toastr.success('Se ha empaquetado el restaurante exitosamente.');
+    localStorage.setItem('packageRestaurant', _id);
+    Session.set('packageRestaurant', _id);
+    toastr.success(`Se ha empaquetado el restaurante ${name} exitosamente.`);
+  },
+  'click .unPackageEntity': function () {
+    const { name } = Restaurants.findOne({ _id: this._id });
+    localStorage.setItem('packageRestaurant', undefined);
+    Session.set('packageRestaurant', undefined);
+    toastr.info(`Se ha desempaquetado el restaurante ${name} exitosamente`);
   }
 });

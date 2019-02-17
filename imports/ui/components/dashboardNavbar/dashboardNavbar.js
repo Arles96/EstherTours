@@ -7,6 +7,14 @@ import $ from 'jquery';
 
 Template.dashboardNavbar.onCreated(() => {
   Session.set('isCreatePackage', localStorage.getItem('createPackage'));
+  Session.set('packageAttraction', localStorage.getItem('packageAttraction'));
+  Session.set('packageRoomHotel', localStorage.getItem('packageRoomHotel'));
+  Session.set('packageHotel', localStorage.getItem('packageHotel'));
+  Session.set('packageFleetRenter', localStorage.getItem('packageFleetRenter'));
+  Session.set('packageRenter', localStorage.getItem('packageRenter'));
+  Session.set('packageRestaurant', localStorage.getItem('packageRestaurant'));
+  Session.set('packageRouteTransport', localStorage.getItem('packageRouteTransport'));
+  Session.set('packageTransport', localStorage.getItem('packageTransport'));
 });
 
 Template.dashboardNavbar.events({
