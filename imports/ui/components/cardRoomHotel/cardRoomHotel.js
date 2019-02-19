@@ -1,0 +1,1 @@
+import './cardRoomHotel.html';
