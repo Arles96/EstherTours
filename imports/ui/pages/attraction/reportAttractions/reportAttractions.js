@@ -8,6 +8,7 @@ Template.reportAttractions.onCreated(function createVars () {
   const date = new Date();
   this.maxYear = new ReactiveVar(date.getFullYear());
   this.currentYear = new ReactiveVar(date.getFullYear());
+  this.myChart = new ReactiveVar(null);
 });
 
 Template.reportAttractions.helpers({
@@ -22,22 +23,23 @@ Template.reportAttractions.helpers({
 Template.reportAttractions.events({
   'input #rangeControl' (event, templateInstance) {
     templateInstance.currentYear.set(event.currentTarget.value);
-    draw(event.currentTarget.value);
+    Template.instance().myChart.get().destroy();
+    draw(event.currentTarget.value, Template.instance());
   }
 });
 
 Template.reportAttractions.onRendered(() => {
   const date = new Date();
-  draw(date.getFullYear());
+  draw(date.getFullYear(), Template.instance());
 });
 
-function draw (selectedYear) {
+function draw (selectedYear, templateInstance) {
   const ctx = document.getElementById('reportChart');
   Meteor.call('reportAttractions', { year: Number(selectedYear) }, (error, result) => {
     if (error) {
       toastr.error('Error al procesar el reporte.');
     } else {
-      this.myChart = new ReactiveVar(new Chart(ctx, {
+      templateInstance.myChart.set(new Chart(ctx, {
         type: 'polarArea',
         data: {
           labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
