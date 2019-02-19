@@ -56,7 +56,6 @@ Meteor.methods({
           town: data.town
         }]
       }).fetch();
-      console.log(validate);
       if (validate.length > 0) {
         validate.forEach(value => {
           if (value._id !== doc._id) {
