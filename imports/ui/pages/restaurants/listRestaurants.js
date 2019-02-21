@@ -5,6 +5,7 @@ import toastr from 'toastr';
 import { Meteor } from 'meteor/meteor';
 import Swal from 'sweetalert2';
 import { Restaurants } from '../../../api/restaurants/restaurants';
+import { packageRestaurant, unpackageRestaurant } from '../../../startup/client/packageFunction';
 
 Template.listRestaurants.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -66,14 +67,12 @@ Template.showButtonRestaurant.events({
   },
   'click .packageEntity': function () {
     const { _id, name } = Restaurants.findOne({ _id: this._id });
-    localStorage.setItem('packageRestaurant', _id);
-    Session.set('packageRestaurant', _id);
+    packageRestaurant(_id);
     toastr.success(`Se ha empaquetado el restaurante ${name} exitosamente.`);
   },
   'click .unPackageEntity': function () {
     const { name } = Restaurants.findOne({ _id: this._id });
-    localStorage.setItem('packageRestaurant', undefined);
-    Session.set('packageRestaurant', undefined);
+    unpackageRestaurant();
     toastr.info(`Se ha desempaquetado el restaurante ${name} exitosamente`);
   }
 });

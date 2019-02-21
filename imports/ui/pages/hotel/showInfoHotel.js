@@ -13,6 +13,7 @@ import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
 import { Hotels } from '../../../api/hotels/hotels';
 import HotelImage from '../../../api/hotels/hotelImage';
+import { packageHotel, unpackageHotel } from '../../../startup/client/packageFunction';
 
 Template.showInfoHotel.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -97,17 +98,11 @@ Template.showButtonRoomHotel.events({
   },
   'click .packageEntity': function () {
     const { _id, idHotel } = RoomHotel.findOne({ _id: this._id });
-    localStorage.setItem('packageRoomHotel', _id);
-    localStorage.setItem('packageHotel', idHotel);
-    Session.set('packageRoomHotel', _id);
-    Session.set('packageHotel', idHotel);
+    packageHotel(idHotel, _id);
     toastr.success('Se ha empaquetado la habitación exitosamente');
   },
   'click .unPackageEntity': function () {
-    localStorage.setItem('packageRoomHotel', undefined);
-    localStorage.setItem('packageHotel', undefined);
-    Session.set('packageRoomHotel', undefined);
-    Session.set('packageHotel', undefined);
+    unpackageHotel();
     toastr.info('Se ha desempaquetado la habitación exitosamente');
   }
 });

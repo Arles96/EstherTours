@@ -13,6 +13,7 @@ import { Session } from 'meteor/session';
 import { TransportationEstablishments } from '../../../api/TransportationEstablishment/TransportationEstablishment';
 import { FleetTransportationEstablishment } from '../../../api/TransportationEstablishment/FleetTransportationEstablishment';
 import { RouteTransportationEstablishment } from '../../../api/TransportationEstablishment/RouteTransportationEstablishment';
+import { packageTransport, unpackageTransport } from '../../../startup/client/packageFunction';
 
 Template.showInfoTransportationEstablishment.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -142,17 +143,11 @@ Template.showButtonRouteTransportationEstablishments.events({
       _id,
       idTransportationEstablishment
     } = RouteTransportationEstablishment.findOne({ _id: this._id });
-    localStorage.setItem('packageRouteTransport', _id);
-    localStorage.setItem('packageTransport', idTransportationEstablishment);
-    Session.set('packageRouteTransport', _id);
-    Session.set('packageTransport', idTransportationEstablishment);
+    packageTransport(idTransportationEstablishment, _id);
     toastr.success('Se ha empaquetado la ruta exitosamente');
   },
   'click .unPackageEntity': function () {
-    localStorage.setItem('packageRouteTransport', undefined);
-    localStorage.setItem('packageTransport', undefined);
-    Session.set('packageRouteTransport', undefined);
-    Session.set('packageTransport', undefined);
+    unpackageTransport();
     toastr.info('Se ha desemaquetado la ruta exitosamente');
   }
 });

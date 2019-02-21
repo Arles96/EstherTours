@@ -78,6 +78,8 @@ import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
 import '../../ui/pages/branchOfficePage/officesPage';
+import '../../ui/pages/shoppingPackage/shoppingPackage';
+
 /**
  *Función para listar en el componente breadcrumb
  * @param {Array} list
@@ -1273,5 +1275,43 @@ Router.route('/result-find-packages', {
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Paquetes', 'Resultado Consulta Paquetes']);
     isConsultant(this);
+  }
+});
+
+/**
+ * Ruta de creacion de empaquetado
+ */
+Router.route('/adding-package', {
+  name: 'addingPackage',
+  template: 'shoppingPackage',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('attractions.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('RoomHotel.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Creando paquetes']);
+    isLoggedIn(this);
+  },
+  data: function () {
+    const hotel = Hotels.findOne({ _id: Session.get('packageHotel') });
+    const restaurant = Restaurants.findOne({ _id: Session.get('packageRestaurant') });
+    const renter = Renters.findOne({ _id: Session.get('packageRenter') });
+    const transportationEstablishment = TransportationEstablishments.findOne({ _id: Session.get('packageTransport') });
+    return {
+      hotel,
+      restaurant,
+      renter,
+      transportationEstablishment
+    };
   }
 });
