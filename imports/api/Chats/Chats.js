@@ -6,9 +6,9 @@ import { messages } from '../regEx';
 
 SimpleSchema.extendOptions(['autoform']);
 
-const chats = new Mongo.Collection('chats');
+const Chats = new Mongo.Collection('Chats');
 
-const chatSchema = new SimpleSchema({
+const ChatSchema = new SimpleSchema({
   idIssuer: {
     type: String,
     optional: true,
@@ -33,6 +33,21 @@ const chatSchema = new SimpleSchema({
     type: String,
     label: false
   },
+  status: {
+    type: Number,
+    optional: true,
+    label: false,
+    autoform: {
+      readonly: true,
+      omit: true,
+      afFieldInput: {
+        type: 'hidden'
+      },
+      afFormGroup: {
+        label: false
+      }
+    }
+  },
   createAt: {
     type: Date,
     optional: true,
@@ -40,9 +55,10 @@ const chatSchema = new SimpleSchema({
   }
 }, { check: check, tracker: Tracker });
 
-chatSchema.messageBox.messages(messages);
+ChatSchema.messageBox.messages(messages);
+Chats.attachSchema(ChatSchema);
 
 export {
-  chats,
-  chatSchema
+  Chats,
+  ChatSchema
 };

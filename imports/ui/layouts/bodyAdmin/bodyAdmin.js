@@ -3,6 +3,7 @@ import '../../components/dashboardNavbar/dashboardNavbar';
 import '../../components/leftMenu/leftMenu';
 import '../../components/scripts/scripts';
 import '../../components/breadcrumb/breadcrumb';
+import '../../components/ChatSide/ChatSide';
 import { Meteor } from 'meteor/meteor';
 
 Template.bodyAdmin.helpers({
