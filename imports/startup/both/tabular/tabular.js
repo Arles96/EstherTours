@@ -957,7 +957,7 @@ TabularTables.userActivities = new Tabular.Table({
   },
   // userId, user, activity, collection, registerId, register, date
   extraFields: [
-    'userId', 'registerId', 'register'
+    'userId', 'registerId'
   ],
   columns: [
     {
@@ -977,7 +977,12 @@ TabularTables.userActivities = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'date',
+      data: 'register',
+      title: 'registro'
+    },
+    {
+      class: 'text-center',
+      data: 'a()',
       title: 'Fecha'
     }
   ]

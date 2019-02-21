@@ -2,6 +2,8 @@
 import { Router } from 'meteor/iron:router';
 import toastr from 'toastr';
 
+import userActivities from '../../../../api/userActivities/userActivities';
+
 const submitHook = function (error, state) {
   if (!error) {
     if (state === 'forgotPwd') {
@@ -10,6 +12,15 @@ const submitHook = function (error, state) {
       toastr.success('Contraseña guardada exitosamente');
       Router.go('/dashboard');
     } else if (state === 'signIn') {
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: Meteor.user().profile.firstName,
+        activity: 'Inicio sesión',
+        collection: '',
+        registerId: '',
+        register: '',
+        date: new Date()
+      });
       Router.go('/dashboard');
     }
   } else if (error !== undefined && state === 'resetPwd') {

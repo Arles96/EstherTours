@@ -12,7 +12,7 @@ Meteor.methods({
     userActivities.insert({
       userId: Meteor.userId(),
       user: Meteor.user().profile.firstName,
-      activity: 'agregar',
+      activity: 'agregó',
       collection: 'restaurants',
       registerId: '',
       register: doc.name,
@@ -36,7 +36,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
-        activity: 'agregars',
+        activity: 'agregó sucursal',
         collection: 'restaurants',
         registerId: '',
         register: doc.name,
@@ -116,7 +116,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
-        activity: 'editar',
+        activity: 'editó',
         collection: 'restaurants',
         registerId: _id,
         register: doc.name,
@@ -133,7 +133,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
-        activity: 'agregar',
+        activity: 'agregó',
         collection: 'restaurantOffers',
         registerId: '',
         register: doc.dishName,
@@ -150,7 +150,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
-        activity: 'eliminar',
+        activity: 'eliminó',
         collection: 'restaurants',
         registerId: '',
         register: '',
@@ -166,7 +166,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
-        activity: 'eliminar',
+        activity: 'eliminó',
         collection: 'restaurantOffers',
         registerId: '',
         register: '',
@@ -191,7 +191,7 @@ Meteor.methods({
         userActivities.insert({
           userId: Meteor.userId(),
           user: Meteor.user().profile.firstName,
-          activity: 'editar',
+          activity: 'editó',
           collection: 'restaurantOffers',
           registerId: '',
           register: doc.dishName,

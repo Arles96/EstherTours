@@ -12,7 +12,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstname,
-        activity: 'agregar',
+        activity: 'agregó',
         collection: 'guide',
         registerId: '',
         register: doc.name,
@@ -34,7 +34,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstname,
-        activity: 'editar',
+        activity: 'editó',
         collection: 'guide',
         registerId: '',
         register: doc.name,
@@ -50,7 +50,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstname,
-        activity: 'eliminar',
+        activity: 'eliminó',
         collection: 'guide',
         registerId: '',
         register: '',

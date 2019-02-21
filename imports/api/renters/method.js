@@ -12,7 +12,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
-        activity: 'agregar',
+        activity: 'agregó',
         collection: 'renters',
         registerId: '',
         register: doc.name,
@@ -39,7 +39,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
-        activity: 'agregars',
+        activity: 'agregós',
         collection: 'renters',
         registerId: '',
         register: doc.name,
@@ -59,7 +59,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
-        activity: 'editar',
+        activity: 'editó',
         collection: 'renters',
         registerId: _id,
         register: doc.name,
@@ -76,7 +76,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
-        activity: 'agregar',
+        activity: 'agregó',
         collection: 'renterFleet',
         registerId: '',
         register: doc.name,
@@ -93,7 +93,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
-        activity: 'eliminar',
+        activity: 'eliminó',
         collection: 'renters',
         registerId: '',
         register: '',
@@ -109,7 +109,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
-        activity: 'eliminar',
+        activity: 'eliminó',
         collection: 'renterFleet',
         registerId: '',
         register: '',
@@ -130,7 +130,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
-        activity: 'editar',
+        activity: 'editó',
         collection: 'renterFleet',
         registerId: '',
         register: doc.name,
