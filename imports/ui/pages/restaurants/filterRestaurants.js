@@ -1,5 +1,4 @@
 import './filterRestaurants.html';
-import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Restaurants } from '../../../api/restaurants/restaurants';
@@ -183,30 +182,17 @@ Template.filterRestaurants.events({
 });
 
 Template.filterResultRestaurant.helpers({
-  branches () {
-    return Restaurants.find({ branchOffice: true, mainOffice: this._id });
-  },
   urlTag (url) {
     if (url.includes('http://') || url.includes('https://')) {
       return url;
     }
     return `https://${url}`;
   },
-  selected (id) {
-    return id === Session.get('filterRestaurantId');
-  },
   findImg (_id) {
     return RestaurantImages.findOne({ _id });
   },
   first (index) {
     return index === 0;
-  }
-});
-
-Template.filterResultRestaurant.events({
-  'click #filterAddRestaurant' (event, templateInstance) {
-    Session.set('filterRestaurantId', this._id);
-    toastr.info('Se guardo el restaurante al paquete!');
   }
 });
 
