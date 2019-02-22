@@ -352,6 +352,7 @@ Router.route('/show-restaurantResult', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Restaurante', 'Resultado Consulta Restaurante']);
+    Session.set('categorization', undefined);
     isConsultant(this);
   }
 });
@@ -812,7 +813,6 @@ Router.route('/show-attraction/:id', {
     const { id } = this.params;
     const attraction = Attractions.findOne({ _id: id });
     Session.set('idAttraction', id);
-    Session.set('showAttractionRating', undefined);
     listBreadcrumb(['Listar Atracciones', `Mostrando Información de ${attraction.name}`]);
     isLoggedIn2(this);
   },

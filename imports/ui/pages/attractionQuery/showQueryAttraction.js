@@ -1,6 +1,7 @@
 import './showQueryAttraction.html';
 import { Session } from 'meteor/session';
 import { Guide } from '../../../api/guide/guide';
+import '../../components/showRating/showRating';
 
 Template.showQueryAttraction.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {

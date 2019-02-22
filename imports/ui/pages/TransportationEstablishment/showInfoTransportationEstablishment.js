@@ -142,3 +142,25 @@ Template.showButtonRouteTransportationEstablishments.events({
     Session.set('routeTransportationEstablishment', RouteTransportationEstablishment.findOne({ _id: this._id }));
   }
 });
+
+Template.showStarTransportation.helpers({
+  list: rating => {
+    const list = [];
+    console.log(rating);
+    for (let index = 1; index <= 5; index += 1) {
+      if (index <= parseInt(rating, 10)) {
+        list.push({
+          class: 'fas fa-star colorOrange',
+          id: `start${index}`
+        });
+      } else {
+        list.push({
+          class: 'fas fa-star',
+          id: `start${index}`
+        });
+      }
+    }
+    console.log(list);
+    return list;
+  }
+});

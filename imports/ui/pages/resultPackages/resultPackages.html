@@ -25,7 +25,7 @@
                 <label for="">
                   <b>Precio:</b>
                   {{#if price}}
-                    {{price}}
+                    {{>convertDecimal}}
                   {{else}}
                     No posee.
                   {{/if}}

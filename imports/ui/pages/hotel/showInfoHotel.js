@@ -3,6 +3,7 @@ import '../../components/addRoomHotel/addRoomHotel';
 import '../../components/addRateHotel/addRateHotel';
 import '../../components/infoRoomHotel/infoRoomHotel';
 import '../../components/infoRateHotel/infoRateHotel';
+import '../../components/showRating/showRating';
 import './editRateHotel';
 import './editRoomHotel';
 import toastr from 'toastr';
@@ -12,6 +13,7 @@ import { Session } from 'meteor/session';
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
 import HotelImage from '../../../api/hotels/hotelImage';
+
 
 Template.showInfoHotel.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {

@@ -5,7 +5,7 @@ import { restaurantOffersSchema } from '../../../api/restaurants/restaurantOffer
 
 Template.addRestaurantOffer.helpers({
   restaurantOffersSchema: () => restaurantOffersSchema,
-  idRestaurant: () => Session.get('idRestaurant'),
+  idRestaurant: () => Session.get('idRestaurant')
 });
 
 AutoForm.addHooks('addOffersForm', {

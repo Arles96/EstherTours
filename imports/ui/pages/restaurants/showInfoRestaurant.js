@@ -1,6 +1,7 @@
 import './showInfoRestaurant.html';
 import '../../components/addRestaurantOffer/addRestaurantOffer';
 import '../../components/infoRestaurantOffer/infoRestaurantOffer';
+import '../../components/showRating/showRating';
 import './editRestaurantOffer';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';

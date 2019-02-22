@@ -1,6 +1,7 @@
 import './showQueryHotel.html';
 import '../../components/addRoomHotel/addRoomHotel';
 import '../../components/addRateHotel/addRateHotel';
+import '../../components/showRating/showRating';
 import { Session } from 'meteor/session';
 import Swal from 'sweetalert2';
 import toastr from 'toastr';

@@ -1,5 +1,6 @@
 import './infoGuideModal.html';
 import { Session } from 'meteor/session';
+import '../../components/showRating/showRating';
 
 Template.infoGuideModal.helpers({
   Guide: function () {

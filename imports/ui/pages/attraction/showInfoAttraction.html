@@ -46,12 +46,11 @@
               </label>
             </div>
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
-                <b>Categorización:</b>
-              </label>
-              {{categorization}} estrellas
+          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="form-group mt-1">
+              <b>Categorización:</b>
+              <label class="mb-3">{{textCategorization categorization}}</label>
+                {{>showStarRating rating=categorization}}
             </div>
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -79,13 +78,6 @@
                 <li>{{this}}</li>
               {{/each}}
             </div>
-          </div>
-          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
-            <div class="form-group mt-1">
-              <label class="mb-3">{{textCategorization attraction.rating }}</label>
-              {{>updateStarAttraction}}
-            </div>
-              {{>afQuickField name="rating" value=rating }}
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
@@ -149,15 +141,5 @@
         {{/with}}
       </div>
     </div>
-  </div>
-</template>
-
-<template name="showStarAttraction" >
-  <div>
-    <p>
-      {{#each list}}
-        <i style="font-size: 1.3rem;  pointer-events: none;" id="{{id}}" class="{{class}}"></i>
-      {{/each}}
-    </p>
   </div>
 </template>

@@ -75,11 +75,10 @@
             </div>
           </div>
           <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
-            <div class="form-group mt-1">
-              <label class="mb-3">{{textCategorization hotel.rating }}</label>
-              {{>updateStarHotel}}
-            </div>
-              {{>afQuickField name="rating" value=rating }}
+              <div class="form-group mt-1">
+                <b>Categorización:</b>
+                  {{>showStarRating rating=categorization}}
+              </div>
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
