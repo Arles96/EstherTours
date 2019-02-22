@@ -17,6 +17,9 @@ Template.filterRestaurants.onCreated(function createVars () {
   this.numbersChairs = new ReactiveVar(50);
   this.numbersChairsBabies = new ReactiveVar(50);
   this.maxPersonCapacity = new ReactiveVar(50);
+  this.facilityPeople = new ReactiveVar('');
+  this.bar = new ReactiveVar('');
+  this.waitingRoom = new ReactiveVar('');
   Session.set('filterRestaurantStars', undefined);
 });
 
@@ -48,6 +51,15 @@ Template.filterRestaurants.helpers({
   maxPersonCapacity () {
     return Template.instance().maxPersonCapacity.get();
   },
+  facilityPeople () {
+    return Template.instance().facilityPeople.get();
+  },
+  bar () {
+    return Template.instance().bar.get();
+  },
+  waitingRoom () {
+    return Template.instance().waitingRoom.get();
+  },
   listDepartment () {
     return departments;
   },
@@ -69,6 +81,9 @@ Template.filterRestaurants.helpers({
     const numbersChairs = Template.instance().numbersChairs.get();
     const numbersChairsBabies = Template.instance().numbersChairsBabies.get();
     const maxPersonCapacity = Template.instance().maxPersonCapacity.get();
+    const facilityPeople = Template.instance().facilityPeople.get();
+    const bar = Template.instance().bar.get();
+    const waitingRoom = Template.instance().waitingRoom.get();
 
     const query = {
       numbersTables: {
@@ -84,6 +99,18 @@ Template.filterRestaurants.helpers({
         $lte: parseInt(maxPersonCapacity, 10)
       }
     };
+
+    if (facilityPeople === 'true') {
+      query.facilityPeople = true;
+    }
+
+    if (bar === 'true') {
+      query.bar = true;
+    }
+
+    if (waitingRoom === 'true') {
+      query.waitingRoom = true;
+    }
 
     if (Session.get('filterRestaurantStars')) {
       query.rating = Session.get('filterRestaurantStars');
@@ -136,6 +163,15 @@ Template.filterRestaurants.events({
   },
   'input #city' (event, templateInstance) {
     templateInstance.city.set(event.currentTarget.value);
+  },
+  'change #facilityPeople' (event, templateInstance) {
+    templateInstance.facilityPeople.set(event.currentTarget.value);
+  },
+  'change #bar' (event, templateInstance) {
+    templateInstance.bar.set(event.currentTarget.value);
+  },
+  'change #waitingRoom' (event, templateInstance) {
+    templateInstance.waitingRoom.set(event.currentTarget.value);
   },
   'change #department' (event, templateInstance) {
     templateInstance.department.set(event.currentTarget.value);
