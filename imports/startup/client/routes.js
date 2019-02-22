@@ -32,6 +32,7 @@ import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
 import '../../ui/pages/renters/filterFleetRenters';
+import '../../ui/pages/renters/filterRenters';
 import '../../ui/pages/renters/branchRenter';
 import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/listTransportationEstablishments';
@@ -420,6 +421,25 @@ Router.route('/filter-fleet-renters', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar flotas']);
+    isOperator(this);
+  }
+});
+
+/*
+ * Ruta para filtrar arrendadoras
+ */
+Router.route('/filter-renters', {
+  name: 'filterRenters',
+  template: 'filterRenters',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      // Meteor.subscribe('renter.one'),
+      Meteor.subscribe('renter.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar arrendadoras']);
     isOperator(this);
   }
 });
