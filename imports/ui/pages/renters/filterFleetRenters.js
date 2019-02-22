@@ -18,7 +18,7 @@ Template.filterFleetRenters.onCreated(function createVars () {
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterFleetRenterStars', '0');
+  Session.set('filterFleetRenterStars', undefined);
 });
 
 Template.filterFleetRenters.helpers({
@@ -70,12 +70,13 @@ Template.filterFleetRenters.helpers({
 
     const queryR = {
       name: new RegExp(`.*${name}.*`, 'i'),
-      categorization: {
-        $lte: Session.get('filterFleetRenterStars')
-      },
       street: new RegExp(`.*${street}.*`, 'i'),
       city: new RegExp(`.*${city}.*`, 'i')
     };
+
+    if (Session.get('filterFleetRenterStars')) {
+      queryR.categorization = Session.get('filterFleetRenterStars');
+    }
 
     if (department) {
       queryR.department = department;
@@ -105,7 +106,7 @@ Template.filterFleetRenters.helpers({
 
     // unir documentos del documento con las flotas encontrados
     const filteredFleets = FleetRenter
-      .find(query, { sort: { price: 1 } })
+      .find(query)
       .map(doc => ({ ...filteredRenters.find(({ _id }) => doc.idRenter === _id), ...doc }));
 
     return filteredFleets;

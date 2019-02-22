@@ -13,7 +13,7 @@ Template.filterRenters.onCreated(function createVars () {
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterRenterStars', '0');
+  Session.set('filterRenterStars', undefined);
 });
 
 Template.filterRenters.helpers({
