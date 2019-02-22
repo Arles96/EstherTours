@@ -100,7 +100,7 @@ Template.filterRouteTE.helpers({
       query.town = municipality;
       checker = true;
     }
-    console.log(query);
+
     if (checker) {
       // unir documentos del documento con las rutas encontradas
       return RouteTransportationEstablishment

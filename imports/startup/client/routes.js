@@ -24,6 +24,7 @@ import '../../ui/pages/restaurants/addRestaurant';
 import '../../ui/pages/restaurants/listRestaurants';
 import '../../ui/pages/restaurants/editRestaurant';
 import '../../ui/pages/restaurants/branchRestaurant';
+import '../../ui/pages/restaurants/filterRestaurants';
 import '../../ui/pages/restaurants/showInfoRestaurant';
 import '../../ui/pages/restaurantConsults/consultRestaurant';
 import '../../ui/pages/restaurantConsults/listRestaurantResults';
@@ -268,6 +269,25 @@ Router.route('/listRestaurants', {
   }
 });
 
+/*
+ * Ruta para filtrar restaurantes
+ */
+Router.route('/filter-restaurants', {
+  name: 'filterRestaurants',
+  template: 'filterRestaurants',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('restaurantImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar restaurantes']);
+    isOperator(this);
+  }
+});
+
 /**
  * Ruta para mostrar la información de un restaurante seleccionado para el operador
  */
@@ -434,7 +454,6 @@ Router.route('/filter-renters', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     return [
-      // Meteor.subscribe('renter.one'),
       Meteor.subscribe('renter.all')
     ];
   },
@@ -780,7 +799,6 @@ Router.route('/filter-room-hotel', {
   waitOn: function () {
     return [
       Meteor.subscribe('hotels.all'),
-      Meteor.subscribe('hotel.one'),
       Meteor.subscribe('hotelImage.all'),
       Meteor.subscribe('RoomHotel.all')
     ];
@@ -928,7 +946,6 @@ Router.route('/filter-attractions', {
   waitOn: function () {
     return [
       Meteor.subscribe('attractions.all'),
-      Meteor.subscribe('attraction.one'),
       Meteor.subscribe('attractionImage.all')
     ];
   },
