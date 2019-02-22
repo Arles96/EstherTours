@@ -425,3 +425,14 @@ body.sidebar-toggled footer.sticky-footer {
 .colorOrange {
   color: orange !important;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.chat-menu {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+}

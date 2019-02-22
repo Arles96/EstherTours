@@ -1,3 +1,9 @@
 <template name="chatSide">
-  <div>ChatSide</div>
+  <div id="accordion" class="chat-menu">
+    {{>chatUserMenu}}
+
+    {{#each chat in openChats }}
+      {{>chat}}
+    {{/each}}
+  </div>
 </template>

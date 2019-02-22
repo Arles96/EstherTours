@@ -6,7 +6,15 @@ import { messages } from '../regEx';
 
 SimpleSchema.extendOptions(['autoform']);
 
-const Chats = new Mongo.Collection('Chats');
+const Chats = new Mongo.Collection('chats');
+
+/**
+ * Status options:
+ * 0 = NO Sent
+ * 1 = Sent / NO received
+ * 2 = Recieved
+ * 3 = Read
+ */
 
 const ChatSchema = new SimpleSchema({
   idIssuer: {

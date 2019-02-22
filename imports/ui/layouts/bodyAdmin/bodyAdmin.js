@@ -7,13 +7,6 @@ import '../../components/ChatSide/ChatSide';
 import { Meteor } from 'meteor/meteor';
 
 Template.bodyAdmin.helpers({
-  isBlocked: function () {
-    if (Meteor.user().profile.blocked === true) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 });
 
 Template.bodyAdmin.events({

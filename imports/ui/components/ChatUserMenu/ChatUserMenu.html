@@ -1,0 +1,32 @@
+<template name="chatUserMenu">
+  <div class="card" style="background: #343a40; max-height: 70vh;">
+    <div class="card-header" style="background: #343a40">
+      <a class="card-link" data-toggle="collapse" href="#chat-user-menu" style="color: white">
+        Conectados <small style="color:rgba(255, 255, 255, 0)"> -</small>
+        <i class="fas fa-plus-circle"></i>
+      </a>
+    </div>
+    <div id="chat-user-menu" class="collapse hidde" data-parent="#accordion">
+      <div class="card-body" style="background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto; padding: 0;">
+        <div class="list-group">
+          {{#each user in listUsers }}
+          <a href="#" id="{{user._id}}" class="chatWith list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+            {{user.profile.firstName}} {{user.profile.lastName}}
+            {{#if (unread user._id)}}
+            <span class="badge badge-dark badge-pill">{{unread user._id}}</span>
+            {{/if}}
+          </a>
+          {{/each}}
+        </div>
+      </div>
+      <div class="card-footer" style="background: #ececec">
+        <div class="input-group mb-3">
+          <input type="input" class="searchChatWith form-control" placeholder="Buscar..." rows="1" />
+          <div class="input-group-append">
+            <button class="btn btn-dark" type="button"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

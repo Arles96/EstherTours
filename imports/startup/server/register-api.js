@@ -1,6 +1,7 @@
 
 // Api de usuario
 import '../../api/users/method';
+import '../../api/users/server/publications';
 
 // Api de sucursales
 import '../../api/branchOffices/method';
@@ -30,10 +31,13 @@ import '../../api/guide/server/publication';
 import '../../api/packages/method';
 import '../../api/packages/server/publications';
 
-
 // Api de attracciones
 import '../../api/attractions/method';
 import '../../api/attractions/server/publications';
 
 // Api de imagenes de perfil
 import '../../api/profileImage/publication';
+
+// Api de Chats
+import '../../api/Chats/method';
+import '../../api/Chats/server/publication';
