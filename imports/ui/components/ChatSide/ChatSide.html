@@ -1,9 +1,16 @@
 <template name="chatSide">
-  <div id="accordion" class="chat-menu">
-    {{>chatUserMenu}}
 
-    {{#each chat in openChats }}
-      {{>chat}}
-    {{/each}}
+  <div id="accordion" class="chat-menu">
+    <div class="d-flex justify-content-end align-content-end align-items-end">
+      {{#each context in openChats }}
+      <div class="flex-fill d-flex justify-content-end align-content-end" style="max-width: fit-content; padding: 0; height: max-content;">
+        {{>chat contextData=context }}
+      </div>
+      {{/each}}
+      <div class="flex-fill d-flex justify-content-end align-content-end" style="max-width: fit-content; padding: 0; height: max-content;">
+        {{>chatUserMenu}}
+      </div>
+    </div>
   </div>
+
 </template>

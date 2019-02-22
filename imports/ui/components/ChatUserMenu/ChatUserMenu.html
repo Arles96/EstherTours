@@ -1,8 +1,8 @@
 <template name="chatUserMenu">
-  <div class="card" style="background: #343a40; max-height: 70vh;">
+  <div class="card" style="background: #343a40; max-height: 70vh; max-width: fit-content;">
     <div class="card-header" style="background: #343a40">
-      <a class="card-link" data-toggle="collapse" href="#chat-user-menu" style="color: white">
-        Conectados <small style="color:rgba(255, 255, 255, 0)"> -</small>
+      <a class="card-link mx-auto" data-toggle="collapse" href="#chat-user-menu" style="color: white">
+        Conectados <small style="color:rgba(209, 121, 121, 0)"> -</small>
         <i class="fas fa-plus-circle"></i>
       </a>
     </div>
@@ -19,11 +19,11 @@
           {{/each}}
         </div>
       </div>
-      <div class="card-footer" style="background: #ececec">
-        <div class="input-group mb-3">
+      <div class="card-footer" style="background: #ececec;">
+        <div class="input-group">
           <input type="input" class="searchChatWith form-control" placeholder="Buscar..." rows="1" />
           <div class="input-group-append">
-            <button class="btn btn-dark" type="button"><i class="fas fa-search"></i></button>
+            <button class="btn btn-dark"><i class="fas fa-search"></i></button>
           </div>
         </div>
       </div>

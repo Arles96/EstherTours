@@ -2,12 +2,12 @@
   <div class="card" style="background: #212529">
     <div class="User-chat-status" style="margin-top:5px;margin-left:15px;height: 5px; width:50%;background:white;"></div>
     <div class="card-header" style="background: #212529">
-      <a class="card-link" data-toggle="collapse" href="#{{id}}-chat" style="color: white">
-        CJAlvarez <small style="color:rgba(255, 255, 255, 0)"> -</small>
-        <i class="fas fa-times float-sm-right"></i>
+      <a class="card-link" data-toggle="collapse" href="#{{contextData.Issuer._id}}-chat" style="color: white">
+        {{contextData.Issuer.profile.firstName}} {{contextData.Issuer.profile.lastName}} <small style="color:rgba(255, 255, 255, 0)"> -</small>
+        <i class="closeChat fas fa-times float-sm-right"></i>
       </a>
     </div>
-    <div id="{{id}}-chat" class="collapse hidde" data-parent="#accordion">
+    <div id="{{contextData.Issuer._id}}-chat" class="collapse hidde" data-parent="#accordion">
       <div class="card-body" style="background: #fcfcfc; color: rgb(94, 94, 94);">
         <i>---- Today: 20:19 ----</i>
         <div class="alert alert-secondary">
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="card-footer" style="background: #ececec">
-        <div class="input-group mb-3">
+        <div class="input-group">
           <button class="btn btn-secondary" type="button"><i class="fas fa-plus-circle"></i></button>
           <textarea class="form-control" placeholder="Write a message..." rows="1"></textarea>
           <div class="input-group-append">

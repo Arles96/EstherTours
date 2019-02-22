@@ -434,5 +434,9 @@ body.sidebar-toggled footer.sticky-footer {
   position: fixed;
   right: 0;
   bottom: 0;
+  align-content: flex-end;
+  justify-content: flex-end;
+  vertical-align: text-bottom;
   z-index: 100;
+  width: 100vw;
 }
