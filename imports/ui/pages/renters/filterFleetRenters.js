@@ -7,8 +7,6 @@ import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 import RenterImages from '../../../api/renters/fleetRenterImage';
 
-// TODO mostrar por paginas
-
 Template.filterFleetRenters.onCreated(function createVars () {
   this.tarifaMax = new ReactiveVar(2500);
   this.total = new ReactiveVar(50);

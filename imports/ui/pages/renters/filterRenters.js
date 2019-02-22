@@ -5,8 +5,6 @@ import { Renters } from '../../../api/renters/renters';
 import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 
-// TODO mostrar por paginas
-
 Template.filterRenters.onCreated(function createVars () {
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
