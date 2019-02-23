@@ -11,8 +11,8 @@ const submitHook = function (error, state) {
       toastr.success('Contraseña guardada exitosamente');
       Router.go('/dashboard');
     } else if (state === 'signIn') {
-      Meteor.call('userLogin');
       Router.go('/dashboard');
+      Meteor.call('userLogin');
     }
   } else if (error !== undefined && state === 'resetPwd') {
     toastr.error('Error al resetear tu contraseña.');

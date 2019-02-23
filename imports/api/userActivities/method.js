@@ -12,7 +12,6 @@ Meteor.methods({
       register: '',
       date: new Date()
     });
-    console.log('Login');
   },
   userLogin: function (doc) {
     userActivities.insert({
@@ -24,6 +23,5 @@ Meteor.methods({
       register: '',
       date: new Date()
     });
-    console.log('Login');
   }
 });
