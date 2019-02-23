@@ -3,7 +3,7 @@ import { RestaurantSchema, Restaurants } from './restaurants';
 import { restaurantOffers, restaurantOffersSchema } from './restaurantOffers';
 import RestaurantConsultSchema from './restaurantConsult';
 import { operator } from '../roles/roles';
-import userActivities from '../userActivities/userActivities';
+import { userActivities } from '../userActivities/userActivities';
 
 Meteor.methods({
   addRestaurant: function (doc) {

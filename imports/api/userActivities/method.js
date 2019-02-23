@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import userActivities from './userActivities';
+import { userActivities } from './userActivities';
 
 Meteor.methods({
   userLogout: function (doc) {

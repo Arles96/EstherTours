@@ -4,7 +4,7 @@ import { RoomHotelSchema, RoomHotel } from './roomhotel';
 import { RateHotelSchema, RateHotel } from './ratehotel';
 import { operator } from '../roles/roles';
 import HotelQuerySchema from './hotelQuery';
-import userActivities from '../userActivities/userActivities';
+import { userActivities } from '../userActivities/userActivities';
 
 Meteor.methods({
   // Metodos para hoteles

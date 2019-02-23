@@ -9,7 +9,7 @@ import { FleetRenter } from '../renters/fleetRenter';
 import { Restaurants } from '../restaurants/restaurants';
 import { TransportationEstablishments } from '../TransportationEstablishment/TransportationEstablishment';
 import { RouteTransportationEstablishment } from '../TransportationEstablishment/RouteTransportationEstablishment';
-import userActivities from '../userActivities/userActivities';
+import { userActivities } from '../userActivities/userActivities';
 
 Meteor.methods({
   insertPackages: function (doc) {

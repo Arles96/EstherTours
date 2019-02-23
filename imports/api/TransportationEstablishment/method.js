@@ -4,7 +4,7 @@ import { FleetTransportationEstablishment, FleetTransportationEstablishmentSchem
 import { RouteTransportationEstablishment, RouteTransportationEstablishmentSchema } from './RouteTransportationEstablishment';
 import { operator } from '../roles/roles';
 import TransportConsultSchema from './transportConsult';
-import userActivities from '../userActivities/userActivities';
+import { userActivities } from '../userActivities/userActivities';
 
 Meteor.methods({
   addTransportationEstablishment: function (doc) {

@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Renters, RentersSchema } from './renters';
 import { FleetRenter, FleetRenterSchema } from './fleetRenter';
 import { operator, consultant } from '../roles/roles';
-import userActivities from '../userActivities/userActivities';
+import { userActivities } from '../userActivities/userActivities';
 
 Meteor.methods({
   addRenter: function (doc) {

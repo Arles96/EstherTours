@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { AttractionSchema, Attractions } from './attractions';
 import { operator } from '../roles/roles';
 import AttractionQuerySchema from './attractionQuery';
-import userActivities from '../userActivities/userActivities';
+import { userActivities } from '../userActivities/userActivities';
 
 Meteor.methods({
   // Metodos para attracciones

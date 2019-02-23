@@ -15,7 +15,7 @@ import { RateHotel } from '../../../api/hotels/ratehotel';
 import { Guide } from '../../../api/guide/guide';
 import { Packages } from '../../../api/packages/packages';
 import { branchOffices } from '../../../api/branchOffices/Offices';
-import userActivities from '../../../api/userActivities/userActivities';
+import { userActivities } from '../../../api/userActivities/userActivities';
 
 const TabularTables = {};
 
