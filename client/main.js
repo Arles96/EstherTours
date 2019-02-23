@@ -87,6 +87,21 @@ Template.registerHelper('packageRouteTransport', () => Session.get('packageRoute
 Template.registerHelper('isEqual', (text1, text2) => text1 === text2);
 
 /**
+ * Obtener el id de la arrendara
+ */
+Template.registerHelper('packageRenter', () => Session.get('packageRenter'));
+
+/**
+ * Obtener el id del hotel
+ */
+Template.registerHelper('packageHotel', () => Session.get('packageHotel'));
+
+/**
+ * Obtener el id del establecimiento de transporte
+ */
+Template.registerHelper('packageTransport', () => Session.get('packageTransport'));
+
+/**
  * Obtener el nombre del paquete
  */
 Template.registerHelper('namePackage', () => Session.get('namePackage'));

@@ -12,7 +12,7 @@ Template.shoppingPackage.helpers({
   PackagesSchema: () => PackagesSchema
 });
 
-AutoForm.addHooks('addPackagesForm', {
+AutoForm.addHooks('addingPackagesForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha creado el paquete exitosamente.');
     clearValues();
