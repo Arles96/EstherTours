@@ -1,8 +1,7 @@
 // import i18n from 'meteor/universe:i18n';
+import { Meteor } from 'meteor/meteor';
 import { Router } from 'meteor/iron:router';
 import toastr from 'toastr';
-
-import userActivities from '../../../../api/userActivities/userActivities';
 
 const submitHook = function (error, state) {
   if (!error) {
@@ -12,15 +11,7 @@ const submitHook = function (error, state) {
       toastr.success('Contraseña guardada exitosamente');
       Router.go('/dashboard');
     } else if (state === 'signIn') {
-      userActivities.insert({
-        userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
-        activity: 'Inicio sesión',
-        collection: '',
-        registerId: '',
-        register: '',
-        date: new Date()
-      });
+      Meteor.call('userLogin');
       Router.go('/dashboard');
     }
   } else if (error !== undefined && state === 'resetPwd') {

@@ -19,7 +19,7 @@ Meteor.methods({
       userId: Meteor.userId(),
       user: Meteor.user().profile.firstName,
       activity: 'agregó',
-      collection: 'packages',
+      collection: 'paquetes',
       registerId: '',
       register: doc.name,
       date: new Date()
@@ -36,7 +36,7 @@ Meteor.methods({
       userId: Meteor.userId(),
       user: Meteor.user().profile.firstName,
       activity: 'editó',
-      collection: 'packages',
+      collection: 'paquetes',
       registerId: _id,
       register: doc.name,
       date: new Date()
@@ -48,7 +48,7 @@ Meteor.methods({
       userId: Meteor.userId(),
       user: Meteor.user().profile.firstName,
       activity: 'eliminó',
-      collection: 'packages',
+      collection: 'paquetes',
       registerId: '',
       register: '',
       date: new Date()

@@ -13,7 +13,7 @@ Meteor.methods({
       userId: Meteor.userId(),
       user: Meteor.user().profile.firstName,
       activity: 'agregó',
-      collection: 'restaurants',
+      collection: 'restaurantes',
       registerId: '',
       register: doc.name,
       date: new Date()
@@ -37,7 +37,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'agregó sucursal',
-        collection: 'restaurants',
+        collection: 'restaurantes',
         registerId: '',
         register: doc.name,
         date: new Date()
@@ -117,7 +117,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'editó',
-        collection: 'restaurants',
+        collection: 'restaurantes',
         registerId: _id,
         register: doc.name,
         date: new Date()
@@ -151,7 +151,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
-        collection: 'restaurants',
+        collection: 'restaurantes',
         registerId: '',
         register: '',
         date: new Date()

@@ -13,7 +13,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'agregó',
-        collection: 'renters',
+        collection: 'rentadoras',
         registerId: '',
         register: doc.name,
         date: new Date()
@@ -40,7 +40,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'agregós',
-        collection: 'renters',
+        collection: 'rentadoras',
         registerId: '',
         register: doc.name,
         date: new Date()
@@ -60,7 +60,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'editó',
-        collection: 'renters',
+        collection: 'rentadoras',
         registerId: _id,
         register: doc.name,
         date: new Date()
@@ -94,7 +94,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
-        collection: 'renters',
+        collection: 'rentadoras',
         registerId: '',
         register: '',
         date: new Date()

@@ -14,7 +14,7 @@ Meteor.methods({
       userId: Meteor.userId(),
       user: Meteor.user().profile.firstName,
       activity: 'agregó',
-      collection: 'TransportationEstablishments',
+      collection: 'Establecimiento de transporte',
       registerId: '',
       register: doc.name,
       date: new Date()
@@ -112,7 +112,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'editó',
-        collection: 'TransportationEstablishments',
+        collection: 'Establecimiento de transporte',
         registerId: _id,
         register: doc.name,
         date: new Date()
@@ -129,7 +129,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'agregó',
-        collection: 'FleetTransportationEstablishment',
+        collection: 'Flotas de establecimiento de transporte',
         registerId: '',
         register: doc.name,
         date: new Date()
@@ -146,7 +146,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
-        collection: 'TransportationEstablishments',
+        collection: 'Establecimiento de transporte',
         registerId: '',
         register: '',
         date: new Date()
@@ -162,7 +162,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
-        collection: 'FleetTransportationEstablishment',
+        collection: 'Flotas de establecimiento de transporte',
         registerId: '',
         register: '',
         date: new Date()
@@ -183,7 +183,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'editó',
-        collection: 'FleetTransportationEstablishment',
+        collection: 'Flotas de establecimiento de transporte',
         registerId: _id,
         register: doc.name,
         date: new Date()
@@ -200,7 +200,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'agregó',
-        collection: 'RouteTransportationEstablishment',
+        collection: 'Rutas de establecimiento de transporte',
         registerId: '',
         register: '',
         date: new Date()
@@ -216,7 +216,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
-        collection: 'RouteTransportationEstablishment',
+        collection: 'Rutas de establecimiento de transporte',
         registerId: '',
         register: '',
         date: new Date()
@@ -237,7 +237,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'editó',
-        collection: 'RouteTransportationEstablishment',
+        collection: 'Rutas de establecimiento de transporte',
         registerId: doc.name,
         register: doc.id,
         date: new Date()
@@ -272,7 +272,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'agregó sucursal',
-        collection: 'TransportationEstablishments',
+        collection: 'Establecimiento de transporte',
         registerId: '',
         register: '',
         date: new Date()
@@ -288,7 +288,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
-        collection: 'TransportationEstablishments',
+        collection: 'Establecimiento de transporte',
         registerId: '',
         register: '',
         date: new Date()
@@ -309,7 +309,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'editó',
-        collection: 'TransportationEstablishments',
+        collection: 'Establecimiento de transporte',
         registerId: _id,
         register: doc.name,
         date: new Date()

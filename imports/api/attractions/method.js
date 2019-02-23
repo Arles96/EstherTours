@@ -15,7 +15,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'agregó',
-        collection: 'attractions',
+        collection: 'atracciones',
         registerId: '',
         register: doc.name,
         date: new Date()
@@ -115,7 +115,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'editó',
-        collection: 'attractions',
+        collection: 'atracciones',
         registerId: _id,
         register: doc.name,
         date: new Date()
@@ -131,7 +131,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
-        collection: 'attractions',
+        collection: 'atracciones',
         registerId: '',
         register: '',
         date: new Date()

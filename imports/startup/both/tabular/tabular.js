@@ -973,16 +973,16 @@ TabularTables.userActivities = new Tabular.Table({
     {
       class: 'text-center',
       data: 'collection',
-      title: 'entidad'
+      title: 'Entidad'
     },
     {
       class: 'text-center',
       data: 'register',
-      title: 'registro'
+      title: 'Registro'
     },
     {
       class: 'text-center',
-      data: 'a()',
+      data: 'fecha()',
       title: 'Fecha'
     }
   ]

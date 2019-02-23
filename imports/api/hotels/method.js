@@ -16,7 +16,7 @@ Meteor.methods({
           userId: Meteor.userId(),
           user: Meteor.user().profile.firstName,
           activity: 'agregó',
-          collection: 'hotels',
+          collection: 'hoteles',
           registerId: docId,
           register: doc.name,
           date: new Date()
@@ -39,7 +39,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'editó',
-        collection: 'hotels',
+        collection: 'hoteles',
         registerId: _id,
         register: doc.name,
         date: new Date()
@@ -58,7 +58,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
-        collection: 'hotels',
+        collection: 'hoteles',
         registerId: '',
         register: doc.name,
         date: new Date()
@@ -76,7 +76,7 @@ Meteor.methods({
           userId: Meteor.userId(),
           user: Meteor.user().profile.firstName,
           activity: 'agregó',
-          collection: 'roomhotel',
+          collection: 'habitaciones de hoteles',
           registerId: doc.idHotel,
           register: '',
           date: new Date()
@@ -99,7 +99,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'editó',
-        collection: 'roomhotel',
+        collection: 'habitaciones de hoteles',
         registerId: [doc.idHotel, _id],
         register: '',
         date: new Date()
@@ -115,7 +115,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
-        collection: 'roomhotel',
+        collection: 'habitaciones de hoteles',
         registerId: '',
         register: '',
         date: new Date()
@@ -134,7 +134,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'agregó',
-        collection: 'ratehotel',
+        collection: 'tarifas de hoteles',
         registerId: doc.idHotel,
         register: '',
         date: new Date()
@@ -156,7 +156,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'editó',
-        collection: 'ratehotel',
+        collection: 'tarifas de hoteles',
         registerId: [doc.idHotel, _id],
         register: '',
         date: new Date()
@@ -172,7 +172,7 @@ Meteor.methods({
         userId: Meteor.userId(),
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
-        collection: 'ratehotel',
+        collection: 'tarifas de hoteles',
         registerId: '',
         register: '',
         date: new Date()
