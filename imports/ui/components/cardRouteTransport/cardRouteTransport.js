@@ -6,3 +6,9 @@ Template.cardRouteTransport.events({
     unpackageTransport();
   }
 });
+
+Template.cardRouteTransport.helpers({
+  first (index) {
+    return index === 0;
+  }
+});

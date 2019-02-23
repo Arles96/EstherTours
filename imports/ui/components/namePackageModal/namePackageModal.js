@@ -1,15 +1,13 @@
 import './namePackageModal.html';
 import toastr from 'toastr';
-import { Session } from 'meteor/session';
+import { namePackage } from '../../../startup/client/packageFunction';
 
 Template.namePackageModal.events({
   'submit #namePackage': function (event) {
     event.preventDefault();
     const name = event.target.name.value;
-    localStorage.setItem('namePackage', name);
-    localStorage.setItem('createPackage', true);
+    namePackage(name);
     toastr.success('Iniciando creación de paquete');
-    Session.set('isCreatePackage', true);
     $('#namePackageModal').modal('hide');
   }
 });

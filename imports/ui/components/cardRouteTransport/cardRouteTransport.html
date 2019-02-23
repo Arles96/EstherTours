@@ -1,14 +1,14 @@
 <template name="cardRouteTransport" >
-    {{#with transportationEstablishment}}
-    <div class="card mb-3">
-      <div class="card-header">
-          <i class="fas fa-road"></i>
-        <b>Establecimiento de Transporte</b>
-      </div>
-      <div class="card-body">
-        <div class="row">
+{{#if transportationEstablishment}}
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-road"></i>
+      <b>Establecimiento de Transporte: {{transportationEstablishment.name}}</b>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {{#with transportationEstablishment}}
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <h3 class="text-center">{{name}}</h3>
             <div class="form-group">
               <label>
                 <b>Departamento:</b> {{department}}
@@ -25,31 +25,33 @@
               </label>
             </div>
           </div>
+        {{/with}}
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <h3 class="text-center">Ruta</h3>
-            <div class="form-group">
-              <label>
-                <b>Tipo de ruta:</b> {{type}}
-              </label>
-            </div>
-            <div class="form-group">
-              <label>
-                <b>Calle:</b> {{street}}
-              </label>
-            </div>
-            <div class="form-group">
-              <label>
-                <b>Indicaciones adicionales:</b> {{description}}
-              </label>
-            </div>
+            {{#with routeTransport }}
+              <div class="form-group">
+                <label>
+                  <b>Tipo de ruta:</b> {{type}}
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <b>Calle:</b> {{street}}
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <b>Indicaciones adicionales:</b> {{#if description}} {{description}} {{else}} No posee {{/if}}
+                </label>
+              </div>
+            {{/with}}
           </div>
         </div>
       </div>
       <div class="card-footer small text-muted">
-        <button class="btn btn-outline-primary ml-3" id="unPackageAddRoute">
+        <button class="btn btn-outline-danger ml-3" id="unPackageAddRoute">
           Eliminar
         </button>
       </div>
     </div>
-  {{/with}}
+{{/if}}
 </template>

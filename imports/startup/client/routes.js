@@ -79,6 +79,9 @@ import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
 import '../../ui/pages/branchOfficePage/officesPage';
 import '../../ui/pages/shoppingPackage/shoppingPackage';
+import { FleetRenter } from '../../api/renters/fleetRenter';
+import { RouteTransportationEstablishment } from '../../api/TransportationEstablishment/RouteTransportationEstablishment';
+import { RoomHotel } from '../../api/hotels/roomhotel';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -1295,7 +1298,11 @@ Router.route('/adding-package', {
       Meteor.subscribe('transport.all'),
       Meteor.subscribe('Routes.all'),
       Meteor.subscribe('fleetRenter.all'),
-      Meteor.subscribe('RoomHotel.all')
+      Meteor.subscribe('RoomHotel.all'),
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('attractionImage.all'),
+      Meteor.subscribe('FleetRenterImage.all'),
+      Meteor.subscribe('restaurantImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -1307,8 +1314,16 @@ Router.route('/adding-package', {
     const restaurant = Restaurants.findOne({ _id: Session.get('packageRestaurant') });
     const renter = Renters.findOne({ _id: Session.get('packageRenter') });
     const transportationEstablishment = TransportationEstablishments.findOne({ _id: Session.get('packageTransport') });
+    const fleetRenter = FleetRenter.findOne({ _id: Session.get('packageFleetRenter') });
+    const roomHotel = RoomHotel.findOne({ _id: Session.get('packageRoomHotel') });
+    const routeTransport = RouteTransportationEstablishment.findOne({ _id: Session.get('packageRouteTransport') });
+    const attraction = Attractions.findOne({ _id: Session.get('packageAttraction') });
     return {
       hotel,
+      attraction,
+      fleetRenter,
+      roomHotel,
+      routeTransport,
       restaurant,
       renter,
       transportationEstablishment

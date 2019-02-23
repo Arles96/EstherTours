@@ -85,3 +85,8 @@ Template.registerHelper('packageRouteTransport', () => Session.get('packageRoute
  * Comparar dos cadenas
  */
 Template.registerHelper('isEqual', (text1, text2) => text1 === text2);
+
+/**
+ * Obtener el nombre del paquete
+ */
+Template.registerHelper('namePackage', () => Session.get('namePackage'));

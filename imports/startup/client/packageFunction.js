@@ -2,6 +2,7 @@ import { Session } from 'meteor/session';
 
 export const setValues = () => {
   Session.set('isCreatePackage', localStorage.getItem('createPackage'));
+  Session.set('namePackage', localStorage.getItem('namePackage'));
   Session.set('packageAttraction', localStorage.getItem('packageAttraction'));
   Session.set('packageRoomHotel', localStorage.getItem('packageRoomHotel'));
   Session.set('packageHotel', localStorage.getItem('packageHotel'));
@@ -10,6 +11,13 @@ export const setValues = () => {
   Session.set('packageRestaurant', localStorage.getItem('packageRestaurant'));
   Session.set('packageRouteTransport', localStorage.getItem('packageRouteTransport'));
   Session.set('packageTransport', localStorage.getItem('packageTransport'));
+};
+
+export const namePackage = name => {
+  Session.set('namePackage', name);
+  localStorage.setItem('namePackage', name);
+  localStorage.setItem('createPackage', true);
+  Session.set('isCreatePackage', true);
 };
 
 export const clearValues = () => {
@@ -22,6 +30,8 @@ export const clearValues = () => {
   Session.set('packageRestaurant', undefined);
   Session.set('packageRouteTransport', undefined);
   Session.set('packageTransport', undefined);
+  Session.set('namePackage', undefined);
+  localStorage.setItem('namePackage', undefined);
   localStorage.setItem('createPackage', undefined);
   localStorage.setItem('packageAttraction', undefined);
   localStorage.setItem('packageRoomHotel', undefined);

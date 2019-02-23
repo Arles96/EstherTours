@@ -1,12 +1,13 @@
 <template name="cardRoomHotel" >
-    {{#with hotel}}
-    <div class="card mb-3">
-      <div class="card-header">
-        <i class="fas fa-mosque"></i>
-        <b>Hotel y habitación</b>
-      </div>
-      <div class="card-body">
-        <div class="row">
+{{#if hotel}}
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-mosque"></i>
+      <b>Hotel: {{hotel.name}}</b>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {{#with hotel}}
           <div class="col-md-auto">
             {{#if images}}
               <div id="contrCarous{{_id}}" class="carousel slide" data-ride="carousel">
@@ -45,7 +46,6 @@
             {{/if}}
           </div>
           <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-            <h3 class="text-center">Hotel {{name}} </h3>
             <div class="form-group">
               <label>
                 <b>Teléfonos:</b>
@@ -71,29 +71,31 @@
               {{/each}}
             </div>
           </div>
+        {{/with}}
+        {{#with roomHotel}}
           <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-            <h3 class="text-center" >Habitación</h3>
-            <div class="form-group">
-              <label>
-                <b>Precio:</b> Lps. {{price}}
-              </label>
+              <div class="form-group">
+                <label>
+                  <b>Precio:</b> Lps. {{price}}
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <b>Tipo de habitacion:</b> {{type}}
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <b>Camas extra:</b> {{extraBed}}
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <b>Tamaño:</b> {{roomSize}}
+                </label>
+              </div>
             </div>
-            <div class="form-group">
-              <label>
-                <b>Tipo de habitacion:</b> {{type}}
-              </label>
-            </div>
-            <div class="form-group">
-              <label>
-                <b>Camas extra:</b> {{extraBed}}
-              </label>
-            </div>
-            <div class="form-group">
-              <label>
-                <b>Tamaño:</b> {{roomSize}}
-              </label>
-            </div>
-          </div>
+          {{/with}}
         </div>
       </div>
       <div class="card-footer small text-muted">
@@ -102,5 +104,5 @@
         </button>
       </div>
     </div>
-  {{/with}}
+{{/if}}
 </template>
