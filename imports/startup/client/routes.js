@@ -286,7 +286,7 @@ Router.route('/filter-restaurants', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar restaurantes']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -443,7 +443,7 @@ Router.route('/filter-fleet-renters', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar flotas']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -461,7 +461,7 @@ Router.route('/filter-renters', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar arrendadoras']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -533,7 +533,7 @@ Router.route('/filter-transportation-establishment', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar Transporte']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -552,7 +552,7 @@ Router.route('/filter-route-transportation-establishment', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar rutas']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -825,7 +825,7 @@ Router.route('/filter-room-hotel', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar habitaciones']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -945,7 +945,7 @@ Router.route('/filter-hotels', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar hoteles']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -990,7 +990,7 @@ Router.route('/filter-attractions', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar atracciones']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
