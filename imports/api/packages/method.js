@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
+import XLSX from 'xlsx';
 import { Packages, PackagesSchema } from './packages';
 import { operator, consultant, admin } from '../roles/roles';
 import PackagesSchemaConsult from './packageConsult';
-import { Guide } from '../guide/guide';
 import { Hotels } from '../hotels/hotels';
 import { RoomHotel } from '../hotels/roomhotel';
 import { Renters } from '../renters/renters';
@@ -37,40 +37,142 @@ Meteor.methods({
     }
     return { doc, query };
   },
-  exportToCSV: function (query) {
-    return convertArrayOfObjectsToCSV({
-      data: Packages.find(
-        query, {}
-      ).fetch().map(item => ({
-        Nombre: (item.name ? item.name : 'Indefinido'),
-        Precio: item.price,
-        Arrendadora: (item.idRenter ? Renters.findOne({
-          _id: item.idRenter
-        }, { name: 1 }).name : 'Indefinido'),
-        'Flota de arrendadora': (item.idFleetRenter ? FleetRenter.findOne({
-          _id: item.idFleetRenter
-        }, { type: 1 }).type : 'Indefinido'),
-        Transporte: (item.idTransport ? TransportationEstablishments.findOne({
-          _id: item.idTransport
-        }, { name: 1 }).name : 'Indefinido'),
-        'Ruta de transporte': (item.idTransportRoute ? RouteTransportationEstablishment.findOne({
-          _id: item.idTransportRoute
-        }, { type: 1 }).type : 'Indefinido'),
-        Hotel: (item.idHotel ? Hotels.findOne({
-          _id: item.idHotel
-        }, { name: 1 }).name : 'Indefinido'),
-        'Habitación de hotel': (item.idRoom ? RoomHotel.findOne({
-          _id: item.idRoom
-        }, { type: 1 }).type : 'Indefinido'),
-        Guía: (item.idGuide ? Guide.findOne({
-          _id: item.idGuide
-        }, { name: 1 }).name : 'Indefinido'),
-        Restaurante: (item.idRestaurant ? Restaurants.findOne({
-          _id: item.idRestaurant
-        }, { name: 1 }).name : 'Indefinido'),
-        Observación: (item.observation ? item.observation : 'Indefinido')
-      }))
+  exportToExcel: function () {
+    // workbook
+    const wb = XLSX.utils.book_new();
+
+    // por cada paquete existente creamos un worksheet
+    Packages.find({}).forEach(doc => {
+      const data = [];
+      const renter = Renters.findOne({ _id: doc.idRenter });
+      const fleet = FleetRenter.findOne({ _id: doc.idFleetRenter });
+      const hotel = Hotels.findOne({ _id: doc.idHotel });
+      const room = RoomHotel.findOne({ _id: doc.idRoom });
+      const transport = TransportationEstablishments.findOne({ _id: doc.idTransport });
+      const route = RouteTransportationEstablishment.findOne({ _id: doc.idTransportRoute });
+      const restaurant = Restaurants.findOne({ _id: doc.idRestaurant });
+
+      data.push(['Nombre del paquete', 'Precio', 'Observaciones']);
+      data.push([
+        doc.name,
+        doc.price,
+        doc.observation
+      ]);
+      data.push([]);
+      if (renter) {
+        data.push([`Arrendadora ${renter.name}`]);
+        data.push(['Departamento', 'Municipio', 'Ciudad', 'Calle']);
+        data.push([
+          renter.department,
+          renter.municipality,
+          renter.city,
+          renter.street
+        ]);
+        data.push([]);
+      }
+
+      if (fleet) {
+        data.push(['Flota de Arrendadora']);
+        data.push(['Tipo', 'Total', 'Tipo de Vehículo', 'Marca', 'Modelo', 'Tarifa']);
+        data.push([
+          fleet.type,
+          fleet.total,
+          fleet.vehicleTypes,
+          fleet.brands,
+          fleet.models,
+          fleet.rate
+        ]);
+        data.push([]);
+      }
+
+      if (hotel) {
+        data.push([`Hotel ${hotel.name}`]);
+        data.push(['Estrellas', 'Departamento', 'Municipio', 'Ciudad', 'Calle']);
+        data.push([
+          hotel.categorization,
+          hotel.departament,
+          hotel.municipality,
+          hotel.city,
+          hotel.street
+        ]);
+        data.push([]);
+      }
+
+      if (room) {
+        data.push(['Cuarto de Hotel']);
+        data.push(['Tipo', 'Tamaño', 'Precio', 'Camas extra']);
+        data.push([
+          room.type,
+          room.roomSize,
+          room.price,
+          room.extraBed
+        ]);
+        data.push([]);
+      }
+
+      if (transport) {
+        data.push([`Transporte ${transport.name}`]);
+        data.push(['Departamento', 'Municipio', 'Ciudad', 'Calle']);
+        data.push([
+          transport.department,
+          transport.town,
+          transport.city,
+          transport.street
+        ]);
+        data.push([]);
+      }
+
+      if (route) {
+        data.push(['Ruta']);
+        data.push(['Tipo', 'Departamento', 'Municipio', 'Ciudad', 'Calle']);
+        data.push([
+          route.type,
+          route.department,
+          route.town,
+          route.city,
+          route.street
+        ]);
+        data.push(['Indicaciones adicionales:', route.description]);
+        data.push([]);
+      }
+
+      if (restaurant) {
+        data.push([`Restaurante ${restaurant.name}`]);
+        data.push([
+          'Departamento',
+          'Municipio',
+          'Ciudad',
+          'Calle',
+          'Estrellas',
+          'Mesas',
+          'Sillas',
+          'Sillas para bebes',
+          'Capacidad',
+          'Facilidades para discapacitados',
+          'Barra',
+          'Sala de espera'
+        ]);
+        data.push([
+          restaurant.department,
+          restaurant.municipality,
+          restaurant.city,
+          restaurant.street,
+          restaurant.rating,
+          restaurant.numbersTables,
+          restaurant.numbersChairs,
+          restaurant.numbersChairsBabies,
+          restaurant.maxPersonCapacity,
+          restaurant.facilityPeople ? 'Si' : 'No',
+          restaurant.bar ? 'Si' : 'No',
+          restaurant.waitingRoom ? 'Si' : 'No'
+        ]);
+      }
+
+      const ws = XLSX.utils.aoa_to_sheet(data);
+      XLSX.utils.book_append_sheet(wb, ws, `Paquete ${doc.name}`);
     });
+
+    return wb;
   },
   reportPackages: function (year) {
     if (Roles.userIsInRole(Meteor.userId(), operator) ||
@@ -90,34 +192,3 @@ Meteor.methods({
     }
   }
 });
-
-function convertArrayOfObjectsToCSV (args) {
-  let result;
-  let ctr = 0;
-
-  const data = args.data || null;
-  if (data == null || !data.length) {
-    return null;
-  }
-
-  const columnDelimiter = args.columnDelimiter || ',';
-  const lineDelimiter = args.lineDelimiter || '\n';
-
-  const keys = Object.keys(data[0]);
-
-  result = '';
-  result += keys.join(columnDelimiter);
-  result += lineDelimiter;
-
-  data.forEach(item => {
-    ctr = 0;
-
-    keys.forEach(key => {
-      if (ctr > 0) result += columnDelimiter;
-      result += item[key];
-      ctr++; // eslint-disable-line
-    });
-    result += lineDelimiter;
-  });
-  return result;
-}
