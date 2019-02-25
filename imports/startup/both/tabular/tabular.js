@@ -384,6 +384,7 @@ TabularTables.Hotels = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
+  extraFields: ['branchOffice'],
   columns: [
     {
       class: 'text-center',
@@ -419,6 +420,50 @@ TabularTables.Hotels = new Tabular.Table({
       class: 'text-center',
       createdCell: Meteor.isClient && function showButtonsHotels (cell, cellData, rowData) {
         return Blaze.renderWithData(Template.showButtonHotels, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
+    }
+  ]
+});
+
+TabularTables.hotelBranches = new Tabular.Table({
+  name: 'hotelBranches',
+  collection: Hotels,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: ['mainOffice', 'branchOffice'],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'street',
+      title: 'Calle'
+    },
+    {
+      class: 'text-center',
+      data: 'city',
+      title: 'Ciudad'
+    },
+    {
+      class: 'text-center',
+      data: 'municipality',
+      title: 'Municipio'
+    },
+    {
+      class: 'text-center',
+      data: 'departament',
+      title: 'Departamento'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsHotel (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonBranchHotel, {
           _id: rowData._id,
           slug: rowData.slug
         }, cell);

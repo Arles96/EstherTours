@@ -1,0 +1,153 @@
+<template name="packageRouteTE">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-search-location"></i>
+      <b>Filtrar Rutas</b>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Nombre de establecimiento de transporte:</b>
+          </label>
+          <br >
+          <input type="text" id="name" value="{{name}}" class="form-control">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Departamento:</b>
+          </label>
+          <br >
+          <select id="department" name="department" class="form-control">
+            <option value="">(Seleccione Uno)</option>
+            {{#each listDepartment}}
+              <option value="{{value}}">{{label}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Municipio:</b>
+          </label>
+          <br >
+          {{#if deptSelected}}
+            <select id="municipality" name="municipality" class="form-control">
+              <option value="">(Seleccione Uno)</option>
+              {{#each listMunicipality}}
+                <option value="{{value}}">{{label}}</option>
+              {{/each}}
+            </select>
+          {{else}}
+            <select id="municipality" name="municipality" class="form-control">
+              <option value="">(Seleccione Departamento)</option>
+            </select>
+          {{/if}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Ciudad:</b>
+          </label>
+          <br >
+          <input type="text" id="city" value="{{city}}" class="form-control">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Calle:</b>
+          </label>
+          <br >
+          <input type="text" id="street" value="{{street}}" class="form-control">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Tipo de ruta:</b>
+          </label>
+          <br >
+          <select id="type" name="type" class="form-control">
+            <option value="">(Seleccione Uno)</option>
+            <option value="Terrestre">Terrestre</option>
+            <option value="Aérea">Aérea</option>
+            <option value="Marítima">Marítima</option>
+          </select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group mt-1">
+          <label>
+            <b>Categorizacion:</b>
+          </label>
+          <br >
+          {{>packageStarRouteTE}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{#each buscar}}
+    {{>packageResultRouteTE transportationEstablishment=this}}
+  {{/each}}
+</template>
+
+<template name="packageResultRouteTE">
+  {{#with transportationEstablishment}}
+    <div class="card mb-3">
+      <div class="card-header">
+          <i class="fas fa-road"></i>
+        <b>{{name}}</b>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label>
+                <b>Departamento:</b> {{department}}
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Municipio:</b> {{town}}
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Ciudad:</b> {{city}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label>
+                <b>Tipo de ruta:</b> {{type}}
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Calle:</b> {{street}}
+              </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Indicaciones adicionales:</b> {{description}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer small text-muted">
+        <button class="btn btn-outline-primary ml-3" id="packageAddRoute">
+          {{#if selected _id}}
+            <i class="fas fa-check-square"></i> Seleccionado
+          {{else}}
+            <i class="fas fa-plus-square"></i> Agregar
+          {{/if}}
+        </button>
+      </div>
+    </div>
+  {{/with}}
+</template>
+
+<template name="packageStarRouteTE">
+  <div>
+    <p>
+      {{#each list}}
+        <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
+  </div>
+</template>

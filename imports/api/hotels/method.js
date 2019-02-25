@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { HotelSchema, Hotels } from './hotels';
 import { RoomHotelSchema, RoomHotel } from './roomhotel';
 import { RateHotelSchema, RateHotel } from './ratehotel';
-import { operator } from '../roles/roles';
+import { operator, consultant, admin } from '../roles/roles';
 import HotelQuerySchema from './hotelQuery';
 import { userActivities } from '../userActivities/userActivities';
 
@@ -22,6 +22,27 @@ Meteor.methods({
           date: new Date()
         });
       });
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
+  },
+  addBranchHotel: function (doc) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      HotelSchema.validate(doc);
+
+      const query = {
+        street: doc.street,
+        municipality: doc.municipality,
+        city: doc.city,
+        department: doc.department
+      };
+
+      if (Hotels.find(query).map(d => d).length > 0) {
+        throw new Meteor.Error('Repeated Branch');
+      } else {
+        Hotels.insert(doc);
+      }
+
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -268,6 +289,22 @@ Meteor.methods({
       docVals.activities = ['No definido.'];
     }
     return {doc: doc, docVals: docVals};
+  },
+  reportHotels: function (year) {
+    if (Roles.userIsInRole(Meteor.userId(), operator) ||
+      Roles.userIsInRole(Meteor.userId(), consultant) ||
+      Roles.userIsInRole(Meteor.userId(), admin)
+    ) {
+      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      Hotels.find().fetch().forEach(item => {
+        const date = new Date(item.createAt);
+        if (date.getFullYear() === year.year) {
+          monthsCount[date.getMonth()] += 1;
+        }
+      });
+      return monthsCount;
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
   }
-
 });

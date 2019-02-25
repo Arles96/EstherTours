@@ -256,6 +256,11 @@ const RestaurantSchema = new SimpleSchema({
       }
     },
     optional: true
+  },
+  createAt: {
+    type: Date,
+    optional: true,
+    autoValue: () => new Date()
   }
 }, { check: check, tracker: Tracker });
 

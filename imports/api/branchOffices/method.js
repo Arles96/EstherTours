@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { branchOffices, branchOfficeSchema } from './Offices';
-import { admin } from '../roles/roles';
+import { admin, operator, consultant } from '../roles/roles';
 
 Meteor.methods({
   insertOffice: function (doc) {
@@ -56,7 +56,6 @@ Meteor.methods({
           town: data.town
         }]
       }).fetch();
-      console.log(validate);
       if (validate.length > 0) {
         validate.forEach(value => {
           if (value._id !== doc._id) {
@@ -77,6 +76,23 @@ Meteor.methods({
       branchOffices.remove({ _id: id });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
+    }
+  },
+  reportOffices: function (year) {
+    if (Roles.userIsInRole(Meteor.userId(), operator) ||
+      Roles.userIsInRole(Meteor.userId(), consultant) ||
+      Roles.userIsInRole(Meteor.userId(), admin)
+    ) {
+      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      branchOffices.find().fetch().forEach(item => {
+        const date = new Date(item.createAt);
+        if (date.getFullYear() === year.year) {
+          monthsCount[date.getMonth()] += 1;
+        }
+      });
+      return monthsCount;
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
     }
   }
 });
