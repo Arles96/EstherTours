@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Guide, GuideSchema } from './guide';
 import { operator } from '../roles/roles';
 import GuideConsultSchema from './guideConsult';
-import userActivities from '../userActivities/userActivities';
+import { userActivities } from '../userActivities/userActivities';
 
 Meteor.methods({
   insertGuide: function (doc) {
