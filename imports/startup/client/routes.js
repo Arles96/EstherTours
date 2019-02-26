@@ -1,7 +1,12 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
-  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator, isConsultant
+  isLoggedIn,
+  isNotLoggedIn,
+  isLoggedIn2,
+  isOperator,
+  isConsultant,
+  isSupervisorOrAdmin
 } from './validations';
 import { Renters } from '../../api/renters/renters';
 import { TransportationEstablishments } from '../../api/TransportationEstablishment/TransportationEstablishment';
@@ -173,7 +178,7 @@ Router.route('/users', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Usuarios']);
-    isAdmin(this);
+    isSupervisorOrAdmin(this);
   }
 });
 
@@ -186,7 +191,7 @@ Router.route('/offices', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Sucursales']);
-    isAdmin(this);
+    isSupervisorOrAdmin(this);
   }
 });
 
@@ -556,7 +561,7 @@ Router.route('/report-transportation-establishment', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar transportes']);
-    isLoggedIn(this);
+    isSupervisorOrAdmin(this);
   }
 });
 
@@ -569,7 +574,7 @@ Router.route('/report-renters', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar arrendadoras']);
-    isLoggedIn(this);
+    isSupervisorOrAdmin(this);
   }
 });
 
@@ -582,7 +587,7 @@ Router.route('/report-hotels', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar hoteles']);
-    isLoggedIn(this);
+    isSupervisorOrAdmin(this);
   }
 });
 
@@ -595,7 +600,7 @@ Router.route('/report-guides', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar guías']);
-    isLoggedIn(this);
+    isSupervisorOrAdmin(this);
   }
 });
 
@@ -608,7 +613,7 @@ Router.route('/report-attractions', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar atracciones']);
-    isLoggedIn(this);
+    isSupervisorOrAdmin(this);
   }
 });
 
@@ -621,7 +626,7 @@ Router.route('/report-restaurants', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar restaurantes']);
-    isLoggedIn(this);
+    isSupervisorOrAdmin(this);
   }
 });
 
@@ -634,7 +639,7 @@ Router.route('/report-packages', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar paquetes']);
-    isLoggedIn(this);
+    isSupervisorOrAdmin(this);
   }
 });
 
