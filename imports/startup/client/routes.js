@@ -1,12 +1,7 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
-  isLoggedIn,
-  isNotLoggedIn,
-  isLoggedIn2,
-  isOperator,
-  isConsultant,
-  isSupervisorOrAdmin
+  isLoggedIn, isNotLoggedIn, isSupervisorOrAdmin, isLoggedIn2, isOperator, isConsultant
 } from './validations';
 import { Renters } from '../../api/renters/renters';
 import { TransportationEstablishments } from '../../api/TransportationEstablishment/TransportationEstablishment';
@@ -561,7 +556,7 @@ Router.route('/report-transportation-establishment', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar transportes']);
-    isSupervisorOrAdmin(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -574,7 +569,7 @@ Router.route('/report-renters', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar arrendadoras']);
-    isSupervisorOrAdmin(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -587,7 +582,7 @@ Router.route('/report-hotels', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar hoteles']);
-    isSupervisorOrAdmin(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -600,7 +595,7 @@ Router.route('/report-guides', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar guías']);
-    isSupervisorOrAdmin(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -613,7 +608,7 @@ Router.route('/report-attractions', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar atracciones']);
-    isSupervisorOrAdmin(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -626,7 +621,7 @@ Router.route('/report-restaurants', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar restaurantes']);
-    isSupervisorOrAdmin(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -639,7 +634,7 @@ Router.route('/report-packages', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Reportar paquetes']);
-    isSupervisorOrAdmin(this);
+    isLoggedIn2(this);
   }
 });
 
