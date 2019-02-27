@@ -174,7 +174,79 @@ RentersSchema.messageBox.messages(messages);
 
 Renters.attachSchema(RentersSchema);
 
+function renterToExcel (id, headers = true) {
+  const renter = Renters.findOne({ _id: id });
+  const res = [];
+  if (renter) {
+    // headers
+    if (headers) {
+      res.push([`Arrendadora ${renter.name}`]);
+      res.push([
+        'Sucursal',
+        'Correo',
+        'Sitio web',
+        'Estrellas',
+        'Departamento',
+        'Municipio',
+        'Ciudad',
+        'Calle',
+        'Monedas aceptadas',
+        'Telefonos',
+        'Servicios',
+        'Metodos de pago'
+      ]);
+    }
+
+    // datos que no son arreglos
+    res.push([
+      renter.branchOffice ? 'Si' : 'No',
+      renter.email,
+      renter.website,
+      renter.categorization,
+      renter.department,
+      renter.municipality,
+      renter.city,
+      renter.street,
+      renter.money[0] ? renter.money[0] : '',
+      renter.telephone[0] ? renter.telephone[0] : '',
+      renter.services[0] ? renter.services[0] : '',
+      renter.paymentMethods[0] ? renter.paymentMethods[0] : ''
+    ]);
+
+    // datos que son arreglos
+    const max = Math.max(...[
+      renter.money.length,
+      renter.telephone.length,
+      renter.services.length,
+      renter.paymentMethods.length
+    ]);
+
+    for (let i = 1; i < max; i += 1) {
+      res.push([
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        renter.money[i] ? renter.money[i] : '',
+        renter.telephone[i] ? renter.telephone[i] : '',
+        renter.services[i] ? renter.services[i] : '',
+        renter.paymentMethods[i] ? renter.paymentMethods[i] : ''
+      ]);
+    }
+
+    if (headers) {
+      res.push([]);
+    }
+  }
+  return res;
+}
+
 export {
   Renters,
-  RentersSchema
+  RentersSchema,
+  renterToExcel
 };

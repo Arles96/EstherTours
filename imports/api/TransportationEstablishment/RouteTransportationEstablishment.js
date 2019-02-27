@@ -90,7 +90,35 @@ RouteTransportationEstablishment.helpers({
 
 RouteTransportationEstablishment.attachSchema(RouteTransportationEstablishmentSchema);
 
+function routeTransportToExcel (id, headers = true) {
+  const route = RouteTransportationEstablishment.findOne({ _id: id });
+  const res = [];
+  if (route) {
+    // headers
+    if (headers) {
+      res.push(['Ruta']);
+      res.push(['Tipo', 'Departamento', 'Municipio', 'Ciudad', 'Calle']);
+    }
+
+    // datos que no son arreglos
+    res.push([
+      route.type,
+      route.department,
+      route.town,
+      route.city,
+      route.street
+    ]);
+    res.push(['Indicaciones adicionales:', route.description]);
+
+    if (headers) {
+      res.push([]);
+    }
+  }
+  return res;
+}
+
 export {
   RouteTransportationEstablishment,
-  RouteTransportationEstablishmentSchema
+  RouteTransportationEstablishmentSchema,
+  routeTransportToExcel
 };

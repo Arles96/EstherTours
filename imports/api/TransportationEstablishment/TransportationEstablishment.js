@@ -196,7 +196,78 @@ TransportationEstablishmentSchema.messageBox.messages(messages);
 
 TransportationEstablishments.attachSchema(TransportationEstablishmentSchema);
 
+function transportToExcel (id, headers = true) {
+  const transport = TransportationEstablishments.findOne({ _id: id });
+  const res = [];
+  if (transport) {
+    // headers
+    if (headers) {
+      res.push([`Transporte ${transport.name}`]);
+      res.push([
+        'Sucursal',
+        'Correo',
+        'Sitio web',
+        'Tipo',
+        'Estrellas',
+        'Departamento',
+        'Municipio',
+        'Ciudad',
+        'Calle',
+        'Monedas aceptadas',
+        'Telefonos',
+        'Metodos de pago'
+      ]);
+    }
+
+    // datos que no son arreglos
+    res.push([
+      transport.branchOffice ? 'Si' : 'No',
+      transport.email,
+      transport.website,
+      transport.type,
+      transport.categorization,
+      transport.department,
+      transport.town,
+      transport.city,
+      transport.street,
+      transport.money[0] ? transport.money[0] : '',
+      transport.phone[0] ? transport.phone[0] : '',
+      transport.paymentMethods[0] ? transport.paymentMethods[0] : ''
+    ]);
+
+    // datos que son arreglos
+    const max = Math.max(...[
+      transport.money.length,
+      transport.phone.length,
+      transport.paymentMethods.length
+    ]);
+
+    for (let i = 1; i < max; i += 1) {
+      res.push([
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        transport.money[i] ? transport.money[i] : '',
+        transport.phone[i] ? transport.phone[i] : '',
+        transport.paymentMethods[i] ? transport.paymentMethods[i] : ''
+      ]);
+    }
+
+    if (headers) {
+      res.push([]);
+    }
+  }
+  return res;
+}
+
 export {
   TransportationEstablishments,
-  TransportationEstablishmentSchema
+  TransportationEstablishmentSchema,
+  transportToExcel
 };

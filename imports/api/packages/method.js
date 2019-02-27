@@ -3,13 +3,13 @@ import XLSX from 'xlsx';
 import { Packages, PackagesSchema } from './packages';
 import { operator, consultant, admin } from '../roles/roles';
 import PackagesSchemaConsult from './packageConsult';
-import { Hotels } from '../hotels/hotels';
-import { RoomHotel } from '../hotels/roomhotel';
-import { Renters } from '../renters/renters';
-import { FleetRenter } from '../renters/fleetRenter';
-import { Restaurants } from '../restaurants/restaurants';
-import { TransportationEstablishments } from '../TransportationEstablishment/TransportationEstablishment';
-import { RouteTransportationEstablishment } from '../TransportationEstablishment/RouteTransportationEstablishment';
+import { hotelsToExcel } from '../hotels/hotels';
+import { roomToExcel } from '../hotels/roomhotel';
+import { renterToExcel } from '../renters/renters';
+import { fleetRenterToExcel } from '../renters/fleetRenter';
+import { restaurantToExcel } from '../restaurants/restaurants';
+import { transportToExcel } from '../TransportationEstablishment/TransportationEstablishment';
+import { routeTransportToExcel } from '../TransportationEstablishment/RouteTransportationEstablishment';
 
 Meteor.methods({
   insertPackages: function (doc) {
@@ -44,13 +44,14 @@ Meteor.methods({
     // por cada paquete existente creamos un worksheet
     Packages.find({}).forEach(doc => {
       const data = [];
-      const renter = Renters.findOne({ _id: doc.idRenter });
-      const fleet = FleetRenter.findOne({ _id: doc.idFleetRenter });
-      const hotel = Hotels.findOne({ _id: doc.idHotel });
-      const room = RoomHotel.findOne({ _id: doc.idRoom });
-      const transport = TransportationEstablishments.findOne({ _id: doc.idTransport });
-      const route = RouteTransportationEstablishment.findOne({ _id: doc.idTransportRoute });
-      const restaurant = Restaurants.findOne({ _id: doc.idRestaurant });
+
+      const renterRes = renterToExcel(doc.idRenter);
+      const fleetRenterRes = fleetRenterToExcel(doc.idFleetRenter);
+      const hotelRes = hotelsToExcel(doc.idHotel);
+      const roomRes = roomToExcel(doc.idRoom);
+      const transportRes = transportToExcel(doc.idTransport);
+      const routeRes = routeTransportToExcel(doc.idTransportRoute);
+      const restaurantRes = restaurantToExcel(doc.idRestaurant);
 
       data.push(['Nombre del paquete', 'Precio', 'Observaciones']);
       data.push([
@@ -59,117 +60,37 @@ Meteor.methods({
         doc.observation
       ]);
       data.push([]);
-      if (renter) {
-        data.push([`Arrendadora ${renter.name}`]);
-        data.push(['Departamento', 'Municipio', 'Ciudad', 'Calle']);
-        data.push([
-          renter.department,
-          renter.municipality,
-          renter.city,
-          renter.street
-        ]);
-        data.push([]);
+
+      for (let i = 0; i < renterRes.length; i += 1) {
+        data.push(renterRes[i]);
       }
 
-      if (fleet) {
-        data.push(['Flota de Arrendadora']);
-        data.push(['Tipo', 'Total', 'Tipo de Vehículo', 'Marca', 'Modelo', 'Tarifa']);
-        data.push([
-          fleet.type,
-          fleet.total,
-          fleet.vehicleTypes,
-          fleet.brands,
-          fleet.models,
-          fleet.rate
-        ]);
-        data.push([]);
+      for (let i = 0; i < fleetRenterRes.length; i += 1) {
+        data.push(fleetRenterRes[i]);
       }
 
-      if (hotel) {
-        data.push([`Hotel ${hotel.name}`]);
-        data.push(['Estrellas', 'Departamento', 'Municipio', 'Ciudad', 'Calle']);
-        data.push([
-          hotel.categorization,
-          hotel.departament,
-          hotel.municipality,
-          hotel.city,
-          hotel.street
-        ]);
-        data.push([]);
+      for (let i = 0; i < hotelRes.length; i += 1) {
+        data.push(hotelRes[i]);
       }
 
-      if (room) {
-        data.push(['Cuarto de Hotel']);
-        data.push(['Tipo', 'Tamaño', 'Precio', 'Camas extra']);
-        data.push([
-          room.type,
-          room.roomSize,
-          room.price,
-          room.extraBed
-        ]);
-        data.push([]);
+      for (let i = 0; i < roomRes.length; i += 1) {
+        data.push(roomRes[i]);
       }
 
-      if (transport) {
-        data.push([`Transporte ${transport.name}`]);
-        data.push(['Departamento', 'Municipio', 'Ciudad', 'Calle']);
-        data.push([
-          transport.department,
-          transport.town,
-          transport.city,
-          transport.street
-        ]);
-        data.push([]);
+      for (let i = 0; i < transportRes.length; i += 1) {
+        data.push(transportRes[i]);
       }
 
-      if (route) {
-        data.push(['Ruta']);
-        data.push(['Tipo', 'Departamento', 'Municipio', 'Ciudad', 'Calle']);
-        data.push([
-          route.type,
-          route.department,
-          route.town,
-          route.city,
-          route.street
-        ]);
-        data.push(['Indicaciones adicionales:', route.description]);
-        data.push([]);
+      for (let i = 0; i < routeRes.length; i += 1) {
+        data.push(routeRes[i]);
       }
 
-      if (restaurant) {
-        data.push([`Restaurante ${restaurant.name}`]);
-        data.push([
-          'Departamento',
-          'Municipio',
-          'Ciudad',
-          'Calle',
-          'Estrellas',
-          'Mesas',
-          'Sillas',
-          'Sillas para bebes',
-          'Capacidad',
-          'Facilidades para discapacitados',
-          'Barra',
-          'Sala de espera'
-        ]);
-        data.push([
-          restaurant.department,
-          restaurant.municipality,
-          restaurant.city,
-          restaurant.street,
-          restaurant.rating,
-          restaurant.numbersTables,
-          restaurant.numbersChairs,
-          restaurant.numbersChairsBabies,
-          restaurant.maxPersonCapacity,
-          restaurant.facilityPeople ? 'Si' : 'No',
-          restaurant.bar ? 'Si' : 'No',
-          restaurant.waitingRoom ? 'Si' : 'No'
-        ]);
+      for (let i = 0; i < restaurantRes.length; i += 1) {
+        data.push(restaurantRes[i]);
       }
 
       const ws = XLSX.utils.aoa_to_sheet(data);
-      XLSX.utils.book_append_sheet(wb, ws, `Paquete ${doc.name}`);
+      XLSX.utils.book_append_sheet(wb, ws, doc.name);
     });
 
     return wb;
