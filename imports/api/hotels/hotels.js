@@ -200,14 +200,22 @@ HotelSchema.messageBox.messages(messages);
 
 Hotels.attachSchema(HotelSchema);
 
-function hotelsToExcel (id, headers = true) {
-  const hotel = Hotels.findOne({ _id: id });
+function hotelsToExcel (id, doc = null, headers = true) {
+  let hotel;
+
+  if (doc) {
+    hotel = doc;
+  } else {
+    hotel = Hotels.findOne({ _id: id });
+  }
+
   const res = [];
   if (hotel) {
     // headers
     if (headers) {
-      res.push([`Hotel ${hotel.name}`]);
+      res.push(['Hotel']);
       res.push([
+        'Nombre',
         'Sucursal',
         'Correo',
         'Sitio web',
@@ -227,6 +235,7 @@ function hotelsToExcel (id, headers = true) {
 
     // datos que no son arreglos
     res.push([
+      hotel.name,
       hotel.branchOffice ? 'Si' : 'No',
       hotel.email,
       hotel.website,
@@ -255,6 +264,7 @@ function hotelsToExcel (id, headers = true) {
 
     for (let i = 1; i < max; i += 1) {
       res.push([
+        '',
         '',
         '',
         '',

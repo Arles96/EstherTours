@@ -273,14 +273,22 @@ Restaurants.helpers({
   }
 });
 
-function restaurantToExcel (id, headers = true) {
-  const restaurant = Restaurants.findOne({ _id: id });
+function restaurantToExcel (id, doc = null, headers = true) {
+  let restaurant;
+
+  if (doc) {
+    restaurant = doc;
+  } else {
+    restaurant = Restaurants.findOne({ _id: id });
+  }
+
   const res = [];
   if (restaurant) {
     // headers
     if (headers) {
-      res.push([`Restaurante ${restaurant.name}`]);
+      res.push(['Restaurante']);
       res.push([
+        'Nombre',
         'Departamento',
         'Municipio',
         'Ciudad',
@@ -305,6 +313,7 @@ function restaurantToExcel (id, headers = true) {
 
     // datos que no son arreglos
     res.push([
+      restaurant.name,
       restaurant.department,
       restaurant.municipality,
       restaurant.city,
@@ -339,6 +348,7 @@ function restaurantToExcel (id, headers = true) {
 
     for (let i = 1; i < max; i += 1) {
       res.push([
+        '',
         '',
         '',
         '',

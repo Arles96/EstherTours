@@ -196,14 +196,22 @@ TransportationEstablishmentSchema.messageBox.messages(messages);
 
 TransportationEstablishments.attachSchema(TransportationEstablishmentSchema);
 
-function transportToExcel (id, headers = true) {
-  const transport = TransportationEstablishments.findOne({ _id: id });
+function transportToExcel (id, doc = null, headers = true) {
+  let transport;
+
+  if (doc) {
+    transport = doc;
+  } else {
+    transport = TransportationEstablishments.findOne({ _id: id });
+  }
+
   const res = [];
   if (transport) {
     // headers
     if (headers) {
-      res.push([`Transporte ${transport.name}`]);
+      res.push(['Transporte']);
       res.push([
+        'Nombre',
         'Sucursal',
         'Correo',
         'Sitio web',
@@ -221,6 +229,7 @@ function transportToExcel (id, headers = true) {
 
     // datos que no son arreglos
     res.push([
+      transport.name,
       transport.branchOffice ? 'Si' : 'No',
       transport.email,
       transport.website,
@@ -244,6 +253,7 @@ function transportToExcel (id, headers = true) {
 
     for (let i = 1; i < max; i += 1) {
       res.push([
+        '',
         '',
         '',
         '',

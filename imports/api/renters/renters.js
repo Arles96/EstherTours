@@ -174,14 +174,22 @@ RentersSchema.messageBox.messages(messages);
 
 Renters.attachSchema(RentersSchema);
 
-function renterToExcel (id, headers = true) {
-  const renter = Renters.findOne({ _id: id });
+function renterToExcel (id, doc = null, headers = true) {
+  let renter;
+
+  if (doc) {
+    renter = doc;
+  } else {
+    renter = Renters.findOne({ _id: id });
+  }
+
   const res = [];
   if (renter) {
     // headers
     if (headers) {
-      res.push([`Arrendadora ${renter.name}`]);
+      res.push(['Arrendadora']);
       res.push([
+        'Nombre',
         'Sucursal',
         'Correo',
         'Sitio web',
@@ -199,6 +207,7 @@ function renterToExcel (id, headers = true) {
 
     // datos que no son arreglos
     res.push([
+      renter.name,
       renter.branchOffice ? 'Si' : 'No',
       renter.email,
       renter.website,
@@ -223,6 +232,7 @@ function renterToExcel (id, headers = true) {
 
     for (let i = 1; i < max; i += 1) {
       res.push([
+        '',
         '',
         '',
         '',

@@ -112,8 +112,15 @@ FleetRenter.helpers({
   }
 });
 
-function fleetRenterToExcel (id, headers = true) {
-  const fleet = FleetRenter.findOne({ _id: id });
+function fleetRenterToExcel (id, doc = null, headers = true) {
+  let fleet;
+
+  if (doc) {
+    fleet = doc;
+  } else {
+    fleet = FleetRenter.findOne({ _id: id });
+  }
+
   const res = [];
   if (fleet) {
     // headers

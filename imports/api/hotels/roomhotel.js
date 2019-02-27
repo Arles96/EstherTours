@@ -69,8 +69,15 @@ RoomHotel.helpers({
   }
 });
 
-function roomToExcel (id, headers = true) {
-  const room = RoomHotel.findOne({ _id: id });
+function roomToExcel (id, doc = null, headers = true) {
+  let room;
+
+  if (doc) {
+    room = doc;
+  } else {
+    room = RoomHotel.findOne({ _id: id });
+  }
+
   const res = [];
   if (room) {
     // headers

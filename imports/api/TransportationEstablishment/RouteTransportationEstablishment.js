@@ -90,8 +90,15 @@ RouteTransportationEstablishment.helpers({
 
 RouteTransportationEstablishment.attachSchema(RouteTransportationEstablishmentSchema);
 
-function routeTransportToExcel (id, headers = true) {
-  const route = RouteTransportationEstablishment.findOne({ _id: id });
+function routeTransportToExcel (id, doc = null, headers = true) {
+  let route;
+
+  if (doc) {
+    route = doc;
+  } else {
+    route = RouteTransportationEstablishment.findOne({ _id: id });
+  }
+
   const res = [];
   if (route) {
     // headers
