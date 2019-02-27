@@ -51,6 +51,6 @@ const userActivitiesSchema = new SimpleSchema({
 
 userActivitiesSchema.messageBox.messages(messages);
 
-userActivities.attachSchema(userActivitiesSchema);
+// userActivities.attachSchema(userActivitiesSchema);
 
 export { userActivities, userActivitiesSchema };
