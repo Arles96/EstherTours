@@ -15,7 +15,7 @@ Meteor.methods({
       user: Meteor.user().profile.firstName,
       activity: 'agregó',
       collection: 'Establecimiento de transporte',
-      registerId: '',
+      registerId: 'N/D',
       register: doc.name,
       date: new Date()
     });
@@ -130,7 +130,7 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'agregó',
         collection: 'Flotas de establecimiento de transporte',
-        registerId: '',
+        registerId: 'N/D',
         register: doc.name,
         date: new Date()
       });
@@ -147,8 +147,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
         collection: 'Establecimiento de transporte',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -163,8 +163,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
         collection: 'Flotas de establecimiento de transporte',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -201,8 +201,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'agregó',
         collection: 'Rutas de establecimiento de transporte',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -217,8 +217,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
         collection: 'Rutas de establecimiento de transporte',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -273,8 +273,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'agregó sucursal',
         collection: 'Establecimiento de transporte',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -289,8 +289,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
         collection: 'Establecimiento de transporte',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {

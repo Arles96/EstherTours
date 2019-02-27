@@ -14,7 +14,7 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'agregó',
         collection: 'rentadoras',
-        registerId: '',
+        registerId: 'N/D',
         register: doc.name,
         date: new Date()
       });
@@ -54,7 +54,7 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'agregós',
         collection: 'rentadoras',
-        registerId: '',
+        registerId: 'N/D',
         register: doc.name,
         date: new Date()
       });
@@ -110,7 +110,7 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'agregó',
         collection: 'renterFleet',
-        registerId: '',
+        registerId: 'N/D',
         register: doc.name,
         date: new Date()
       });
@@ -133,8 +133,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
         collection: 'rentadoras',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -149,8 +149,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
         collection: 'renterFleet',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -170,7 +170,7 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'editó',
         collection: 'renterFleet',
-        registerId: '',
+        registerId: 'N/D',
         register: doc.name,
         date: new Date()
       });

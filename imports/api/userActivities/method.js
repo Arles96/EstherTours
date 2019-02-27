@@ -7,9 +7,9 @@ Meteor.methods({
       userId: Meteor.userId(),
       user: Meteor.user().profile.firstName,
       activity: 'Cerró sesión',
-      collection: '',
-      registerId: '',
-      register: '',
+      collection: 'N/D',
+      registerId: 'N/D',
+      register: 'N/D',
       date: new Date()
     });
   },
@@ -18,9 +18,9 @@ Meteor.methods({
       userId: Meteor.userId(),
       user: Meteor.user().profile.firstName,
       activity: 'Inició sesión',
-      collection: '',
-      registerId: '',
-      register: '',
+      collection: 'N/D',
+      registerId: 'N/D',
+      register: 'N/D',
       date: new Date()
     });
   }

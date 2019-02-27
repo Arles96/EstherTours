@@ -21,36 +21,36 @@ userActivities.helpers({
 const userActivitiesSchema = new SimpleSchema({
   userId: {
     type: String,
-    label: 'Nombre'
+    label: 'idUsuario'
   },
   user: {
     type: String,
-    label: 'Nombre'
+    label: 'Usuario'
   },
   activity: {
     type: String,
-    label: 'Nombre'
+    label: 'Actividad'
   },
   collection: {
     type: String,
-    label: 'Nombre'
+    label: 'Entidad'
   },
   registerId: {
     type: String,
-    label: 'Nombre'
+    label: 'idRegistro'
   },
   register: {
     type: String,
-    label: 'Nombre'
+    label: 'registro'
   },
   date: {
     type: Date,
-    label: 'Nombre'
+    label: 'Fecha'
   }
 }, { check: check, tracker: Tracker });
 
 userActivitiesSchema.messageBox.messages(messages);
 
-userActivities.attachSchema(userActivitiesSchema);
+// userActivities.attachSchema(userActivitiesSchema);
 
 export { userActivities, userActivitiesSchema };

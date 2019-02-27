@@ -80,7 +80,7 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
         collection: 'hoteles',
-        registerId: '',
+        registerId: 'N/D',
         register: doc.name,
         date: new Date()
       });
@@ -99,7 +99,7 @@ Meteor.methods({
           activity: 'agregó',
           collection: 'habitaciones de hoteles',
           registerId: doc.idHotel,
-          register: '',
+          register: 'N/D',
           date: new Date()
         });
       });
@@ -122,7 +122,7 @@ Meteor.methods({
         activity: 'editó',
         collection: 'habitaciones de hoteles',
         registerId: [doc.idHotel, _id],
-        register: '',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -137,8 +137,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
         collection: 'habitaciones de hoteles',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -157,7 +157,7 @@ Meteor.methods({
         activity: 'agregó',
         collection: 'tarifas de hoteles',
         registerId: doc.idHotel,
-        register: '',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -179,7 +179,7 @@ Meteor.methods({
         activity: 'editó',
         collection: 'tarifas de hoteles',
         registerId: [doc.idHotel, _id],
-        register: '',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -194,8 +194,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
         collection: 'tarifas de hoteles',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {

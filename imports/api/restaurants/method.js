@@ -14,7 +14,7 @@ Meteor.methods({
       user: Meteor.user().profile.firstName,
       activity: 'agregó',
       collection: 'restaurantes',
-      registerId: '',
+      registerId: 'N/D',
       register: doc.name,
       date: new Date()
     });
@@ -51,7 +51,7 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'agregó sucursal',
         collection: 'restaurantes',
-        registerId: '',
+        registerId: 'N/D',
         register: doc.name,
         date: new Date()
       });
@@ -167,7 +167,7 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'agregó',
         collection: 'restaurantOffers',
-        registerId: '',
+        registerId: 'N/D',
         register: doc.dishName,
         date: new Date()
       });
@@ -190,8 +190,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
         collection: 'restaurantes',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -206,8 +206,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
         collection: 'restaurantOffers',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {
@@ -231,7 +231,7 @@ Meteor.methods({
           user: Meteor.user().profile.firstName,
           activity: 'editó',
           collection: 'restaurantOffers',
-          registerId: '',
+          registerId: 'N/D',
           register: doc.dishName,
           date: new Date()
         });

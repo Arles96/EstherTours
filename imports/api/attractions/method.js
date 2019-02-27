@@ -16,7 +16,7 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'agregó',
         collection: 'atracciones',
-        registerId: '',
+        registerId: 'N/D',
         register: doc.name,
         date: new Date()
       });
@@ -132,8 +132,8 @@ Meteor.methods({
         user: Meteor.user().profile.firstName,
         activity: 'eliminó',
         collection: 'atracciones',
-        registerId: '',
-        register: '',
+        registerId: 'N/D',
+        register: 'N/D',
         date: new Date()
       });
     } else {
