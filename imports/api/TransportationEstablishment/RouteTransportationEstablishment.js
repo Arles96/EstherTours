@@ -110,9 +110,7 @@ function routeTransportToExcel (id, headers = true) {
     ]);
     res.push(['Indicaciones adicionales:', route.description]);
 
-    if (headers) {
-      res.push([]);
-    }
+    res.push([]);
   }
   return res;
 }

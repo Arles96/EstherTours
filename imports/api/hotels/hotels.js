@@ -272,9 +272,7 @@ function hotelsToExcel (id, headers = true) {
       ]);
     }
 
-    if (headers) {
-      res.push([]);
-    }
+    res.push([]);
   }
   return res;
 }
