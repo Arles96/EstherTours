@@ -61,33 +61,15 @@ Meteor.methods({
       ]);
       data.push([]);
 
-      for (let i = 0; i < renterRes.length; i += 1) {
-        data.push(renterRes[i]);
-      }
-
-      for (let i = 0; i < fleetRenterRes.length; i += 1) {
-        data.push(fleetRenterRes[i]);
-      }
-
-      for (let i = 0; i < hotelRes.length; i += 1) {
-        data.push(hotelRes[i]);
-      }
-
-      for (let i = 0; i < roomRes.length; i += 1) {
-        data.push(roomRes[i]);
-      }
-
-      for (let i = 0; i < transportRes.length; i += 1) {
-        data.push(transportRes[i]);
-      }
-
-      for (let i = 0; i < routeRes.length; i += 1) {
-        data.push(routeRes[i]);
-      }
-
-      for (let i = 0; i < restaurantRes.length; i += 1) {
-        data.push(restaurantRes[i]);
-      }
+      data.push(
+        ...renterRes,
+        ...fleetRenterRes,
+        ...hotelRes,
+        ...roomRes,
+        ...transportRes,
+        ...routeRes,
+        ...restaurantRes
+      );
 
       const ws = XLSX.utils.aoa_to_sheet(data);
       XLSX.utils.book_append_sheet(wb, ws, doc.name);
