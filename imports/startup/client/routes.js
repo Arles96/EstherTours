@@ -79,6 +79,7 @@ import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
 import '../../ui/pages/branchOfficePage/officesPage';
 import '../../ui/pages/Activities/activities';
+import '../../ui/pages/Activities/activitiesFiltered';
 /**
  *Función para listar en el componente breadcrumb
  * @param {Array} list
@@ -1283,6 +1284,16 @@ Router.route('/activities', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de actividades']);
+    isAdmin(this);
+  }
+});
+
+Router.route('/activities-filtered', {
+  name: 'userActivitiesFiltered',
+  template: 'userActivitiesFiltered',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de actividades filtrada']);
     isAdmin(this);
   }
 });
