@@ -1,0 +1,17 @@
+<template name="userActivitiesFiltered">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i> Lista de actividades
+    </div>
+    <select class = "userSelector" >
+        {{#each Users}}
+          <option value = {{value}}>{{label}}</option>
+        {{/each}}
+    </select>
+    <div class="card-body">
+      <div class="table-responsive">
+        {{> tabular table=TabularTables.userActivities selector=selector class="table table-hover table-bordered"}}
+      </div>
+    </div>
+  </div>
+</template>

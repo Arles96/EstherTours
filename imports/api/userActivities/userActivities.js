@@ -15,7 +15,7 @@ require('moment/min/locales.min');
 moment.locale('es');
 
 userActivities.helpers({
-  fecha: () => moment().format('MMMM D YYYY, hh:mm a')
+  fecha: function () { return moment(this.date).format('MMMM D YYYY, hh:mm a'); }
 });
 
 const userActivitiesSchema = new SimpleSchema({
