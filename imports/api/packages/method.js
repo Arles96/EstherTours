@@ -88,6 +88,48 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
+  },
+  filterPackages: function (doc) {
+    if (Meteor.userId()) {
+      const { queryE, queryP } = doc;
+      const filterHotel = Hotels.find(queryE).map(element => element);
+      const filterRenters = Renters.find(queryE).map(element => element);
+      const fitlerRestaurant = Restaurants.find(queryE).map(element => element);
+      const fitlerTransportation = TransportationEstablishments.find(queryE).map(element => (
+        element
+      ));
+      const or = [];
+      if (filterHotel) {
+        const idHotel = {
+          $in: filterHotel.map(element => element._id)
+        };
+        or.push({ idHotel });
+      }
+      if (filterRenters) {
+        const idRenter = {
+          $in: filterRenters.map(element => element._id)
+        };
+        or.push({ idRenter });
+      }
+      if (fitlerRestaurant) {
+        const idRestaurant = {
+          $in: fitlerRestaurant.map(element => element._id)
+        };
+        or.push({ idRestaurant });
+      }
+      if (fitlerTransportation) {
+        const idTransport = {
+          $in: fitlerTransportation.map(element => element._id)
+        };
+        or.push({ idTransport });
+      }
+      if (or.length > 0) {
+        queryP.$or = or;
+      }
+      return Packages.find(queryP).fetch();
+    } else {
+      return [];
+    }
   }
 });
 

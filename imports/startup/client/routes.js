@@ -78,6 +78,8 @@ import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
 import '../../ui/pages/branchOfficePage/officesPage';
+import '../../ui/pages/packages/filterPackage';
+
 /**
  *Función para listar en el componente breadcrumb
  * @param {Array} list
@@ -1273,5 +1275,18 @@ Router.route('/result-find-packages', {
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Paquetes', 'Resultado Consulta Paquetes']);
     isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para filtrar Paquetes
+ */
+Router.route('/filter-packages', {
+  name: 'filterPackage',
+  template: 'filterPackage',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtros de Paquetes']);
+    isLoggedIn2(this);
   }
 });
