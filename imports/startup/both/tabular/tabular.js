@@ -1033,4 +1033,44 @@ TabularTables.userActivities = new Tabular.Table({
   ]
 });
 
+TabularTables.UserRegisteredActivities = new Tabular.Table({
+  name: 'UserRegisteredActivities',
+  collection: Meteor.users,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: ['profile', 'emails', 'roles'],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'profile.firstName',
+      title: 'Primer Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'profile.lastName',
+      title: 'Primer Apellido'
+    },
+    {
+      class: 'text-center',
+      data: 'inserts()',
+      title: 'Registros ingresados'
+    },
+    {
+      class: 'text-center',
+      data: 'edits()',
+      title: 'Registros modificados'
+    },
+    {
+      class: 'text-center',
+      data: 'deletes()',
+      title: 'Registros eliminados'
+    }
+  ]
+});
+
 export default TabularTables;
