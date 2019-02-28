@@ -76,11 +76,9 @@ Template.filterPackage.helpers({
     };
     Meteor.call('filterPackages', { queryE, queryP }, (error, result) => {
       if (!error) {
-        console.log(result);
         Session.set('filterPackages', result);
       }
     });
-    console.log(Session.get('filterPackages'));
     return Session.get('filterPackages');
   }
 });
