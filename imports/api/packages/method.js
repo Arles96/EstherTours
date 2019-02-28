@@ -126,7 +126,19 @@ Meteor.methods({
       if (or.length > 0) {
         queryP.$or = or;
       }
-      return Packages.find(queryP).fetch();
+      return Packages.find(queryP).fetch().map(element => ({
+        _id: element._id,
+        name: element.name,
+        price: element.price,
+        hotel: Hotels.findOne({ _id: element.idHotel }),
+        roomHotel: RoomHotel.findOne({ _id: element.idRoom }),
+        renter: Renters.findOne({ _id: element.idRenter }),
+        fleetRenter: FleetRenter.findOne({ _id: element.idFleetRenter }),
+        transport: TransportationEstablishments.findOne({ _id: element.idTransport }),
+        route: RouteTransportationEstablishment.findOne({ _id: element.idTransportRoute }),
+        restaurant: Restaurants.findOne({ _id: element.idRestaurant }),
+        observation: element.observation
+      }));
     } else {
       return [];
     }
