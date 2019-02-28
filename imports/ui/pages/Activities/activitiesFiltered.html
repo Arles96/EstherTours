@@ -3,7 +3,8 @@
     <div class="card-header">
       <i class="fas fa-table"></i> Lista de actividades
     </div>
-    <select class = "userSelector" >
+    <select class = "form control" id = "userSelector">
+        <option value = '-1'>(Seleccione uno)</option>
         {{#each Users}}
           <option value = {{value}}>{{label}}</option>
         {{/each}}

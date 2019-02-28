@@ -33,17 +33,17 @@ Template.userActivitiesFiltered.onCreated(() => {
 });
 
 Template.userActivitiesFiltered.helpers({
-  Users: () => (Meteor.users.find().map(doc => ({
+  Users: () => (Meteor.users.find({}).map(doc => ({
     label: `${doc.profile.firstName} ${doc.profile.lastName}, ${doc.roles[0]}`,
     value: doc._id
   }))),
-  selector: {
+  selector: () => ({
     userId: Session.get('selectedUserActivities')
-  }
+  })
 });
 
 Template.userActivitiesFiltered.events({
-  'change .userSelector [type=radio]' (event) {
+  'change #userSelector' (event) {
     Session.set('selectedUserActivities', event.currentTarget.value);
   }
 });

@@ -1295,5 +1295,8 @@ Router.route('/activities-filtered', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de actividades filtrada']);
     isAdmin(this);
+  },
+  waitOn: function () {
+    return Meteor.subscribe('users.all');
   }
 });

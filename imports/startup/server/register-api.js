@@ -1,6 +1,7 @@
 
 // Api de usuario
 import '../../api/users/method';
+import '../../api/users/server/publications';
 
 // Api de sucursales
 import '../../api/branchOffices/method';
