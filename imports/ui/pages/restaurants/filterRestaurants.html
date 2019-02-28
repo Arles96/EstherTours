@@ -1,4 +1,4 @@
-<template name="packageRestaurants">
+<template name="filterRestaurants">
   <div class="card mb-3">
     <div class="card-header">
       <i class="fas fa-search-location"></i>
@@ -92,7 +92,7 @@
             <b>Categorizacion:</b>
           </label>
           <br >
-          {{>packageStarRestaurant}}
+          {{>filterStarRestaurant}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
           <label for="slider"><b>No. de mesas:</b> {{numbersTables}}</label>
@@ -118,15 +118,15 @@
     </div>
   </div>
   {{#each buscar}}
-    {{>packageResultRestaurant restaurant=this}}
+    {{>filterResultRestaurant restaurant=this}}
   {{/each}}
 </template>
 
-<template name="packageResultRestaurant">
+<template name="filterResultRestaurant">
   {{#with restaurant}}
     <div class="card mb-3">
       <div class="card-header">
-        <i class="fas fa-utensils"></i>
+        <i class="fas fa-mosque"></i>
         <b>{{name}}</b>
       </div>
       <div class="card-body">
@@ -171,40 +171,6 @@
           <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <div class="form-group">
               <label>
-                <b>Teléfonos:</b>
-              </label>
-              {{#each telephone}}
-                <li>{{this}}</li>
-              {{/each}}
-            </div>
-            <div class="form-group">
-              <label>
-                <b>Contactos:</b>
-              </label>
-              {{#each branchContacts}}
-                <li>{{name}}, {{role}}</li>
-              {{/each}}
-            </div>
-            <div class="form-group">
-              <label>
-                <b>Metodos de pago:</b>
-              </label>
-              {{#each paymentMethods}}
-                <li>{{this}}</li>
-              {{/each}}
-            </div>
-            <div class="form-group">
-              <label>
-                <b>Monedas aceptadas:</b>
-              </label>
-              {{#each money}}
-                <li>{{this}}</li>
-              {{/each}}
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-            <div class="form-group">
-              <label>
                 <b>Sitio web:</b>
               </label>
               {{#if website}}
@@ -237,23 +203,53 @@
                 {{department}}
               </label>
             </div>
+            <div class="form-group">
+              <label>
+                <b>Monedas aceptadas:</b>
+              </label>
+              {{#each money}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              <label>
+                <b>Teléfonos:</b>
+              </label>
+              {{#each telephone}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Contactos:</b>
+              </label>
+              {{#each branchContacts}}
+                <li>{{name}}, {{role}}</li>
+              {{/each}}
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Metodos de pago:</b>
+              </label>
+              {{#each paymentMethods}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
           </div>
         </div>
       </div>
       <div class="card-footer small text-muted">
-        <button class="btn btn-outline-primary ml-3" id="packageAddRestaurant">
-          {{#if selected _id}}
-            <i class="fas fa-check-square"></i> Seleccionado
-          {{else}}
-            <i class="fas fa-plus-square"></i> Agregar
-          {{/if}}
-        </button>
+        <a style="text-decoration: none;" href="/show-restaurant/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+          <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+        </a>
       </div>
     </div>
   {{/with}}
 </template>
 
-<template name="packageStarRestaurant">
+<template name="filterStarRestaurant">
   <div>
     <p>
       {{#each list}}

@@ -1,8 +1,8 @@
-<template name="packageRestaurants">
+<template name="filterHotels">
   <div class="card mb-3">
     <div class="card-header">
       <i class="fas fa-search-location"></i>
-      Filtrar Restaurantes
+      Filtrar Hoteles
     </div>
     <div class="card-body">
       <div class="row">
@@ -45,36 +45,6 @@
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
           <label>
-            <b>Facilidades para Discapacitados:</b>
-          </label>
-          <br >
-          <select id="facilityPeople" name="facilityPeople" class="form-control">
-            <option>Indiferente</option>
-            <option value="true">Si</option>
-          </select>
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label>
-            <b>Barra:</b>
-          </label>
-          <br >
-          <select id="bar" name="bar" class="form-control">
-            <option>Indiferente</option>
-            <option value="true">Si</option>
-          </select>
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label>
-            <b>Sala de Espera:</b>
-          </label>
-          <br >
-          <select id="waitingRoom" name="waitingRoom" class="form-control">
-            <option>Indiferente</option>
-            <option value="true">Si</option>
-          </select>
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label>
             <b>Ciudad:</b>
           </label>
           <br >
@@ -92,41 +62,21 @@
             <b>Categorizacion:</b>
           </label>
           <br >
-          {{>packageStarRestaurant}}
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>No. de mesas:</b> {{numbersTables}}</label>
-          <br >
-          <input type="range" id="sliderNumbersTables" min="0" max="200" step="10" value="{{numbersTables}}" class="slider" style="width: 100%;">
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>No. de sillas:</b> {{numbersChairs}}</label>
-          <br >
-          <input type="range" id="sliderNumbersChairs" min="0" max="200" step="10" value="{{numbersChairs}}" class="slider" style="width: 100%;">
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>No. de sillas para bebes:</b> {{numbersChairsBabies}}</label>
-          <br >
-          <input type="range" id="sliderNumbersChairsBabies" min="0" max="200" step="10" value="{{numbersChairsBabies}}" class="slider" style="width: 100%;">
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>Capacidad maxima:</b> {{maxPersonCapacity}}</label>
-          <br >
-          <input type="range" id="sliderMaxPersonCapacity" min="0" max="200" step="10" value="{{maxPersonCapacity}}" class="slider" style="width: 100%;">
+          {{>filterStarHotel}}
         </div>
       </div>
     </div>
   </div>
   {{#each buscar}}
-    {{>packageResultRestaurant restaurant=this}}
+    {{>filterResultHotel hotel=this}}
   {{/each}}
 </template>
 
-<template name="packageResultRestaurant">
-  {{#with restaurant}}
+<template name="filterResultHotel">
+  {{#with hotel}}
     <div class="card mb-3">
       <div class="card-header">
-        <i class="fas fa-utensils"></i>
+        <i class="fas fa-hotel"></i>
         <b>{{name}}</b>
       </div>
       <div class="card-body">
@@ -171,40 +121,6 @@
           <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <div class="form-group">
               <label>
-                <b>Teléfonos:</b>
-              </label>
-              {{#each telephone}}
-                <li>{{this}}</li>
-              {{/each}}
-            </div>
-            <div class="form-group">
-              <label>
-                <b>Contactos:</b>
-              </label>
-              {{#each branchContacts}}
-                <li>{{name}}, {{role}}</li>
-              {{/each}}
-            </div>
-            <div class="form-group">
-              <label>
-                <b>Metodos de pago:</b>
-              </label>
-              {{#each paymentMethods}}
-                <li>{{this}}</li>
-              {{/each}}
-            </div>
-            <div class="form-group">
-              <label>
-                <b>Monedas aceptadas:</b>
-              </label>
-              {{#each money}}
-                <li>{{this}}</li>
-              {{/each}}
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-            <div class="form-group">
-              <label>
                 <b>Sitio web:</b>
               </label>
               {{#if website}}
@@ -221,12 +137,6 @@
             </div>
             <div class="form-group">
               <label>
-                <b>Calle:</b>
-                {{street}}
-              </label>
-            </div>
-            <div class="form-group">
-              <label>
                 <b>Municipio:</b>
                 {{municipality}}
               </label>
@@ -234,26 +144,56 @@
             <div class="form-group">
               <label>
                 <b>Departamento:</b>
-                {{department}}
+                {{departament}}
               </label>
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Monedas aceptadas:</b>
+              </label>
+              {{#each coin}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              <label>
+                <b>Teléfonos:</b>
+              </label>
+              {{#each phone}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Contactos:</b>
+              </label>
+              {{#each branchContacts}}
+                <li>{{name}}, {{role}}</li>
+              {{/each}}
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Metodos de pago:</b>
+              </label>
+              {{#each paymentsMethod}}
+                <li>{{this}}</li>
+              {{/each}}
             </div>
           </div>
         </div>
       </div>
       <div class="card-footer small text-muted">
-        <button class="btn btn-outline-primary ml-3" id="packageAddRestaurant">
-          {{#if selected _id}}
-            <i class="fas fa-check-square"></i> Seleccionado
-          {{else}}
-            <i class="fas fa-plus-square"></i> Agregar
-          {{/if}}
-        </button>
+        <a style="text-decoration: none;" href="/show-hotel/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+          <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+        </a>
       </div>
     </div>
   {{/with}}
 </template>
 
-<template name="packageStarRestaurant">
+<template name="filterStarHotel">
   <div>
     <p>
       {{#each list}}
