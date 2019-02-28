@@ -1,5 +1,4 @@
-import './packageRestaurants.html';
-import toastr from 'toastr';
+import './filterRestaurants.html';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Restaurants } from '../../../api/restaurants/restaurants';
@@ -7,7 +6,7 @@ import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 import RestaurantImages from '../../../api/restaurants/restaurantImage';
 
-Template.packageRestaurants.onCreated(function createVars () {
+Template.filterRestaurants.onCreated(function createVars () {
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
@@ -20,10 +19,10 @@ Template.packageRestaurants.onCreated(function createVars () {
   this.facilityPeople = new ReactiveVar('');
   this.bar = new ReactiveVar('');
   this.waitingRoom = new ReactiveVar('');
-  Session.set('packageRestaurantStars', undefined);
+  Session.set('filterRestaurantStars', undefined);
 });
 
-Template.packageRestaurants.helpers({
+Template.filterRestaurants.helpers({
   name () {
     return Template.instance().name.get();
   },
@@ -112,8 +111,8 @@ Template.packageRestaurants.helpers({
       query.waitingRoom = true;
     }
 
-    if (Session.get('packageRestaurantStars')) {
-      query.rating = Session.get('packageRestaurantStars');
+    if (Session.get('filterRestaurantStars')) {
+      query.rating = Session.get('filterRestaurantStars');
     }
 
     if (name) {
@@ -142,7 +141,7 @@ Template.packageRestaurants.helpers({
   }
 });
 
-Template.packageRestaurants.events({
+Template.filterRestaurants.events({
   'input #sliderNumbersTables' (event, templateInstance) {
     templateInstance.numbersTables.set(event.currentTarget.value);
   },
@@ -154,9 +153,6 @@ Template.packageRestaurants.events({
   },
   'input #sliderMaxPersonCapacity' (event, templateInstance) {
     templateInstance.maxPersonCapacity.set(event.currentTarget.value);
-  },
-  'input #sliderMax' (event, templateInstance) {
-    templateInstance.precioMax.set(event.currentTarget.value);
   },
   'input #name' (event, templateInstance) {
     templateInstance.name.set(event.currentTarget.value);
@@ -185,15 +181,12 @@ Template.packageRestaurants.events({
   }
 });
 
-Template.packageResultRestaurant.helpers({
+Template.filterResultRestaurant.helpers({
   urlTag (url) {
     if (url.includes('http://') || url.includes('https://')) {
       return url;
     }
     return `https://${url}`;
-  },
-  selected (id) {
-    return id === Session.get('packageRestaurantId');
   },
   findImg (_id) {
     return RestaurantImages.findOne({ _id });
@@ -203,18 +196,11 @@ Template.packageResultRestaurant.helpers({
   }
 });
 
-Template.packageResultRestaurant.events({
-  'click #packageAddRestaurant' (event, templateInstance) {
-    Session.set('packageRestaurantId', this._id);
-    toastr.info('Se guardo el restaurante al paquete!');
-  }
-});
-
-Template.packageStarRestaurant.helpers({
+Template.filterStarRestaurant.helpers({
   list: () => {
     const list = [];
     for (let index = 1; index <= 5; index += 1) {
-      if (index <= parseInt(Session.get('packageRestaurantStars'), 10)) {
+      if (index <= parseInt(Session.get('filterRestaurantStars'), 10)) {
         list.push({
           class: 'fas fa-star colorOrange',
           id: `star${index}`
@@ -230,20 +216,20 @@ Template.packageStarRestaurant.helpers({
   }
 });
 
-Template.packageStarRestaurant.events({
+Template.filterStarRestaurant.events({
   'click #star1': function () {
-    Session.set('packageRestaurantStars', '1');
+    Session.set('filterRestaurantStars', '1');
   },
   'click #star2': function () {
-    Session.set('packageRestaurantStars', '2');
+    Session.set('filterRestaurantStars', '2');
   },
   'click #star3': function () {
-    Session.set('packageRestaurantStars', '3');
+    Session.set('filterRestaurantStars', '3');
   },
   'click #star4': function () {
-    Session.set('packageRestaurantStars', '4');
+    Session.set('filterRestaurantStars', '4');
   },
   'click #star5': function () {
-    Session.set('packageRestaurantStars', '5');
+    Session.set('filterRestaurantStars', '5');
   }
 });
