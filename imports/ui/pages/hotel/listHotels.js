@@ -45,7 +45,7 @@ Template.listHotels.events({
   'click #export-excel': function () {
     Swal({
       title: 'Exportar datos a Excel',
-      text: '¿Está seguro de exportar los paquetes a Excel?',
+      text: '¿Está seguro de exportar los hoteles a Excel?',
       cancelButtonText: 'Cancelar',
       showCancelButton: true
     }).then(res => {
