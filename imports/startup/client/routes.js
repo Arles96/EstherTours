@@ -24,6 +24,7 @@ import '../../ui/pages/restaurants/addRestaurant';
 import '../../ui/pages/restaurants/listRestaurants';
 import '../../ui/pages/restaurants/editRestaurant';
 import '../../ui/pages/restaurants/branchRestaurant';
+import '../../ui/pages/restaurants/filterRestaurants';
 import '../../ui/pages/restaurants/showInfoRestaurant';
 import '../../ui/pages/restaurantConsults/consultRestaurant';
 import '../../ui/pages/restaurantConsults/listRestaurantResults';
@@ -32,9 +33,11 @@ import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
 import '../../ui/pages/renters/filterFleetRenters';
+import '../../ui/pages/renters/filterRenters';
 import '../../ui/pages/renters/branchRenter';
 import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/listTransportationEstablishments';
+import '../../ui/pages/TransportationEstablishment/filterTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/filterRouteTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstablishment';
 import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
@@ -42,6 +45,7 @@ import '../../ui/pages/TransportationEstablishment/reportTransportationEstablish
 import '../../ui/pages/hotel/addHotels';
 import '../../ui/pages/hotel/branchHotel';
 import '../../ui/pages/hotel/listHotels';
+import '../../ui/pages/hotel/filterHotels';
 import '../../ui/pages/hotel/filterRoomHotel';
 import '../../ui/pages/hotelQuery/hotelQuery';
 import '../../ui/pages/hotelQuery/showQueryHotel';
@@ -267,6 +271,25 @@ Router.route('/listRestaurants', {
   }
 });
 
+/*
+ * Ruta para filtrar restaurantes
+ */
+Router.route('/filter-restaurants', {
+  name: 'filterRestaurants',
+  template: 'filterRestaurants',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('restaurantImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar restaurantes']);
+    isLoggedIn2(this);
+  }
+});
+
 /**
  * Ruta para mostrar la información de un restaurante seleccionado para el operador
  */
@@ -420,7 +443,25 @@ Router.route('/filter-fleet-renters', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar flotas']);
-    isOperator(this);
+    isLoggedIn2(this);
+  }
+});
+
+/*
+ * Ruta para filtrar arrendadoras
+ */
+Router.route('/filter-renters', {
+  name: 'filterRenters',
+  template: 'filterRenters',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('renter.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar arrendadoras']);
+    isLoggedIn2(this);
   }
 });
 
@@ -479,6 +520,24 @@ Router.route('/list-transportation-establishment', {
 });
 
 /*
+ * Ruta para filtrar establecimientos de transporte
+ */
+Router.route('/filter-transportation-establishment', {
+  name: 'filterTE',
+  template: 'filterTE',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('transport.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar Transporte']);
+    isLoggedIn2(this);
+  }
+});
+
+/*
  * Ruta para filtrar rutas de transporte
  */
 Router.route('/filter-route-transportation-establishment', {
@@ -493,7 +552,7 @@ Router.route('/filter-route-transportation-establishment', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar rutas']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -760,14 +819,13 @@ Router.route('/filter-room-hotel', {
   waitOn: function () {
     return [
       Meteor.subscribe('hotels.all'),
-      Meteor.subscribe('hotel.one'),
       Meteor.subscribe('hotelImage.all'),
       Meteor.subscribe('RoomHotel.all')
     ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar habitaciones']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -872,6 +930,25 @@ Router.route('/show-hotel/:id', {
   }
 });
 
+/*
+ * Ruta para filtrar hoteles
+ */
+Router.route('/filter-hotels', {
+  name: 'filterHotels',
+  template: 'filterHotels',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('hotelImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar hoteles']);
+    isLoggedIn2(this);
+  }
+});
+
 Router.route('/hotel-query', {
   name: 'hotelQuery',
   template: 'hotelQuery',
@@ -908,13 +985,12 @@ Router.route('/filter-attractions', {
   waitOn: function () {
     return [
       Meteor.subscribe('attractions.all'),
-      Meteor.subscribe('attraction.one'),
       Meteor.subscribe('attractionImage.all')
     ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar atracciones']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
