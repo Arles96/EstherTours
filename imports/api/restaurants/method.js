@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import { RestaurantSchema, Restaurants } from './restaurants';
+import XLSX from 'xlsx';
+import { RestaurantSchema, Restaurants, restaurantToExcel } from './restaurants';
 import { restaurantOffers, restaurantOffersSchema } from './restaurantOffers';
 import RestaurantConsultSchema from './restaurantConsult';
 import { operator, consultant, admin } from '../roles/roles';
@@ -191,5 +192,19 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
+  },
+  exportRestaurantsToExcel: function () {
+    // workbook
+    const wb = XLSX.utils.book_new();
+    const data = [];
+
+    Restaurants.find({}).forEach(doc => {
+      const restaurantRes = restaurantToExcel(doc._id, doc, false);
+      data.push(...restaurantRes);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Restaurantes');
+    return wb;
   }
 });

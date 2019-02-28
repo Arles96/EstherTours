@@ -1,31 +1,36 @@
 <template name="listRestaurants" >
-    <div class="card mb-3">
-        <div class="card-header">
-        <i class="fas fa-table"></i> Tabla de Restaurantes
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i> Tabla de Restaurantes
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <a type="button" id="export-excel" class="export-csv btn btn-outline-success">
+            Exportar a Excel
+          </a>
         </div>
-        <div class="card-body">
         <div class="table-responsive">
-            {{> tabular table=TabularTables.Restaurants selector=selector class="table table-hover table-bordered"}}
+          {{> tabular table=TabularTables.Restaurants selector=selector class="table table-hover table-bordered"}}
         </div>
-        </div>
-        <div class="card-footer small text-muted">Actualizado ayer a las 11:59 PM</div>
-        {{>addRestaurantOffer}}
-    </div>
+      </div>
+    <div class="card-footer small text-muted">Actualizado ayer a las 11:59 PM</div>
+    {{>addRestaurantOffer}}
+  </div>
 </template>
 
 <template name="showButtonRestaurant" >
-    <a style="text-decoration: none;" href="/show-restaurant/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
-      <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+  <a style="text-decoration: none;" href="/show-restaurant/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+    <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+  </a>
+  {{#if isOperator}}
+    <a style="text-decoration: none;" href="/edit-restaurant/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+      <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
     </a>
-    {{#if isOperator}}
-      <a style="text-decoration: none;" href="/edit-restaurant/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
-        <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
-      </a>
-      <span data-toggle="tooltip" data-placement="top" title="Agregar Oferta" >
-          <i style="cursor: pointer;" data-id="{{_id}}" class="addRestaurantOffer fas fa-plus mr-2" data-toggle="modal" data-target="#addRestaurantOffer"></i>
-      </span>
-      <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
-        <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRestaurant far fa-trash-alt"></i>
-      </span>
-    {{/if}}
-  </template>
+    <span data-toggle="tooltip" data-placement="top" title="Agregar Oferta" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="addRestaurantOffer fas fa-plus mr-2" data-toggle="modal" data-target="#addRestaurantOffer"></i>
+    </span>
+    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRestaurant far fa-trash-alt"></i>
+    </span>
+  {{/if}}
+</template>
