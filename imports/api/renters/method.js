@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-import { Renters, RentersSchema } from './renters';
-import { FleetRenter, FleetRenterSchema } from './fleetRenter';
+import XLSX from 'xlsx';
+import { Renters, RentersSchema, renterToExcel } from './renters';
+import { FleetRenter, FleetRenterSchema, fleetRenterToExcel } from './fleetRenter';
 import { operator, consultant, admin } from '../roles/roles';
 
 Meteor.methods({
@@ -174,5 +175,24 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
+  },
+  exportRentersToExcel: function () {
+    // workbook
+    const wb = XLSX.utils.book_new();
+    const data = [];
+
+    Renters.find({}).forEach(doc => {
+      const renterRes = renterToExcel(doc._id, doc, false);
+      data.push(...renterRes);
+
+      FleetRenter.find({ idRenter: doc._id }).forEach(fleetDoc => {
+        const fleetRenterRes = fleetRenterToExcel(fleetDoc._id, fleetDoc, false);
+        data.push(...fleetRenterRes);
+      });
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Arrendadoras');
+    return wb;
   }
 });

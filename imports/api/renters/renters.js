@@ -188,22 +188,22 @@ function renterToExcel (id, doc = null, headers = true) {
     // headers
     if (headers) {
       res.push(['Arrendadora']);
-      res.push([
-        'Nombre',
-        'Sucursal',
-        'Correo',
-        'Sitio web',
-        'Estrellas',
-        'Departamento',
-        'Municipio',
-        'Ciudad',
-        'Calle',
-        'Monedas aceptadas',
-        'Telefonos',
-        'Servicios',
-        'Metodos de pago'
-      ]);
     }
+    res.push([
+      'Nombre',
+      'Sucursal',
+      'Correo',
+      'Sitio web',
+      'Estrellas',
+      'Departamento',
+      'Municipio',
+      'Ciudad',
+      'Calle',
+      'Monedas aceptadas',
+      'Telefonos',
+      'Servicios',
+      'Metodos de pago'
+    ]);
 
     // datos que no son arreglos
     res.push([

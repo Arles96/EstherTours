@@ -126,8 +126,8 @@ function fleetRenterToExcel (id, doc = null, headers = true) {
     // headers
     if (headers) {
       res.push(['Flota de Arrendadora']);
-      res.push(['Tipo', 'Total', 'Tipo de Vehículo', 'Marca', 'Modelo', 'Tarifa']);
     }
+    res.push(['Tipo', 'Total', 'Tipo de Vehículo', 'Marca', 'Modelo', 'Tarifa']);
 
     // datos que no son arreglos
     res.push([
