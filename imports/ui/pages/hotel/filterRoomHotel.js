@@ -7,8 +7,6 @@ import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 import HotelImages from '../../../api/hotels/hotelImage';
 
-// TODO mostrar por paginas
-
 Template.filterRoomHotel.onCreated(function createVars () {
   this.precioMax = new ReactiveVar(2500);
   this.name = new ReactiveVar('');
