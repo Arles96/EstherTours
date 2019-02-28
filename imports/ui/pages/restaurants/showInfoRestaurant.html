@@ -104,7 +104,11 @@
               <div class="form-group">
                 <label for="">
                   <b>Facilidades para Discapacitados:</b>
-                  {{facilityPeople}}
+                  {{#if facilityPeople}}
+                    Si
+                  {{else}}
+                    No
+                  {{/if}}
                 </label>
               </div>
             </div>
@@ -112,7 +116,11 @@
               <div class="form-group">
                 <label for="">
                   <b>Barra:</b>
-                  {{bar}}
+                  {{#if bar}}
+                    Si
+                  {{else}}
+                    No
+                  {{/if}}
                 </label>
               </div>
             </div>
@@ -120,7 +128,11 @@
               <div class="form-group">
                 <label for="">
                   <b>Sala de Espera:</b>
-                  {{waitingRoom}}
+                  {{#if waitingRoom}}
+                    Si
+                  {{else}}
+                    No
+                  {{/if}}
                 </label>
               </div>
             </div>
@@ -129,7 +141,7 @@
                   <label for="">
                     <b>Categorización:</b>
                   </label>
-                  <p>{{rating}} estrellas </p>
+                  <p>{{rating}} estrellas</p>
                 </div>
               </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
