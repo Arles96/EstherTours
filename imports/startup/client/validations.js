@@ -1,5 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import { admin, operator, consultant } from '../../api/roles/roles';
+import {
+  admin,
+  operator,
+  consultant,
+  supervisor
+} from '../../api/roles/roles';
 
 /**
  * Función para validar cuando el usuario no ha iniciado sesión
@@ -32,6 +37,34 @@ export const isLoggedIn = self => {
 export const isAdmin = self => {
   if (!Meteor.user()) {
     Router.go('/');
+  } else if (Roles.userIsInRole(Meteor.userId(), admin)) {
+    self.next();
+  } else {
+    self.layout('App_body');
+    self.render('App_notFound');
+  }
+};
+
+/**
+ * Función para validar si el usuario tiene el rol de supervisor
+ * @param {function} self
+ */
+export const isSupervisor = self => {
+  if (!Meteor.user()) {
+    Router.go('/');
+  } else if (Roles.userIsInRole(Meteor.userId(), supervisor)) {
+    self.next();
+  } else {
+    self.layout('App_body');
+    self.render('App_notFound');
+  }
+};
+
+export const isSupervisorOrAdmin = self => {
+  if (!Meteor.user()) {
+    Router.go('/');
+  } else if (Roles.userIsInRole(Meteor.userId(), supervisor)) {
+    self.next();
   } else if (Roles.userIsInRole(Meteor.userId(), admin)) {
     self.next();
   } else {
