@@ -3,7 +3,7 @@
     <div class="card-header">
       <i class="fas fa-table"></i> Lista de actividades
     </div>
-    <select class = "form control" id = "userSelector">
+    <select class = "form-group combo col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" id = "userSelector">
         <option value = '-1'>(Seleccione uno)</option>
         {{#each Users}}
           <option value = {{value}}>{{label}}</option>
@@ -13,6 +13,7 @@
       <div class="table-responsive">
         {{> tabular table=TabularTables.userActivities selector=selector class="table table-hover table-bordered"}}
       </div>
+      <canvas id="userActivitiesChart" width="400"></canvas>
     </div>
   </div>
 </template>
