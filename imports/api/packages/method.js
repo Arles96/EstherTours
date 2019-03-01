@@ -10,6 +10,7 @@ import { FleetRenter } from '../renters/fleetRenter';
 import { Restaurants } from '../restaurants/restaurants';
 import { TransportationEstablishments } from '../TransportationEstablishment/TransportationEstablishment';
 import { RouteTransportationEstablishment } from '../TransportationEstablishment/RouteTransportationEstablishment';
+import { SoldPackage, SoldPackageSchema } from './soldPackage';
 
 Meteor.methods({
   insertPackages: function (doc) {
@@ -25,7 +26,11 @@ Meteor.methods({
     });
   },
   deletePackage: function (id) {
-    Packages.remove({ _id: id });
+    if (!SoldPackage.find({ idPackage: id })) {
+      Packages.remove({ _id: id });
+    } else {
+      throw new Meteor.Error('No se puede eliminar este paquete');
+    }
   },
   findPackages: function (doc) {
     PackagesSchemaConsult.validate(doc);
@@ -142,6 +147,10 @@ Meteor.methods({
     } else {
       return [];
     }
+  },
+  addSoldPackage: function (doc) {
+    SoldPackageSchema.validate(doc);
+    SoldPackage.insert(doc);
   }
 });
 
