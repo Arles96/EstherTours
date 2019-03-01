@@ -11,7 +11,7 @@ Meteor.methods({
     Restaurants.insert(doc);
     userActivities.insert({
       userId: Meteor.userId(),
-      user: Meteor.user().profile.firstName,
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
       activity: 'agregó',
       collection: 'restaurantes',
       registerId: 'N/D',
@@ -48,7 +48,7 @@ Meteor.methods({
       Restaurants.insert(doc);
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'agregó sucursal',
         collection: 'restaurantes',
         registerId: 'N/D',
@@ -128,7 +128,7 @@ Meteor.methods({
       });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'editó',
         collection: 'restaurantes',
         registerId: _id,
@@ -164,7 +164,7 @@ Meteor.methods({
       restaurantOffers.insert(doc);
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'agregó',
         collection: 'restaurantOffers',
         registerId: 'N/D',
@@ -187,7 +187,7 @@ Meteor.methods({
       restaurantOffers.remove({ idRestaurant: id });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'eliminó',
         collection: 'restaurantes',
         registerId: 'N/D',
@@ -203,7 +203,7 @@ Meteor.methods({
       restaurantOffers.remove({ _id: id });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'eliminó',
         collection: 'restaurantOffers',
         registerId: 'N/D',
@@ -228,7 +228,7 @@ Meteor.methods({
         });
         userActivities.insert({
           userId: Meteor.userId(),
-          user: Meteor.user().profile.firstName,
+          user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
           activity: 'editó',
           collection: 'restaurantOffers',
           registerId: 'N/D',

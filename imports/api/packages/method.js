@@ -18,7 +18,7 @@ Meteor.methods({
     Packages.insert(doc);
     userActivities.insert({
       userId: Meteor.userId(),
-      user: Meteor.user().profile.firstName,
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
       activity: 'agregó',
       collection: 'paquetes',
       registerId: 'N/D',
@@ -35,7 +35,7 @@ Meteor.methods({
     });
     userActivities.insert({
       userId: Meteor.userId(),
-      user: Meteor.user().profile.firstName,
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
       activity: 'editó',
       collection: 'paquetes',
       registerId: _id,
@@ -47,7 +47,7 @@ Meteor.methods({
     Packages.remove({ _id: id });
     userActivities.insert({
       userId: Meteor.userId(),
-      user: Meteor.user().profile.firstName,
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
       activity: 'eliminó',
       collection: 'paquetes',
       registerId: 'N/D',

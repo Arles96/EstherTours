@@ -5,7 +5,7 @@ Meteor.methods({
   userLogout: function (doc) {
     userActivities.insert({
       userId: Meteor.userId(),
-      user: Meteor.user().profile.firstName,
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
       activity: 'Cerró sesión',
       collection: 'N/D',
       registerId: 'N/D',
@@ -16,7 +16,7 @@ Meteor.methods({
   userLogin: function (doc) {
     userActivities.insert({
       userId: Meteor.userId(),
-      user: Meteor.user().profile.firstName,
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
       activity: 'Inició sesión',
       collection: 'N/D',
       registerId: 'N/D',

@@ -11,7 +11,7 @@ Meteor.methods({
       Renters.insert(doc);
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'agregó',
         collection: 'rentadoras',
         registerId: 'N/D',
@@ -51,7 +51,7 @@ Meteor.methods({
       Renters.insert(doc);
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'agregós',
         collection: 'rentadoras',
         registerId: 'N/D',
@@ -71,7 +71,7 @@ Meteor.methods({
 
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'editó',
         collection: 'rentadoras',
         registerId: _id,
@@ -107,7 +107,7 @@ Meteor.methods({
       FleetRenter.insert(doc);
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'agregó',
         collection: 'renterFleet',
         registerId: 'N/D',
@@ -130,7 +130,7 @@ Meteor.methods({
       FleetRenter.remove({ idRenter: id });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'eliminó',
         collection: 'rentadoras',
         registerId: 'N/D',
@@ -146,7 +146,7 @@ Meteor.methods({
       FleetRenter.remove({ _id: id });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'eliminó',
         collection: 'renterFleet',
         registerId: 'N/D',
@@ -167,7 +167,7 @@ Meteor.methods({
       });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'editó',
         collection: 'renterFleet',
         registerId: 'N/D',

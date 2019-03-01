@@ -12,7 +12,7 @@ Meteor.methods({
     TransportationEstablishments.insert(doc);
     userActivities.insert({
       userId: Meteor.userId(),
-      user: Meteor.user().profile.firstName,
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
       activity: 'agregó',
       collection: 'Establecimiento de transporte',
       registerId: 'N/D',
@@ -110,7 +110,7 @@ Meteor.methods({
       });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'editó',
         collection: 'Establecimiento de transporte',
         registerId: _id,
@@ -127,7 +127,7 @@ Meteor.methods({
       FleetTransportationEstablishment.insert(doc);
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'agregó',
         collection: 'Flotas de establecimiento de transporte',
         registerId: 'N/D',
@@ -144,7 +144,7 @@ Meteor.methods({
       FleetTransportationEstablishment.remove({ idTransportationEstablishment: id });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'eliminó',
         collection: 'Establecimiento de transporte',
         registerId: 'N/D',
@@ -160,7 +160,7 @@ Meteor.methods({
       FleetTransportationEstablishment.remove({ _id: id });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'eliminó',
         collection: 'Flotas de establecimiento de transporte',
         registerId: 'N/D',
@@ -181,7 +181,7 @@ Meteor.methods({
       });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'editó',
         collection: 'Flotas de establecimiento de transporte',
         registerId: _id,
@@ -198,7 +198,7 @@ Meteor.methods({
       RouteTransportationEstablishment.insert(doc);
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'agregó',
         collection: 'Rutas de establecimiento de transporte',
         registerId: 'N/D',
@@ -214,7 +214,7 @@ Meteor.methods({
       RouteTransportationEstablishment.remove({ _id: id });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'eliminó',
         collection: 'Rutas de establecimiento de transporte',
         registerId: 'N/D',
@@ -235,7 +235,7 @@ Meteor.methods({
       });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'editó',
         collection: 'Rutas de establecimiento de transporte',
         registerId: doc.name,
@@ -270,7 +270,7 @@ Meteor.methods({
       TransportationEstablishments.insert(doc);
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'agregó sucursal',
         collection: 'Establecimiento de transporte',
         registerId: 'N/D',
@@ -286,7 +286,7 @@ Meteor.methods({
       TransportationEstablishments.remove({ _id: id });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'eliminó',
         collection: 'Establecimiento de transporte',
         registerId: 'N/D',
@@ -307,7 +307,7 @@ Meteor.methods({
       });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'editó',
         collection: 'Establecimiento de transporte',
         registerId: _id,
