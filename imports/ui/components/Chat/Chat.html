@@ -1,12 +1,18 @@
 <template name="chat">
   <div class="card" style="background: #212529; max-width: 19rem;">
-    <div class="User-chat-status" style="margin-top:5px; margin-left:15px; height: 5px; width:50%; background:white;"></div>
-    <div class="card-header d-flex flex-nowrap" style="background: #212529; color: white">
-      <div id="ChatHeader{{contextData.Issuer._id}}" class="p-2 mr-auto flex-fill ChatHeader card-link pointer" data-toggle="collapse"
+    <div class="card-header d-flex flex-nowrap align-content-end" style="background: #212529; color: white; padding-left: 12;">
+      {{#if contextData.Issuer.status.online}}
+      <i class="fas fa-circle fa-xs mr-auto pointer" style="color: #52BE80"></i>
+      {{else}}
+      <i class="far fa-circle fa-xs mr-auto pointer"></i>
+      {{/if}}
+      <div id="ChatHeader{{contextData.Issuer._id}}" class="mr-auto flex-fill ChatHeader card-link pointer" data-toggle="collapse"
         href="#{{contextData.Issuer._id}}-chat" aria-expanded="false">
+        <small style="color:rgba(209, 121, 121, 0)"> -</small>
         {{contextData.Issuer.profile.firstName}} {{contextData.Issuer.profile.lastName}}
-    </div>
-      <i class="closeChat fas fa-times p-2 ml-auto pointer"></i>
+        <small style="color:rgba(209, 121, 121, 0)"> -</small>
+      </div>
+      <i class="closeChat fas fa-times ml-auto pointer"></i>
     </div>
     <div id="{{contextData.Issuer._id}}-chat" class="collapse hidde" data-parent="#accordion">
       <div id="Cat{{contextData.Issuer._id}}" class="card-body" style="max-height: 30vh; background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto !important; text-align: center;">

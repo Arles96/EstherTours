@@ -17,20 +17,25 @@
           {{#each user in listUsers }}
           <div id="{{user._id}}" class="chatWith list-group-item list-group-item-action d-flex flex-column textEllipsis pointer">
             <div class="flex-row flex-grow-1">
+              {{#if user.status.online}}
+              <i class="fas fa-circle fa-xs mr-auto pointer" style="color: #52BE80"></i>
+              {{/if}}
               {{user.profile.firstName}} {{user.profile.lastName}}
               <span class="ml-auto badge badge-pill badge-dark">{{cantNotifications user._id}}</span>
             </div>
             <small class="flex-row textEllipsis" style="max-width: 100%"><i>{{lastMessage user._id}}
-              {{#if (isSent (getStatus user._id))}}
-              <i class="fas fa-check float-sm-right"></i>
-              {{/if}}
-              {{#if (isReceived (getStatus user._id))}}
-              <i class="fas fa-check-double float-sm-right"></i>
-              {{/if}}
-              {{#if (isRead (getStatus user._id))}}
-              <i class="fas fa-check-double fa-xs float-sm-right" style="color: orange;"></i>
-              {{/if}}
-            </i></small>
+                {{#if (isReceiver user._id ) }}
+                {{#if (isSent (getStatus user._id))}}
+                <i class="fas fa-check float-sm-right"></i>
+                {{/if}}
+                {{#if (isReceived (getStatus user._id))}}
+                <i class="fas fa-check-double float-sm-right"></i>
+                {{/if}}
+                {{#if (isRead (getStatus user._id))}}
+                <i class="fas fa-check-double fa-xs float-sm-right" style="color: orange;"></i>
+                {{/if}}
+                {{/if}}
+              </i></small>
           </div>
           {{/each}}
         </div>
@@ -47,8 +52,11 @@
       {{else}}
       <div class="card-header" style="text-align: center;">
         {{getIssuer "firstName"}} {{getIssuer "lastName"}}
+        {{#if (getIssuer "status")}}
+        : <small><i style="color: #52BE80">En línea</i></small>
+        {{/if}}
       </div>
-      <div style="height: 100%; background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto !important; text-align: center; padding: 1rem;">
+      <div id="ChatBody" style="height: 100%; background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto !important; text-align: center; padding: 1rem;">
         {{#each message in messages}}
         {{#if (isReceiver message.idReceiver ) }}
         <div class="alert alert-secondary" style="text-align: left; max-width: max-content; word-wrap: break-word; word-break: break-all;">

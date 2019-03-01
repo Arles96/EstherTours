@@ -5,14 +5,41 @@ import { Notifications } from '../../../api/Notifications/Notification';
 import './ChatUserMenu.html';
 
 Template.chatUserMenu.helpers({
-  listUsers: () => {
+  connectedUsers: () => {
     const result = Meteor.users.find({
       _id: { $not: Meteor.userId() },
       $or:
         (`${Session.get('searchChatWith')}` !== `undefined`
           ? Session.get('searchChatWith')
           : [{}]
+        ),
+      'status.online': true
+    });
+    if (`${Session.get('searchChatWithString')}` !== `undefined` && Session.get('searchChatWithString').length > 1) {
+      const idComplete = result.fetch().map(item => ({
+        _id: (
+          item.profile.firstName.concat(' ').concat(item.profile.lastName).includes(Session.get('searchChatWithString').join().replace(',', ' '))
+            ? item._id
+            : ''
         )
+      }));
+      if (idComplete.length > 0) {
+        return Meteor.users.find({
+          $or: idComplete
+        });
+      }
+    }
+    return result;
+  },
+  disconnectedUsers: () => {
+    const result = Meteor.users.find({
+      _id: { $not: Meteor.userId() },
+      $or:
+        (`${Session.get('searchChatWith')}` !== `undefined`
+          ? Session.get('searchChatWith')
+          : [{}]
+        ),
+      'status.online': false
     });
     if (`${Session.get('searchChatWithString')}` !== `undefined` && Session.get('searchChatWithString').length > 1) {
       const idComplete = result.fetch().map(item => ({

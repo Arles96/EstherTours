@@ -39,7 +39,6 @@ Meteor.methods({
     }
   },
   lookMessage: function (doc) {
-    console.log('Hey');
     Chats.update(
       doc,
       {
@@ -52,7 +51,6 @@ Meteor.methods({
     Notifications.remove(doc);
   },
   recieveMessage: function (doc) {
-    console.log('rec');
     Chats.update(
       {
         idIssuer: doc.idIssuer,

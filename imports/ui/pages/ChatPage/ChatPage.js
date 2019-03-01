@@ -68,6 +68,7 @@ Template.chatPage.helpers({
         case 'id': return issuer._id;
         case 'firstName': return issuer.profile.firstName;
         case 'lastName': return issuer.profile.lastName;
+        case 'status': return issuer.status.online;
         default: return false;
       }
     }
