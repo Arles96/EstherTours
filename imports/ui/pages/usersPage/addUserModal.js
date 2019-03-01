@@ -3,10 +3,8 @@ import toastr from 'toastr';
 import UserProfileSchema from '../../../api/users/profileUsers';
 import { branchOffices } from '../../../api/branchOffices/Offices';
 
-Template.addUserModal.onCreated(() => {
+Template.addUserModal.onCreated(() => { 
   Meteor.subscribe('branchOffices.all');
-  Meteor.subscribe('allUsers.all');
-  Meteor.subscribe('chats.all');
 });
 
 Template.addUserModal.helpers({

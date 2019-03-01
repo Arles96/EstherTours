@@ -6,8 +6,6 @@ import { branchOffices } from '../../../api/branchOffices/Offices';
 
 Template.officeEdit.onCreated(() => {
   Meteor.subscribe('branchOffices.all');
-  Meteor.subscribe('allUsers.all');
-  Meteor.subscribe('chats.all');
 });
 
 Template.officeEdit.helpers({

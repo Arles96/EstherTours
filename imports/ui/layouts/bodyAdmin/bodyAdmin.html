@@ -11,15 +11,12 @@
   <div id="wrapper">
     {{>leftMenu}}
     <div id="content-wrapper" style="height: 90vh; overflow-y: auto;">
-      <div class="container-fluid" style="height: 100%;">
+      <div class="container-fluid">
         {{>breadcrumb}}
         {{>yield}}
       </div>
     </div>
   </div>
-  {{#if ShowChatFixed}}
-  {{>chatSide}}
-  {{/if}}
   {{/if}}
   {{>scripts}}
 </template>
