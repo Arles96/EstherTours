@@ -33,7 +33,6 @@ Meteor.methods({
           }
         );
       }
-      console.log('Sent');
       return 'Success';
     } else {
       return 'Error';
@@ -50,7 +49,6 @@ Meteor.methods({
       { multi: true }
     );
     Notifications.remove(doc);
-    console.log('Looked');
   },
   recieveMessage: function (doc) {
     Chats.update(
@@ -66,6 +64,5 @@ Meteor.methods({
       },
       { multi: true }
     );
-    console.log('Received');
   }
 });
