@@ -37,12 +37,27 @@ const SoldPackageSchema = new SimpleSchema({
     type: Date,
     optional: true,
     autoValue: () => new Date()
+  },
+  sold: {
+    type: Boolean,
+    defaultValue: false,
+    label: 'Vendido'
   }
 }, { check: check, tracker: Tracker });
 
 SoldPackageSchema.messageBox.messages(messages);
 
 SoldPackage.attachSchema(SoldPackageSchema);
+
+SoldPackage.helpers({
+  textSold: function () {
+    if (this.sold) {
+      return 'Si';
+    } else {
+      return 'No';
+    }
+  }
+});
 
 export {
   SoldPackage,
