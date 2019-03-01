@@ -6,7 +6,6 @@ import './Chat.html';
 import { Notifications } from '../../../api/Notifications/Notification';
 
 Template.chat.onCreated(() => {
-
 });
 
 Template.chat.helpers({
