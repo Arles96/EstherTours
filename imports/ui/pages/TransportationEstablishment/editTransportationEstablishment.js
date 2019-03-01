@@ -41,6 +41,7 @@ AutoForm.addHooks('editTransportationEstablishmentsForms', {
     if (error.error === 'Ubicación duplicada.') {
       toastr.error(new Error('¡Ya existe una agencia con esas direcciones!'));
     } else {
+      console.log(error);
       toastr.error(error);
     }
   }

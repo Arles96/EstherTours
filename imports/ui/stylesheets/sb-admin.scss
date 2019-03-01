@@ -425,3 +425,57 @@ body.sidebar-toggled footer.sticky-footer {
 .colorOrange {
   color: orange !important;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.chat-menu {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  width: 100vw;
+}
+
+.chatNotificationMenu {
+  overflow-y: auto !important;
+  text-align: left;
+  max-height: 25vh;
+  max-width: 20rem;
+  min-width: 20rem;
+  padding: 1rem;
+}
+
+.chatNotificationItem {
+  max-width: 95%;
+  size: 0.5rem;
+  color: black;
+  padding: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis; 
+}
+
+.chatNotificationItem > small > i {
+  color:#525252;
+}
+
+.textEllipsis {
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis; 
+}
+
+.closeChat:hover {
+  color: #CD6155;
+}
+
+.chatsDivider {
+  height: 1px;
+  width:100%;
+  display:block; /* for use on default inline elements like span */
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
