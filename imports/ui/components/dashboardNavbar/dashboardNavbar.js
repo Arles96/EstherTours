@@ -11,6 +11,13 @@ Template.dashboardNavbar.helpers({
   getIssuer: function (id) {
     const issuer = Meteor.users.findOne({ _id: id });
     if (issuer) {
+      const query = {
+        idReceiver: Meteor.userId(),
+        idIssuer: id
+      };
+      if (Notifications.findOne(query)) {
+        Meteor.call('recieveMessage', query);
+      }
       return `${issuer.profile.firstName} ${issuer.profile.lastName}`;
     }
     return null;

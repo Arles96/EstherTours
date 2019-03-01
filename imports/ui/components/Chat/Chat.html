@@ -15,11 +15,20 @@
         {{#each message in messages}}
         {{#if (isReceiver message.idReceiver ) }}
         <div class="alert alert-secondary" style="text-align: left; max-width: max-content; word-wrap: break-word; word-break: break-all;">
-          <strong>{{contextData.Issuer.profile.firstName}}: </strong>{{message.message}} <a class="alert-link"></a>
+          <strong>{{contextData.Issuer.profile.firstName}}: </strong>{{message.message}}
         </div>
         {{else}}
         <div class="alert alert-info" style="text-align: left; max-width: max-content; word-wrap: break-word; word-break: break-all;">
           <strong>Tú: </strong>{{message.message}}
+          {{#if (isSent message.status)}}
+          <i class="fas fa-check float-sm-right" style="margin-left: 1rem;"></i>
+          {{/if}}
+          {{#if (isReceived message.status)}}
+          <i class="fas fa-check-double float-sm-right" style="margin-left: 1rem;"></i>
+          {{/if}}
+          {{#if (isRead message.status)}}
+          <i class="fas fa-check-double fa-xs float-sm-right" style="color: orange; margin-left: 1rem;"></i>
+          {{/if}}
         </div>
         {{/if}}
         {{else}}

@@ -39,6 +39,32 @@ Meteor.methods({
     }
   },
   lookMessage: function (doc) {
+    console.log('Hey');
+    Chats.update(
+      doc,
+      {
+        $set: {
+          status: 3
+        }
+      },
+      { multi: true }
+    );
     Notifications.remove(doc);
+  },
+  recieveMessage: function (doc) {
+    console.log('rec');
+    Chats.update(
+      {
+        idIssuer: doc.idIssuer,
+        idReceiver: doc.idReceiver,
+        status: 1
+      },
+      {
+        $set: {
+          status: 2
+        }
+      },
+      { multi: true }
+    );
   }
 });

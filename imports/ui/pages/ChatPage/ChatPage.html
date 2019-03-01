@@ -20,7 +20,17 @@
               {{user.profile.firstName}} {{user.profile.lastName}}
               <span class="ml-auto badge badge-pill badge-dark">{{cantNotifications user._id}}</span>
             </div>
-            <small class="flex-row textEllipsis" style="max-width: 100%"><i>{{lastMessage user._id}}</i></small>
+            <small class="flex-row textEllipsis" style="max-width: 100%"><i>{{lastMessage user._id}}
+              {{#if (isSent (getStatus user._id))}}
+              <i class="fas fa-check float-sm-right"></i>
+              {{/if}}
+              {{#if (isReceived (getStatus user._id))}}
+              <i class="fas fa-check-double float-sm-right"></i>
+              {{/if}}
+              {{#if (isRead (getStatus user._id))}}
+              <i class="fas fa-check-double fa-xs float-sm-right" style="color: orange;"></i>
+              {{/if}}
+            </i></small>
           </div>
           {{/each}}
         </div>
@@ -42,11 +52,20 @@
         {{#each message in messages}}
         {{#if (isReceiver message.idReceiver ) }}
         <div class="alert alert-secondary" style="text-align: left; max-width: max-content; word-wrap: break-word; word-break: break-all;">
-          <strong>{{getIssuer "firstName"}}: </strong>{{message.message}} <a class="alert-link"></a>
+          <strong>{{getIssuer "firstName"}}: </strong>{{message.message}}
         </div>
         {{else}}
-        <div class="alert alert-info" style="text-align: left; max-width: max-content; word-wrap: break-word; word-break: break-all;">
+        <div class="alert alert-info " style="text-align: left; max-width: max-content; word-wrap: break-word; word-break: break-all;">
           <strong>Tú: </strong>{{message.message}}
+          {{#if (isSent message.status)}}
+          <i class="fas fa-check float-sm-right" style="margin-left: 1rem;"></i>
+          {{/if}}
+          {{#if (isReceived message.status)}}
+          <i class="fas fa-check-double float-sm-right" style="margin-left: 1rem;"></i>
+          {{/if}}
+          {{#if (isRead message.status)}}
+          <i class="fas fa-check-double fa-xs float-sm-right" style="color: orange; margin-left: 1rem;"></i>
+          {{/if}}
         </div>
         {{/if}}
         {{else}}

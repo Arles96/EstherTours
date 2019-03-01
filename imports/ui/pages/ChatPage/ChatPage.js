@@ -6,7 +6,7 @@ import { Session } from 'meteor/session';
 import { Notifications } from '../../../api/Notifications/Notification';
 import { Chats, ChatSchema } from '../../../api/Chats/Chats';
 
-Template.chatPage.onCreated(function createVars() {
+Template.chatPage.onCreated(function createVars () {
   this.currentIssuerId = new ReactiveVar('none');
 });
 
@@ -50,10 +50,13 @@ Template.chatPage.helpers({
       }]
     }),
   isReceiver: id => {
-    Meteor.call('lookMessage', {
+    const query = {
       idReceiver: Meteor.userId(),
       idIssuer: Template.instance().currentIssuerId.get()
-    });
+    };
+    if (Notifications.findOne(query)) {
+      Meteor.call('lookMessage', query);
+    }
     return Meteor.userId() === id;
   },
   isStartPage: () => Template.instance().currentIssuerId.get() === 'none',
@@ -105,17 +108,45 @@ Template.chatPage.helpers({
       }
     }
     return null;
-  }
+  },
+  getStatus: id => {
+    const query = Chats.find(
+      {
+        $or: [{
+          idReceiver: Meteor.userId(),
+          idIssuer: id
+        },
+        {
+          idIssuer: Meteor.userId(),
+          idReceiver: id
+        }]
+      }, {
+        sort: {
+          DateTime: -1, limit: 1
+        }
+      }
+    ).fetch().pop();
+    if (query) {
+      return query.status;
+    }
+    return null;
+  },
+  isSent: status => status === 1,
+  isReceived: status => status === 2,
+  isRead: status => status === 3
 });
 
 Template.chatPage.events({
   'click .chatWith': function (event) {
     if (event.currentTarget.id) {
       Template.instance().currentIssuerId.set(event.currentTarget.id);
-      Meteor.call('lookMessage', {
+      const query = {
         idReceiver: Meteor.userId(),
         idIssuer: event.currentTarget.id
-      });
+      };
+      if (Notifications.findOne(query)) {
+        Meteor.call('lookMessage', query);
+      }
     }
   },
   'input .searchChatWith': function (event) {

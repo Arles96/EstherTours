@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { Chats, ChatSchema } from '../../../api/Chats/Chats';
 import './Chat.html';
+import { Notifications } from '../../../api/Notifications/Notification';
 
 Template.chat.onCreated(() => {
 
@@ -30,14 +31,20 @@ Template.chat.helpers({
   isReceiver: id => {
     if (document.getElementById(`ChatHeader${Template.currentData().contextData.Issuer._id}`)) {
       if (document.getElementById(`ChatHeader${Template.currentData().contextData.Issuer._id}`).getAttribute('aria-expanded') === 'true') {
-        Meteor.call('lookMessage', {
+        const query = {
           idReceiver: Meteor.userId(),
           idIssuer: Template.currentData().contextData.Issuer._id
-        });
+        };
+        if (Notifications.findOne(query)) {
+          Meteor.call('lookMessage', query);
+        }
       }
     }
     return Template.currentData().contextData.Receiver._id === id;
-  }
+  },
+  isSent: status => status === 1,
+  isReceived: status => status === 2,
+  isRead: status => status === 3
 });
 
 Template.chat.events({
@@ -47,10 +54,13 @@ Template.chat.events({
   },
   'click .ChatHeader': function (event) {
     if (document.getElementById(`ChatHeader${Template.currentData().contextData.Issuer._id}`).getAttribute('aria-expanded') === 'false') {
-      Meteor.call('lookMessage', {
+      const query = {
         idReceiver: Meteor.userId(),
         idIssuer: Template.currentData().contextData.Issuer._id
-      });
+      };
+      if (Notifications.findOne(query)) {
+        Meteor.call('lookMessage', query);
+      }
     }
   }
 });
