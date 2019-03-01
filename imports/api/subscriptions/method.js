@@ -3,7 +3,7 @@ import { Subscriptions, SubscriptionsSchema } from './subscriptions';
 import { consultant } from '../roles/roles';
 
 Meteor.methods({
-  insertAttraction: function (doc) {
+  insertSubscription: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), consultant)) {
       SubscriptionsSchema.validate(doc);
       Subscriptions.insert(doc);
@@ -11,7 +11,7 @@ Meteor.methods({
       throw new Meteor.Error('Permiso Denegado');
     }
   },
-  editAttraction: function (doc) {
+  editSubscription: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), consultant)) {
       const data = doc.modifier.$set;
       const { _id } = doc;
@@ -23,7 +23,7 @@ Meteor.methods({
       throw new Meteor.Error('Permiso Denegado');
     }
   },
-  deleteAttraction: function (id) {
+  deleteSubscription: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), consultant)) {
       Subscriptions.remove({ _id: id });
     } else {

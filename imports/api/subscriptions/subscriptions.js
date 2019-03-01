@@ -9,25 +9,36 @@ const Subscriptions = new Mongo.Collection('subscriptions');
 SimpleSchema.extendOptions(['autoform']);
 
 const SubscriptionsSchema = new SimpleSchema({
-  names: {
+  name: {
     type: String,
-    label: 'Nombres'
-  },
-  surnames: {
-    type: String,
-    label: 'Apellidos'
+    label: 'Nombre'
   },
   email: {
     type: String,
     label: 'Correo',
-    unique: true,
-    regEx: RegExObj.email
+    regEx: RegExObj.email,
+    custom: function () {
+      if (Subscriptions.findOne({ email: this.value })) {
+        return 'duplicatePhones';
+      }
+      return 1;
+    }
   },
   telephone: {
     type: String,
     label: 'Teléfono',
     optional: true,
     regEx: RegExObj.phone
+  },
+  subscribed: {
+    type: Boolean,
+    label: 'Suscrito',
+    defaultValue: true
+  },
+  userId: {
+    type: String,
+    optional: true,
+    autoValue: () => Meteor.userId()
   },
   createAt: {
     type: Date,
@@ -37,8 +48,17 @@ const SubscriptionsSchema = new SimpleSchema({
 }, { check: check, tracker: Tracker });
 
 SubscriptionsSchema.messageBox.messages(messages);
-
 Subscriptions.attachSchema(SubscriptionsSchema);
+
+Subscriptions.helpers({
+  textSubs: function () {
+    if (this.subscribed) {
+      return 'Si';
+    } else {
+      return 'No';
+    }
+  }
+});
 
 export {
   Subscriptions,

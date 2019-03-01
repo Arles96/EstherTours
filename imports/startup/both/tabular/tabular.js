@@ -16,6 +16,7 @@ import { Guide } from '../../../api/guide/guide';
 import { Packages } from '../../../api/packages/packages';
 import { branchOffices } from '../../../api/branchOffices/Offices';
 import { SoldPackage } from '../../../api/packages/soldPackage';
+import { Subscriptions } from '../../../api/subscriptions/subscriptions';
 
 const TabularTables = {};
 
@@ -1018,6 +1019,50 @@ TabularTables.SoldPackage = new Tabular.Table({
       class: 'text-center',
       data: 'textSold()',
       title: 'Vendido'
+    }
+  ]
+});
+
+TabularTables.Subscriptions = new Tabular.Table({
+  name: 'Subscriptions',
+  collection: Subscriptions,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: ['subscribed'],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'name',
+      title: 'Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'email',
+      title: 'Correo'
+    },
+    {
+      class: 'text-center',
+      data: 'telephone',
+      title: 'Teléfono'
+    },
+    {
+      class: 'text-center',
+      data: 'textSubs()',
+      title: 'Suscrito'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsSubs (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonSubscriptions, {
+          _id: rowData._id,
+          slug: rowData.slug
+        }, cell);
+      }
     }
   ]
 });

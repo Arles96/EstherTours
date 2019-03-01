@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Agregar suscripción</h5>
+          <h5 class="modal-title">Agregar suscripción</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -15,10 +15,10 @@
             type="method"
             meteormethod="insertSubscription"
           }}
-            {{>afQuickField name="names"}}
-            {{>afQuickField name="surnames"}}
+            {{>afQuickField name="name"}}
             {{>afQuickField name="email"}}
             {{>afQuickField name="telephone"}}
+            {{>afQuickField type="hidden" name="subscribed" value=true}}
             <div class="text-center mt-4">
               <button class="btn btn-primary w-75" type="submit">Agregar</button>
             </div>

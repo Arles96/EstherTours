@@ -84,6 +84,7 @@ import '../../ui/pages/resultTransport/resultTransport';
 import '../../ui/pages/branchOfficePage/officesPage';
 import '../../ui/pages/packages/filterPackage';
 import '../../ui/pages/soldPackage/listSoldPackage';
+import '../../ui/pages/subscriptions/listSubscriptions';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -1378,5 +1379,23 @@ Router.route('/sold-package', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Paquetes Vendidos']);
     isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta tabla de Suscripciónes
+ */
+Router.route('/list-subscriptions', {
+  name: 'listSubscriptions',
+  template: 'listSubscriptions',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('subscriptions.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de Suscripciónes']);
+    isConsultant(this);
   }
 });

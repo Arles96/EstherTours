@@ -1,0 +1,32 @@
+<template name="listSubscriptions">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Lista de Suscripciónes
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        {{>tabular table=TabularTables.Subscriptions class="table table-hover table-bordered"}}
+      </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+  </div>
+</template>
+
+<template name="showButtonSubscriptions">
+  {{#if subscribed}}
+    <span id="unsubscribe" data-toggle="tooltip" data-placement="top" title="Desactivar suscripción">
+      <i style="cursor: pointer;" data-id="{{_id}}" class="far fa-circle-square"></i>
+    </span>
+  {{else}}
+    <span id="subscribe" data-toggle="tooltip" data-placement="top" title="Activar suscripción">
+      <i style="cursor: pointer;" data-id="{{_id}}" class="far fa-circle"></i>
+    </span>
+  {{/if}}
+  <span id="edit" data-toggle="tooltip" data-placement="top" title="Editar">
+    <i style="cursor: pointer;" data-id="{{_id}}" class="fas fa-edit"></i>
+  </span>
+  <span class="text-danger" id="delete" data-toggle="tooltip" data-placement="top" title="Eliminar">
+    <i style="cursor: pointer;" data-id="{{_id}}" class="far fa-trash-alt"></i>
+  </span>
+</template>
