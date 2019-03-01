@@ -226,6 +226,7 @@ Router.route('/addRestaurant', {
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Restaurante']);
     Session.set('rating', undefined);
+    Session.set('price', undefined);
     isOperator(this);
   }
 });

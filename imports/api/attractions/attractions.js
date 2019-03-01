@@ -180,6 +180,9 @@ AttractionSchema.messageBox.messages(messages);
 Attractions.helpers({
   attractionImages: function () {
     return this.images.map(_id => AttractionImages.findOne({ _id }));
+  },
+  textPrice: function() {
+    return this.price.toFixed(2);
   }
 });
 

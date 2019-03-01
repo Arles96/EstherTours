@@ -53,6 +53,9 @@ restaurantOffersSchema.messageBox.messages(messages);
 restaurantOffers.helpers({
   getRenterName: function () {
     return Restaurants.findOne({ _id: this.idRenter }).name;
+  },
+  textPriceRestaurant: function() {
+    return this.price.toFixed(2);
   }
 });
 
