@@ -1,7 +1,12 @@
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
-import { admin, consultant, operator } from '../roles/roles';
+import {
+  admin,
+  consultant,
+  operator,
+  supervisor
+} from '../roles/roles';
 import { messages, RegExObj } from '../regEx';
 
 SimpleSchema.extendOptions(['autoform']);
@@ -32,20 +37,33 @@ const ProfileUserSchema = new SimpleSchema({
     autoform: {
       firstOption: '(Seleccione Uno)',
       options: function () {
-        return [
-          {
-            value: admin,
-            label: admin
-          },
-          {
-            value: operator,
-            label: operator
-          },
-          {
-            value: consultant,
-            label: consultant
-          }
-        ];
+        if (Roles.userIsInRole(Meteor.userId(), admin)) {
+          return [
+            {
+              value: supervisor,
+              label: supervisor
+            },
+            {
+              value: operator,
+              label: operator
+            },
+            {
+              value: consultant,
+              label: consultant
+            }
+          ];
+        } else {
+          return [
+            {
+              value: operator,
+              label: operator
+            },
+            {
+              value: consultant,
+              label: consultant
+            }
+          ];
+        }
       }
     }
   },

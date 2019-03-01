@@ -10,4 +10,3 @@ Meteor.publish('restaurant.all', () => Restaurants.find());
 Meteor.publish('restaurantOffers.all', () => restaurantOffers.find());
 
 Meteor.publish('restaurantImage.all', () => RestaurantImage.find().cursor);
-

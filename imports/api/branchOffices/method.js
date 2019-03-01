@@ -1,10 +1,16 @@
 import { Meteor } from 'meteor/meteor';
 import { branchOffices, branchOfficeSchema } from './Offices';
-import { admin, operator, consultant } from '../roles/roles';
+import {
+  admin,
+  operator,
+  consultant,
+  supervisor
+} from '../roles/roles';
 
 Meteor.methods({
   insertOffice: function (doc) {
-    if (Roles.userIsInRole(Meteor.userId(), admin)) {
+    if (Roles.userIsInRole(Meteor.userId(), admin) ||
+      Roles.userIsInRole(Meteor.userId(), supervisor)) {
       const validate = branchOffices.findOne({
         $or: [{
           municipality: doc.municipality,
@@ -29,7 +35,8 @@ Meteor.methods({
     }
   },
   updateOffice: function (doc) {
-    if (Roles.userIsInRole(Meteor.userId(), admin)) {
+    if (Roles.userIsInRole(Meteor.userId(), admin) ||
+      Roles.userIsInRole(Meteor.userId(), supervisor)) {
       const data = doc.modifier.$set;
       const { _id } = doc;
       const validate = branchOffices.find({
@@ -72,7 +79,8 @@ Meteor.methods({
     }
   },
   deleteOffice: function (id) {
-    if (Roles.userIsInRole(Meteor.userId(), admin)) {
+    if (Roles.userIsInRole(Meteor.userId(), admin) ||
+      Roles.userIsInRole(Meteor.userId(), supervisor)) {
       branchOffices.remove({ _id: id });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
@@ -81,7 +89,8 @@ Meteor.methods({
   reportOffices: function (year) {
     if (Roles.userIsInRole(Meteor.userId(), operator) ||
       Roles.userIsInRole(Meteor.userId(), consultant) ||
-      Roles.userIsInRole(Meteor.userId(), admin)
+      Roles.userIsInRole(Meteor.userId(), admin) ||
+      Roles.userIsInRole(Meteor.userId(), supervisor)
     ) {
       const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       branchOffices.find().fetch().forEach(item => {
