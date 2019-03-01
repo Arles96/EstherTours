@@ -1,7 +1,7 @@
 import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
-import { Chats } from '../../../api/Chats/Chats';
+import { Notifications } from '../../../api/Notifications/Notification';
 import './ChatUserMenu.html';
 
 Template.chatUserMenu.helpers({
@@ -19,7 +19,7 @@ Template.chatUserMenu.helpers({
         _id: (
           item.profile.firstName.concat(' ').concat(item.profile.lastName).includes(Session.get('searchChatWithString').join().replace(',', ' '))
             ? item._id
-            : '1234'
+            : ''
         )
       }));
       if (idComplete.length > 0) {
@@ -30,20 +30,26 @@ Template.chatUserMenu.helpers({
     }
     return result;
   },
-  unread: id => Chats.find({ idReceiver: Meteor.userId(), idIssuer: id, status: 1 }).fetch().length
+  hasNotifications: id => Notifications.find({ idIssuer: id }).fetch().length > 0,
+  cantNotifications: id => Notifications.findOne({
+    idIssuer: id,
+    idReceiver: Meteor.userId()
+  }).amount
 });
 
 Template.chatUserMenu.events({
   'click .chatWith': function (event) {
-    const openChats = Session.get('chatWith');
-    if (openChats === undefined) {
-      Session.set('chatWith', [event.target.id]);
-    } else {
-      Session.set('chatWith', (openChats.includes(event.target.id) ? openChats : openChats.concat(event.target.id)));
+    if (event.currentTarget.id) {
+      const openChats = Session.get('chatWith');
+      if (openChats === undefined) {
+        Session.set('chatWith', [event.currentTarget.id]);
+      } else {
+        Session.set('chatWith', (openChats.includes(event.currentTarget.id) ? openChats : openChats.concat(event.currentTarget.id)));
+      }
     }
   },
   'input .searchChatWith': function (event) {
-    const data = event.target.value.split(' ').filter(item => item.trim() !== '')
+    const data = event.currentTarget.value.split(' ').filter(item => item.trim() !== '')
       .map(val => ({
         $or: [
           { 'profile.firstName': { $regex: val.concat('.*') } },
@@ -51,6 +57,6 @@ Template.chatUserMenu.events({
         ]
       }));
     Session.set('searchChatWith', (data.length > 0 ? data : `undefined`));
-    Session.set('searchChatWithString', event.target.value.split(' ').filter(item => item.trim() !== ''));
+    Session.set('searchChatWithString', event.currentTarget.value.split(' ').filter(item => item.trim() !== ''));
   }
 });

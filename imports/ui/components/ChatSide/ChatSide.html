@@ -2,12 +2,23 @@
 
   <div id="accordion" class="chat-menu">
     <div class="d-flex justify-content-end align-content-end align-items-end">
+      {{#if maxOpenChats}}
+      <ul class="pagination" style="margin-right: 1rem; margin-top: 0.5rem;">
+        {{#if leftArrow}}
+        <li class="page-item"><i id="leftArrow" class="fas fa-2x fa-caret-left"></i></li>
+        {{/if}}
+        <div>   </div>
+        {{#if rightArrow}}
+        <li class="page-item"><i id="rightArrow" class="fas fa-2x fa-caret-right"></i></li>
+        {{/if}}
+      </ul>
+      {{/if}}
       {{#each context in openChats }}
-      <div class="flex-fill d-flex justify-content-end align-content-end" style="max-width: fit-content; padding: 0; height: max-content;">
+      <div class="flex-fill d-flex align-content-end" style="max-width: fit-content; padding: 0; height: max-content;">
         {{>chat contextData=context }}
       </div>
       {{/each}}
-      <div class="flex-fill d-flex justify-content-end align-content-end" style="max-width: fit-content; padding: 0; height: max-content;">
+      <div class="flex-fill d-flex align-content-end" style="max-width: fit-content; padding: 0; height: max-content;">
         {{>chatUserMenu}}
       </div>
     </div>

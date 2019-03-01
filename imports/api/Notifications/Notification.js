@@ -1,21 +1,12 @@
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
-import { messages } from '../regEx';
 
 SimpleSchema.extendOptions(['autoform']);
 
-const Chats = new Mongo.Collection('chats');
+const Notifications = new Mongo.Collection('notifications');
 
-/**
- * Status options:
- * 0 = NO Sent
- * 1 = Sent / NO received
- * 2 = Recieved
- * 3 = Read
- */
-
-const ChatSchema = new SimpleSchema({
+const NotificationSchema = new SimpleSchema({
   idIssuer: {
     type: String,
     optional: true,
@@ -46,12 +37,23 @@ const ChatSchema = new SimpleSchema({
       }
     }
   },
-  message: {
-    type: String,
-    label: false
-  },
-  status: {
+  amount: {
     type: Number,
+    optional: true,
+    label: false,
+    autoform: {
+      readonly: true,
+      omit: true,
+      afFieldInput: {
+        type: 'hidden'
+      },
+      afFormGroup: {
+        label: false
+      }
+    }
+  },
+  lastMessage: {
+    type: String,
     optional: true,
     label: false,
     autoform: {
@@ -72,10 +74,9 @@ const ChatSchema = new SimpleSchema({
   }
 }, { check: check, tracker: Tracker });
 
-ChatSchema.messageBox.messages(messages);
-Chats.attachSchema(ChatSchema);
+Notifications.attachSchema(NotificationSchema);
 
 export {
-  Chats,
-  ChatSchema
+  Notifications,
+  NotificationSchema
 };
