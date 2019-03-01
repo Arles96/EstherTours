@@ -110,7 +110,11 @@
               <div class="form-group">
                 <label for="">
                   <b>Facilidades para Discapacitados:</b>
-                  {{facilityPeople}}
+                  {{#if facilityPeople}}
+                    Si
+                  {{else}}
+                    No
+                  {{/if}}
                 </label>
               </div>
             </div>
@@ -118,7 +122,11 @@
               <div class="form-group">
                 <label for="">
                   <b>Barra:</b>
-                  {{bar}}
+                  {{#if bar}}
+                    Si
+                  {{else}}
+                    No
+                  {{/if}}
                 </label>
               </div>
             </div>
@@ -126,7 +134,11 @@
               <div class="form-group">
                 <label for="">
                   <b>Sala de Espera:</b>
-                  {{waitingRoom}}
+                  {{#if waitingRoom}}
+                    Si
+                  {{else}}
+                    No
+                  {{/if}}
                 </label>
               </div>
             </div>

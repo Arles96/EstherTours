@@ -4,13 +4,19 @@ import { Email } from 'meteor/email';
 import { Random } from 'meteor/random';
 import { SSR } from 'meteor/meteorhacks:ssr';
 import UserProfileSchema from './profileUsers';
-import { admin } from '../roles/roles';
+import {
+  admin,
+  operator,
+  consultant,
+  supervisor
+} from '../roles/roles';
 import UpdateProfileSchema from './updateProfile';
 import officeUsersSchema from './officeUser';
 
 Meteor.methods({
   insertUser: function (doc) {
-    if (Roles.userIsInRole(Meteor.userId(), admin)) {
+    if (Roles.userIsInRole(Meteor.userId(), admin) ||
+      Roles.userIsInRole(Meteor.userId(), supervisor)) {
       UserProfileSchema.validate(doc);
       const password = Random.id(9);
       const user = Accounts.createUser({
@@ -46,10 +52,15 @@ Meteor.methods({
     }
   },
   actionBlockedUser: function (doc) {
-    if (!Roles.userIsInRole(doc._id, admin)) {
-      Meteor.users.update({ _id: doc._id }, { $set: { 'profile.blocked': doc.blocked } });
+    if (Roles.userIsInRole(Meteor.userId(), admin) ||
+      Roles.userIsInRole(Meteor.userId(), supervisor)) {
+      if (!Roles.userIsInRole(doc._id, admin) || !Roles.userIsInRole(Meteor.userId(), supervisor)) {
+        Meteor.users.update({ _id: doc._id }, { $set: { 'profile.blocked': doc.blocked } });
+      } else {
+        throw new Meteor.Error('Error, no se puede bloquear a un administrador global');
+      }
     } else {
-      throw new Meteor.Error('Error, no se puede bloquear a un administrador global');
+      throw new Meteor.Error('Permiso Denegado.');
     }
   },
   updateProfile: function (doc) {
@@ -68,7 +79,8 @@ Meteor.methods({
   },
   updateProfileOffice: function (doc) {
     const data = doc.modifier.$set;
-    if (Roles.userIsInRole(Meteor.userId(), admin)) {
+    if (Roles.userIsInRole(Meteor.userId(), admin) ||
+      Roles.userIsInRole(Meteor.userId(), supervisor)) {
       officeUsersSchema.validate(data);
       Meteor.users.update({ _id: data.idUser }, {
         $set: {
@@ -85,5 +97,23 @@ Meteor.methods({
         'profile.profileImage': image
       }
     });
+  },
+  reportUsers: function (year) {
+    if (Roles.userIsInRole(Meteor.userId(), operator) ||
+      Roles.userIsInRole(Meteor.userId(), consultant) ||
+      Roles.userIsInRole(Meteor.userId(), admin) ||
+      Roles.userIsInRole(Meteor.userId(), supervisor)
+    ) {
+      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      Meteor.users.find().fetch().forEach(item => {
+        const date = new Date(item.createAt);
+        if (date.getFullYear() === year.year) {
+          monthsCount[date.getMonth()] += 1;
+        }
+      });
+      return monthsCount;
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
   }
 });

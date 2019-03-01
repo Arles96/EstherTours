@@ -9,7 +9,7 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
-                <b>Correo:</b>
+                <b>Correo Electrónico:</b>
                 {{#if email}}
                   {{email}}
                 {{else}}
@@ -199,10 +199,23 @@
             {{>editRateHotel}}
           {{/if}}
         </div>
+        {{>infoRateHotel}}
+
+        {{#if showBranches isOperator}}
+          <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <h4 class="text-center mt-3">Sucursales de {{hotel.name}}</h4>
+              <div>
+                <a class="btn btn-outline-primary ml-3" href="/branch-hotel/{{hotel._id}}" >
+                  Agregar
+                </a>
+              </div>
+            {{> tabular table=TabularTables.hotelBranches selector=(branchSelector hotel._id) class="table table-hover table-bordered"}}
+          </div>
+        {{/if}}
       </div>
     </div>
   </div>
-  {{>infoRateHotel}}
+  
 </template>
 
 <template name="showButtonRoomHotel" >
@@ -242,3 +255,18 @@
       </p>
     </div>
   </template>
+</template>
+
+<template name="showButtonBranchHotel" >
+    <a style="text-decoration: none;" href="/show-hotel/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+      <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+    </a>
+    {{#if isOperator}}
+      <a style="text-decoration: none;" href="/edit-hotel/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+        <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
+      </a>
+      <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="deleteHotel far fa-trash-alt"></i>
+      </span>
+    {{/if}}
+</template>

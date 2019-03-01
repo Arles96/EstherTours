@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Packages, PackagesSchema } from './packages';
+import { operator, consultant, admin } from '../roles/roles';
 import PackagesSchemaConsult from './packageConsult';
 import { Guide } from '../guide/guide';
 import { Hotels } from '../hotels/hotels';
@@ -70,6 +71,77 @@ Meteor.methods({
         Observación: (item.observation ? item.observation : 'Indefinido')
       }))
     });
+  },
+  reportPackages: function (year) {
+    if (Roles.userIsInRole(Meteor.userId(), operator) ||
+      Roles.userIsInRole(Meteor.userId(), consultant) ||
+      Roles.userIsInRole(Meteor.userId(), admin)
+    ) {
+      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      Packages.find().fetch().forEach(item => {
+        const date = new Date(item.createAt);
+        if (date.getFullYear() === year.year) {
+          monthsCount[date.getMonth()] += 1;
+        }
+      });
+      return monthsCount;
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
+  },
+  filterPackages: function (doc) {
+    if (Meteor.userId()) {
+      const { queryE, queryP } = doc;
+      const filterHotel = Hotels.find(queryE).map(element => element);
+      const filterRenters = Renters.find(queryE).map(element => element);
+      const fitlerRestaurant = Restaurants.find(queryE).map(element => element);
+      const fitlerTransportation = TransportationEstablishments.find(queryE).map(element => (
+        element
+      ));
+      const or = [];
+      if (filterHotel) {
+        const idHotel = {
+          $in: filterHotel.map(element => element._id)
+        };
+        or.push({ idHotel });
+      }
+      if (filterRenters) {
+        const idRenter = {
+          $in: filterRenters.map(element => element._id)
+        };
+        or.push({ idRenter });
+      }
+      if (fitlerRestaurant) {
+        const idRestaurant = {
+          $in: fitlerRestaurant.map(element => element._id)
+        };
+        or.push({ idRestaurant });
+      }
+      if (fitlerTransportation) {
+        const idTransport = {
+          $in: fitlerTransportation.map(element => element._id)
+        };
+        or.push({ idTransport });
+      }
+      if (or.length > 0) {
+        queryP.$or = or;
+      }
+      return Packages.find(queryP).fetch().map(element => ({
+        _id: element._id,
+        name: element.name,
+        price: element.price,
+        hotel: Hotels.findOne({ _id: element.idHotel }),
+        roomHotel: RoomHotel.findOne({ _id: element.idRoom }),
+        renter: Renters.findOne({ _id: element.idRenter }),
+        fleetRenter: FleetRenter.findOne({ _id: element.idFleetRenter }),
+        transport: TransportationEstablishments.findOne({ _id: element.idTransport }),
+        route: RouteTransportationEstablishment.findOne({ _id: element.idTransportRoute }),
+        restaurant: Restaurants.findOne({ _id: element.idRestaurant }),
+        observation: element.observation
+      }));
+    } else {
+      return [];
+    }
   }
 });
 

@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { TransportationEstablishments, TransportationEstablishmentSchema } from './TransportationEstablishment';
 import { FleetTransportationEstablishment, FleetTransportationEstablishmentSchema } from './FleetTransportationEstablishment';
 import { RouteTransportationEstablishment, RouteTransportationEstablishmentSchema } from './RouteTransportationEstablishment';
-import { operator } from '../roles/roles';
+import { operator, consultant, admin } from '../roles/roles';
 import TransportConsultSchema from './transportConsult';
 
 Meteor.methods({
@@ -205,6 +205,23 @@ Meteor.methods({
       TransportationEstablishments.update({ _id: _id }, {
         $set: data
       });
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
+  },
+  reportTransportationEstablishment: function (year) {
+    if (Roles.userIsInRole(Meteor.userId(), operator) ||
+      Roles.userIsInRole(Meteor.userId(), consultant) ||
+      Roles.userIsInRole(Meteor.userId(), admin)
+    ) {
+      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      TransportationEstablishments.find().fetch().forEach(item => {
+        const date = new Date(item.createAt);
+        if (date.getFullYear() === year.year) {
+          monthsCount[date.getMonth()] += 1;
+        }
+      });
+      return monthsCount;
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }

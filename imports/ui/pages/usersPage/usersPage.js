@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
 import { Session } from 'meteor/session';
+import { admin, supervisor } from '../../../api/roles/roles';
 
 Template.usersPage.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -42,6 +43,16 @@ Template.usersPage.onCreated(() => {
 Template.showInfoUser.helpers({
   isBlocked: function (_id) {
     return Meteor.users.findOne({ _id: _id }).profile.blocked;
+  },
+  notAdminSupervisor: id => {
+    if (Roles.userIsInRole(Meteor.userId(), supervisor) &&
+      !(Roles.userIsInRole(id, admin) || Roles.userIsInRole(id, supervisor))) {
+      return true;
+    } else if (!Roles.userIsInRole(id, admin)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 });
 
@@ -67,7 +78,11 @@ Template.showInfoUser.events({
       if (res.value) {
         Meteor.call('actionBlockedUser', { _id: id, blocked: true }, (error, result) => {
           if (error) {
-            toastr.error('Error al bloquear al usuario.');
+            if (error.error === 'Error, no se puede bloquear a un administrador global') {
+              toastr.error('Error, no se puede bloquear a un administrador');
+            } else {
+              toastr.error('Error al bloquear al usuario.');
+            }
           } else {
             toastr.success('Se ha bloqueado al usuario exitosamente.');
           }

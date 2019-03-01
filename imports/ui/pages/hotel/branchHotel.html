@@ -1,0 +1,82 @@
+<template name="branchHotel">
+  <div class="card mb-3" >
+    <div class="card-header" >
+      <i class="fas fa-home"></i>
+      Agregar sucursal a <b>{{hotel.name}}</b>
+    </div>
+    <div class="card-body">
+      {{#autoForm
+        id="branchHotelsForms"
+        schema=HotelSchema
+        type="method"
+        meteormethod="addBranchHotel"
+        doc=hotel
+      }}
+      <div class="row">
+        <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="branchOffice" value=true}}
+        </div>
+        <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="mainOffice" value=hotel._id}}
+        </div>
+        {{>afQuickField name="name" type="hidden" }}
+        {{>afQuickField name="email" type="hidden" }}
+        {{>afQuickField name="website" type="hidden" }}
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="street" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="city" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="departament" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue name="departament") ) }}
+        </div>
+        <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="form-group mt-1">
+            <label class="mb-3">{{textCategorization '0'}}</label>
+            {{>updateBranchStarHotel}}
+          </div>
+          {{>afQuickField name="categorization" value=categorization }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="coin" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
+          {{>afQuickField name="paymentsMethod" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          {{>afQuickField name="phone" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          {{>afQuickField name="services" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          {{>afQuickField name="branchContacts" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+          {{>afQuickField name="informationsAB" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          {{>afQuickField name="activities" }}
+        </div>
+      </div>
+      <div class="col-12 mt-4 text-center col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <button type="submit" class="btn w-75 btn-primary" >Agregar sucursal</button>
+      </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
+
+<template name="updateBranchStarHotel">
+  <div>
+    <p>
+      {{#each list}}
+        <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
+  </div>
+</template>

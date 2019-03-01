@@ -1,7 +1,7 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
-  isLoggedIn, isNotLoggedIn, isAdmin, isLoggedIn2, isOperator, isConsultant
+  isLoggedIn, isNotLoggedIn, isSupervisorOrAdmin, isLoggedIn2, isOperator, isConsultant
 } from './validations';
 import { Renters } from '../../api/renters/renters';
 import { TransportationEstablishments } from '../../api/TransportationEstablishment/TransportationEstablishment';
@@ -24,6 +24,7 @@ import '../../ui/pages/restaurants/addRestaurant';
 import '../../ui/pages/restaurants/listRestaurants';
 import '../../ui/pages/restaurants/editRestaurant';
 import '../../ui/pages/restaurants/branchRestaurant';
+import '../../ui/pages/restaurants/filterRestaurants';
 import '../../ui/pages/restaurants/showInfoRestaurant';
 import '../../ui/pages/restaurantConsults/consultRestaurant';
 import '../../ui/pages/restaurantConsults/listRestaurantResults';
@@ -31,35 +32,49 @@ import '../../ui/pages/updateProfile/updateProfile';
 import '../../ui/pages/changePassword/changePassword';
 import '../../ui/pages/renters/addRenters';
 import '../../ui/pages/renters/listRenters';
+import '../../ui/pages/renters/filterFleetRenters';
+import '../../ui/pages/renters/filterRenters';
 import '../../ui/pages/renters/branchRenter';
 import '../../ui/pages/TransportationEstablishment/addTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/listTransportationEstablishments';
+import '../../ui/pages/TransportationEstablishment/filterTransportationEstablishments';
+import '../../ui/pages/TransportationEstablishment/filterRouteTransportationEstablishments';
 import '../../ui/pages/TransportationEstablishment/showInfoTransportationEstablishment';
 import '../../ui/pages/TransportationEstablishment/editTransportationEstablishment';
+import '../../ui/pages/TransportationEstablishment/reportTransportationEstablishment/reportTransportationEstablishment';
 import '../../ui/pages/hotel/addHotels';
+import '../../ui/pages/hotel/branchHotel';
 import '../../ui/pages/hotel/listHotels';
+import '../../ui/pages/hotel/filterHotels';
+import '../../ui/pages/hotel/filterRoomHotel';
 import '../../ui/pages/hotelQuery/hotelQuery';
 import '../../ui/pages/hotelQuery/showQueryHotel';
+import '../../ui/pages/hotel/reportHotels/reportHotels';
 import '../../ui/pages/renters/editRenter';
 import '../../ui/pages/renters/showInfoRenter';
+import '../../ui/pages/renters/reportRenters/reportRenters';
 import '../../ui/pages/hotel/showInfoHotel';
 import '../../ui/pages/hotel/editHotel';
 import '../../ui/pages/attraction/filterAttractions';
 import '../../ui/pages/attraction/addAttractions';
 import '../../ui/pages/attraction/listAttractions';
 import '../../ui/pages/attraction/editAttractions';
+import '../../ui/pages/attraction/reportAttractions/reportAttractions';
 import '../../ui/pages/attractionQuery/attractionQuery';
 import '../../ui/pages/attractionQuery/showQueryAttraction';
 import '../../ui/pages/attraction/showInfoAttraction';
 import '../../ui/pages/guide/addGuide';
 import '../../ui/pages/guide/listGuide';
 import '../../ui/pages/guide/editGuide';
+import '../../ui/pages/guide/reportGuides/reportGuides';
 import '../../ui/pages/findGuide/findGuide';
 import '../../ui/pages/resultGuide/resultGuide';
 import '../../ui/pages/packages/addPackages';
 import '../../ui/pages/packages/listPackages';
 import '../../ui/pages/packages/editPackages';
 import '../../ui/pages/packages/showPackage';
+import '../../ui/pages/packages/reportPackages/reportPackages';
+import '../../ui/pages/restaurants/reportRestaurants/reportRestaurants';
 import '../../ui/pages/findPackage/findPackage';
 import '../../ui/pages/resultPackages/resultPackages';
 import '../../ui/pages/RenterQuary/findRenters';
@@ -67,6 +82,8 @@ import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
 import '../../ui/pages/branchOfficePage/officesPage';
+import '../../ui/pages/packages/filterPackage';
+
 /**
  *Función para listar en el componente breadcrumb
  * @param {Array} list
@@ -162,7 +179,7 @@ Router.route('/users', {
   },
   onBeforeAction: function () {
     listBreadcrumb(['Usuarios']);
-    isAdmin(this);
+    isSupervisorOrAdmin(this);
   }
 });
 
@@ -175,7 +192,7 @@ Router.route('/offices', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Sucursales']);
-    isAdmin(this);
+    isSupervisorOrAdmin(this);
   }
 });
 
@@ -257,6 +274,25 @@ Router.route('/listRestaurants', {
   }
 });
 
+/*
+ * Ruta para filtrar restaurantes
+ */
+Router.route('/filter-restaurants', {
+  name: 'filterRestaurants',
+  template: 'filterRestaurants',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('restaurantImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar restaurantes']);
+    isLoggedIn2(this);
+  }
+});
+
 /**
  * Ruta para mostrar la información de un restaurante seleccionado para el operador
  */
@@ -326,7 +362,8 @@ Router.route('/branch-restaurant/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
-      Meteor.subscribe('restaurant.one', id)
+      Meteor.subscribe('restaurant.one', id),
+      Meteor.subscribe('restaurantImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -394,6 +431,45 @@ Router.route('/list-renters', {
   }
 });
 
+/*
+ * Ruta para filtrar flota de arrendadoras
+ */
+Router.route('/filter-fleet-renters', {
+  name: 'filterFleetRenters',
+  template: 'filterFleetRenters',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('renter.one'),
+      Meteor.subscribe('FleetRenterImage.all'),
+      Meteor.subscribe('fleetRenter.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar flotas']);
+    isLoggedIn2(this);
+  }
+});
+
+/*
+ * Ruta para filtrar arrendadoras
+ */
+Router.route('/filter-renters', {
+  name: 'filterRenters',
+  template: 'filterRenters',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('renter.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar arrendadoras']);
+    isLoggedIn2(this);
+  }
+});
+
 /**
  * Ruta para consulta de Arrendadoras
  */
@@ -448,6 +524,43 @@ Router.route('/list-transportation-establishment', {
   }
 });
 
+/*
+ * Ruta para filtrar establecimientos de transporte
+ */
+Router.route('/filter-transportation-establishment', {
+  name: 'filterTE',
+  template: 'filterTE',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('transport.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar Transporte']);
+    isLoggedIn2(this);
+  }
+});
+
+/*
+ * Ruta para filtrar rutas de transporte
+ */
+Router.route('/filter-route-transportation-establishment', {
+  name: 'filterRouteTE',
+  template: 'filterRouteTE',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar rutas']);
+    isLoggedIn2(this);
+  }
+});
+
 /**
  * Ruta para mostrar la información de la arrendadora seleccionada para el operador
  */
@@ -496,6 +609,97 @@ Router.route('/edit-TransportationEstablishment/:id', {
     return {
       TransportationEstablishment: TransportationEstablishments.findOne({ _id: id })
     };
+  }
+});
+
+/**
+ * Ruta de reportes de transporte
+ */
+Router.route('/report-transportation-establishment', {
+  name: 'reportTransportationEstablishments',
+  template: 'reportTransportationEstablishments',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar transportes']);
+    isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta de reportes de arrendadoras
+ */
+Router.route('/report-renters', {
+  name: 'reportRenters',
+  template: 'reportRenters',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar arrendadoras']);
+    isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta de reportes de hoteles
+ */
+Router.route('/report-hotels', {
+  name: 'reportHotels',
+  template: 'reportHotels',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar hoteles']);
+    isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta de reportes de guías
+ */
+Router.route('/report-guides', {
+  name: 'reportGuides',
+  template: 'reportGuides',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar guías']);
+    isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta de reportes de atracciones
+ */
+Router.route('/report-attractions', {
+  name: 'reportAttractions',
+  template: 'reportAttractions',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar atracciones']);
+    isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta de reportes de restaurantes
+ */
+Router.route('/report-restaurants', {
+  name: 'reportRestaurants',
+  template: 'reportRestaurants',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar restaurantes']);
+    isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta de reportes de paquetes
+ */
+Router.route('/report-packages', {
+  name: 'reportPackages',
+  template: 'reportPackages',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Reportar paquetes']);
+    isLoggedIn2(this);
   }
 });
 
@@ -581,8 +785,53 @@ Router.route('/list-hotels', {
   template: 'listHotels',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Listar Hoteles']);
+    listBreadcrumb(['Tabla de Hoteles']);
     isOperator(this);
+  }
+});
+
+Router.route('/branch-hotel/:id', {
+  name: 'branchHotel',
+  template: 'branchHotel',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('hotel.one', id)
+    ];
+  },
+  onBeforeAction: function () {
+    const { id } = this.params;
+    const hotel = Hotels.findOne({ _id: id });
+    listBreadcrumb(['Listar Hoteles', `Agregar sucursal a ${hotel.name}`]);
+    Session.set('branchHotelRating', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      hotel: Hotels.findOne({ _id: id })
+    };
+  }
+});
+
+/*
+ * Ruta para filtrar habitaciones
+ */
+Router.route('/filter-room-hotel', {
+  name: 'filterRoomHotel',
+  template: 'filterRoomHotel',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('RoomHotel.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar habitaciones']);
+    isLoggedIn2(this);
   }
 });
 
@@ -689,6 +938,25 @@ Router.route('/show-hotel/:id', {
   }
 });
 
+/*
+ * Ruta para filtrar hoteles
+ */
+Router.route('/filter-hotels', {
+  name: 'filterHotels',
+  template: 'filterHotels',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('hotelImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtrar hoteles']);
+    isLoggedIn2(this);
+  }
+});
+
 Router.route('/hotel-query', {
   name: 'hotelQuery',
   template: 'hotelQuery',
@@ -725,13 +993,12 @@ Router.route('/filter-attractions', {
   waitOn: function () {
     return [
       Meteor.subscribe('attractions.all'),
-      Meteor.subscribe('attraction.one'),
       Meteor.subscribe('attractionImage.all')
     ];
   },
   onBeforeAction: function () {
     listBreadcrumb(['Filtrar atracciones']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -954,14 +1221,15 @@ Router.route('/add-packages', {
   waitOn: function () {
     return [
       Meteor.subscribe('hotels.all'),
-      Meteor.subscribe('attractions.all'),
-      Meteor.subscribe('guide.all'),
-      Meteor.subscribe('renter.all'),
-      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('RoomHotel.all'),
       Meteor.subscribe('transport.all'),
       Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('fleetRenter.all'),
-      Meteor.subscribe('RoomHotel.all')
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('restaurantImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -995,14 +1263,15 @@ Router.route('/edit-package/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('hotels.all'),
-      Meteor.subscribe('attractions.all'),
-      Meteor.subscribe('guide.all'),
-      Meteor.subscribe('renter.all'),
-      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('RoomHotel.all'),
       Meteor.subscribe('transport.all'),
       Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('fleetRenter.all'),
-      Meteor.subscribe('RoomHotel.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('restaurantImage.all'),
       Meteor.subscribe('OnePackage', id)
     ];
   },
@@ -1088,5 +1357,18 @@ Router.route('/result-find-packages', {
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Paquetes', 'Resultado Consulta Paquetes']);
     isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para filtrar Paquetes
+ */
+Router.route('/filter-packages', {
+  name: 'filterPackage',
+  template: 'filterPackage',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Filtros de Paquetes']);
+    isLoggedIn2(this);
   }
 });

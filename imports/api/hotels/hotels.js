@@ -160,6 +160,23 @@ const HotelSchema = new SimpleSchema({
       }
     }
   },
+  branchOffice: {
+    type: Boolean,
+    label: 'Es sucursal',
+    defaultValue: false
+  },
+  mainOffice: {
+    type: String,
+    label: 'Oficina principal',
+    custom: function () {
+      if (!this.value && this.field('branchOffice').value) {
+        return 'required';
+      } else {
+        return 1;
+      }
+    },
+    optional: true
+  },
   branchContacts: {
     type: Array,
     label: 'Contactos',
@@ -171,6 +188,11 @@ const HotelSchema = new SimpleSchema({
     type: branchContactsSchema,
     label: '',
     optional: true
+  },
+  createAt: {
+    type: Date,
+    optional: true,
+    autoValue: () => new Date()
   }
 }, { check: check, tracker: Tracker });
 

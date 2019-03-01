@@ -36,6 +36,10 @@ Template.listHotels.onCreated(() => {
   });
 });
 
+Template.listHotels.helpers({
+  selector: () => ({ branchOffice: false })
+});
+
 Template.showButtonHotels.events({
   'click .addRoomHotel': function () {
     Session.set('idHotel', this._id);
