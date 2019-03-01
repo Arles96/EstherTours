@@ -77,7 +77,7 @@ Template.showButtonPackages.events({
       if (res.value) {
         Meteor.call('deletePackage', id, (error, result) => {
           if (error) {
-            toastr.error('Error al eliminar el registro.');
+            toastr.error('No se puede eliminar este paquete porque posee ventas');
           } else {
             toastr.success('Se ha eliminado el registro.');
           }
