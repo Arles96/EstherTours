@@ -4,8 +4,12 @@ import { Accounts } from 'meteor/accounts-base';
 
 Template.dashboardNavbar.events({
   'click #logout': function () {
-    Accounts.logout();
-    Meteor.call('userLogout');
-    window.location = '/';
+    const userId = Meteor.userId();
+    Meteor.call('userLogout2', userId, (error, result) => {
+      if(!error){
+        Accounts.logout();
+      }
+    });
+    // window.location = '/';
   }
 });
