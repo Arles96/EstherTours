@@ -4,6 +4,7 @@ import toastr from 'toastr';
 import { Meteor } from 'meteor/meteor';
 import Swal from 'sweetalert2';
 import { Attractions } from '../../../api/attractions/attractions';
+import { packageAttraction, unpackageAttraction } from '../../../startup/client/packageFunction';
 
 Template.listAttractions.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -79,5 +80,15 @@ Template.showButtonAttractions.events({
         });
       }
     });
+  },
+  'click .packageEntity': function () {
+    const { name, _id } = Attractions.findOne({ _id: this._id });
+    packageAttraction(_id);
+    toastr.success(`Se ha empaquetado la atracción ${name}`);
+  },
+  'click .unPackageEntity': function () {
+    const { name } = Attractions.findOne({ _id: this._id });
+    unpackageAttraction();
+    toastr.info(`Se ha desempaquetado la atracción ${name}`);
   }
 });

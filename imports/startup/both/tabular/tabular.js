@@ -622,18 +622,8 @@ TabularTables.Attractions = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'type',
-      title: 'Tipo'
-    },
-    {
-      class: 'text-center',
       data: 'price',
       title: 'Costo'
-    },
-    {
-      class: 'text-center',
-      data: 'street',
-      title: 'Calle'
     },
     {
       class: 'text-center',

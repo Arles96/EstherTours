@@ -13,6 +13,7 @@ import { Session } from 'meteor/session';
 import { TransportationEstablishments } from '../../../api/TransportationEstablishment/TransportationEstablishment';
 import { FleetTransportationEstablishment } from '../../../api/TransportationEstablishment/FleetTransportationEstablishment';
 import { RouteTransportationEstablishment } from '../../../api/TransportationEstablishment/RouteTransportationEstablishment';
+import { packageTransport, unpackageTransport } from '../../../startup/client/packageFunction';
 
 Template.showInfoTransportationEstablishment.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -136,5 +137,17 @@ Template.showButtonRouteTransportationEstablishments.events({
   },
   'click .infoRouteTransportationEstablishment': function () {
     Session.set('routeTransportationEstablishment', RouteTransportationEstablishment.findOne({ _id: this._id }));
+  },
+  'click .packageEntity': function () {
+    const {
+      _id,
+      idTransportationEstablishment
+    } = RouteTransportationEstablishment.findOne({ _id: this._id });
+    packageTransport(idTransportationEstablishment, _id);
+    toastr.success('Se ha empaquetado la ruta exitosamente');
+  },
+  'click .unPackageEntity': function () {
+    unpackageTransport();
+    toastr.info('Se ha desemaquetado la ruta exitosamente');
   }
 });
