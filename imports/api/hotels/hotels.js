@@ -200,4 +200,91 @@ HotelSchema.messageBox.messages(messages);
 
 Hotels.attachSchema(HotelSchema);
 
-export { HotelSchema, Hotels };
+function hotelsToExcel (id, doc = null, headers = true) {
+  let hotel;
+
+  if (doc) {
+    hotel = doc;
+  } else {
+    hotel = Hotels.findOne({ _id: id });
+  }
+
+  const res = [];
+  if (hotel) {
+    // headers
+    if (headers) {
+      res.push(['Hotel']);
+    }
+    res.push([
+      'Nombre',
+      'Sucursal',
+      'Correo',
+      'Sitio web',
+      'Estrellas',
+      'Departamento',
+      'Municipio',
+      'Ciudad',
+      'Calle',
+      'Monedas aceptadas',
+      'Telefonos',
+      'Servicios',
+      'Metodos de pago',
+      'Informacion A y B',
+      'Activicades'
+    ]);
+
+    // datos que no son arreglos
+    res.push([
+      hotel.name,
+      hotel.branchOffice ? 'Si' : 'No',
+      hotel.email,
+      hotel.website,
+      hotel.categorization,
+      hotel.departament,
+      hotel.municipality,
+      hotel.city,
+      hotel.street,
+      hotel.coin[0] ? hotel.coin[0] : '',
+      hotel.phone[0] ? hotel.phone[0] : '',
+      hotel.services[0] ? hotel.services[0] : '',
+      hotel.paymentsMethod[0] ? hotel.paymentsMethod[0] : '',
+      hotel.informationsAB[0] ? hotel.informationsAB[0] : '',
+      hotel.activities[0] ? hotel.activities[0] : ''
+    ]);
+
+    // datos que son arreglos
+    const max = Math.max(...[
+      hotel.coin.length,
+      hotel.phone.length,
+      hotel.services.length,
+      hotel.paymentsMethod.length,
+      hotel.informationsAB.length,
+      hotel.activities.length
+    ]);
+
+    for (let i = 1; i < max; i += 1) {
+      res.push([
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        hotel.coin[i] ? hotel.coin[i] : '',
+        hotel.phone[i] ? hotel.phone[i] : '',
+        hotel.services[i] ? hotel.services[i] : '',
+        hotel.paymentsMethod[i] ? hotel.paymentsMethod[i] : '',
+        hotel.informationsAB[i] ? hotel.informationsAB[i] : '',
+        hotel.activities[i] ? hotel.activities[i] : ''
+      ]);
+    }
+
+    res.push([]);
+  }
+  return res;
+}
+
+export { HotelSchema, Hotels, hotelsToExcel };

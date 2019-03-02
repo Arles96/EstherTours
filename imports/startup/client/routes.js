@@ -1,7 +1,7 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
-  isLoggedIn, isNotLoggedIn, isSupervisorOrAdmin, isLoggedIn2, isOperator, isConsultant
+  isLoggedIn, isNotLoggedIn, isSupervisorOrAdmin, isLoggedIn2, isOperator, isConsultant, isAdmin
 } from './validations';
 import { Renters } from '../../api/renters/renters';
 import { TransportationEstablishments } from '../../api/TransportationEstablishment/TransportationEstablishment';
@@ -10,6 +10,9 @@ import { Restaurants } from '../../api/restaurants/restaurants';
 import { Guide } from '../../api/guide/guide';
 import { Packages } from '../../api/packages/packages';
 import { Attractions } from '../../api/attractions/attractions';
+import { FleetRenter } from '../../api/renters/fleetRenter';
+import { RouteTransportationEstablishment } from '../../api/TransportationEstablishment/RouteTransportationEstablishment';
+import { RoomHotel } from '../../api/hotels/roomhotel';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -82,7 +85,10 @@ import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
 import '../../ui/pages/branchOfficePage/officesPage';
+import '../../ui/pages/shoppingPackage/shoppingPackage';
+import '../../ui/pages/Activities/activities';
 import '../../ui/pages/packages/filterPackage';
+import '../../ui/pages/soldPackage/listSoldPackage';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -1361,6 +1367,65 @@ Router.route('/result-find-packages', {
 });
 
 /**
+ * Ruta de creacion de empaquetado
+ */
+Router.route('/adding-package', {
+  name: 'addingPackage',
+  template: 'shoppingPackage',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('attractions.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('RoomHotel.all'),
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('attractionImage.all'),
+      Meteor.subscribe('FleetRenterImage.all'),
+      Meteor.subscribe('restaurantImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Creando paquetes']);
+    isLoggedIn(this);
+  },
+  data: function () {
+    const hotel = Hotels.findOne({ _id: Session.get('packageHotel') });
+    const restaurant = Restaurants.findOne({ _id: Session.get('packageRestaurant') });
+    const renter = Renters.findOne({ _id: Session.get('packageRenter') });
+    const transportationEstablishment = TransportationEstablishments.findOne({ _id: Session.get('packageTransport') });
+    const fleetRenter = FleetRenter.findOne({ _id: Session.get('packageFleetRenter') });
+    const roomHotel = RoomHotel.findOne({ _id: Session.get('packageRoomHotel') });
+    const routeTransport = RouteTransportationEstablishment.findOne({ _id: Session.get('packageRouteTransport') });
+    const attraction = Attractions.findOne({ _id: Session.get('packageAttraction') });
+    return {
+      hotel,
+      attraction,
+      fleetRenter,
+      roomHotel,
+      routeTransport,
+      restaurant,
+      renter,
+      transportationEstablishment
+    };
+  }
+});
+
+Router.route('/activities', {
+  name: 'userActivities',
+  template: 'userActivities',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de actividades']);
+    isAdmin(this);
+  }
+});
+/**
  * Ruta para filtrar Paquetes
  */
 Router.route('/filter-packages', {
@@ -1369,6 +1434,19 @@ Router.route('/filter-packages', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Filtros de Paquetes']);
+    isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta de Paquetes Vendidos
+ */
+Router.route('/sold-package', {
+  name: 'soldPackage',
+  template: 'listSoldPackage',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de Paquetes Vendidos']);
     isLoggedIn2(this);
   }
 });

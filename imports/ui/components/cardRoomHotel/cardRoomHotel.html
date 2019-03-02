@@ -1,0 +1,108 @@
+<template name="cardRoomHotel" >
+{{#if hotel}}
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-mosque"></i>
+      <b>Hotel: {{hotel.name}}</b>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {{#with hotel}}
+          <div class="col-md-auto">
+            {{#if images}}
+              <div id="contrCarous{{_id}}" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  {{#each images}}
+                    {{#with (findImg this)}}
+                      {{#if first @index}}
+                        <div class="carousel-item active">
+                          <img class="d-block" src="{{link}}" alt="{{name}}" width="256" height="256">
+                        </div>
+                      {{else}}
+                        <div class="carousel-item">
+                          <img class="d-block" src="{{link}}" alt="{{name}}" width="256" height="256">
+                        </div>
+                      {{/if}}
+                    {{/with}}
+                  {{/each}}
+                </div>
+                <a class="carousel-control-prev" href="#contrCarous{{_id}}" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+                <a class="carousel-control-next" href="#contrCarous{{_id}}" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Siguiente</span>
+                </a>
+              </div>
+            {{else}}
+              <div class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img class="d-block" src="/img/placeholder.png" alt="placeholder.jpg" width="256" height="256">
+                  </div>
+                </div>
+              </div>
+            {{/if}}
+          </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              <label>
+                <b>Teléfonos:</b>
+              </label>
+              {{#each phone}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Metodos de pago:</b>
+              </label>
+              {{#each paymentsMethod}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Monedas aceptadas:</b>
+              </label>
+              {{#each coin}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+          </div>
+        {{/with}}
+        {{#with roomHotel}}
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+              <div class="form-group">
+                <label>
+                  <b>Precio:</b> Lps. {{price}}
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <b>Tipo de habitacion:</b> {{type}}
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <b>Camas extra:</b> {{extraBed}}
+                </label>
+              </div>
+              <div class="form-group">
+                <label>
+                  <b>Tamaño:</b> {{roomSize}}
+                </label>
+              </div>
+            </div>
+          {{/with}}
+        </div>
+      </div>
+      <div class="card-footer small text-muted">
+        <button class="btn btn-outline-danger ml-3" id="packageRemoveRoom">
+          Eliminar
+        </button>
+      </div>
+    </div>
+{{/if}}
+</template>

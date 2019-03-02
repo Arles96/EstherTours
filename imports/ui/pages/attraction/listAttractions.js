@@ -1,8 +1,10 @@
 import './listAttractions.html';
+import XLSX from 'xlsx';
 import toastr from 'toastr';
 import { Meteor } from 'meteor/meteor';
 import Swal from 'sweetalert2';
 import { Attractions } from '../../../api/attractions/attractions';
+import { packageAttraction, unpackageAttraction } from '../../../startup/client/packageFunction';
 
 Template.listAttractions.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -33,6 +35,30 @@ Template.listAttractions.onCreated(() => {
   });
 });
 
+Template.listAttractions.events({
+  'click #export-excel': function () {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: '¿Está seguro de exportar las atracciones a Excel?',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('exportAttractionsToExcel', (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            const filename = `Atracciones ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filename);
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
+  }
+});
+
 Template.showButtonAttractions.events({
   'click .deleteAttraction': function () {
     const id = this._id;
@@ -54,6 +80,15 @@ Template.showButtonAttractions.events({
         });
       }
     });
+  },
+  'click .packageEntity': function () {
+    const { name, _id } = Attractions.findOne({ _id: this._id });
+    packageAttraction(_id);
+    toastr.success(`Se ha empaquetado la atracción ${name}`);
+  },
+  'click .unPackageEntity': function () {
+    const { name } = Attractions.findOne({ _id: this._id });
+    unpackageAttraction();
+    toastr.info(`Se ha desempaquetado la atracción ${name}`);
   }
-
 });
