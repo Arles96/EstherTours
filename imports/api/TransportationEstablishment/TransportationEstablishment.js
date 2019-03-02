@@ -210,22 +210,22 @@ function transportToExcel (id, doc = null, headers = true) {
     // headers
     if (headers) {
       res.push(['Transporte']);
-      res.push([
-        'Nombre',
-        'Sucursal',
-        'Correo',
-        'Sitio web',
-        'Tipo',
-        'Estrellas',
-        'Departamento',
-        'Municipio',
-        'Ciudad',
-        'Calle',
-        'Monedas aceptadas',
-        'Telefonos',
-        'Metodos de pago'
-      ]);
     }
+    res.push([
+      'Nombre',
+      'Sucursal',
+      'Correo',
+      'Sitio web',
+      'Tipo',
+      'Estrellas',
+      'Departamento',
+      'Municipio',
+      'Ciudad',
+      'Calle',
+      'Monedas aceptadas',
+      'Telefonos',
+      'Metodos de pago'
+    ]);
 
     // datos que no son arreglos
     res.push([
