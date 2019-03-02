@@ -15,7 +15,7 @@ Meteor.methods({
   },
   userLogout2: function (doc) {
     const { firstName, lastName } = Meteor.users.findOne({ _id: doc }).profile;
-    const id = userActivities.insert({
+    userActivities.insert({
       userId: doc,
       user: `${firstName} ${lastName}`,
       activity: 'Cerró sesión',
@@ -24,7 +24,6 @@ Meteor.methods({
       register: 'N/D',
       date: new Date()
     });
-    console.log(id);
   },
   userLogin: function (doc) {
     userActivities.insert({
