@@ -84,6 +84,7 @@ import '../../ui/pages/resultTransport/resultTransport';
 import '../../ui/pages/branchOfficePage/officesPage';
 import '../../ui/pages/Activities/activities';
 import '../../ui/pages/packages/filterPackage';
+import '../../ui/pages/soldPackage/listSoldPackage';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -1373,6 +1374,19 @@ Router.route('/filter-packages', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Filtros de Paquetes']);
+    isLoggedIn2(this);
+  }
+});
+
+/**
+ * Ruta de Paquetes Vendidos
+ */
+Router.route('/sold-package', {
+  name: 'soldPackage',
+  template: 'listSoldPackage',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de Paquetes Vendidos']);
     isLoggedIn2(this);
   }
 });

@@ -65,6 +65,7 @@
       </div>
     </div>
   </div>
+  {{>sellPackageModal}}
   {{#each data}}
     {{>filterResultPackage}}
   {{/each}}
@@ -125,9 +126,12 @@
         </div>
       </div>
       <div class="card-footer small text-muted">
-        <a style="text-decoration: none;" href="/show-package/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+        <a style="text-decoration: none; cursor: pointer;" href="/show-package/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
           <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
         </a>
+        <span style="cursor: pointer;" class="text-dark sellPackage" data-toggle="tooltip" data-placement="top" title="Vender">
+          <i class="fas fa-money-bill-alt"></i>
+        </span>
       </div>
     </div>
 </template>
