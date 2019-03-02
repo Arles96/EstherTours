@@ -226,5 +226,22 @@ Meteor.methods({
   addSoldPackage: function (doc) {
     SoldPackageSchema.validate(doc);
     SoldPackage.insert(doc);
+  },
+  reportSoldPackages: function (year) {
+    if (Roles.userIsInRole(Meteor.userId(), operator) ||
+      Roles.userIsInRole(Meteor.userId(), consultant) ||
+      Roles.userIsInRole(Meteor.userId(), admin)
+    ) {
+      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      SoldPackage.find({ sold: true }).fetch().forEach(item => {
+        const date = new Date(item.createAt);
+        if (date.getFullYear() === year.year) {
+          monthsCount[date.getMonth()] += 1;
+        }
+      });
+      return monthsCount;
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
   }
 });

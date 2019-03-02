@@ -159,7 +159,7 @@ Packages.helpers({
     const guide = Guide.findOne({ _id: this.idGuide });
     return `${guide.name}, ${guide.municipality}, ${guide.department}`;
   },
-  textPrice: function() {
+  textPrice: function () {
     return this.price.toFixed(2);
   }
 });
