@@ -34,6 +34,7 @@ const RestaurantSchema = new SimpleSchema({
   email: {
     type: String,
     label: 'Correo',
+    optional: true,
     regEx: RegExObj.email
   },
   website: {
@@ -186,7 +187,8 @@ const RestaurantSchema = new SimpleSchema({
   },
   numbersTables: {
     type: Number,
-    label: 'N. de Mesas',
+    label: 'N. de Mesas (Opcional)',
+    optional: true,
     regEx: RegExObj.isNumber,
     custom: function () {
       if (this.value < 0) {
@@ -197,7 +199,8 @@ const RestaurantSchema = new SimpleSchema({
   },
   numbersChairs: {
     type: Number,
-    label: 'N. de Sillas',
+    optional: true,
+    label: 'N. de Sillas (Opcional)',
     regEx: RegExObj.isNumber,
     custom: function () {
       if (this.value < 0) {
@@ -208,7 +211,8 @@ const RestaurantSchema = new SimpleSchema({
   },
   numbersChairsBabies: {
     type: Number,
-    label: 'N. de Sillas para Bebés',
+    optional: true,
+    label: 'N. de Sillas para Bebés (Opcional)',
     regEx: RegExObj.isNumber,
     custom: function () {
       if (this.value < 0) {
@@ -219,7 +223,8 @@ const RestaurantSchema = new SimpleSchema({
   },
   maxPersonCapacity: {
     type: Number,
-    label: 'Capacidad Máxima de Personas',
+    optional: true,
+    label: 'Capacidad Máxima de Personas (Opcional)',
     regEx: RegExObj.isNumber,
     custom: function () {
       if (this.value < 0) {
