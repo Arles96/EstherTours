@@ -1,0 +1,26 @@
+<template name="emailPackage">
+  <div class="modal fade" id="emailPackage" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Enviar correo de paquete</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 form-group">
+            <label>
+              <b>Correo:</b>
+            </label>
+            <br >
+            <input type="text" id="email" value="{{email}}" class="form-control">
+          </div>
+          <div class="text-center mt-4">
+            <button id="sendEmail" class="btn btn-primary w-75">Agregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

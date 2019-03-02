@@ -65,6 +65,7 @@
       </div>
     </div>
   </div>
+  {{>emailPackage}}
   {{#each data}}
     {{>filterResultPackage}}
   {{/each}}
@@ -128,6 +129,9 @@
         <a style="text-decoration: none;" href="/show-package/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
           <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
         </a>
+        <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Enviar por correo">
+          <i style="cursor: pointer;" data-id="{{_id}}" class="emailPackage fas fa-share-square mr-2" data-toggle="modal" data-target="#emailPackage"></i>
+        </span>
       </div>
     </div>
 </template>
