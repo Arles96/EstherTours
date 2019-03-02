@@ -26,6 +26,7 @@ const messages = {
     exceedWithdrawLimit: ({ label }) => `${label} excede el limite`,
     passwordMismatch: 'Contraseñas no coinciden.',
     duplicatePhones: 'No se permiten repetidos.',
+    duplicateEmail: 'No se permiten correos repetidos.',
     existFleetRenter: 'Debe seleccionar una flota',
     existRenter: 'Debe seleccionar una arrendadora',
     existRouteTransport: 'Debe seleccionar una ruta',

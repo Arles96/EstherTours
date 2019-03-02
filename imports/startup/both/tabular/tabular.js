@@ -16,7 +16,11 @@ import { Guide } from '../../../api/guide/guide';
 import { Packages } from '../../../api/packages/packages';
 import { branchOffices } from '../../../api/branchOffices/Offices';
 import { SoldPackage } from '../../../api/packages/soldPackage';
+<<<<<<< HEAD
+import { Subscriptions } from '../../../api/subscriptions/subscriptions';
+=======
 import { userActivities } from '../../../api/userActivities/userActivities';
+>>>>>>> 574de0b291cadc2ddeddd07245a4f9f53129605c
 
 const TabularTables = {};
 
@@ -1023,14 +1027,7 @@ TabularTables.SoldPackage = new Tabular.Table({
 TabularTables.userActivities = new Tabular.Table({
   name: 'UserActivities',
   collection: userActivities,
-  responsive: true,
-  autoWidth: false,
-  search: {
-    caseInsesitive: true,
-    smart: true,
-    onEnterOnly: false
-  },
-  // userId, user, activity, collection, registerId, register, date
+// userId, user, activity, collection, registerId, register, date
   extraFields: [
     'userId', 'registerId'
   ],
@@ -1059,6 +1056,51 @@ TabularTables.userActivities = new Tabular.Table({
       class: 'text-center',
       data: 'fecha()',
       title: 'Fecha'
+    }
+  ]
+});
+
+TabularTables.Subscriptions = new Tabular.Table({
+  name: 'Subscriptions',
+  collection: Subscriptions,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: ['subscribed'],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'name',
+      title: 'Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'email',
+      title: 'Correo'
+    },
+    {
+      class: 'text-center',
+      data: 'telephone',
+      title: 'Teléfono'
+    },
+    {
+      class: 'text-center',
+      data: 'textSubs()',
+      title: 'Suscrito'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsSubs (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonSubscriptions, {
+          _id: rowData._id,
+          slug: rowData.slug,
+          subscribed: rowData.subscribed
+        }, cell);
+      }
     }
   ]
 });
