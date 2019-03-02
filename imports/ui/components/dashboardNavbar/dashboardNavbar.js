@@ -64,7 +64,19 @@ Template.dashboardNavbar.events({
         } else {
           Session.set('chatWith', (openChats.includes(event.currentTarget.id) ? openChats : openChats.concat(event.currentTarget.id)));
         }
-        if (document.getElementById(`ChatHeader${event.currentTarget.id}`).getAttribute('aria-expanded') === 'true') {
+        if (document.getElementById(`ChatHeader${event.currentTarget.id}`)) {
+          if (document.getElementById(`ChatHeader${event.currentTarget.id}`).getAttribute('aria-expanded') === 'true') {
+            const query = {
+              idReceiver: Meteor.userId(),
+              idIssuer: event.currentTarget.id
+            };
+            if (Notifications.findOne(query)) {
+              Meteor.call('lookMessage', query);
+            }
+          } else {
+            document.getElementById(`ChatHeader${event.currentTarget.id}`).click();
+          }
+        } else {
           const query = {
             idReceiver: Meteor.userId(),
             idIssuer: event.currentTarget.id
@@ -72,8 +84,6 @@ Template.dashboardNavbar.events({
           if (Notifications.findOne(query)) {
             Meteor.call('lookMessage', query);
           }
-        } else {
-          document.getElementById(`ChatHeader${event.currentTarget.id}`).click();
         }
       }
     }

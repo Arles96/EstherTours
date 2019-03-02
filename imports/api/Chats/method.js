@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Chats, ChatSchema } from './Chats';
+import { Chats } from './Chats';
 import { Notifications } from '../Notifications/Notification';
 
 Meteor.methods({

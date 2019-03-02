@@ -4,7 +4,7 @@ import { RestaurantSchema, Restaurants, restaurantToExcel } from './restaurants'
 import { restaurantOffers, restaurantOffersSchema } from './restaurantOffers';
 import RestaurantConsultSchema from './restaurantConsult';
 import { userActivities } from '../userActivities/userActivities';
-import { operator, consultant, admin } from '../roles/roles';
+import { operator } from '../roles/roles';
 
 Meteor.methods({
   addRestaurant: function (doc) {
@@ -243,21 +243,14 @@ Meteor.methods({
     }
   },
   reportRestaurants: function (year) {
-    if (Roles.userIsInRole(Meteor.userId(), operator) ||
-      Roles.userIsInRole(Meteor.userId(), consultant) ||
-      Roles.userIsInRole(Meteor.userId(), admin)
-    ) {
-      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-      Restaurants.find().fetch().forEach(item => {
-        const date = new Date(item.createAt);
-        if (date.getFullYear() === year.year) {
-          monthsCount[date.getMonth()] += 1;
-        }
-      });
-      return monthsCount;
-    } else {
-      throw new Meteor.Error('Permiso Denegado');
-    }
+    const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    Restaurants.find().fetch().forEach(item => {
+      const date = new Date(item.createAt);
+      if (date.getFullYear() === year.year) {
+        monthsCount[date.getMonth()] += 1;
+      }
+    });
+    return monthsCount;
   },
   exportRestaurantsToExcel: function () {
     // workbook

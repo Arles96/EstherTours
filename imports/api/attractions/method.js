@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import XLSX from 'xlsx';
 import { AttractionSchema, Attractions, attractionToExcel } from './attractions';
-import { operator, consultant, admin } from '../roles/roles';
+import { operator } from '../roles/roles';
 import AttractionQuerySchema from './attractionQuery';
 import { userActivities } from '../userActivities/userActivities';
 
@@ -142,21 +142,14 @@ Meteor.methods({
     }
   },
   reportAttractions: function (year) {
-    if (Roles.userIsInRole(Meteor.userId(), operator) ||
-      Roles.userIsInRole(Meteor.userId(), consultant) ||
-      Roles.userIsInRole(Meteor.userId(), admin)
-    ) {
-      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-      Attractions.find().fetch().forEach(item => {
-        const date = new Date(item.createAt);
-        if (date.getFullYear() === year.year) {
-          monthsCount[date.getMonth()] += 1;
-        }
-      });
-      return monthsCount;
-    } else {
-      throw new Meteor.Error('Permiso Denegado');
-    }
+    const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    Attractions.find().fetch().forEach(item => {
+      const date = new Date(item.createAt);
+      if (date.getFullYear() === year.year) {
+        monthsCount[date.getMonth()] += 1;
+      }
+    });
+    return monthsCount;
   },
   exportAttractionsToExcel: function () {
     // workbook

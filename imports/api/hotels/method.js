@@ -12,7 +12,7 @@ Meteor.methods({
   insertHotel: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       HotelSchema.validate(doc);
-      Hotels.insert(doc, function(err, docId){
+      Hotels.insert(doc, function (err, docId) {
         userActivities.insert({
           userId: Meteor.userId(),
           user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
@@ -111,7 +111,7 @@ Meteor.methods({
   addRoomHotel: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       RoomHotelSchema.validate(doc);
-      RoomHotel.insert(doc, function(err, docId){
+      RoomHotel.insert(doc, function (err, docId) {
         userActivities.insert({
           userId: Meteor.userId(),
           user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
@@ -258,73 +258,66 @@ Meteor.methods({
     if (!doc.categorization)
       docVals.categorization = 'No definido.';
     else {
-      docVals.categorization += (docVals.categorization == '1')?' estrella':' estrellas';
+      docVals.categorization += (docVals.categorization == '1') ? ' estrella' : ' estrellas';
     }
 
     if (doc.coin) {
-      doc.coin = {$in : doc.coin};
+      doc.coin = { $in: doc.coin };
     } else {
       docVals.coin = ['No definido.'];
     }
 
-    if (doc.phone){
-      const arr = doc.phone.map(Element => new RegExp(`.*${Element}.*`,'i'));
-      doc.phone = {$in : arr};
+    if (doc.phone) {
+      const arr = doc.phone.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      doc.phone = { $in: arr };
     } else {
       docVals.phone = ['No definido.'];
     }
 
     if (doc.services) {
-      const arr = doc.services.map(Element => new RegExp(`.*${Element}.*`,'i'));
-      doc.services = {$in : arr};
+      const arr = doc.services.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      doc.services = { $in: arr };
     } else {
       docVals.services = ['No definido.'];
     }
 
-    if (doc.paymentsMethod){
-      doc.paymentsMethod = {$in : doc.paymentsMethod};
+    if (doc.paymentsMethod) {
+      doc.paymentsMethod = { $in: doc.paymentsMethod };
     } else {
       docVals.paymentsMethod = ['No definido.']
     }
 
-    if (doc.informationsAB){
-      const arr = doc.informationsAB.map(Element => new RegExp(`.*${Element}.*`,'i'));
-      doc.informationsAB = {$in : arr};
+    if (doc.informationsAB) {
+      const arr = doc.informationsAB.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      doc.informationsAB = { $in: arr };
     } else {
       docVals.informationsAB = ['No definido.'];
     }
 
-    if (doc.contact){
-      const arr = doc.contact.map(Element => new RegExp(`.*${Element}.*`,'i'));
-      doc.contact = {$in : arr};
+    if (doc.contact) {
+      const arr = doc.contact.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      doc.contact = { $in: arr };
     } else {
       docVals.contact = ['No definido.'];
     }
 
-    if (doc.activities){
-      const arr = doc.activities.map(Element => new RegExp(`.*${Element}.*`,'i'));
-      doc.activities = {$in : arr};
+    if (doc.activities) {
+      const arr = doc.activities.map(Element => new RegExp(`.*${Element}.*`, 'i'));
+      doc.activities = { $in: arr };
     } else {
       docVals.activities = ['No definido.'];
     }
-    return {doc: doc, docVals: docVals};
+    return { doc: doc, docVals: docVals };
   },
   reportHotels: function (year) {
-    if (Roles.userIsInRole(Meteor.userId(), operator) ||
-      Roles.userIsInRole(Meteor.userId(), consultant) ||
-      Roles.userIsInRole(Meteor.userId(), admin)
-    ) {
-      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-      Hotels.find().fetch().forEach(item => {
-        const date = new Date(item.createAt);
-        if (date.getFullYear() === year.year) {
-          monthsCount[date.getMonth()] += 1;
-        }
-      });
-      return monthsCount;
-    } else {
-      throw new Meteor.Error('Permiso Denegado');
-    }
+    const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    Hotels.find().fetch().forEach(item => {
+      const date = new Date(item.createAt);
+      if (date.getFullYear() === year.year) {
+        monthsCount[date.getMonth()] += 1;
+      }
+    });
+    return monthsCount;
   },
   exportHotelsToExcel: function () {
     // workbook

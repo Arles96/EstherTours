@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { userActivities } from './userActivities';
-import { operator, consultant, admin, supervisor } from '../roles/roles';
+import { admin, supervisor } from '../roles/roles';
 
 Meteor.methods({
   userLogout: function (doc) {

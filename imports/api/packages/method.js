@@ -3,7 +3,7 @@ import { Email } from 'meteor/email';
 import { SSR } from 'meteor/meteorhacks:ssr';
 import XLSX from 'xlsx';
 import { Packages, PackagesSchema } from './packages';
-import { operator, consultant, admin } from '../roles/roles';
+import { consultant } from '../roles/roles';
 import PackagesSchemaConsult from './packageConsult';
 import { Hotels, hotelsToExcel } from '../hotels/hotels';
 import { RoomHotel, roomToExcel } from '../hotels/roomhotel';
@@ -118,21 +118,14 @@ Meteor.methods({
     return wb;
   },
   reportPackages: function (year) {
-    if (Roles.userIsInRole(Meteor.userId(), operator) ||
-      Roles.userIsInRole(Meteor.userId(), consultant) ||
-      Roles.userIsInRole(Meteor.userId(), admin)
-    ) {
-      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-      Packages.find().fetch().forEach(item => {
-        const date = new Date(item.createAt);
-        if (date.getFullYear() === year.year) {
-          monthsCount[date.getMonth()] += 1;
-        }
-      });
-      return monthsCount;
-    } else {
-      throw new Meteor.Error('Permiso Denegado');
-    }
+    const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    Packages.find().fetch().forEach(item => {
+      const date = new Date(item.createAt);
+      if (date.getFullYear() === year.year) {
+        monthsCount[date.getMonth()] += 1;
+      }
+    });
+    return monthsCount;
   },
   filterPackages: function (doc) {
     if (Meteor.userId()) {
@@ -228,20 +221,13 @@ Meteor.methods({
     SoldPackage.insert(doc);
   },
   reportSoldPackages: function (year) {
-    if (Roles.userIsInRole(Meteor.userId(), operator) ||
-      Roles.userIsInRole(Meteor.userId(), consultant) ||
-      Roles.userIsInRole(Meteor.userId(), admin)
-    ) {
-      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-      SoldPackage.find({ sold: true }).fetch().forEach(item => {
-        const date = new Date(item.createAt);
-        if (date.getFullYear() === year.year) {
-          monthsCount[date.getMonth()] += 1;
-        }
-      });
-      return monthsCount;
-    } else {
-      throw new Meteor.Error('Permiso Denegado');
-    }
+    const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    SoldPackage.find({ sold: true }).fetch().forEach(item => {
+      const date = new Date(item.createAt);
+      if (date.getFullYear() === year.year) {
+        monthsCount[date.getMonth()] += 1;
+      }
+    });
+    return monthsCount;
   }
 });
