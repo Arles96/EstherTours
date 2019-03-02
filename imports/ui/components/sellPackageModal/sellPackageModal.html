@@ -29,5 +29,7 @@
     </div>
   </div>
 </div>
-{{>addSubscription}}
+{{#if isConsultant}}
+  {{>addSubscription}}
+{{/if}}
 </template>
