@@ -84,15 +84,6 @@ function drawChart (templateInstance) {
               '#5CACE1'
             ]
           }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
-          }
         }
       }));
     }
