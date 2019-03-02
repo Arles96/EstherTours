@@ -3,18 +3,28 @@ import XLSX from 'xlsx';
 import { Packages, PackagesSchema } from './packages';
 import { operator, consultant, admin } from '../roles/roles';
 import PackagesSchemaConsult from './packageConsult';
-import { hotelsToExcel } from '../hotels/hotels';
-import { roomToExcel } from '../hotels/roomhotel';
-import { renterToExcel } from '../renters/renters';
-import { fleetRenterToExcel } from '../renters/fleetRenter';
-import { restaurantToExcel } from '../restaurants/restaurants';
-import { transportToExcel } from '../TransportationEstablishment/TransportationEstablishment';
-import { routeTransportToExcel } from '../TransportationEstablishment/RouteTransportationEstablishment';
+import { userActivities } from '../userActivities/userActivities';
+import { hotelsToExcel, Hotels } from '../hotels/hotels';
+import { roomToExcel, RoomHotel } from '../hotels/roomhotel';
+import { renterToExcel, Renters } from '../renters/renters';
+import { fleetRenterToExcel, FleetRenter } from '../renters/fleetRenter';
+import { restaurantToExcel, Restaurants } from '../restaurants/restaurants';
+import { transportToExcel, TransportationEstablishments } from '../TransportationEstablishment/TransportationEstablishment';
+import { routeTransportToExcel, RouteTransportationEstablishment } from '../TransportationEstablishment/RouteTransportationEstablishment';
 
 Meteor.methods({
   insertPackages: function (doc) {
     PackagesSchema.validate(doc);
     Packages.insert(doc);
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      activity: 'agregó',
+      collection: 'paquetes',
+      registerId: 'N/D',
+      register: doc.name,
+      date: new Date()
+    });
   },
   updatePackages: function (doc) {
     const data = doc.modifier.$set;
@@ -23,9 +33,27 @@ Meteor.methods({
     Packages.update({ _id: _id }, {
       $set: data
     });
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      activity: 'editó',
+      collection: 'paquetes',
+      registerId: _id,
+      register: doc.name,
+      date: new Date()
+    });
   },
   deletePackage: function (id) {
     Packages.remove({ _id: id });
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      activity: 'eliminó',
+      collection: 'paquetes',
+      registerId: 'N/D',
+      register: 'N/D',
+      date: new Date()
+    });
   },
   findPackages: function (doc) {
     PackagesSchemaConsult.validate(doc);

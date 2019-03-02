@@ -5,11 +5,21 @@ import { FleetTransportationEstablishment, FleetTransportationEstablishmentSchem
 import { RouteTransportationEstablishment, RouteTransportationEstablishmentSchema, routeTransportToExcel } from './RouteTransportationEstablishment';
 import { operator, consultant, admin } from '../roles/roles';
 import TransportConsultSchema from './transportConsult';
+import { userActivities } from '../userActivities/userActivities';
 
 Meteor.methods({
   addTransportationEstablishment: function (doc) {
     TransportationEstablishmentSchema.validate(doc);
     TransportationEstablishments.insert(doc);
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      activity: 'agregó',
+      collection: 'Establecimiento de transporte',
+      registerId: 'N/D',
+      register: doc.name,
+      date: new Date()
+    });
   },
   findTransport: function (doc) {
     TransportConsultSchema.validate(doc);
@@ -99,6 +109,15 @@ Meteor.methods({
       TransportationEstablishments.update({ _id: _id }, {
         $set: data
       });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'editó',
+        collection: 'Establecimiento de transporte',
+        registerId: _id,
+        register: doc.name,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -107,6 +126,15 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       FleetTransportationEstablishmentSchema.validate(doc);
       FleetTransportationEstablishment.insert(doc);
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregó',
+        collection: 'Flotas de establecimiento de transporte',
+        registerId: 'N/D',
+        register: doc.name,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -115,6 +143,15 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       TransportationEstablishments.remove({ _id: id });
       FleetTransportationEstablishment.remove({ idTransportationEstablishment: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'Establecimiento de transporte',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
@@ -122,6 +159,15 @@ Meteor.methods({
   deleteFleetTransportationEstablishment: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       FleetTransportationEstablishment.remove({ _id: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'Flotas de establecimiento de transporte',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
@@ -134,6 +180,15 @@ Meteor.methods({
       FleetTransportationEstablishment.update({ _id: _id }, {
         $set: data
       });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'editó',
+        collection: 'Flotas de establecimiento de transporte',
+        registerId: _id,
+        register: doc.name,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -142,6 +197,15 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       RouteTransportationEstablishmentSchema.validate(doc);
       RouteTransportationEstablishment.insert(doc);
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregó',
+        collection: 'Rutas de establecimiento de transporte',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -149,6 +213,15 @@ Meteor.methods({
   deleteRouteTransportationEstablishment: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       RouteTransportationEstablishment.remove({ _id: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'Rutas de establecimiento de transporte',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
@@ -160,6 +233,15 @@ Meteor.methods({
       RouteTransportationEstablishmentSchema.validate(data);
       RouteTransportationEstablishment.update({ _id: _id }, {
         $set: data
+      });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'editó',
+        collection: 'Rutas de establecimiento de transporte',
+        registerId: doc.name,
+        register: doc.id,
+        date: new Date()
       });
     } else {
       throw new Meteor.Error('Permiso Denegado');
@@ -187,6 +269,15 @@ Meteor.methods({
       }
       TransportationEstablishmentSchema.validate(doc);
       TransportationEstablishments.insert(doc);
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregó sucursal',
+        collection: 'Establecimiento de transporte',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -194,6 +285,15 @@ Meteor.methods({
   deleteBranchOfficeTransportationEstablishment: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       TransportationEstablishments.remove({ _id: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'Establecimiento de transporte',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
@@ -205,6 +305,15 @@ Meteor.methods({
       TransportationEstablishmentSchema.validate(data);
       TransportationEstablishments.update({ _id: _id }, {
         $set: data
+      });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'editó',
+        collection: 'Establecimiento de transporte',
+        registerId: _id,
+        register: doc.name,
+        date: new Date()
       });
     } else {
       throw new Meteor.Error('Permiso Denegado');
