@@ -11,7 +11,7 @@ Meteor.methods({
       Guide.insert(doc);
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstname,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'agregó',
         collection: 'guías',
         registerId: 'N/D',
@@ -33,7 +33,7 @@ Meteor.methods({
 
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstname,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'editó',
         collection: 'guías',
         registerId: 'N/D',
@@ -49,7 +49,7 @@ Meteor.methods({
       Guide.remove({ _id: id });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstname,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'eliminó',
         collection: 'guías',
         registerId: 'N/D',

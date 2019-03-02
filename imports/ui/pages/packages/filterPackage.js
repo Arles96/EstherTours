@@ -1,22 +1,22 @@
-import './filterAttractions.html';
-import { Session } from 'meteor/session';
+import './filterPackage.html';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { Attractions } from '../../../api/attractions/attractions';
+import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
+import { Template } from 'meteor/templating';
 import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
-import AttractionImages from '../../../api/attractions/attractionImage';
 
-Template.filterAttractions.onCreated(function createVars () {
+Template.filterPackage.onCreated(function createVars () {
   this.precioMax = new ReactiveVar(2500);
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterAttractionStars', '');
+  Session.set('filterPackages', []);
 });
 
-Template.filterAttractions.helpers({
+Template.filterPackage.helpers({
   precioMax () {
     return Template.instance().precioMax.get();
   },
@@ -46,44 +46,44 @@ Template.filterAttractions.helpers({
     const department = Template.instance().department.get();
     return department !== '';
   },
-  buscar () {
+  data () {
+    // filtrar por hotel primero
     const precioMax = Template.instance().precioMax.get();
     const name = Template.instance().name.get();
     const street = Template.instance().street.get();
     const city = Template.instance().city.get();
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
-    const query = {};
+    const queryE = {};
+    const queryP = {};
     if (name) {
-      query.name = new RegExp(`.*${name}.*`, 'i');
-    }
-    if (precioMax) {
-      query.price = {
-        $lt: parseInt(precioMax, 10)
-      };
-    }
-    if (Session.get('filterAttractionStars')) {
-      query.categorization = Session.get('filterAttractionStars');
-    }
-    if (department) {
-      query.departament = department;
-    }
-    if (municipality) {
-      query.municipality = municipality;
+      queryP.name = new RegExp(`.*${name}.*`, 'i');
     }
     if (street) {
-      query.street = new RegExp(`.*${street}.*`, 'i');
+      queryE.street = new RegExp(`.*${street}.*`, 'i');
     }
     if (city) {
-      query.city = new RegExp(`.*${city}.*`, 'i');
+      queryE.city = new RegExp(`.*${city}.*`, 'i');
     }
-    return Attractions
-      .find(query, { sort: { price: 1 } })
-      .map(doc => doc);
+    if (department) {
+      queryE.departament = department;
+    }
+    if (municipality) {
+      queryE.municipality = municipality;
+    }
+    queryP.price = {
+      $lte: parseInt(precioMax, 10)
+    };
+    Meteor.call('filterPackages', { queryE, queryP }, (error, result) => {
+      if (!error) {
+        Session.set('filterPackages', result);
+      }
+    });
+    return Session.get('filterPackages');
   }
 });
 
-Template.filterAttractions.events({
+Template.filterPackage.events({
   'input #sliderMax' (event, templateInstance) {
     templateInstance.precioMax.set(event.currentTarget.value);
   },
@@ -102,52 +102,5 @@ Template.filterAttractions.events({
   },
   'change #municipality' (event, templateInstance) {
     templateInstance.municipality.set(event.currentTarget.value);
-  }
-});
-
-Template.filterResult.helpers({
-  findImg (_id) {
-    return AttractionImages.find({ _id }).map(doc => doc)[0];
-  },
-  first (index) {
-    return index === 0;
-  }
-});
-
-Template.filterStarAttraction.helpers({
-  list: () => {
-    const list = [];
-    for (let index = 1; index <= 5; index += 1) {
-      if (index <= parseInt(Session.get('filterAttractionStars'), 10)) {
-        list.push({
-          class: 'fas fa-star colorOrange',
-          id: `star${index}`
-        });
-      } else {
-        list.push({
-          class: 'fas fa-star',
-          id: `star${index}`
-        });
-      }
-    }
-    return list;
-  }
-});
-
-Template.filterStarAttraction.events({
-  'click #star1': function () {
-    Session.set('filterAttractionStars', '1');
-  },
-  'click #star2': function () {
-    Session.set('filterAttractionStars', '2');
-  },
-  'click #star3': function () {
-    Session.set('filterAttractionStars', '3');
-  },
-  'click #star4': function () {
-    Session.set('filterAttractionStars', '4');
-  },
-  'click #star5': function () {
-    Session.set('filterAttractionStars', '5');
   }
 });

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-import { Renters, RentersSchema } from './renters';
-import { FleetRenter, FleetRenterSchema } from './fleetRenter';
+import XLSX from 'xlsx';
+import { Renters, RentersSchema, renterToExcel } from './renters';
+import { FleetRenter, FleetRenterSchema, fleetRenterToExcel } from './fleetRenter';
 import { userActivities } from '../userActivities/userActivities';
 import { operator, consultant, admin } from '../roles/roles';
 
@@ -11,7 +12,7 @@ Meteor.methods({
       Renters.insert(doc);
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'agregó',
         collection: 'rentadoras',
         registerId: 'N/D',
@@ -51,7 +52,7 @@ Meteor.methods({
       Renters.insert(doc);
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'agregós',
         collection: 'rentadoras',
         registerId: 'N/D',
@@ -71,7 +72,7 @@ Meteor.methods({
 
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'editó',
         collection: 'rentadoras',
         registerId: _id,
@@ -107,7 +108,7 @@ Meteor.methods({
       FleetRenter.insert(doc);
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'agregó',
         collection: 'renterFleet',
         registerId: 'N/D',
@@ -130,7 +131,7 @@ Meteor.methods({
       FleetRenter.remove({ idRenter: id });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'eliminó',
         collection: 'rentadoras',
         registerId: 'N/D',
@@ -146,7 +147,7 @@ Meteor.methods({
       FleetRenter.remove({ _id: id });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'eliminó',
         collection: 'renterFleet',
         registerId: 'N/D',
@@ -167,7 +168,7 @@ Meteor.methods({
       });
       userActivities.insert({
         userId: Meteor.userId(),
-        user: Meteor.user().profile.firstName,
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         activity: 'editó',
         collection: 'renterFleet',
         registerId: 'N/D',
@@ -242,5 +243,24 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
+  },
+  exportRentersToExcel: function () {
+    // workbook
+    const wb = XLSX.utils.book_new();
+    const data = [];
+
+    Renters.find({}).forEach(doc => {
+      const renterRes = renterToExcel(doc._id, doc, false);
+      data.push(...renterRes);
+
+      FleetRenter.find({ idRenter: doc._id }).forEach(fleetDoc => {
+        const fleetRenterRes = fleetRenterToExcel(fleetDoc._id, fleetDoc, false);
+        data.push(...fleetRenterRes);
+      });
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Arrendadoras');
+    return wb;
   }
 });
