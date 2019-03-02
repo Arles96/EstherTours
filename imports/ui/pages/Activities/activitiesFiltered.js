@@ -35,7 +35,6 @@ Template.userActivitiesFiltered.onCreated(function createVar () {
     }
   });
   this.myChart = new ReactiveVar(null);
-  // Session.set('activitiesChart', null);
 });
 
 Template.userActivitiesFiltered.helpers({
@@ -53,8 +52,6 @@ Template.userActivitiesFiltered.events({
     Session.set('selectedUserActivities', event.currentTarget.value);
     Session.set('selectedUserActivitiesName', event.currentTarget.label);
     Template.instance().myChart.get().destroy();
-    console.log(Session.get('activitiesChart'));
-    // Session.get('activitiesChart').destroy();
     drawChart(Template.instance());
   }
 });
@@ -98,7 +95,6 @@ function drawChart (templateInstance) {
           }
         }
       }));
-      console.log(Session.get('activitiesChart'));
     }
   });
 }
