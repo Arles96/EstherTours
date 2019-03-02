@@ -40,10 +40,10 @@ Meteor.methods({
       mainOffice: doc.mainOffice
     };
 
-    const parentCheck = Restaurants.find(queryP).map(d => d);
-    const siblingCheck = Restaurants.find(queryS).map(d => d);
+    const parentCheck = Restaurants.findOne(queryP);
+    const siblingCheck = Restaurants.findOne(queryS);
 
-    if (parentCheck.length > 0 || siblingCheck.length > 0) {
+    if (parentCheck || siblingCheck) {
       throw new Meteor.Error('Repeated Branch');
     } else {
       Restaurants.insert(doc);
@@ -124,9 +124,7 @@ Meteor.methods({
       const data = doc.modifier.$set;
       const { _id } = doc;
       RestaurantSchema.validate(data);
-      Restaurants.update({ _id: _id }, {
-        $set: data
-      });
+
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
@@ -138,6 +136,7 @@ Meteor.methods({
       });
 
       const query = {
+        _id: { $ne: _id },
         street: data.street,
         municipality: data.municipality,
         city: data.city,
@@ -146,9 +145,9 @@ Meteor.methods({
         mainOffice: data.mainOffice
       };
 
-      const repeatedCheck = Restaurants.find(query).map(d => d);
+      const repeatedCheck = Restaurants.findOne(query);
 
-      if (repeatedCheck.length > 0) {
+      if (repeatedCheck) {
         throw new Meteor.Error('Repeated Branch');
       } else {
         Restaurants.update({ _id: _id }, {
