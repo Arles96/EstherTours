@@ -30,10 +30,12 @@ import '../../api/guide/server/publication';
 import '../../api/packages/method';
 import '../../api/packages/server/publications';
 
-
 // Api de attracciones
 import '../../api/attractions/method';
 import '../../api/attractions/server/publications';
+
+// Api de actividades
+import '../../api/userActivities/method';
 
 // Api de imagenes de perfil
 import '../../api/profileImage/publication';

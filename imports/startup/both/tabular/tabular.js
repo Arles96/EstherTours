@@ -16,6 +16,7 @@ import { Guide } from '../../../api/guide/guide';
 import { Packages } from '../../../api/packages/packages';
 import { branchOffices } from '../../../api/branchOffices/Offices';
 import { SoldPackage } from '../../../api/packages/soldPackage';
+import { userActivities } from '../../../api/userActivities/userActivities';
 
 const TabularTables = {};
 
@@ -1018,6 +1019,49 @@ TabularTables.SoldPackage = new Tabular.Table({
       class: 'text-center',
       data: 'textSold()',
       title: 'Vendido'
+    }
+  ]
+});
+
+TabularTables.userActivities = new Tabular.Table({
+  name: 'UserActivities',
+  collection: userActivities,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  // userId, user, activity, collection, registerId, register, date
+  extraFields: [
+    'userId', 'registerId'
+  ],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'user',
+      title: 'Usuario'
+    },
+    {
+      class: 'text-center',
+      data: 'activity',
+      title: 'Actividad'
+    },
+    {
+      class: 'text-center',
+      data: 'collection',
+      title: 'Entidad'
+    },
+    {
+      class: 'text-center',
+      data: 'register',
+      title: 'Registro'
+    },
+    {
+      class: 'text-center',
+      data: 'fecha()',
+      title: 'Fecha'
     }
   ]
 });

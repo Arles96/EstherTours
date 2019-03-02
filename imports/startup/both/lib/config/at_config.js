@@ -1,4 +1,5 @@
 // import i18n from 'meteor/universe:i18n';
+import { Meteor } from 'meteor/meteor';
 import { Router } from 'meteor/iron:router';
 import toastr from 'toastr';
 
@@ -11,6 +12,7 @@ const submitHook = function (error, state) {
       Router.go('/dashboard');
     } else if (state === 'signIn') {
       Router.go('/dashboard');
+      Meteor.call('userLogin');
     }
   } else if (error !== undefined && state === 'resetPwd') {
     toastr.error('Error al resetear tu contraseña.');

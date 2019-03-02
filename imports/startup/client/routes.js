@@ -1,7 +1,7 @@
 import { Router } from 'meteor/iron:router';
 import { Session } from 'meteor/session';
 import {
-  isLoggedIn, isNotLoggedIn, isSupervisorOrAdmin, isLoggedIn2, isOperator, isConsultant
+  isLoggedIn, isNotLoggedIn, isSupervisorOrAdmin, isLoggedIn2, isOperator, isConsultant, isAdmin
 } from './validations';
 import { Renters } from '../../api/renters/renters';
 import { TransportationEstablishments } from '../../api/TransportationEstablishment/TransportationEstablishment';
@@ -82,6 +82,7 @@ import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
 import '../../ui/pages/branchOfficePage/officesPage';
+import '../../ui/pages/Activities/activities';
 import '../../ui/pages/packages/filterPackage';
 import '../../ui/pages/soldPackage/listSoldPackage';
 
@@ -1355,6 +1356,15 @@ Router.route('/result-find-packages', {
   }
 });
 
+Router.route('/activities', {
+  name: 'userActivities',
+  template: 'userActivities',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de actividades']);
+    isAdmin(this);
+  }
+});
 /**
  * Ruta para filtrar Paquetes
  */
