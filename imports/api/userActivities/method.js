@@ -14,7 +14,6 @@ Meteor.methods({
     });
   },
   userLogout2: function (doc) {
-    console.log("sdasdasdads")
     const { firstName, lastName } = Meteor.users.findOne({ _id: doc }).profile;
     const id = userActivities.insert({
       userId: doc,

@@ -6,7 +6,7 @@ Template.dashboardNavbar.events({
   'click #logout': function () {
     const userId = Meteor.userId();
     Meteor.call('userLogout2', userId, (error, result) => {
-      if(!error){
+      if (!error) {
         Accounts.logout();
       }
     });
