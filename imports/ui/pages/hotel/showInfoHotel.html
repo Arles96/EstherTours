@@ -74,13 +74,11 @@
               </ul>
             </div>
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
+          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+              <div class="form-group mt-1">
                 <b>Categorización:</b>
-              </label>
-              <p>{{categorization}} estrellas </p>
-            </div>
+                  {{>showStarRating rating=categorization}}
+              </div>
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
@@ -217,7 +215,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <template name="showButtonRoomHotel" >
@@ -257,6 +254,16 @@
         <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRateHotel far fa-trash-alt"></i>
       </span>
     {{/if}}
+  </template>
+
+  <template name="showStarHotel" >
+    <div>
+      <p>
+        {{#each list}}
+          <i style="font-size: 1.3rem;  pointer-events: none;" id="{{id}}" class="{{class}}"></i>
+        {{/each}}
+      </p>
+    </div>
 </template>
 
 <template name="showButtonBranchHotel" >

@@ -1,0 +1,86 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Paquete: {{package.name}}.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      display: flex;
+      align-content: center;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .confrimEmailTable {
+      margin: auto;
+      width: 60vw;
+      background: #162169;
+      border: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class="confrimEmailTable">
+    <tbody>
+      <tr style="background: #ffffff">
+        <td style="padding: 0px 40px 0px 40px">
+          <h2 style="font-weight:bold">¡Hola, te presentamos el paquete {{package.name}}!</h2>
+          <p><b>Precio:</b> L. {{package.price}}</p>
+          {{#if hotel}}
+            <p>
+              <b>Hotel:</b>
+              {{hotel.name}}, {{hotel.municipality}}, {{hotel.departament}}
+            </p>
+          {{/if}}
+          {{#if room}}
+            <p>
+              <b>Cuarto de hotel:</b>
+              {{room.type}}, L. {{room.price}}
+            </p>
+          {{/if}}
+          {{#if renter}}
+            <p>
+              <b>Arrendadora:</b>
+              {{renter.name}}, {{renter.municipality}}, {{renter.department}}
+            </p>
+          {{/if}}
+          {{#if fleetRenter}}
+            <p>
+              <b>Flota:</b>
+              {{fleetRenter.type}}, L. {{fleetRenter.rate}}
+            </p>
+          {{/if}}
+          {{#if transport}}
+            <p>
+              <b>Transporte:</b>
+              {{transport.name}}, {{transport.town}}, {{transport.department}}
+            </p>
+          {{/if}}
+          {{#if route}}
+            <p>
+              <b>Ruta de transporte:</b>
+              {{route.city}}, {{route.type}}
+            </p>
+          {{/if}}
+          {{#if restaurant}}
+            <p>
+              <b>Restaurante:</b>
+              {{restaurant.name}}, {{restaurant.municipality}}, {{restaurant.department}}
+            </p>
+          {{/if}}
+          <p>
+            <b>Observaciones:</b> {{package.observation}}
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+
+</html>

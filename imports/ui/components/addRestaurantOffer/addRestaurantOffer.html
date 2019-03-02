@@ -17,14 +17,19 @@
             }}
               {{>afQuickField name="idRestaurant" value=idRestaurant }}
               {{>afQuickField name="typeFood" }}
-              {{>afQuickField name="price" }}
-              {{>afQuickField name="dishName" }}
+              {{>afQuickField name="price" step="0.01" value=price}}
+              {{>afQuickField name="dishName"}}
               <div class="text-center mt-4">
-                <button class="btn btn-primary w-75" type="submit">Agregar</button>
+                <button class="btn btn-primary w-75 add" type="submit">Agregar</button>
               </div>
             {{/autoForm}}
           </div>
         </div>
       </div>
     </div>
+  </template>
+
+
+
+  <template name="changeFormat">
   </template>

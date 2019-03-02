@@ -25,12 +25,14 @@
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <div class="form-group">
-                <label for=""><b>Sitio web:</b></label>
-                {{#if website}}
-                  <p><a href="{{urlTag(website)}}">{{website}}</a></p>
-                {{else}}
-                  <p>No tiene</p>
-                {{/if}}
+                <label for="">
+                  <b>Sitio web:</b>
+                    {{#if website}}
+                      <a target="_blank" href="{{urlTag(website)}}">{{website}}</a>
+                    {{else}}
+                      No tiene
+                    {{/if}}
+                </label>
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -48,6 +50,12 @@
                   {{/each}}
                 </ul>
               </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                  <b>Categorización:</b>
+                    {{>showStarRating rating=categorization}}
+                </div>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <div class="form-group">
@@ -71,12 +79,6 @@
               <div class="form-group">
                 <label for=""><b>Licencia:</b></label>
                 <p>{{license}}</p>
-              </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              <div class="form-group">
-                <label for=""><b>Categorización:</b></label>
-                <p>{{categorization}} estrellas</p>
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -129,5 +131,16 @@
         </div>
       </div>
     </div>
+  </div>
+</template>
+
+
+<template name="showStarGuide" >
+  <div>
+    <p>
+      {{#each list}}
+        <i style="font-size: 1.3rem;  pointer-events: none;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
   </div>
 </template>

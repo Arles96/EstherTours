@@ -1,6 +1,7 @@
 import './showInfoRenter.html';
 import '../../components/addFleetRenter/addFleetRenter';
 import '../../components/infoFleetRenter/infoFleetRenter';
+import '../../components/showRating/showRating';
 import './editFleetRenter';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
@@ -63,6 +64,10 @@ Template.showInfoRenter.helpers({
       return url;
     }
     return `https://${url}`;
+  },
+  textCategorization: function (text) {
+    Session.set('showRenterRating', text);
+    return 'Categorización';
   }
 });
 
