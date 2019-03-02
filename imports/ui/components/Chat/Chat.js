@@ -47,6 +47,21 @@ Template.chat.helpers({
 });
 
 Template.chat.events({
+  'click .sendMessage': function (event) {
+    const message = document.getElementById('ChatPage-message').value;
+    const query = {
+      idReceiver: Template.currentData().contextData.Issuer._id,
+      idIssuer: Meteor.userId(),
+      message: message,
+      status: 1,
+      createAt: () => new Date()
+    };
+    Meteor.call('sendMessage', query, (error, result) => {
+      if (!error) {
+        document.getElementById('ChatPage-message').value = '';
+      }
+    });
+  },
   'click .closeChat': function (event) {
     const openChats = Session.get('chatWith');
     Session.set('chatWith', openChats.filter(item => item !== Template.currentData().contextData.Issuer._id));
@@ -61,5 +76,25 @@ Template.chat.events({
         Meteor.call('lookMessage', query);
       }
     }
+  },
+  'keydown #ChatPage-message': function (event) {
+    if (event.which === 13 && !event.originalEvent.shiftKey) {
+      const message = document.getElementById('ChatPage-message').value;
+      const query = {
+        idReceiver: Template.currentData().contextData.Issuer._id,
+        idIssuer: Meteor.userId(),
+        message: message,
+        status: 1,
+        createAt: () => new Date()
+      };
+      Meteor.call('sendMessage', query, (error, result) => {
+        if (!error) {
+          document.getElementById('ChatPage-message').value = '';
+        }
+      });
+      event.stopPropagation();
+      return false;
+    }
+    return true;
   }
 });

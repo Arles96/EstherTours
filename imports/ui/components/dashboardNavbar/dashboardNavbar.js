@@ -4,6 +4,10 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { Notifications } from '../../../api/Notifications/Notification';
 
+Template.dashboardNavbar.onCreated(() => {
+  Session.set('ChatPage-context', 'none');
+});
+
 Template.dashboardNavbar.helpers({
   getNotifications: () => Notifications.find({ idReceiver: Meteor.userId() }),
   hasNotifications: () => Notifications.find({ idReceiver: Meteor.userId() }).fetch().length > 0,
@@ -31,11 +35,22 @@ Template.dashboardNavbar.events({
   },
   'click .chatWithNotification': function (event) {
     if (event.currentTarget.id) {
-      const openChats = Session.get('chatWith');
-      if (openChats === undefined) {
-        Session.set('chatWith', [event.currentTarget.id]);
+      if (document.getElementById('chatPage')) {
+        Session.set('ChatPage-context', event.currentTarget.id);
       } else {
-        Session.set('chatWith', (openChats.includes(event.currentTarget.id) ? openChats : openChats.concat(event.currentTarget.id)));
+        const openChats = Session.get('chatWith');
+        if (openChats === undefined) {
+          Session.set('chatWith', [event.currentTarget.id]);
+        } else {
+          Session.set('chatWith', (openChats.includes(event.currentTarget.id) ? openChats : openChats.concat(event.currentTarget.id)));
+        }
+      }
+      const query = {
+        idReceiver: Meteor.userId(),
+        idIssuer: event.currentTarget.id
+      };
+      if (Notifications.findOne(query)) {
+        Meteor.call('lookMessage', query);
       }
     }
   }

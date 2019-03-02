@@ -1,41 +1,45 @@
 import { Meteor } from 'meteor/meteor';
-import { Chats } from './Chats';
+import { Chats, ChatSchema } from './Chats';
 import { Notifications } from '../Notifications/Notification';
 
 Meteor.methods({
   sendMessage: function (doc) {
-    if (doc.idIssuer && doc.idReceiver) {
-      Chats.insert(doc);
-      const nots = Notifications.findOne({
-        idIssuer: doc.idIssuer,
-        idReceiver: doc.idReceiver
-      });
-      if (!nots) {
-        Notifications.insert({
+    try {
+      if (doc.idIssuer && doc.idReceiver) {
+        Chats.insert(doc);
+        const nots = Notifications.findOne({
           idIssuer: doc.idIssuer,
-          idReceiver: doc.idReceiver,
-          amount: 1,
-          lastMessage: doc.message,
-          createAt: doc.createAt
+          idReceiver: doc.idReceiver
         });
-      } else {
-        Notifications.update(
-          {
+        if (!nots) {
+          Notifications.insert({
             idIssuer: doc.idIssuer,
-            idReceiver: doc.idReceiver
-          },
-          {
-            $set: {
-              createAt: doc.createAt,
-              amount: (nots.amount + 1),
-              lastMessage: doc.message
+            idReceiver: doc.idReceiver,
+            amount: 1,
+            lastMessage: doc.message,
+            createAt: doc.createAt
+          });
+        } else {
+          Notifications.update(
+            {
+              idIssuer: doc.idIssuer,
+              idReceiver: doc.idReceiver
+            },
+            {
+              $set: {
+                createAt: doc.createAt,
+                amount: (nots.amount + 1),
+                lastMessage: doc.message
+              }
             }
-          }
-        );
+          );
+        }
+        return 'Success';
+      } else {
+        return 'Error';
       }
-      return 'Success';
-    } else {
-      return 'Error';
+    } catch (error) {
+      throw new Meteor.Error('ErrorSendMessage');
     }
   },
   lookMessage: function (doc) {

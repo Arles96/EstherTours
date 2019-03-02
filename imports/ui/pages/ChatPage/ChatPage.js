@@ -59,7 +59,14 @@ Template.chatPage.helpers({
     }
     return Meteor.userId() === id;
   },
-  isStartPage: () => Template.instance().currentIssuerId.get() === 'none',
+  isStartPage: () => {
+    const context = Session.get('ChatPage-context');
+    if (context !== 'none') {
+      Session.set('ChatPage-context', 'none');
+      Template.instance().currentIssuerId.set(context);
+    }
+    return Template.instance().currentIssuerId.get() === 'none';
+  },
   getReceiver: () => Meteor.user(),
   getIssuer: function (option) {
     const issuer = Meteor.users.findOne({ _id: Template.instance().currentIssuerId.get() });
@@ -110,6 +117,25 @@ Template.chatPage.helpers({
     }
     return null;
   },
+  lastMessageId: id => {
+    const query = Chats.find(
+      {
+        $or: [{
+          idReceiver: Meteor.userId(),
+          idIssuer: id
+        },
+        {
+          idIssuer: Meteor.userId(),
+          idReceiver: id
+        }]
+      }, {
+        sort: {
+          DateTime: -1, limit: 1
+        }
+      }
+    ).fetch().pop();
+    return query.idIssuer;
+  },
   getStatus: id => {
     const query = Chats.find(
       {
@@ -138,6 +164,21 @@ Template.chatPage.helpers({
 });
 
 Template.chatPage.events({
+  'click .sendMessage': function (event) {
+    const message = document.getElementById('ChatPage-message').value;
+    const query = {
+      idReceiver: Template.instance().currentIssuerId.get(),
+      idIssuer: Meteor.userId(),
+      message: message,
+      status: 1,
+      createAt: () => new Date()
+    };
+    Meteor.call('sendMessage', query, (error, result) => {
+      if (!error) {
+        document.getElementById('ChatPage-message').value = '';
+      }
+    });
+  },
   'click .chatWith': function (event) {
     if (event.currentTarget.id) {
       Template.instance().currentIssuerId.set(event.currentTarget.id);
@@ -160,5 +201,25 @@ Template.chatPage.events({
       }));
     Session.set('searchChatWith', (data.length > 0 ? data : `undefined`));
     Session.set('searchChatWithString', event.currentTarget.value.split(' ').filter(item => item.trim() !== ''));
+  },
+  'keydown #ChatPage-message': function (event) {
+    if (event.which === 13 && !event.originalEvent.shiftKey) {
+      const message = document.getElementById('ChatPage-message').value;
+      const query = {
+        idReceiver: Template.instance().currentIssuerId.get(),
+        idIssuer: Meteor.userId(),
+        message: message,
+        status: 1,
+        createAt: () => new Date()
+      };
+      Meteor.call('sendMessage', query, (error, result) => {
+        if (!error) {
+          document.getElementById('ChatPage-message').value = '';
+        }
+      });
+      event.stopPropagation();
+      return false;
+    }
+    return true;
   }
 });

@@ -1,5 +1,5 @@
 <template name="chatPage">
-  <div class="mb-3 d-inline-flex justify-content-center" style="width: 100%; height: 100%;">
+  <div id="chatPage" class="mb-3 d-inline-flex justify-content-center" style="width: 100%; height: 100%;">
     <div class="card align-self-stretch" style="max-width: 25%; min-width: 25%;">
       <div class="card-header" style="text-align: center;">
         <label for="#searchChatWith">Usuarios</label>
@@ -24,15 +24,15 @@
               <span class="ml-auto badge badge-pill badge-dark">{{cantNotifications user._id}}</span>
             </div>
             <small class="flex-row textEllipsis" style="max-width: 100%"><i>{{lastMessage user._id}}
-                {{#if (isReceiver user._id ) }}
+                {{#if (isReceiver (lastMessageId user._id))}}
                 {{#if (isSent (getStatus user._id))}}
-                <i class="fas fa-check float-sm-right"></i>
+                <i class="fas fa-check fa-xs float-sm-right"></i>
                 {{/if}}
                 {{#if (isReceived (getStatus user._id))}}
-                <i class="fas fa-check-double float-sm-right"></i>
+                <i class="fas fa-check-double fa-xs float-sm-right"></i>
                 {{/if}}
                 {{#if (isRead (getStatus user._id))}}
-                <i class="fas fa-check-double fa-xs float-sm-right" style="color: orange;"></i>
+                <i class="fas fa-check-double fa-xs fa-xs float-sm-right" style="color: orange;"></i>
                 {{/if}}
                 {{/if}}
               </i></small>
@@ -66,13 +66,13 @@
         <div class="alert alert-info " style="text-align: left; max-width: max-content;">
           <strong>Tú: </strong>{{message.message}}
           {{#if (isSent message.status)}}
-          <i class="fas fa-check float-sm-right" style="margin-left: 1rem;"></i>
+          <i class="fas fa-check fa-xs float-sm-right" style="margin-left: 1rem;"></i>
           {{/if}}
           {{#if (isReceived message.status)}}
-          <i class="fas fa-check-double float-sm-right" style="margin-left: 1rem;"></i>
+          <i class="fas fa-check-double fa-xs float-sm-right" style="margin-left: 1rem;"></i>
           {{/if}}
           {{#if (isRead message.status)}}
-          <i class="fas fa-check-double fa-xs float-sm-right" style="color: orange; margin-left: 1rem;"></i>
+          <i class="fas fa-check-double fa-xs fa-xs float-sm-right" style="color: orange; margin-left: 1rem;"></i>
           {{/if}}
         </div>
         {{/if}}
@@ -80,28 +80,16 @@
         <br><i>---- No hay mensajes ----</i>
         {{/each}}
       </div>
-      <div class="card-footer" style="padding-top: 0">
-        <div class="input-group">
-          {{#autoForm
-          style="width: 100% !important"
-          id="SendChatForm"
-          schema=ChatSchema
-          type="method"
-          doc=chatDoc
-          meteormethod="sendMessage"
-          }}
-          {{>afQuickField name="idReceiver" value=(getIssuer "id") }}
-          {{>afQuickField name="idIssuer" value=idReceiver }}
-          {{>afQuickField name="status" value=1}}
+      <div class="card-footer">
+        <form>
           <div class="input-group" style="width: 100% !important">
-            <textarea autocomplete="off" class="form-control" placeholder="Mensaje..." type="text" name="message" id="MeMndYdc2YX2EsMvi"
-              required="" data-schema-key="message" rows="1.5" style="resize: none; width: max-content;"></textarea>
+            <textarea autocomplete="off" class="form-control" placeholder="Mensaje..." type="text" name="message" id="ChatPage-message"
+              required data-schema-key="message" rows="1.5" style="resize: none; width: max-content;"></textarea>
             <div class="input-group-append">
-              <button class="btn btn-dark sendMessage" type="submit"><i class="fas fa-chevron-circle-right" style="width: auto;"></i></button>
+              <div class="btn btn-dark sendMessage"><i class="fas fa-chevron-circle-right" style="width: auto;"></i></div>
             </div>
           </div>
-          {{/autoForm}}
-        </div>
+        </form>
       </div>
       {{/if}}
     </div>

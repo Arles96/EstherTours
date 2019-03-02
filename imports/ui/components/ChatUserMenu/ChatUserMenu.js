@@ -73,6 +73,13 @@ Template.chatUserMenu.events({
       } else {
         Session.set('chatWith', (openChats.includes(event.currentTarget.id) ? openChats : openChats.concat(event.currentTarget.id)));
       }
+      const query = {
+        idReceiver: Meteor.userId(),
+        idIssuer: event.currentTarget.id
+      };
+      if (Notifications.findOne(query)) {
+        Meteor.call('lookMessage', query);
+      }
     }
   },
   'input .searchChatWith': function (event) {

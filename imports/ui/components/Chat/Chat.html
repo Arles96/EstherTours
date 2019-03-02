@@ -7,15 +7,15 @@
       <i class="far fa-circle fa-xs mr-auto pointer"></i>
       {{/if}}
       <div id="ChatHeader{{contextData.Issuer._id}}" class="mr-auto flex-fill ChatHeader card-link pointer" data-toggle="collapse"
-        href="#{{contextData.Issuer._id}}-chat" aria-expanded="false">
+        href="#Chat{{contextData.Issuer._id}}" aria-expanded="true">
         <small style="color:rgba(209, 121, 121, 0)"> -</small>
         {{contextData.Issuer.profile.firstName}} {{contextData.Issuer.profile.lastName}}
         <small style="color:rgba(209, 121, 121, 0)"> -</small>
       </div>
       <i class="closeChat fas fa-times ml-auto pointer"></i>
     </div>
-    <div id="{{contextData.Issuer._id}}-chat" class="collapse hidde" data-parent="#accordion">
-      <div id="Cat{{contextData.Issuer._id}}" class="card-body" style="max-height: 30vh; background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto !important; text-align: center;">
+    <div id="Chat{{contextData.Issuer._id}}" class="collapse show">
+      <div class="card-body" style="max-height: 30vh; background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto !important; text-align: center;">
         {{#if isOpen}}
         {{/if}}
         {{#each message in messages}}
@@ -42,27 +42,16 @@
         {{/each}}
         <span id="ChatBottom"> </span>
       </div>
-      <div class="card-footer" style="background: #ececec; padding-top: 0">
-        <div class="input-group">
-          {{#autoForm
-          id="SendChatForm"
-          schema=ChatSchema
-          type="method"
-          doc=chatDoc
-          meteormethod="sendMessage"
-          }}
-          {{>afQuickField name="idReceiver" value=contextData.Issuer._id }}
-          {{>afQuickField name="idIssuer" value=idReceiver }}
-          {{>afQuickField name="status" value=1}}
-          <div class="input-group">
-            <textarea autocomplete="off" class="form-control" placeholder="Mensaje..." type="text" name="message" id="MeMndYdc2YX2EsMvi"
-              required="" data-schema-key="message" rows="1.5" style="resize: none;"></textarea>
+      <div class="card-footer" style="background: #ececec;">
+        <form>
+          <div class="input-group" style="width: 100% !important">
+            <textarea autocomplete="off" class="form-control" placeholder="Mensaje..." type="text" name="message" id="ChatPage-message"
+              required data-schema-key="message" rows="1.5" style="resize: none; width: max-content;"></textarea>
             <div class="input-group-append">
-              <button class="btn btn-dark sendMessage" type="submit"><i class="fas fa-chevron-circle-right"></i></button>
+              <div class="btn btn-dark sendMessage"><i class="fas fa-chevron-circle-right" style="width: auto;"></i></div>
             </div>
           </div>
-          {{/autoForm}}
-        </div>
+        </form>
       </div>
     </div>
   </div>
