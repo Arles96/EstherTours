@@ -53,9 +53,26 @@ Meteor.methods({
       const data = doc.modifier.$set;
       const { _id } = doc;
       HotelSchema.validate(data);
-      Hotels.update({ _id: _id }, {
-        $set: data
-      });
+
+      const query = {
+        _id: { $ne: _id },
+        street: data.street,
+        municipality: data.municipality,
+        city: data.city,
+        departament: data.departament,
+        branchOffice: true,
+        mainOffice: data.mainOffice
+      };
+
+      const repeatedCheck = Hotels.findOne(query);
+
+      if (repeatedCheck) {
+        throw new Meteor.Error('Repeated Branch');
+      } else {
+        Hotels.update({ _id: _id }, {
+          $set: data
+        });
+      }
 
       userActivities.insert({
         userId: Meteor.userId(),
@@ -73,6 +90,7 @@ Meteor.methods({
   deleteHotel: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       Hotels.remove({ _id: id });
+      Hotels.remove({ mainOffice: id });
       RoomHotel.remove({ idHotel: id });
       RateHotel.remove({ idHotel: id });
 
