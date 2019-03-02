@@ -1,6 +1,7 @@
 import './showInfoRestaurant.html';
 import '../../components/addRestaurantOffer/addRestaurantOffer';
 import '../../components/infoRestaurantOffer/infoRestaurantOffer';
+import '../../components/showRating/showRating';
 import './editRestaurantOffer';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
@@ -39,8 +40,10 @@ Template.showInfoRestaurant.onCreated(() => {
 });
 
 Template.showInfoRestaurant.helpers({
+  rating: () => Session.get('showRestaurantRating'),
   selector: function () {
-    return { idRestaurant: Session.get('idRestaurant') };
+    return { 
+      idRestaurant: Session.get('idRestaurant') };
   },
   branchSelector: function (_id) {
     return { mainOffice: _id, branchOffice: true };
@@ -56,6 +59,10 @@ Template.showInfoRestaurant.helpers({
       return url;
     }
     return `https://${url}`;
+  },
+  textCategorization: function (text) {
+    Session.set('showRestaurantRating', text);
+    return 'Categorización';
   }
 });
 
@@ -85,7 +92,7 @@ Template.showButtonRestaurantOffers.events({
   }
 });
 
-Template.showButtonRestaurantBranches.events({
+/*Template.showButtonRestaurantBranches.events({
   'click .deleteRestaurant': function () {
     const id = this._id;
     const rest = Restaurants.findOne({ _id: id });
@@ -108,3 +115,4 @@ Template.showButtonRestaurantBranches.events({
     });
   }
 });
+*/

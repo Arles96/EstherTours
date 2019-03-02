@@ -66,6 +66,7 @@
     </div>
   </div>
   {{>emailPackage}}
+  {{>sellPackageModal}}
   {{#each data}}
     {{>filterResultPackage}}
   {{/each}}
@@ -126,11 +127,16 @@
         </div>
       </div>
       <div class="card-footer small text-muted">
-        <a style="text-decoration: none;" href="/show-package/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+        <a style="text-decoration: none; cursor: pointer;" href="/show-package/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
           <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
         </a>
+<<<<<<< HEAD
         <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Enviar por correo">
           <i style="cursor: pointer;" data-id="{{_id}}" class="emailPackage fas fa-share-square mr-2" data-toggle="modal" data-target="#emailPackage"></i>
+=======
+        <span style="cursor: pointer;" class="text-dark sellPackage" data-toggle="tooltip" data-placement="top" title="Vender">
+          <i class="fas fa-money-bill-alt"></i>
+>>>>>>> 39fccab22ac726bff24b8918dca7a2471a744672
         </span>
       </div>
     </div>

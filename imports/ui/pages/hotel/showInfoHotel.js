@@ -3,6 +3,7 @@ import '../../components/addRoomHotel/addRoomHotel';
 import '../../components/addRateHotel/addRateHotel';
 import '../../components/infoRoomHotel/infoRoomHotel';
 import '../../components/infoRateHotel/infoRateHotel';
+import '../../components/showRating/showRating';
 import './editRateHotel';
 import './editRoomHotel';
 import toastr from 'toastr';
@@ -11,8 +12,9 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { RateHotel } from '../../../api/hotels/ratehotel';
-import HotelImage from '../../../api/hotels/hotelImage';
 import { Hotels } from '../../../api/hotels/hotels';
+import HotelImage from '../../../api/hotels/hotelImage';
+import { packageHotel, unpackageHotel } from '../../../startup/client/packageFunction';
 
 Template.showInfoHotel.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -45,6 +47,10 @@ Template.showInfoHotel.onCreated(() => {
 
 Template.showInfoHotel.helpers({
   findImage: _id => HotelImage.findOne({ _id }),
+  textCategorization: function (text) {
+    Session.set('showHotelRating', text);
+    return 'Categorización';
+  },
   selector: function () {
     return { idHotel: Session.get('idHotel') };
   },
@@ -94,6 +100,15 @@ Template.showButtonRoomHotel.events({
   },
   'click .infoRoomHotel': function () {
     Session.set('roomHotel', RoomHotel.findOne({ _id: this._id }));
+  },
+  'click .packageEntity': function () {
+    const { _id, idHotel } = RoomHotel.findOne({ _id: this._id });
+    packageHotel(idHotel, _id);
+    toastr.success('Se ha empaquetado la habitación exitosamente');
+  },
+  'click .unPackageEntity': function () {
+    unpackageHotel();
+    toastr.info('Se ha desempaquetado la habitación exitosamente');
   }
 });
 

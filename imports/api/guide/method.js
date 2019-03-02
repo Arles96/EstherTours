@@ -2,12 +2,22 @@ import { Meteor } from 'meteor/meteor';
 import { Guide, GuideSchema } from './guide';
 import { operator, consultant, admin } from '../roles/roles';
 import GuideConsultSchema from './guideConsult';
+import { userActivities } from '../userActivities/userActivities';
 
 Meteor.methods({
   insertGuide: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       GuideSchema.validate(doc);
       Guide.insert(doc);
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregó',
+        collection: 'guías',
+        registerId: 'N/D',
+        register: doc.name,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -20,6 +30,16 @@ Meteor.methods({
       Guide.update({ _id: _id }, {
         $set: data
       });
+
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'editó',
+        collection: 'guías',
+        registerId: 'N/D',
+        register: doc.name,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -27,6 +47,15 @@ Meteor.methods({
   deleteGuide: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       Guide.remove({ _id: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'guías',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }

@@ -5,6 +5,7 @@ import '../imports/startup/both';
 import '../imports/startup/client';
 import toastr from 'toastr';
 import { Template } from 'meteor/templating';
+import { Session } from 'meteor/session';
 import { Meteor } from 'meteor/meteor';
 import {
   admin,
@@ -68,3 +69,58 @@ Template.registerHelper('isConsultant', () => Roles.userIsInRole(Meteor.userId()
  * Esta función se usa en Blaze
  */
 Template.registerHelper('isLoggedIn', () => Meteor.user());
+
+/**
+ * Helper para saber si se esta creando un empaquetado
+ */
+Template.registerHelper('isCreatePackage', () => Session.get('isCreatePackage'));
+
+/**
+ * Helper para empaquetado de atracciones
+ */
+Template.registerHelper('packageAttraction', () => Session.get('packageAttraction'));
+
+/**
+ * Helper para empaquetado de Habitaciones
+ */
+Template.registerHelper('packageRoomHotel', () => Session.get('packageRoomHotel'));
+
+/**
+ * Helper para empaquetado de Flota de arrendadoras
+ */
+Template.registerHelper('packageFleetRenter', () => Session.get('packageFleetRenter'));
+
+/**
+ * Helper para empaquetado de Restaurante
+ */
+Template.registerHelper('packageRestaurant', () => Session.get('packageRestaurant'));
+
+/**
+ * Helper para empaquetado de Rutas de Transporte
+ */
+Template.registerHelper('packageRouteTransport', () => Session.get('packageRouteTransport'));
+
+/**
+ * Comparar dos cadenas
+ */
+Template.registerHelper('isEqual', (text1, text2) => text1 === text2);
+
+/**
+ * Obtener el id de la arrendara
+ */
+Template.registerHelper('packageRenter', () => Session.get('packageRenter'));
+
+/**
+ * Obtener el id del hotel
+ */
+Template.registerHelper('packageHotel', () => Session.get('packageHotel'));
+
+/**
+ * Obtener el id del establecimiento de transporte
+ */
+Template.registerHelper('packageTransport', () => Session.get('packageTransport'));
+
+/**
+ * Obtener el nombre del paquete
+ */
+Template.registerHelper('namePackage', () => Session.get('namePackage'));

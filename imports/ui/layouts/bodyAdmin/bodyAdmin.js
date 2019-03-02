@@ -3,16 +3,11 @@ import '../../components/dashboardNavbar/dashboardNavbar';
 import '../../components/leftMenu/leftMenu';
 import '../../components/scripts/scripts';
 import '../../components/breadcrumb/breadcrumb';
-import { Meteor } from 'meteor/meteor';
+import '../../components/ChatSide/ChatSide';
+import { Session } from 'meteor/session';
 
 Template.bodyAdmin.helpers({
-  isBlocked: function () {
-    if (Meteor.user().profile.blocked === true) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  ShowChatFixed: () => Session.get('ShowChatFixed') === true
 });
 
 Template.bodyAdmin.events({
