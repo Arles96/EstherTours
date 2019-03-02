@@ -1840,29 +1840,3 @@ Router.route('/activities-filtered', {
     return Meteor.subscribe('users.all');
   }
 });
-
-/**
- * Ruta para filtrar Paquetes
- */
-Router.route('/filter-packages', {
-  name: 'filterPackage',
-  template: 'filterPackage',
-  layoutTemplate: 'bodyAdmin',
-  onBeforeAction: function () {
-    listBreadcrumb(['Filtros de Paquetes']);
-    isLoggedIn2(this);
-  }
-});
-
-/**
- * Ruta de Paquetes Vendidos
- */
-Router.route('/sold-package', {
-  name: 'soldPackage',
-  template: 'listSoldPackage',
-  layoutTemplate: 'bodyAdmin',
-  onBeforeAction: function () {
-    listBreadcrumb(['Tabla de Paquetes Vendidos']);
-    isLoggedIn2(this);
-  }
-});
