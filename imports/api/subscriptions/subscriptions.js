@@ -16,19 +16,7 @@ const SubscriptionsSchema = new SimpleSchema({
   email: {
     type: String,
     label: 'Correo',
-    regEx: RegExObj.email,
-    custom: function () {
-      const query = { email: this.value };
-      if (this.isUpdate) {
-        query._id = { $ne: this.docId };
-      }
-      const repeated = Subscriptions.findOne(query);
-      if (repeated) {
-        // XXX bug
-        return 'duplicateEmail';
-      }
-      return 1;
-    }
+    regEx: RegExObj.email
   },
   telephone: {
     type: String,

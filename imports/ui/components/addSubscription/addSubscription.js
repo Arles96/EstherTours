@@ -12,6 +12,10 @@ AutoForm.addHooks('addSubscriptionForm', {
     $('#addSubscription').modal('hide');
   },
   onError: function (formtype, error) {
-    toastr.error(error);
+    if (error.error === 'Repeated Email') {
+      toastr.error(new Error('Ya existe una suscripción con ese correo!'));
+    } else {
+      toastr.error(error);
+    }
   }
 });

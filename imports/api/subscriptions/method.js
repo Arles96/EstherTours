@@ -6,6 +6,11 @@ Meteor.methods({
   insertSubscription: function (doc) {
     if (Roles.userIsInRole(Meteor.userId(), consultant)) {
       SubscriptionsSchema.validate(doc);
+
+      if (Subscriptions.findOne({ email: doc.email })) {
+        throw new Meteor.Error('Repeated Email');
+      }
+
       Subscriptions.insert(doc);
     } else {
       throw new Meteor.Error('Permiso Denegado');
@@ -16,6 +21,16 @@ Meteor.methods({
       const data = doc.modifier.$set;
       const { _id } = doc;
       SubscriptionsSchema.validate(data);
+
+      const query = {
+        email: data.email,
+        _id: { $ne: _id }
+      };
+
+      if (Subscriptions.findOne(query)) {
+        throw new Meteor.Error('Repeated Email');
+      }
+
       Subscriptions.update({ _id: _id }, {
         $set: data
       });
