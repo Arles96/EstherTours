@@ -45,6 +45,9 @@ RateHotelSchema.messageBox.messages(messages);
 RateHotel.helpers({
   getHotelName: function () {
     return Hotels.findOne({ _id: this.idHotel }).name;
+  },
+  textPrice: function() {
+    return this.price.toFixed(2);
   }
 });
 

@@ -1,4 +1,5 @@
 import './resultPackages.html';
+import '../../components/toDecimal/toDecimal';
 import Swal from 'sweetalert2';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';

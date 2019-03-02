@@ -57,6 +57,9 @@ FleetTransportationEstablishmentSchema.messageBox.messages(messages);
 FleetTransportationEstablishment.helpers({
   getTransportationEstablishmentName: function () {
     return TransportationEstablishments.findOne({ _id: this.idTransportationEstablishment }).name;
+  },
+  textRate: function() {
+    return this.rate.toFixed(2);
   }
 });
 

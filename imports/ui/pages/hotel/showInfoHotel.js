@@ -3,6 +3,7 @@ import '../../components/addRoomHotel/addRoomHotel';
 import '../../components/addRateHotel/addRateHotel';
 import '../../components/infoRoomHotel/infoRoomHotel';
 import '../../components/infoRateHotel/infoRateHotel';
+import '../../components/showRating/showRating';
 import './editRateHotel';
 import './editRoomHotel';
 import toastr from 'toastr';
@@ -46,6 +47,10 @@ Template.showInfoHotel.onCreated(() => {
 
 Template.showInfoHotel.helpers({
   findImage: _id => HotelImage.findOne({ _id }),
+  textCategorization: function (text) {
+    Session.set('showHotelRating', text);
+    return 'Categorización';
+  },
   selector: function () {
     return { idHotel: Session.get('idHotel') };
   },

@@ -11,7 +11,7 @@
         <div class="modal-body">
           {{#with roomHotel}}
           <div class="form-group">
-            <label for=""><b>Precio de la habitación:</b> {{price}}</label>
+            <label for=""><b>Precio de la habitación:</b> {{>convertDecimal}}</label>
           </div>
           <div class="form-group">
             <label for=""><b>Tipo:</b> {{type}}</label>

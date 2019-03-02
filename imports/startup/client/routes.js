@@ -249,6 +249,7 @@ Router.route('/addRestaurant', {
   onBeforeAction: function () {
     listBreadcrumb(['Agregar Restaurante']);
     Session.set('rating', undefined);
+    Session.set('price', undefined);
     isOperator(this);
   }
 });
@@ -317,6 +318,7 @@ Router.route('/show-restaurant/:id', {
     const { id } = this.params;
     const restaurant = Restaurants.findOne({ _id: id });
     Session.set('idRestaurant', id);
+    Session.set('showRestaurantRating', undefined);
     listBreadcrumb(['Listar Restaurantes', `Mostrando Información de ${restaurant.name}`]);
     isLoggedIn2(this);
   },
@@ -394,6 +396,7 @@ Router.route('/show-restaurantResult', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Formulario Consulta Restaurante', 'Resultado Consulta Restaurante']);
+    Session.set('categorization', undefined);
     isConsultant(this);
   }
 });
@@ -579,6 +582,7 @@ Router.route('/show-TransportationEstablishment/:id', {
     const { id } = this.params;
     const TransportationEstablishment = TransportationEstablishments.findOne({ _id: id });
     Session.set('idTransportationEstablishment', id);
+    Session.set('showTransportationRating', undefined);
     listBreadcrumb(['Lista de transportes', `Mostrando Información de ${TransportationEstablishment.name}`]);
     isLoggedIn2(this);
   },
@@ -856,6 +860,7 @@ Router.route('/show-renter/:id', {
     const { id } = this.params;
     const renter = Renters.findOne({ _id: id });
     Session.set('idRenter', id);
+    Session.set('showRenterRating', undefined);
     listBreadcrumb(['Listar Arrendadoras', `Mostrando Información de ${renter.name}`]);
     isLoggedIn2(this);
   },
@@ -927,6 +932,7 @@ Router.route('/show-hotel/:id', {
     const { id } = this.params;
     const hotel = Hotels.findOne({ _id: id });
     Session.set('idHotel', id);
+    Session.set('showHotelRating', undefined);
     listBreadcrumb(['Listar Hoteles', `Mostrando Información de ${hotel.name}`]);
     isLoggedIn2(this);
   },

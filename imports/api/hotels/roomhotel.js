@@ -66,6 +66,9 @@ RoomHotelSchema.messageBox.messages(messages);
 RoomHotel.helpers({
   getHotelName: function () {
     return Hotels.findOne({ _id: this.idHotel }).name;
+  },
+  textPrice: function() {
+    return this.price.toFixed(2);
   }
 });
 
