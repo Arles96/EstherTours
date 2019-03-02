@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import { AttractionSchema, Attractions } from './attractions';
+import XLSX from 'xlsx';
+import { AttractionSchema, Attractions, attractionToExcel } from './attractions';
 import { operator, consultant, admin } from '../roles/roles';
 import AttractionQuerySchema from './attractionQuery';
 import { userActivities } from '../userActivities/userActivities';
@@ -156,6 +157,19 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
-  }
+  },
+  exportAttractionsToExcel: function () {
+    // workbook
+    const wb = XLSX.utils.book_new();
+    const data = [];
 
+    Attractions.find({}).forEach(doc => {
+      const attractionRes = attractionToExcel(doc._id, doc, false);
+      data.push(...attractionRes);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Atracciones');
+    return wb;
+  }
 });
