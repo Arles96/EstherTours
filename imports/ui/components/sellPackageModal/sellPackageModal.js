@@ -12,7 +12,7 @@ Template.sellPackageModal.helpers({
 
 AutoForm.addHooks('addSoldPackageForm', {
   onSuccess: function (formtype, result) {
-    toastr.success('Se ha agregado la habitación exitosamente.');
+    toastr.success('Se ha registrado exitosamente.');
     $('#sellPackageModal').modal('hide');
   },
   onError: function (formtype, error) {

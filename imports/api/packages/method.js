@@ -14,8 +14,13 @@ import { SoldPackage, SoldPackageSchema } from './soldPackage';
 
 Meteor.methods({
   insertPackages: function (doc) {
-    PackagesSchema.validate(doc);
-    Packages.insert(doc);
+    if (doc.idRenter || doc.idGuide || doc.idTransport ||
+      doc.idRestaurant || doc.idHotel) {
+      PackagesSchema.validate(doc);
+      Packages.insert(doc);
+    } else {
+      throw new Meteor.Error('Debe contener al menos un registro de las entidades');
+    }
   },
   updatePackages: function (doc) {
     const data = doc.modifier.$set;
