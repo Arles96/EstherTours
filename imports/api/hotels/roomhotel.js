@@ -83,8 +83,8 @@ function roomToExcel (id, doc = null, headers = true) {
     // headers
     if (headers) {
       res.push(['Cuarto de Hotel']);
-      res.push(['Tipo', 'Tamaño', 'Precio', 'Camas extra', 'Menajes']);
     }
+    res.push(['Tipo de habitacion', 'Tamaño', 'Precio', 'Camas extra', 'Menajes']);
 
     // datos que no son arreglos
     res.push([
