@@ -287,33 +287,35 @@ function restaurantToExcel (id, doc = null, headers = true) {
     // headers
     if (headers) {
       res.push(['Restaurante']);
-      res.push([
-        'Nombre',
-        'Departamento',
-        'Municipio',
-        'Ciudad',
-        'Calle',
-        'Estrellas',
-        'Mesas',
-        'Sillas',
-        'Sillas para bebes',
-        'Capacidad',
-        'Facilidades para discapacitados',
-        'Barra',
-        'Sala de espera',
-        'Monedas aceptadas',
-        'Telefonos',
-        'services',
-        'Metodos de pago',
-        'Menu',
-        'Ambiente',
-        'Menajes'
-      ]);
     }
+    res.push([
+      'Nombre',
+      'Sucursal',
+      'Departamento',
+      'Municipio',
+      'Ciudad',
+      'Calle',
+      'Estrellas',
+      'Mesas',
+      'Sillas',
+      'Sillas para bebes',
+      'Capacidad',
+      'Facilidades para discapacitados',
+      'Barra',
+      'Sala de espera',
+      'Monedas aceptadas',
+      'Telefonos',
+      'Servicios',
+      'Metodos de pago',
+      'Menu',
+      'Ambiente',
+      'Menajes'
+    ]);
 
     // datos que no son arreglos
     res.push([
       restaurant.name,
+      restaurant.branchOffice ? 'Si' : 'No',
       restaurant.department,
       restaurant.municipality,
       restaurant.city,
@@ -348,6 +350,7 @@ function restaurantToExcel (id, doc = null, headers = true) {
 
     for (let i = 1; i < max; i += 1) {
       res.push([
+        '',
         '',
         '',
         '',

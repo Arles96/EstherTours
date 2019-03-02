@@ -6,7 +6,7 @@ import municipalities from '../../../api/municipalities/municipality';
 
 Template.branchRenter.helpers({
   RentersSchema: () => RentersSchema,
-  rating: () => Session.get('branchRenterRating'),
+  categorization: () => Session.get('branchRenterRating'),
   municipalities: department => {
     if (department) {
       Session.set('firstOptionMunicipalityRenter', '(Seleccione uno)');

@@ -6,7 +6,7 @@ import municipalities from '../../../api/municipalities/municipality';
 
 Template.branchHotel.helpers({
   HotelSchema: () => HotelSchema,
-  rating: () => Session.get('branchHotelRating'),
+  categorization: () => Session.get('branchHotelRating'),
   municipalities: department => {
     if (department) {
       Session.set('firstOptionMunicipalityHotel', '(Seleccione uno)');
