@@ -4,7 +4,7 @@ import SimpleSchema from 'simpl-schema';
 const RegExObj = {
   names: /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/,
   email: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  password: /^[a-zA-Z\d]{6,}$/,
+  password: /^[a-zA-Z\d]+$/,
   lettersAndNumbers: /([A-Z||\u00f1\u00d1]*)([A-Z]*)([a-z]*)([a-z||\u00f1\u00d1]*)\w+/,
   isNumber: /^-?\d+\.?\d*$/,
   phone: SimpleSchema.RegEx.Phone,

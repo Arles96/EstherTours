@@ -26,7 +26,7 @@
             <div class="form-group">
               <label for="">
                 <b>Costo:</b>
-                {{price}}
+                {{>convertDecimal}}
               </label>
             </div>
           </div>
@@ -94,13 +94,12 @@
               </ul>
             </div>
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label for="">
+          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+              <div class="form-group mt-1">
                 <b>Categorización:</b>
-              </label>
-              {{categorization}} estrellas
-            </div>
+                <label class="mb-3">{{textCategorization categorization}}</label>
+                  {{>showStarRating rating=categorization}}
+              </div>
           </div>
         {{/with}}
       </div>

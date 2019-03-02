@@ -1,4 +1,5 @@
 import './filterPackage.html';
+import './emailPackage';
 import '../../components/sellPackageModal/sellPackageModal';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Meteor } from 'meteor/meteor';
@@ -85,6 +86,9 @@ Template.filterPackage.helpers({
 });
 
 Template.filterPackage.events({
+  'click .emailPackage' (event, templateInstance) {
+    Session.set('emailPackageId', this._id);
+  },
   'input #sliderMax' (event, templateInstance) {
     templateInstance.precioMax.set(event.currentTarget.value);
   },

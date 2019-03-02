@@ -16,7 +16,11 @@ import { Guide } from '../../../api/guide/guide';
 import { Packages } from '../../../api/packages/packages';
 import { branchOffices } from '../../../api/branchOffices/Offices';
 import { SoldPackage } from '../../../api/packages/soldPackage';
+<<<<<<< HEAD
 import { Subscriptions } from '../../../api/subscriptions/subscriptions';
+=======
+import { userActivities } from '../../../api/userActivities/userActivities';
+>>>>>>> 574de0b291cadc2ddeddd07245a4f9f53129605c
 
 const TabularTables = {};
 
@@ -212,7 +216,7 @@ TabularTables.FleetsRenter = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['menage', 'idRenter', 'models', 'brands', 'images'],
+  extraFields: ['menage', 'idRenter', 'models', 'brands', 'images', 'rate'],
   columns: [
     {
       class: 'text-center',
@@ -226,7 +230,7 @@ TabularTables.FleetsRenter = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'rate',
+      data: 'textRate()',
       title: 'Tarifa'
     },
     {
@@ -344,7 +348,7 @@ TabularTables.restaurantOffers = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['idRestaurant'],
+  extraFields: ['idRestaurant', 'price'],
   columns: [
     {
       class: 'text-center',
@@ -358,7 +362,7 @@ TabularTables.restaurantOffers = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'price',
+      data: 'textPriceRestaurant()',
       title: 'Precio'
     },
     {
@@ -536,11 +540,11 @@ TabularTables.RoomHotel = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['menage', 'idHotel'],
+  extraFields: ['menage', 'idHotel', 'price'],
   columns: [
     {
       class: 'text-center',
-      data: 'price',
+      data: 'textPrice()',
       title: 'Precio'
     },
     {
@@ -580,11 +584,11 @@ TabularTables.RateHotel = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['idHotel'],
+  extraFields: ['idHotel', 'price'],
   columns: [
     {
       class: 'text-center',
-      data: 'price',
+      data: 'textPrice()',
       title: 'Precio'
     },
     {
@@ -614,6 +618,7 @@ TabularTables.Attractions = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
+  extraFields: ['price'],
   columns: [
     {
       class: 'text-center',
@@ -622,7 +627,12 @@ TabularTables.Attractions = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'price',
+      data: 'type',
+      title: 'Tipo'
+    },
+    {
+      class: 'text-center',
+      data: 'textPrice()',
       title: 'Costo'
     },
     {
@@ -810,7 +820,7 @@ TabularTables.FleetTransportationEstablishment = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['idTransportationEstablishment'],
+  extraFields: ['idTransportationEstablishment', 'rate'],
   columns: [
     {
       class: 'text-center',
@@ -819,7 +829,7 @@ TabularTables.FleetTransportationEstablishment = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'rate',
+      data: 'textRate()',
       title: 'Tarifa'
     },
     {
@@ -901,7 +911,7 @@ TabularTables.Guides = new Tabular.Table({
     onEnterOnly: false
   },
   extraFields: [
-    'email', 'street', 'telephone',
+    'email', 'street', 'telephone', 'website',
     'license', 'categorization', 'services',
     'paymentMethods', 'money', 'languages', 'creditCards'
   ],
@@ -958,6 +968,7 @@ TabularTables.Packages = new Tabular.Table({
     'license', 'categorization', 'services',
     'paymentMethods', 'money', 'languages', 'creditCards'
   ], */
+  extraFields: ['price'],
   columns: [
     {
       class: 'text-center',
@@ -966,7 +977,7 @@ TabularTables.Packages = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'price',
+      data: 'textPrice()',
       title: 'Precio'
     },
     {
@@ -1009,6 +1020,42 @@ TabularTables.SoldPackage = new Tabular.Table({
       class: 'text-center',
       data: 'textSold()',
       title: 'Vendido'
+    }
+  ]
+});
+
+TabularTables.userActivities = new Tabular.Table({
+  name: 'UserActivities',
+  collection: userActivities,
+// userId, user, activity, collection, registerId, register, date
+  extraFields: [
+    'userId', 'registerId'
+  ],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'user',
+      title: 'Usuario'
+    },
+    {
+      class: 'text-center',
+      data: 'activity',
+      title: 'Actividad'
+    },
+    {
+      class: 'text-center',
+      data: 'collection',
+      title: 'Entidad'
+    },
+    {
+      class: 'text-center',
+      data: 'register',
+      title: 'Registro'
+    },
+    {
+      class: 'text-center',
+      data: 'fecha()',
+      title: 'Fecha'
     }
   ]
 });

@@ -1,5 +1,6 @@
 import './infoGuideModal.html';
 import { Session } from 'meteor/session';
+import '../../components/showRating/showRating';
 
 Template.infoGuideModal.helpers({
   Guide: function () {
@@ -10,5 +11,9 @@ Template.infoGuideModal.helpers({
       return url;
     }
     return `https://${url}`;
+  },
+  textCategorization: function (text) {
+    Session.set('showGuideRating', text);
+    return 'Categorización';
   }
 });

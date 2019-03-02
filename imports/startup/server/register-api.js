@@ -1,6 +1,7 @@
 
 // Api de usuario
 import '../../api/users/method';
+import '../../api/users/server/publications';
 
 // Api de sucursales
 import '../../api/branchOffices/method';
@@ -34,9 +35,22 @@ import '../../api/packages/server/publications';
 import '../../api/attractions/method';
 import '../../api/attractions/server/publications';
 
+// Api de actividades
+import '../../api/userActivities/method';
+
 // Api de imagenes de perfil
 import '../../api/profileImage/publication';
 
+<<<<<<< HEAD
 // Api de suscripción
 import '../../api/subscriptions/method';
 import '../../api/subscriptions/server/publications';
+=======
+// Api de Chats
+import '../../api/Chats/method';
+import '../../api/Chats/server/publication';
+
+// Api de Notificaciones
+import '../../api/Notifications/method';
+import '../../api/Notifications/server/publication';
+>>>>>>> 574de0b291cadc2ddeddd07245a4f9f53129605c
