@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-import { HotelSchema, Hotels } from './hotels';
-import { RoomHotelSchema, RoomHotel } from './roomhotel';
+import XLSX from 'xlsx';
+import { HotelSchema, Hotels, hotelsToExcel } from './hotels';
+import { RoomHotelSchema, RoomHotel, roomToExcel } from './roomhotel';
 import { RateHotelSchema, RateHotel } from './ratehotel';
 import { operator, consultant, admin } from '../roles/roles';
 import HotelQuerySchema from './hotelQuery';
@@ -306,5 +307,24 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
+  },
+  exportHotelsToExcel: function () {
+    // workbook
+    const wb = XLSX.utils.book_new();
+    const data = [];
+
+    Hotels.find({}).forEach(doc => {
+      const hotelRes = hotelsToExcel(doc._id, doc, false);
+      data.push(...hotelRes);
+
+      RoomHotel.find({ idHotel: doc._id }).forEach(roomDoc => {
+        const roomRes = roomToExcel(roomDoc._id, roomDoc, false);
+        data.push(...roomRes);
+      });
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Hoteles');
+    return wb;
   }
 });

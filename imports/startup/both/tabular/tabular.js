@@ -15,6 +15,7 @@ import { RateHotel } from '../../../api/hotels/ratehotel';
 import { Guide } from '../../../api/guide/guide';
 import { Packages } from '../../../api/packages/packages';
 import { branchOffices } from '../../../api/branchOffices/Offices';
+import { SoldPackage } from '../../../api/packages/soldPackage';
 import { userActivities } from '../../../api/userActivities/userActivities';
 
 const TabularTables = {};
@@ -621,18 +622,8 @@ TabularTables.Attractions = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'type',
-      title: 'Tipo'
-    },
-    {
-      class: 'text-center',
       data: 'price',
       title: 'Costo'
-    },
-    {
-      class: 'text-center',
-      data: 'street',
-      title: 'Calle'
     },
     {
       class: 'text-center',
@@ -986,6 +977,38 @@ TabularTables.Packages = new Tabular.Table({
           slug: rowData.slug
         }, cell);
       }
+    }
+  ]
+});
+
+TabularTables.SoldPackage = new Tabular.Table({
+  name: 'SoldPackage',
+  collection: SoldPackage,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: [
+    'sold'
+  ],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'namePackage',
+      title: 'Nombre'
+    },
+    {
+      class: 'text-center',
+      data: 'price',
+      title: 'Precio'
+    },
+    {
+      class: 'text-center',
+      data: 'textSold()',
+      title: 'Vendido'
     }
   ]
 });
