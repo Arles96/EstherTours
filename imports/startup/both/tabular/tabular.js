@@ -16,11 +16,8 @@ import { Guide } from '../../../api/guide/guide';
 import { Packages } from '../../../api/packages/packages';
 import { branchOffices } from '../../../api/branchOffices/Offices';
 import { SoldPackage } from '../../../api/packages/soldPackage';
-<<<<<<< HEAD
 import { Subscriptions } from '../../../api/subscriptions/subscriptions';
-=======
 import { userActivities } from '../../../api/userActivities/userActivities';
->>>>>>> 574de0b291cadc2ddeddd07245a4f9f53129605c
 
 const TabularTables = {};
 
@@ -1027,7 +1024,6 @@ TabularTables.SoldPackage = new Tabular.Table({
 TabularTables.userActivities = new Tabular.Table({
   name: 'UserActivities',
   collection: userActivities,
-// userId, user, activity, collection, registerId, register, date
   extraFields: [
     'userId', 'registerId'
   ],

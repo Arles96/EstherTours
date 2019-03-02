@@ -85,21 +85,13 @@ import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
 import '../../ui/pages/branchOfficePage/officesPage';
-<<<<<<< HEAD
 import '../../ui/pages/packages/filterPackage';
 import '../../ui/pages/soldPackage/listSoldPackage';
 import '../../ui/pages/subscriptions/listSubscriptions';
 import '../../ui/pages/shoppingPackage/shoppingPackage';
-import { FleetRenter } from '../../api/renters/fleetRenter';
-import { RouteTransportationEstablishment } from '../../api/TransportationEstablishment/RouteTransportationEstablishment';
-import { RoomHotel } from '../../api/hotels/roomhotel';
-=======
 import '../../ui/pages/ChatPage/ChatPage';
-import '../../ui/pages/shoppingPackage/shoppingPackage';
 import '../../ui/pages/Activities/activities';
-import '../../ui/pages/packages/filterPackage';
-import '../../ui/pages/soldPackage/listSoldPackage';
->>>>>>> 574de0b291cadc2ddeddd07245a4f9f53129605c
+import '../../ui/pages/Activities/activitiesFiltered';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -1714,7 +1706,6 @@ Router.route('/result-find-packages', {
 });
 
 /**
-<<<<<<< HEAD
  * Ruta para filtrar Paquetes
  */
 Router.route('/filter-packages', {
@@ -1755,7 +1746,10 @@ Router.route('/list-subscriptions', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Suscripciónes']);
     isConsultant(this);
-=======
+  }
+});
+
+/**
  * Ruta para página de chat
  */
 Router.route('/ChatPage', {
@@ -1771,7 +1765,6 @@ Router.route('/ChatPage', {
     Session.set('ShowChatFixed', false);
     listBreadcrumb(['Mensajes']);
     isLoggedIn(this);
->>>>>>> 574de0b291cadc2ddeddd07245a4f9f53129605c
   }
 });
 
@@ -1822,8 +1815,6 @@ Router.route('/adding-package', {
       renter,
       transportationEstablishment
     };
-<<<<<<< HEAD
-=======
   }
 });
 
@@ -1837,29 +1828,15 @@ Router.route('/activities', {
   }
 });
 
-/**
- * Ruta para filtrar Paquetes
- */
-Router.route('/filter-packages', {
-  name: 'filterPackage',
-  template: 'filterPackage',
+Router.route('/activities-filtered', {
+  name: 'userActivitiesFiltered',
+  template: 'userActivitiesFiltered',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
-    listBreadcrumb(['Filtros de Paquetes']);
-    isLoggedIn2(this);
-  }
-});
-
-/**
- * Ruta de Paquetes Vendidos
- */
-Router.route('/sold-package', {
-  name: 'soldPackage',
-  template: 'listSoldPackage',
-  layoutTemplate: 'bodyAdmin',
-  onBeforeAction: function () {
-    listBreadcrumb(['Tabla de Paquetes Vendidos']);
-    isLoggedIn2(this);
->>>>>>> 574de0b291cadc2ddeddd07245a4f9f53129605c
+    listBreadcrumb(['Tabla de actividades filtrada']);
+    isSupervisorOrAdmin(this);
+  },
+  waitOn: function () {
+    return Meteor.subscribe('users.all');
   }
 });

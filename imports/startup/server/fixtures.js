@@ -1,9 +1,9 @@
 // Fill the DB with example data on startup
 /* import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import { consultant, admin } from '../../api/roles/roles';
+import { consultant, admin } from '../../api/roles/roles'; */
 
-Meteor.startup(() => {
+/* Meteor.startup(() => {
   if (!Accounts.findUserByEmail('arles.cerrato@gmail.com')) {
     const id = Accounts.createUser({
       email: 'arles.cerrato@gmail.com',
