@@ -93,5 +93,59 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
+  },
+  filterPackages: function (doc) {
+    if (Meteor.userId()) {
+      const { queryE, queryP } = doc;
+      const filterHotel = Hotels.find(queryE).map(element => element);
+      const filterRenters = Renters.find(queryE).map(element => element);
+      const fitlerRestaurant = Restaurants.find(queryE).map(element => element);
+      const fitlerTransportation = TransportationEstablishments.find(queryE).map(element => (
+        element
+      ));
+      const or = [];
+      if (filterHotel) {
+        const idHotel = {
+          $in: filterHotel.map(element => element._id)
+        };
+        or.push({ idHotel });
+      }
+      if (filterRenters) {
+        const idRenter = {
+          $in: filterRenters.map(element => element._id)
+        };
+        or.push({ idRenter });
+      }
+      if (fitlerRestaurant) {
+        const idRestaurant = {
+          $in: fitlerRestaurant.map(element => element._id)
+        };
+        or.push({ idRestaurant });
+      }
+      if (fitlerTransportation) {
+        const idTransport = {
+          $in: fitlerTransportation.map(element => element._id)
+        };
+        or.push({ idTransport });
+      }
+      if (or.length > 0) {
+        queryP.$or = or;
+      }
+      return Packages.find(queryP).fetch().map(element => ({
+        _id: element._id,
+        name: element.name,
+        price: element.price,
+        hotel: Hotels.findOne({ _id: element.idHotel }),
+        roomHotel: RoomHotel.findOne({ _id: element.idRoom }),
+        renter: Renters.findOne({ _id: element.idRenter }),
+        fleetRenter: FleetRenter.findOne({ _id: element.idFleetRenter }),
+        transport: TransportationEstablishments.findOne({ _id: element.idTransport }),
+        route: RouteTransportationEstablishment.findOne({ _id: element.idTransportRoute }),
+        restaurant: Restaurants.findOne({ _id: element.idRestaurant }),
+        observation: element.observation
+      }));
+    } else {
+      return [];
+    }
   }
 });

@@ -6,8 +6,6 @@ import { TransportationEstablishments } from '../../../api/TransportationEstabli
 import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 
-// TODO mostrar por paginas
-
 Template.filterRouteTE.onCreated(function createVars () {
   this.type = new ReactiveVar('');
   this.name = new ReactiveVar('');
@@ -100,7 +98,7 @@ Template.filterRouteTE.helpers({
       query.town = municipality;
       checker = true;
     }
-    console.log(query);
+
     if (checker) {
       // unir documentos del documento con las rutas encontradas
       return RouteTransportationEstablishment

@@ -1,25 +1,20 @@
-import './filterAttractions.html';
+import './filterRenters.html';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { Attractions } from '../../../api/attractions/attractions';
+import { Renters } from '../../../api/renters/renters';
 import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
-import AttractionImages from '../../../api/attractions/attractionImage';
 
-Template.filterAttractions.onCreated(function createVars () {
-  this.precioMax = new ReactiveVar(2500);
+Template.filterRenters.onCreated(function createVars () {
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterAttractionStars', '');
+  Session.set('filterRenterStars', undefined);
 });
 
-Template.filterAttractions.helpers({
-  precioMax () {
-    return Template.instance().precioMax.get();
-  },
+Template.filterRenters.helpers({
   name () {
     return Template.instance().name.get();
   },
@@ -47,46 +42,37 @@ Template.filterAttractions.helpers({
     return department !== '';
   },
   buscar () {
-    const precioMax = Template.instance().precioMax.get();
     const name = Template.instance().name.get();
     const street = Template.instance().street.get();
     const city = Template.instance().city.get();
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
-    const query = {};
-    if (name) {
-      query.name = new RegExp(`.*${name}.*`, 'i');
+
+    const queryR = {
+      name: new RegExp(`.*${name}.*`, 'i'),
+      street: new RegExp(`.*${street}.*`, 'i'),
+      city: new RegExp(`.*${city}.*`, 'i')
+    };
+
+    if (Session.get('filterRenterStars')) {
+      queryR.categorization = Session.get('filterRenterStars');
     }
-    if (precioMax) {
-      query.price = {
-        $lt: parseInt(precioMax, 10)
-      };
-    }
-    if (Session.get('filterAttractionStars')) {
-      query.categorization = Session.get('filterAttractionStars');
-    }
+
     if (department) {
-      query.departament = department;
+      queryR.department = department;
     }
+
     if (municipality) {
-      query.municipality = municipality;
+      queryR.municipality = municipality;
     }
-    if (street) {
-      query.street = new RegExp(`.*${street}.*`, 'i');
-    }
-    if (city) {
-      query.city = new RegExp(`.*${city}.*`, 'i');
-    }
-    return Attractions
-      .find(query, { sort: { price: 1 } })
+
+    return Renters
+      .find(queryR)
       .map(doc => doc);
   }
 });
 
-Template.filterAttractions.events({
-  'input #sliderMax' (event, templateInstance) {
-    templateInstance.precioMax.set(event.currentTarget.value);
-  },
+Template.filterRenters.events({
   'input #name' (event, templateInstance) {
     templateInstance.name.set(event.currentTarget.value);
   },
@@ -105,20 +91,23 @@ Template.filterAttractions.events({
   }
 });
 
-Template.filterResult.helpers({
-  findImg (_id) {
-    return AttractionImages.find({ _id }).map(doc => doc)[0];
-  },
+Template.filterResultRenter.helpers({
   first (index) {
     return index === 0;
+  },
+  urlTag (url) {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
   }
 });
 
-Template.filterStarAttraction.helpers({
+Template.filterStarRenter.helpers({
   list: () => {
     const list = [];
     for (let index = 1; index <= 5; index += 1) {
-      if (index <= parseInt(Session.get('filterAttractionStars'), 10)) {
+      if (index <= parseInt(Session.get('filterRenterStars'), 10)) {
         list.push({
           class: 'fas fa-star colorOrange',
           id: `star${index}`
@@ -134,20 +123,20 @@ Template.filterStarAttraction.helpers({
   }
 });
 
-Template.filterStarAttraction.events({
+Template.filterStarRenter.events({
   'click #star1': function () {
-    Session.set('filterAttractionStars', '1');
+    Session.set('filterRenterStars', '1');
   },
   'click #star2': function () {
-    Session.set('filterAttractionStars', '2');
+    Session.set('filterRenterStars', '2');
   },
   'click #star3': function () {
-    Session.set('filterAttractionStars', '3');
+    Session.set('filterRenterStars', '3');
   },
   'click #star4': function () {
-    Session.set('filterAttractionStars', '4');
+    Session.set('filterRenterStars', '4');
   },
   'click #star5': function () {
-    Session.set('filterAttractionStars', '5');
+    Session.set('filterRenterStars', '5');
   }
 });
