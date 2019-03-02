@@ -29,5 +29,27 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
+  },
+  subscribe: function (id) {
+    if (Roles.userIsInRole(Meteor.userId(), consultant)) {
+      Subscriptions.update({ _id: id }, {
+        $set: {
+          subscribed: true
+        }
+      });
+    } else {
+      throw new Meteor.Error('Permiso Denegado.');
+    }
+  },
+  unsubscribe: function (id) {
+    if (Roles.userIsInRole(Meteor.userId(), consultant)) {
+      Subscriptions.update({ _id: id }, {
+        $set: {
+          subscribed: false
+        }
+      });
+    } else {
+      throw new Meteor.Error('Permiso Denegado.');
+    }
   }
 });

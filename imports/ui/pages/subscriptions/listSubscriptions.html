@@ -11,22 +11,23 @@
     </div>
     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
   </div>
+  {{>editSubscription}}
 </template>
 
 <template name="showButtonSubscriptions">
   {{#if subscribed}}
-    <span id="unsubscribe" data-toggle="tooltip" data-placement="top" title="Desactivar suscripción">
-      <i style="cursor: pointer;" data-id="{{_id}}" class="far fa-circle-square"></i>
+    <span data-toggle="tooltip" data-placement="top" title="Desactivar suscripción">
+      <i style="cursor: pointer;" class="subUnsub far fa-check-circle"></i>
     </span>
   {{else}}
-    <span id="subscribe" data-toggle="tooltip" data-placement="top" title="Activar suscripción">
-      <i style="cursor: pointer;" data-id="{{_id}}" class="far fa-circle"></i>
+    <span data-toggle="tooltip" data-placement="top" title="Activar suscripción">
+      <i style="cursor: pointer;" class="subSub far fa-circle"></i>
     </span>
   {{/if}}
-  <span id="edit" data-toggle="tooltip" data-placement="top" title="Editar">
-    <i style="cursor: pointer;" data-id="{{_id}}" class="fas fa-edit"></i>
+  <span data-toggle="tooltip" data-placement="top" title="Editar">
+    <i style="cursor: pointer;" data-id="{{_id}}" data-toggle="modal" data-target="#editSubscription" class="subEdit fas fa-edit"></i>
   </span>
-  <span class="text-danger" id="delete" data-toggle="tooltip" data-placement="top" title="Eliminar">
-    <i style="cursor: pointer;" data-id="{{_id}}" class="far fa-trash-alt"></i>
+  <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+    <i style="cursor: pointer;" class="subDelete far fa-trash-alt"></i>
   </span>
 </template>

@@ -1060,7 +1060,8 @@ TabularTables.Subscriptions = new Tabular.Table({
       createdCell: Meteor.isClient && function showButtonsSubs (cell, cellData, rowData) {
         return Blaze.renderWithData(Template.showButtonSubscriptions, {
           _id: rowData._id,
-          slug: rowData.slug
+          slug: rowData.slug,
+          subscribed: rowData.subscribed
         }, cell);
       }
     }

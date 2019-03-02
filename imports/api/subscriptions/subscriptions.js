@@ -18,8 +18,14 @@ const SubscriptionsSchema = new SimpleSchema({
     label: 'Correo',
     regEx: RegExObj.email,
     custom: function () {
-      if (Subscriptions.findOne({ email: this.value })) {
-        return 'duplicatePhones';
+      const query = { email: this.value };
+      if (this.isUpdate) {
+        query._id = { $ne: this.docId };
+      }
+      const repeated = Subscriptions.findOne(query);
+      if (repeated) {
+        // XXX bug
+        return 'duplicateEmail';
       }
       return 1;
     }
