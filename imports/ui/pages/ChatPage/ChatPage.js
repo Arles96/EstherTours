@@ -221,8 +221,5 @@ Template.chatPage.events({
       return false;
     }
     return true;
-  },
-  'click #testito': function (event) {
-    $('#scroll').scrollTop(100);
   }
 });
