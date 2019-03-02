@@ -185,9 +185,85 @@ AttractionSchema.messageBox.messages(messages);
 Attractions.helpers({
   attractionImages: function () {
     return this.images.map(_id => AttractionImages.findOne({ _id }));
+  },
+  textPrice: function() {
+    return this.price.toFixed(2);
   }
 });
 
 Attractions.attachSchema(AttractionSchema);
 
-export { AttractionSchema, Attractions };
+function attractionToExcel (id, doc = null, headers = true) {
+  let attraction;
+
+  if (doc) {
+    attraction = doc;
+  } else {
+    attraction = Attractions.findOne({ _id: id });
+  }
+
+  const res = [];
+  if (attraction) {
+    // headers
+    if (headers) {
+      res.push(['Atraccion']);
+    }
+    res.push([
+      'Nombre',
+      'Costo',
+      'Estrellas',
+      'Departamento',
+      'Municipio',
+      'Ciudad',
+      'Calle',
+      'Tipo',
+      'Monedas aceptadas',
+      'Telefonos',
+      'Metodos de pago'
+    ]);
+
+    // datos que no son arreglos
+    res.push([
+      attraction.name,
+      attraction.price,
+      attraction.categorization,
+      attraction.departament,
+      attraction.municipality,
+      attraction.city,
+      attraction.street,
+      attraction.type[0] ? attraction.type[0] : '',
+      attraction.coin[0] ? attraction.coin[0] : '',
+      attraction.telephone[0] ? attraction.telephone[0] : '',
+      attraction.paymentsMethod[0] ? attraction.paymentsMethod[0] : ''
+    ]);
+
+    // datos que son arreglos
+    const max = Math.max(...[
+      attraction.type.length,
+      attraction.coin.length,
+      attraction.telephone.length,
+      attraction.paymentsMethod.length
+    ]);
+
+    for (let i = 1; i < max; i += 1) {
+      res.push([
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        attraction.type[i] ? attraction.type[i] : '',
+        attraction.coin[i] ? attraction.coin[i] : '',
+        attraction.telephone[i] ? attraction.telephone[i] : '',
+        attraction.paymentsMethod[i] ? attraction.paymentsMethod[i] : ''
+      ]);
+    }
+
+    res.push([]);
+  }
+  return res;
+}
+
+export { AttractionSchema, Attractions, attractionToExcel };

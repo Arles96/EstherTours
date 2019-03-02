@@ -13,6 +13,7 @@ import { Session } from 'meteor/session';
 import { TransportationEstablishments } from '../../../api/TransportationEstablishment/TransportationEstablishment';
 import { FleetTransportationEstablishment } from '../../../api/TransportationEstablishment/FleetTransportationEstablishment';
 import { RouteTransportationEstablishment } from '../../../api/TransportationEstablishment/RouteTransportationEstablishment';
+import { packageTransport, unpackageTransport } from '../../../startup/client/packageFunction';
 
 Template.showInfoTransportationEstablishment.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -55,6 +56,10 @@ Template.showInfoTransportationEstablishment.helpers({
   },
   isBranch: function (branchOffice) {
     return !branchOffice;
+  },
+  textCategorization: function (text) {
+    Session.set('showTransportationRating', text);
+    return 'Categorización';
   }
 });
 
@@ -136,5 +141,39 @@ Template.showButtonRouteTransportationEstablishments.events({
   },
   'click .infoRouteTransportationEstablishment': function () {
     Session.set('routeTransportationEstablishment', RouteTransportationEstablishment.findOne({ _id: this._id }));
+  },
+  'click .packageEntity': function () {
+    const {
+      _id,
+      idTransportationEstablishment
+    } = RouteTransportationEstablishment.findOne({ _id: this._id });
+    packageTransport(idTransportationEstablishment, _id);
+    toastr.success('Se ha empaquetado la ruta exitosamente');
+  },
+  'click .unPackageEntity': function () {
+    unpackageTransport();
+    toastr.info('Se ha desemaquetado la ruta exitosamente');
+  }
+});
+
+Template.showStarTransportation.helpers({
+  list: rating => {
+    const list = [];
+    console.log(rating);
+    for (let index = 1; index <= 5; index += 1) {
+      if (index <= parseInt(rating, 10)) {
+        list.push({
+          class: 'fas fa-star colorOrange',
+          id: `start${index}`
+        });
+      } else {
+        list.push({
+          class: 'fas fa-star',
+          id: `start${index}`
+        });
+      }
+    }
+    console.log(list);
+    return list;
   }
 });

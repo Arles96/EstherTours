@@ -1,8 +1,12 @@
 import './dashboardNavbar.html';
-import { Accounts } from 'meteor/accounts-base';
+import '../namePackageModal/namePackageModal';
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import { Session } from 'meteor/session';
+import { Template } from 'meteor/templating';
+import $ from 'jquery';
 import { Notifications } from '../../../api/Notifications/Notification';
+import { clearValues, setValues } from '../../../startup/client/packageFunction';
 
 Template.dashboardNavbar.onCreated(() => {
   Session.set('ChatPage-context', 'none');
@@ -28,10 +32,19 @@ Template.dashboardNavbar.helpers({
   }
 });
 
+Template.dashboardNavbar.onCreated(() => {
+  setValues();
+});
+
 Template.dashboardNavbar.events({
   'click #logout': function () {
-    Accounts.logout();
-    window.location = '/';
+    const userId = Meteor.userId();
+    Meteor.call('userLogout2', userId, (error, result) => {
+      if (!error) {
+        Accounts.logout();
+        window.location = '/';
+      }
+    });
   },
   'click .chatWithNotification': function (event) {
     if (event.currentTarget.id) {
@@ -64,5 +77,11 @@ Template.dashboardNavbar.events({
         }
       }
     }
+  },
+  'click #createPackage': function () {
+    $('#namePackageModal').modal('show');
+  },
+  'click #deletePackage': function () {
+    clearValues();
   }
 });
