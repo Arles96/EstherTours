@@ -1372,7 +1372,7 @@ Router.route('/activities-filtered', {
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de actividades filtrada']);
-    isAdmin(this);
+    isSupervisorOrAdmin(this);
   },
   waitOn: function () {
     return Meteor.subscribe('users.all');

@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { userActivities } from './userActivities';
-import { operator, consultant, admin } from '../roles/roles';
+import { operator, consultant, admin, supervisor } from '../roles/roles';
 
 Meteor.methods({
   userLogout: function (doc) {
@@ -38,8 +38,7 @@ Meteor.methods({
     });
   },
   activitiesCount: function (selUserId) {
-    if (Roles.userIsInRole(Meteor.userId(), operator) ||
-      Roles.userIsInRole(Meteor.userId(), consultant) ||
+    if (Roles.userIsInRole(Meteor.userId(), supervisor) ||
       Roles.userIsInRole(Meteor.userId(), admin)) {
       const counts = [0, 0, 0];
       counts[0] = userActivities.find({ userId: selUserId, activity: 'agregó' }).count();
