@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import { Email } from 'meteor/email';
+import { SSR } from 'meteor/meteorhacks:ssr';
 import XLSX from 'xlsx';
 import { Packages, PackagesSchema } from './packages';
 import { operator, consultant, admin } from '../roles/roles';
@@ -184,6 +186,41 @@ Meteor.methods({
       }));
     } else {
       return [];
+    }
+  },
+  sendEmailPackage: function (id, email) {
+    if (Roles.userIsInRole(Meteor.userId(), consultant)) {
+      const pkg = Packages.findOne({ _id: id });
+
+      const hotel = Hotels.findOne({ _id: pkg.idHotel });
+      const room = RoomHotel.findOne({ _id: pkg.idRoom });
+      const renter = Renters.findOne({ _id: pkg.idRenter });
+      const fleetRenter = FleetRenter.findOne({ _id: pkg.idFleetRenter });
+      const transport = TransportationEstablishments.findOne({ _id: pkg.idTransport });
+      const route = RouteTransportationEstablishment.findOne({ _id: pkg.idTransportRoute });
+      const restaurant = Restaurants.findOne({ _id: pkg.idRestaurant });
+
+      setTimeout(Meteor.bindEnvironment(() => {
+        SSR.compileTemplate('emailPackage', Assets.getText('Paquete.html'));
+        const html = SSR.render('emailPackage', {
+          package: pkg,
+          hotel: hotel,
+          room: room,
+          renter: renter,
+          fleetRenter: fleetRenter,
+          transport: transport,
+          route: route,
+          restaurant: restaurant
+        });
+        Email.send({
+          from: 'aulio.maldonado@gmail.com',
+          to: email,
+          subject: `Paquete: ${pkg.name}`,
+          html: html
+        });
+      }), 0);
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
     }
   },
   addSoldPackage: function (doc) {
