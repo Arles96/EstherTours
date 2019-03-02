@@ -18,17 +18,16 @@
   <a style="text-decoration: none;" href="/show-hotel/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
     <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
   </a>
-  
   {{#if isOperator}}
     <a style="text-decoration: none;" href="/edit-hotel/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
       <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
     </a>
-    <span data-toggle="tooltip" data-placement="top" title="Agregar habitación" >
+    <!-- <span data-toggle="tooltip" data-placement="top" title="Agregar habitación" >
         <i style="cursor: pointer;" data-id="{{_id}}" class="addRoomHotel fas fa-door-open mr-2" data-toggle="modal" data-target="#addRoomHotel"></i>
     </span>
     <span data-toggle="tooltip" data-placement="top" title="Agregar tarifa" >
         <i style="cursor: pointer;" data-id="{{_id}}" class="addRateHotel fas fa-money-check mr-2" data-toggle="modal" data-target="#addRateHotel"></i>
-    </span>
+    </span> -->
     <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
       <i style="cursor: pointer;" data-id="{{_id}}" class="deleteHotel far fa-trash-alt"></i>
     </span>

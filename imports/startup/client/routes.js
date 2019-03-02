@@ -85,6 +85,10 @@ import '../../ui/pages/branchOfficePage/officesPage';
 import '../../ui/pages/packages/filterPackage';
 import '../../ui/pages/soldPackage/listSoldPackage';
 import '../../ui/pages/subscriptions/listSubscriptions';
+import '../../ui/pages/shoppingPackage/shoppingPackage';
+import { FleetRenter } from '../../api/renters/fleetRenter';
+import { RouteTransportationEstablishment } from '../../api/TransportationEstablishment/RouteTransportationEstablishment';
+import { RoomHotel } from '../../api/hotels/roomhotel';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -1397,5 +1401,55 @@ Router.route('/list-subscriptions', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Suscripciónes']);
     isConsultant(this);
+  }
+});
+
+/**
+ * Ruta de creacion de empaquetado
+ */
+Router.route('/adding-package', {
+  name: 'addingPackage',
+  template: 'shoppingPackage',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('hotels.all'),
+      Meteor.subscribe('attractions.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('transport.all'),
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('RoomHotel.all'),
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('attractionImage.all'),
+      Meteor.subscribe('FleetRenterImage.all'),
+      Meteor.subscribe('restaurantImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Creando paquetes']);
+    isLoggedIn(this);
+  },
+  data: function () {
+    const hotel = Hotels.findOne({ _id: Session.get('packageHotel') });
+    const restaurant = Restaurants.findOne({ _id: Session.get('packageRestaurant') });
+    const renter = Renters.findOne({ _id: Session.get('packageRenter') });
+    const transportationEstablishment = TransportationEstablishments.findOne({ _id: Session.get('packageTransport') });
+    const fleetRenter = FleetRenter.findOne({ _id: Session.get('packageFleetRenter') });
+    const roomHotel = RoomHotel.findOne({ _id: Session.get('packageRoomHotel') });
+    const routeTransport = RouteTransportationEstablishment.findOne({ _id: Session.get('packageRouteTransport') });
+    const attraction = Attractions.findOne({ _id: Session.get('packageAttraction') });
+    return {
+      hotel,
+      attraction,
+      fleetRenter,
+      roomHotel,
+      routeTransport,
+      restaurant,
+      renter,
+      transportationEstablishment
+    };
   }
 });
