@@ -141,7 +141,12 @@ Meteor.methods({
   },
   deleteTransportationEstablishment: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      TransportationEstablishments.remove({
+        idTransportationEstablishment: id,
+        branchOffice: true
+      });
       TransportationEstablishments.remove({ _id: id });
+      RouteTransportationEstablishment.remove({ idTransportationEstablishment: id });
       FleetTransportationEstablishment.remove({ idTransportationEstablishment: id });
       userActivities.insert({
         userId: Meteor.userId(),
