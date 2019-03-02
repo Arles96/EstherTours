@@ -5,6 +5,7 @@ import { Session } from 'meteor/session';
 import toastr from 'toastr';
 import { Meteor } from 'meteor/meteor';
 import Swal from 'sweetalert2';
+import XLSX from 'xlsx';
 import { Hotels } from '../../../api/hotels/hotels';
 
 Template.listHotels.onCreated(() => {
@@ -38,6 +39,30 @@ Template.listHotels.onCreated(() => {
 
 Template.listHotels.helpers({
   selector: () => ({ branchOffice: false })
+});
+
+Template.listHotels.events({
+  'click #export-excel': function () {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: '¿Está seguro de exportar los hoteles a Excel?',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('exportHotelsToExcel', (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            const filename = `Hoteles ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filename);
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
+  }
 });
 
 Template.showButtonHotels.events({

@@ -3,12 +3,22 @@ import XLSX from 'xlsx';
 import { RestaurantSchema, Restaurants, restaurantToExcel } from './restaurants';
 import { restaurantOffers, restaurantOffersSchema } from './restaurantOffers';
 import RestaurantConsultSchema from './restaurantConsult';
+import { userActivities } from '../userActivities/userActivities';
 import { operator, consultant, admin } from '../roles/roles';
 
 Meteor.methods({
   addRestaurant: function (doc) {
     RestaurantSchema.validate(doc);
     Restaurants.insert(doc);
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      activity: 'agregó',
+      collection: 'restaurantes',
+      registerId: 'N/D',
+      register: doc.name,
+      date: new Date()
+    });
   },
   addRestaurantBranch: function (doc) {
     RestaurantSchema.validate(doc);
@@ -37,6 +47,15 @@ Meteor.methods({
       throw new Meteor.Error('Repeated Branch');
     } else {
       Restaurants.insert(doc);
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregó sucursal',
+        collection: 'restaurantes',
+        registerId: 'N/D',
+        register: doc.name,
+        date: new Date()
+      });
     }
   },
   consultRestaurant: function (doc) {
@@ -105,6 +124,18 @@ Meteor.methods({
       const data = doc.modifier.$set;
       const { _id } = doc;
       RestaurantSchema.validate(data);
+      Restaurants.update({ _id: _id }, {
+        $set: data
+      });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'editó',
+        collection: 'restaurantes',
+        registerId: _id,
+        register: doc.name,
+        date: new Date()
+      });
 
       const query = {
         street: data.street,
@@ -132,6 +163,15 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       restaurantOffersSchema.validate(doc);
       restaurantOffers.insert(doc);
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregó',
+        collection: 'restaurantOffers',
+        registerId: 'N/D',
+        register: doc.dishName,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -146,6 +186,15 @@ Meteor.methods({
         });
       Restaurants.remove({ _id: id });
       restaurantOffers.remove({ idRestaurant: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'restaurantes',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
@@ -153,6 +202,15 @@ Meteor.methods({
   deleteRestaurantOffer: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       restaurantOffers.remove({ _id: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'restaurantOffers',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
@@ -168,6 +226,15 @@ Meteor.methods({
       )) {
         Restaurants.update({ _id: _id }, {
           $set: data
+        });
+        userActivities.insert({
+          userId: Meteor.userId(),
+          user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+          activity: 'editó',
+          collection: 'restaurantOffers',
+          registerId: 'N/D',
+          register: doc.dishName,
+          date: new Date()
         });
       } else {
         throw new Meteor.Error('No se permiten valores repetidos en telefonos.');

@@ -214,24 +214,24 @@ function hotelsToExcel (id, doc = null, headers = true) {
     // headers
     if (headers) {
       res.push(['Hotel']);
-      res.push([
-        'Nombre',
-        'Sucursal',
-        'Correo',
-        'Sitio web',
-        'Estrellas',
-        'Departamento',
-        'Municipio',
-        'Ciudad',
-        'Calle',
-        'Monedas aceptadas',
-        'Telefonos',
-        'Servicios',
-        'Metodos de pago',
-        'Informacion A y B',
-        'Activicades'
-      ]);
     }
+    res.push([
+      'Nombre',
+      'Sucursal',
+      'Correo',
+      'Sitio web',
+      'Estrellas',
+      'Departamento',
+      'Municipio',
+      'Ciudad',
+      'Calle',
+      'Monedas aceptadas',
+      'Telefonos',
+      'Servicios',
+      'Metodos de pago',
+      'Informacion A y B',
+      'Activicades'
+    ]);
 
     // datos que no son arreglos
     res.push([

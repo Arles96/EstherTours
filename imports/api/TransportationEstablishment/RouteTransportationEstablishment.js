@@ -104,8 +104,8 @@ function routeTransportToExcel (id, doc = null, headers = true) {
     // headers
     if (headers) {
       res.push(['Ruta']);
-      res.push(['Tipo', 'Departamento', 'Municipio', 'Ciudad', 'Calle']);
     }
+    res.push(['Tipo de ruta', 'Departamento', 'Municipio', 'Ciudad', 'Calle']);
 
     // datos que no son arreglos
     res.push([
