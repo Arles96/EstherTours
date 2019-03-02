@@ -3,28 +3,34 @@ import XLSX from 'xlsx';
 import { Packages, PackagesSchema } from './packages';
 import { operator, consultant, admin } from '../roles/roles';
 import PackagesSchemaConsult from './packageConsult';
+import { Hotels, hotelsToExcel } from '../hotels/hotels';
+import { RoomHotel, roomToExcel } from '../hotels/roomhotel';
+import { Renters, renterToExcel } from '../renters/renters';
+import { FleetRenter, fleetRenterToExcel } from '../renters/fleetRenter';
+import { Restaurants, restaurantToExcel } from '../restaurants/restaurants';
+import { TransportationEstablishments, transportToExcel } from '../TransportationEstablishment/TransportationEstablishment';
+import { RouteTransportationEstablishment, routeTransportToExcel } from '../TransportationEstablishment/RouteTransportationEstablishment';
+import { SoldPackage, SoldPackageSchema } from './soldPackage';
 import { userActivities } from '../userActivities/userActivities';
-import { hotelsToExcel, Hotels } from '../hotels/hotels';
-import { roomToExcel, RoomHotel } from '../hotels/roomhotel';
-import { renterToExcel, Renters } from '../renters/renters';
-import { fleetRenterToExcel, FleetRenter } from '../renters/fleetRenter';
-import { restaurantToExcel, Restaurants } from '../restaurants/restaurants';
-import { transportToExcel, TransportationEstablishments } from '../TransportationEstablishment/TransportationEstablishment';
-import { routeTransportToExcel, RouteTransportationEstablishment } from '../TransportationEstablishment/RouteTransportationEstablishment';
 
 Meteor.methods({
   insertPackages: function (doc) {
-    PackagesSchema.validate(doc);
-    Packages.insert(doc);
-    userActivities.insert({
-      userId: Meteor.userId(),
-      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
-      activity: 'agregó',
-      collection: 'paquetes',
-      registerId: 'N/D',
-      register: doc.name,
-      date: new Date()
-    });
+    if (doc.idRenter || doc.idGuide || doc.idTransport ||
+      doc.idRestaurant || doc.idHotel) {
+      PackagesSchema.validate(doc);
+      Packages.insert(doc);
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregó',
+        collection: 'paquetes',
+        registerId: 'N/D',
+        register: doc.name,
+        date: new Date()
+      });
+    } else {
+      throw new Meteor.Error('Debe contener al menos un registro de las entidades');
+    }
   },
   updatePackages: function (doc) {
     const data = doc.modifier.$set;
@@ -44,16 +50,20 @@ Meteor.methods({
     });
   },
   deletePackage: function (id) {
-    Packages.remove({ _id: id });
-    userActivities.insert({
-      userId: Meteor.userId(),
-      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
-      activity: 'eliminó',
-      collection: 'paquetes',
-      registerId: 'N/D',
-      register: 'N/D',
-      date: new Date()
-    });
+    if (!SoldPackage.find({ idPackage: id })) {
+      Packages.remove({ _id: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'paquetes',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
+    } else {
+      throw new Meteor.Error('No se puede eliminar este paquete');
+    }
   },
   findPackages: function (doc) {
     PackagesSchemaConsult.validate(doc);
@@ -175,5 +185,9 @@ Meteor.methods({
     } else {
       return [];
     }
+  },
+  addSoldPackage: function (doc) {
+    SoldPackageSchema.validate(doc);
+    SoldPackage.insert(doc);
   }
 });
