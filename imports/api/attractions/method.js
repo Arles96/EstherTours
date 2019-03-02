@@ -1,7 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import { AttractionSchema, Attractions } from './attractions';
+import XLSX from 'xlsx';
+import { AttractionSchema, Attractions, attractionToExcel } from './attractions';
 import { operator, consultant, admin } from '../roles/roles';
 import AttractionQuerySchema from './attractionQuery';
+import { userActivities } from '../userActivities/userActivities';
 
 Meteor.methods({
   // Metodos para attracciones
@@ -9,6 +11,16 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       AttractionSchema.validate(doc);
       Attractions.insert(doc);
+
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregó',
+        collection: 'atracciones',
+        registerId: 'N/D',
+        register: doc.name,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -78,7 +90,7 @@ Meteor.methods({
 
     if (doc.contact) {
       const arr = doc.contact.map(Element => new RegExp(`.*${Element}.*`, 'i'));
-      doc.contact = { $in: arr };
+      doc.contact = { $in: arr }; // eslint-disable-line
     } else {
       docVals.contact = ['No definido.'];
     }
@@ -99,6 +111,16 @@ Meteor.methods({
       Attractions.update({ _id: _id }, {
         $set: data
       });
+
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'editó',
+        collection: 'atracciones',
+        registerId: _id,
+        register: doc.name,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -106,6 +128,15 @@ Meteor.methods({
   deleteAttraction: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       Attractions.remove({ _id: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'atracciones',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
@@ -126,6 +157,19 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
-  }
+  },
+  exportAttractionsToExcel: function () {
+    // workbook
+    const wb = XLSX.utils.book_new();
+    const data = [];
 
+    Attractions.find({}).forEach(doc => {
+      const attractionRes = attractionToExcel(doc._id, doc, false);
+      data.push(...attractionRes);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Atracciones');
+    return wb;
+  }
 });

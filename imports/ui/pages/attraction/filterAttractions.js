@@ -6,8 +6,6 @@ import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 import AttractionImages from '../../../api/attractions/attractionImage';
 
-// TODO mostrar por paginas
-
 Template.filterAttractions.onCreated(function createVars () {
   this.precioMax = new ReactiveVar(2500);
   this.name = new ReactiveVar('');

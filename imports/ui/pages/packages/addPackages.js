@@ -43,6 +43,10 @@ AutoForm.addHooks('addPackagesForm', {
     Session.set('packageRestaurantId', undefined);
   },
   onError: function (formtype, error) {
-    toastr.error(error);
+    if (error.error) {
+      toastr.error(error.error);
+    } else {
+      toastr.error(error);
+    }
   }
 });

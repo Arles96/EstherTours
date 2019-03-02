@@ -112,7 +112,62 @@ FleetRenter.helpers({
   }
 });
 
+function fleetRenterToExcel (id, doc = null, headers = true) {
+  let fleet;
+
+  if (doc) {
+    fleet = doc;
+  } else {
+    fleet = FleetRenter.findOne({ _id: id });
+  }
+
+  const res = [];
+  if (fleet) {
+    // headers
+    if (headers) {
+      res.push(['Flota de Arrendadora']);
+    }
+    res.push([
+      'Tipo de flota',
+      'Total',
+      'Tipo de Vehículo',
+      'Marca',
+      'Modelo',
+      'Tarifa',
+      'Menajes'
+    ]);
+
+    // datos que no son arreglos
+    res.push([
+      fleet.type,
+      fleet.total,
+      fleet.vehicleTypes,
+      fleet.brands,
+      fleet.models,
+      fleet.rate,
+      fleet.menage[0] ? fleet.menage[0] : ''
+    ]);
+
+    // datos que son arreglos
+    for (let i = 1; i < fleet.menage.length; i += 1) {
+      res.push([
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        fleet.menage[i] ? fleet.menage[i] : ''
+      ]);
+    }
+
+    res.push([]);
+  }
+  return res;
+}
+
 export {
   FleetRenter,
-  FleetRenterSchema
+  FleetRenterSchema,
+  fleetRenterToExcel
 };

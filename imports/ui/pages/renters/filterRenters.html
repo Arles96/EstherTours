@@ -1,0 +1,165 @@
+<template name="filterRenters">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-search-location"></i>
+      <b>Filtrar Arrendadoras</b>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Nombre:</b>
+          </label>
+          <br >
+          <input type="text" id="name" value="{{name}}" class="form-control">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Departamento:</b>
+          </label>
+          <br >
+          <select id="department" name="department" class="form-control">
+            <option value="">(Seleccione Uno)</option>
+            {{#each listDepartment}}
+              <option value="{{value}}">{{label}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Municipio:</b>
+          </label>
+          <br >
+          {{#if deptSelected}}
+            <select id="municipality" name="municipality" class="form-control">
+              <option value="">(Seleccione Uno)</option>
+              {{#each listMunicipality}}
+                <option value="{{value}}">{{label}}</option>
+              {{/each}}
+            </select>
+          {{else}}
+            <select id="municipality" name="municipality" class="form-control">
+              <option value="">(Seleccione Departamento)</option>
+            </select>
+          {{/if}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Ciudad:</b>
+          </label>
+          <br >
+          <input type="text" id="city" value="{{city}}" class="form-control">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Calle:</b>
+          </label>
+          <br >
+          <input type="text" id="street" value="{{street}}" class="form-control">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group mt-1">
+          <label>
+            <b>Categorizacion:</b>
+          </label>
+          <br >
+          {{>filterStarRenter}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{#each buscar}}
+    {{>filterResultRenter renter=this}}
+  {{/each}}
+</template>
+
+<template name="filterResultRenter">
+  {{#with renter}}
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fas fa-car"></i>
+        <b>{{name}}</b>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              <label>
+                <b>Sitio web:</b>
+              </label>
+              {{#if website}}
+                <a href="{{urlTag(website)}}" target="_blank">{{website}}</a>
+              {{else}}
+                No tiene
+              {{/if}}
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              <label>
+                <b>Teléfonos:</b>
+              </label>
+              {{#each telephone}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              <label>
+                <b>Servicios:</b>
+              </label>
+              {{#each services}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              <label>
+                <b>Contactos:</b>
+              </label>
+              {{#each branchContacts}}
+                <li>{{name}}, {{role}}</li>
+              {{/each}}
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              <label>
+                <b>Metodos de pago:</b>
+              </label>
+              {{#each paymentMethods}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              <label>
+                <b>Monedas aceptadas:</b>
+              </label>
+              {{#each money}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer small text-muted">
+        <a style="text-decoration: none;" href="/show-renter/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+          <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+        </a>
+      </div>
+    </div>
+  {{/with}}
+</template>
+
+<template name="filterStarRenter">
+  <div>
+    <p>
+      {{#each list}}
+        <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
+  </div>
+</template>

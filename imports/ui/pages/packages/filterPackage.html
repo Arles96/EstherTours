@@ -1,0 +1,137 @@
+<template name="filterPackage" >
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-search-location"></i>
+      <b>Filtrar Paquetes</b>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Nombre de Paquete:</b>
+          </label>
+          <br >
+          <input type="text" id="name" value="{{name}}" class="form-control">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Departamento:</b>
+          </label>
+          <br >
+          <select id="department" name="department" class="form-control">
+            <option value="">(Seleccione Uno)</option>
+            {{#each listDepartment}}
+              <option value="{{value}}">{{label}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Municipio:</b>
+          </label>
+          <br >
+          {{#if deptSelected}}
+            <select id="municipality" name="municipality" class="form-control">
+              <option value="">(Seleccione Uno)</option>
+              {{#each listMunicipality}}
+                <option value="{{value}}">{{label}}</option>
+              {{/each}}
+            </select>
+          {{else}}
+            <select id="municipality" name="municipality" class="form-control">
+              <option value="">(Seleccione Departamento)</option>
+            </select>
+          {{/if}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Ciudad:</b>
+          </label>
+          <br >
+          <input type="text" id="city" value="{{city}}" class="form-control">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label>
+            <b>Calle:</b>
+          </label>
+          <br >
+          <input type="text" id="street" value="{{street}}" class="form-control">
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+          <label for="slider"><b>Precio maximo:</b> Lps. {{precioMax}}</label>
+          <br >
+          <input type="range" id="sliderMax" min="0" max="20000" step="100" value="{{precioMax}}" class="slider" style="width: 100%;">
+        </div>
+      </div>
+    </div>
+  </div>
+  {{>sellPackageModal}}
+  {{#each data}}
+    {{>filterResultPackage}}
+  {{/each}}
+</template>
+
+<template name="filterResultPackage">
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fas fa-box"></i>
+        <b>{{name}}</b>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label>
+                <b>Precio:</b> {{price}}
+              </label>
+            </div>
+            {{#if observation}}
+              <div class="form-group">
+                <label>
+                  <b>Observación:</b> {{observation}}
+                </label>
+              </div>
+            {{/if}}
+            {{#with hotel}}
+              <div class="form-group">
+                <label>
+                  <b>Hotel:</b> {{name}}
+                </label>
+              </div>
+            {{/with}}
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{#with renter }}
+              <div class="form-group">
+                <label>
+                  <b>Arrendadora:</b> {{name}}
+                </label>
+              </div>
+            {{/with}}
+            {{#with restaurant }}
+              <div class="form-group">
+                <label>
+                  <b>Restaurante:</b> {{name}}
+                </label>
+              </div>
+            {{/with}}
+            {{#with transport}}
+              <div class="form-group">
+                <label>
+                  <b>Establecimiento de Transporte:</b> {{name}}
+                </label>
+              </div>
+            {{/with}}
+          </div>
+        </div>
+      </div>
+      <div class="card-footer small text-muted">
+        <a style="text-decoration: none; cursor: pointer;" href="/show-package/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+          <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+        </a>
+        <span style="cursor: pointer;" class="text-dark sellPackage" data-toggle="tooltip" data-placement="top" title="Vender">
+          <i class="fas fa-money-bill-alt"></i>
+        </span>
+      </div>
+    </div>
+</template>

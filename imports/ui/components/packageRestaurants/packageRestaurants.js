@@ -7,14 +7,19 @@ import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 import RestaurantImages from '../../../api/restaurants/restaurantImage';
 
-// TODO mostrar por paginas
-
 Template.packageRestaurants.onCreated(function createVars () {
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
+  this.numbersTables = new ReactiveVar(50);
+  this.numbersChairs = new ReactiveVar(50);
+  this.numbersChairsBabies = new ReactiveVar(50);
+  this.maxPersonCapacity = new ReactiveVar(50);
+  this.facilityPeople = new ReactiveVar('');
+  this.bar = new ReactiveVar('');
+  this.waitingRoom = new ReactiveVar('');
   Session.set('packageRestaurantStars', undefined);
 });
 
@@ -34,6 +39,27 @@ Template.packageRestaurants.helpers({
   municipality () {
     return Template.instance().municipality.get();
   },
+  numbersTables () {
+    return Template.instance().numbersTables.get();
+  },
+  numbersChairs () {
+    return Template.instance().numbersChairs.get();
+  },
+  numbersChairsBabies () {
+    return Template.instance().numbersChairsBabies.get();
+  },
+  maxPersonCapacity () {
+    return Template.instance().maxPersonCapacity.get();
+  },
+  facilityPeople () {
+    return Template.instance().facilityPeople.get();
+  },
+  bar () {
+    return Template.instance().bar.get();
+  },
+  waitingRoom () {
+    return Template.instance().waitingRoom.get();
+  },
   listDepartment () {
     return departments;
   },
@@ -51,8 +77,40 @@ Template.packageRestaurants.helpers({
     const city = Template.instance().city.get();
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
+    const numbersTables = Template.instance().numbersTables.get();
+    const numbersChairs = Template.instance().numbersChairs.get();
+    const numbersChairsBabies = Template.instance().numbersChairsBabies.get();
+    const maxPersonCapacity = Template.instance().maxPersonCapacity.get();
+    const facilityPeople = Template.instance().facilityPeople.get();
+    const bar = Template.instance().bar.get();
+    const waitingRoom = Template.instance().waitingRoom.get();
 
-    const query = {};
+    const query = {
+      numbersTables: {
+        $lte: parseInt(numbersTables, 10)
+      },
+      numbersChairs: {
+        $lte: parseInt(numbersChairs, 10)
+      },
+      numbersChairsBabies: {
+        $lte: parseInt(numbersChairsBabies, 10)
+      },
+      maxPersonCapacity: {
+        $lte: parseInt(maxPersonCapacity, 10)
+      }
+    };
+
+    if (facilityPeople === 'true') {
+      query.facilityPeople = true;
+    }
+
+    if (bar === 'true') {
+      query.bar = true;
+    }
+
+    if (waitingRoom === 'true') {
+      query.waitingRoom = true;
+    }
 
     if (Session.get('packageRestaurantStars')) {
       query.rating = Session.get('packageRestaurantStars');
@@ -85,6 +143,18 @@ Template.packageRestaurants.helpers({
 });
 
 Template.packageRestaurants.events({
+  'input #sliderNumbersTables' (event, templateInstance) {
+    templateInstance.numbersTables.set(event.currentTarget.value);
+  },
+  'input #sliderNumbersChairs' (event, templateInstance) {
+    templateInstance.numbersChairs.set(event.currentTarget.value);
+  },
+  'input #sliderNumbersChairsBabies' (event, templateInstance) {
+    templateInstance.numbersChairsBabies.set(event.currentTarget.value);
+  },
+  'input #sliderMaxPersonCapacity' (event, templateInstance) {
+    templateInstance.maxPersonCapacity.set(event.currentTarget.value);
+  },
   'input #sliderMax' (event, templateInstance) {
     templateInstance.precioMax.set(event.currentTarget.value);
   },
@@ -97,6 +167,15 @@ Template.packageRestaurants.events({
   'input #city' (event, templateInstance) {
     templateInstance.city.set(event.currentTarget.value);
   },
+  'change #facilityPeople' (event, templateInstance) {
+    templateInstance.facilityPeople.set(event.currentTarget.value);
+  },
+  'change #bar' (event, templateInstance) {
+    templateInstance.bar.set(event.currentTarget.value);
+  },
+  'change #waitingRoom' (event, templateInstance) {
+    templateInstance.waitingRoom.set(event.currentTarget.value);
+  },
   'change #department' (event, templateInstance) {
     templateInstance.department.set(event.currentTarget.value);
     templateInstance.municipality.set('');
@@ -107,6 +186,12 @@ Template.packageRestaurants.events({
 });
 
 Template.packageResultRestaurant.helpers({
+  urlTag (url) {
+    if (url.includes('http://') || url.includes('https://')) {
+      return url;
+    }
+    return `https://${url}`;
+  },
   selected (id) {
     return id === Session.get('packageRestaurantId');
   },

@@ -7,7 +7,12 @@ import toastr from 'toastr';
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 import { Meteor } from 'meteor/meteor';
-import { admin, consultant, operator } from '../imports/api/roles/roles';
+import {
+  admin,
+  consultant,
+  operator,
+  supervisor
+} from '../imports/api/roles/roles';
 
 toastr.options = {
   closeButton: true,
@@ -32,6 +37,20 @@ toastr.options = {
  * Esta función se usa en blaze
  */
 Template.registerHelper('isAdmin', () => Roles.userIsInRole(Meteor.userId(), admin));
+
+/**
+ * Validación para saber si el usuario es supervisor
+ * Esta funcion se usa para blaze
+ */
+Template.registerHelper('isSupervisor', () => Roles.userIsInRole(Meteor.userId(), supervisor));
+
+/**
+ * Validación para saber si el usuario es administrador o supervidor
+ * Esta funcion se usa para blaze
+ */
+Template.registerHelper('isSupervisorOrAdmin', () => (
+  Roles.userIsInRole(Meteor.userId(), supervisor) || Roles.userIsInRole(Meteor.userId(), admin)
+));
 
 /**
  * Validación para saber si el usuario es un operador.

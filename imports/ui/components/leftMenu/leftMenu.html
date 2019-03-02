@@ -7,7 +7,7 @@
         <span>Dashboard</span>
       </a>
     </li>
-    {{#if isAdmin}}
+    {{#if isSupervisorOrAdmin}}
     <li class="nav-item">
       <a class="nav-link" href="/users">
         <i class="fas fa-fw fa-table"></i>
@@ -18,6 +18,13 @@
         <i class="fas fa-fw fa-table"></i>
         <span>Sucursales</span></a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/activities">
+        <i class="fas fa-fw fa-table"></i>
+        <span>Actividades</span>
+      </a>
+    </li>
+    
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
@@ -25,15 +32,28 @@
         <span>Reportes</span>
       </a>
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-        <a class="dropdown-item" href="/report-transportation-establishment">Reportar Transportes</a>
-        <a class="dropdown-item" href="/report-hotels">Reportar Hoteles</a>
-        <a class="dropdown-item" href="/report-renters">Reportar Arrendadoras</a>
-        <a class="dropdown-item" href="/report-guides">Reportar Guías</a>
-        <a class="dropdown-item" href="/report-restaurants">Reportar Restaurantes</a>
-        <a class="dropdown-item" href="/report-attractions">Reportar Atracciones</a>
-        <a class="dropdown-item" href="/report-packages">Reportar Paquetes</a>
+        <a class="dropdown-item" href="/report-transportation-establishment">Transportes</a>
+        <a class="dropdown-item" href="/report-hotels">Hoteles</a>
+        <a class="dropdown-item" href="/report-renters">Arrendadoras</a>
+        <a class="dropdown-item" href="/report-guides">Guías</a>
+        <a class="dropdown-item" href="/report-restaurants">Restaurantes</a>
+        <a class="dropdown-item" href="/report-attractions">Atracciones</a>
+        <a class="dropdown-item" href="/report-packages">Paquetes</a>
       </div>
     </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Paquetes</span>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <a class="dropdown-item" href="/sold-package">Tabla de Vendidos</a>
+        <a class="dropdown-item" href="/filter-packages">Filtrar Paquetes</a>
+      </div>
+    </li>
+    {{/if}}
+    {{#if isAdmin}}
     {{/if}}
     {{#if isLoggedIn}}
     <li class="nav-item dropdown">
@@ -58,6 +78,7 @@
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
         <a class="dropdown-item" href="/addRestaurant">Agregar Restaurante</a>
         <a class="dropdown-item" href="/listRestaurants">Tabla Restaurantes</a>
+        <a class="dropdown-item" href="/filter-restaurants">Filtrar Restaurantes</a>
         <a class="dropdown-item" href="/report-restaurants">Reportar Restaurantes</a>
       </div>
     </li>
@@ -71,6 +92,7 @@
         <a class="dropdown-item" href="/add-renters">Agregar Arrendadora</a>
         <a class="dropdown-item" href="/list-renters">Tabla Arrendadoras</a>
         <a class="dropdown-item" href="/report-renters">Reportar Arrendadoras</a>
+        <a class="dropdown-item" href="/filter-renters">Filtrar arrendadoras</a>
         <a class="dropdown-item" href="/filter-fleet-renters">Filtrar flotas</a>
       </div>
     </li>
@@ -96,6 +118,7 @@
         <a class="dropdown-item" href="/add-transportation-establishment">Agregar Transportes</a>
         <a class="dropdown-item" href="/list-transportation-establishment">Tabla Transportes</a>
         <a class="dropdown-item" href="/report-transportation-establishment">Reportar Transportes</a>
+        <a class="dropdown-item" href="/filter-transportation-establishment">Filtrar Transportes</a>
         <a class="dropdown-item" href="/filter-route-transportation-establishment">Filtrar rutas</a>
       </div>
     </li>
@@ -109,6 +132,7 @@
         <a class="dropdown-item" href="/add-hotels">Agregar hoteles</a>
         <a class="dropdown-item" href="/list-hotels">Tabla de Hoteles</a>
         <a class="dropdown-item" href="/report-hotels">Reportar Hoteles</a>
+        <a class="dropdown-item" href="/filter-hotels">Filtrar hoteles</a>
         <a class="dropdown-item" href="/filter-room-hotel">Filtrar cuartos de hotel</a>
       </div>
     </li>
@@ -121,6 +145,8 @@
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
         <a class="dropdown-item" href="/add-packages">Agregar Paquetes</a>
         <a class="dropdown-item" href="/list-packages">Tabla de Paquetes</a>
+        <a class="dropdown-item" href="/sold-package">Tabla de Vendidos</a>
+        <a class="dropdown-item" href="/filter-packages">Filtrar Paquetes</a>
         <a class="dropdown-item" href="/report-packages">Reportar Paquetes</a>
       </div>
     </li>
@@ -147,6 +173,8 @@
       </a>
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
         <a class="dropdown-item" href="/hotel-query">Consulta Hoteles</a>
+        <a class="dropdown-item" href="/filter-hotels">Filtrar hoteles</a>
+        <a class="dropdown-item" href="/filter-room-hotel">Filtrar cuartos de hotel</a>
         <a class="dropdown-item" href="/report-hotels">Reportar Hoteles</a>
       </div>
     </li>
@@ -158,6 +186,7 @@
       </a>
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
         <a class="dropdown-item" href="/consult-restaurant">Consulta Restaurantes</a>
+        <a class="dropdown-item" href="/filter-restaurants">Filtrar Restaurantes</a>
         <a class="dropdown-item" href="/report-restaurants">Reportar Restaurantes</a>
       </div>
     </li>
@@ -180,6 +209,8 @@
       </a>
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
         <a class="dropdown-item" href="/find-renters">Consulta Arrendadoras</a>
+        <a class="dropdown-item" href="/filter-renters">Filtrar Arrendadoras</a>
+        <a class="dropdown-item" href="/filter-fleet-renters">Filtrar Flotas</a>
         <a class="dropdown-item" href="/report-renters">Reportar Arrendadoras</a>
       </div>
     </li>
@@ -191,6 +222,8 @@
       </a>
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
         <a class="dropdown-item" href="/find-transport">Consulta Transportes</a>
+        <a class="dropdown-item" href="/filter-transportation-establishment">Filtrar Transportes</a>
+        <a class="dropdown-item" href="/filter-route-transportation-establishment">Filtrar rutas</a>
         <a class="dropdown-item" href="/report-transportation-establishment">Reportar Transportes</a>
       </div>
     </li>
@@ -201,7 +234,8 @@
         <span>Paquetes</span>
       </a>
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-        <a class="dropdown-item" href="/find-packages">Consulta Paquetes</a>
+        <a class="dropdown-item" href="/filter-packages">Filtrar Paquetes</a>
+        <a class="dropdown-item" href="/sold-package">Tabla de Vendidos</a>
         <a class="dropdown-item" href="/report-packages">Reportar Paquetes</a>
       </div>
     </li>

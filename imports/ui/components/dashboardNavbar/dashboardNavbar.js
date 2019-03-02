@@ -1,5 +1,6 @@
 import './dashboardNavbar.html';
 import '../namePackageModal/namePackageModal';
+import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Template } from 'meteor/templating';
 import $ from 'jquery';
@@ -11,8 +12,13 @@ Template.dashboardNavbar.onCreated(() => {
 
 Template.dashboardNavbar.events({
   'click #logout': function () {
-    Accounts.logout();
-    window.location = '/';
+    const userId = Meteor.userId();
+    Meteor.call('userLogout2', userId, (error, result) => {
+      if (!error) {
+        Accounts.logout();
+        window.location = '/';
+      }
+    });
   },
   'click #createPackage': function () {
     $('#namePackageModal').modal('show');
