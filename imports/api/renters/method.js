@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import XLSX from 'xlsx';
 import { Renters, RentersSchema, renterToExcel } from './renters';
 import { FleetRenter, FleetRenterSchema, fleetRenterToExcel } from './fleetRenter';
+import { userActivities } from '../userActivities/userActivities';
 import { operator, consultant, admin } from '../roles/roles';
 
 Meteor.methods({
@@ -9,6 +10,15 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       RentersSchema.validate(doc);
       Renters.insert(doc);
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregó',
+        collection: 'rentadoras',
+        registerId: 'N/D',
+        register: doc.name,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -40,6 +50,15 @@ Meteor.methods({
       throw new Meteor.Error('Repeated Branch');
     } else {
       Renters.insert(doc);
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregós',
+        collection: 'rentadoras',
+        registerId: 'N/D',
+        register: doc.name,
+        date: new Date()
+      });
     }
   },
   editRenter: function (doc) {
@@ -47,6 +66,19 @@ Meteor.methods({
       const data = doc.modifier.$set;
       const { _id } = doc;
       RentersSchema.validate(data);
+      Renters.update({ _id: _id }, {
+        $set: data
+      });
+
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'editó',
+        collection: 'rentadoras',
+        registerId: _id,
+        register: doc.name,
+        date: new Date()
+      });
 
       const query = {
         street: data.street,
@@ -74,6 +106,15 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       FleetRenterSchema.validate(doc);
       FleetRenter.insert(doc);
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregó',
+        collection: 'renterFleet',
+        registerId: 'N/D',
+        register: doc.name,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -88,6 +129,15 @@ Meteor.methods({
         });
       Renters.remove({ _id: id });
       FleetRenter.remove({ idRenter: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'rentadoras',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
@@ -95,6 +145,15 @@ Meteor.methods({
   deleteFleetRenter: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       FleetRenter.remove({ _id: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'renterFleet',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
@@ -106,6 +165,15 @@ Meteor.methods({
       FleetRenterSchema.validate(data);
       FleetRenter.update({ _id: _id }, {
         $set: data
+      });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'editó',
+        collection: 'renterFleet',
+        registerId: 'N/D',
+        register: doc.name,
+        date: new Date()
       });
     } else {
       throw new Meteor.Error('Permiso Denegado');

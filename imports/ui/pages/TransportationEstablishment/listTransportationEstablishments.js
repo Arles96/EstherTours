@@ -1,6 +1,7 @@
 import './listTransportationEstablishments.html';
 import '../../components/addFleetTransportationEstablishment/addFleetTransportationEstablishment';
 import '../../components/addRouteTransportationEstablishment/addRouteTransportationEstablishment';
+import XLSX from 'xlsx';
 import { Session } from 'meteor/session';
 import toastr from 'toastr';
 import { Meteor } from 'meteor/meteor';
@@ -39,6 +40,30 @@ Template.listTransportationEstablishments.onCreated(() => {
 Template.listTransportationEstablishments.helpers({
   selector: function () {
     return { branchOffice: false };
+  }
+});
+
+Template.listTransportationEstablishments.events({
+  'click #export-excel': function () {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: '¿Está seguro de exportar los establecimientos de transporte a Excel?',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('exportTransportsToExcel', (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            const filename = `Transporte ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filename);
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
   }
 });
 
