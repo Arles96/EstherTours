@@ -1,6 +1,7 @@
 
 // Api de usuario
 import '../../api/users/method';
+import '../../api/users/server/publications';
 
 // Api de sucursales
 import '../../api/branchOffices/method';
@@ -39,3 +40,11 @@ import '../../api/userActivities/method';
 
 // Api de imagenes de perfil
 import '../../api/profileImage/publication';
+
+// Api de Chats
+import '../../api/Chats/method';
+import '../../api/Chats/server/publication';
+
+// Api de Notificaciones
+import '../../api/Notifications/method';
+import '../../api/Notifications/server/publication';

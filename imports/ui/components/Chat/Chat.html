@@ -1,0 +1,58 @@
+<template name="chat">
+  <div class="card" style="background: #212529; max-width: 19rem;">
+    <div class="card-header d-flex flex-nowrap align-content-end" style="background: #212529; color: white; padding-left: 12;">
+      {{#if contextData.Issuer.status.online}}
+      <i class="fas fa-circle fa-xs mr-auto pointer" style="color: #52BE80"></i>
+      {{else}}
+      <i class="far fa-circle fa-xs mr-auto pointer"></i>
+      {{/if}}
+      <div id="ChatHeader{{contextData.Issuer._id}}" class="mr-auto flex-fill ChatHeader card-link pointer" data-toggle="collapse"
+        href="#Chat{{contextData.Issuer._id}}" aria-expanded="true">
+        <small style="color:rgba(209, 121, 121, 0)"> -</small>
+        {{contextData.Issuer.profile.firstName}} {{contextData.Issuer.profile.lastName}}
+        <small style="color:rgba(209, 121, 121, 0)"> -</small>
+      </div>
+      <i class="closeChat fas fa-times ml-auto pointer"></i>
+    </div>
+    <div id="Chat{{contextData.Issuer._id}}" class="collapse show">
+      <div class="card-body" style="max-height: 30vh; background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto !important; text-align: center;">
+        {{#if isOpen}}
+        {{/if}}
+        {{#each message in messages}}
+        {{#if (isReceiver message.idReceiver ) }}
+        <div class="alert alert-secondary" style="text-align: left; max-width: max-content;">
+          <strong>{{contextData.Issuer.profile.firstName}}: </strong>{{message.message}}
+        </div>
+        {{else}}
+        <div class="alert alert-info" style="text-align: left; max-width: max-content;">
+          <strong>Tú: </strong>{{message.message}}
+          {{#if (isSent message.status)}}
+          <i class="fas fa-check float-sm-right" style="margin-left: 1rem;"></i>
+          {{/if}}
+          {{#if (isReceived message.status)}}
+          <i class="fas fa-check-double float-sm-right" style="margin-left: 1rem;"></i>
+          {{/if}}
+          {{#if (isRead message.status)}}
+          <i class="fas fa-check-double fa-xs float-sm-right" style="color: orange; margin-left: 1rem;"></i>
+          {{/if}}
+        </div>
+        {{/if}}
+        {{else}}
+        <i>---- No hay mensajes ----</i>
+        {{/each}}
+        <span id="ChatBottom"> </span>
+      </div>
+      <div class="card-footer" style="background: #ececec;">
+        <form>
+          <div class="input-group" style="width: 100% !important">
+            <textarea autocomplete="off" class="form-control" placeholder="Mensaje..." type="text" name="message" id="ChatPage-message"
+              required data-schema-key="message" rows="1.5" style="resize: none; width: max-content;"></textarea>
+            <div class="input-group-append">
+              <div class="btn btn-dark sendMessage"><i class="fas fa-chevron-circle-right" style="width: auto;"></i></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>

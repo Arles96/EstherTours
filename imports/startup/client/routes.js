@@ -85,6 +85,7 @@ import '../../ui/pages/RenterQuary/showRenters';
 import '../../ui/pages/findTransport/findTransport';
 import '../../ui/pages/resultTransport/resultTransport';
 import '../../ui/pages/branchOfficePage/officesPage';
+import '../../ui/pages/ChatPage/ChatPage';
 import '../../ui/pages/shoppingPackage/shoppingPackage';
 import '../../ui/pages/Activities/activities';
 import '../../ui/pages/packages/filterPackage';
@@ -113,6 +114,7 @@ Router.route('/', {
   name: 'home',
   template: 'signIn',
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     isNotLoggedIn(this);
   }
 });
@@ -124,7 +126,13 @@ Router.route('/dashboard', {
   name: 'dashboard',
   layoutTemplate: 'bodyAdmin',
   template: 'initialDashboard',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Visión General']);
     isLoggedIn(this);
   }
@@ -181,9 +189,14 @@ Router.route('/users', {
   template: 'usersPage',
   layoutTemplate: 'bodyAdmin',
   waiton: function () {
-    return Meteor.subscribe('branchOffices.all');
+    return [
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('branchOffices.all'),
+      Meteor.subscribe('chats.all')
+    ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Usuarios']);
     isSupervisorOrAdmin(this);
   }
@@ -196,26 +209,36 @@ Router.route('/offices', {
   name: 'offices',
   template: 'officePage',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Sucursales']);
     isSupervisorOrAdmin(this);
   }
 });
 
 /*
- * Ruta para actualizar el primer nombre y primer apellido
- */
+* Ruta para actualizar el primer nombre y primer apellido
+*/
 Router.route('/update-profile', {
   name: 'updateProfile',
   template: 'updateProfile',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Actualizando Perfil']);
     isLoggedIn2(this);
   },
   waitOn: function () {
     return [
-      Meteor.subscribe('imageProfile.all')
+      Meteor.subscribe('imageProfile.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
     ];
   }
 });
@@ -227,7 +250,13 @@ Router.route('/change-password', {
   name: 'changePassword',
   template: 'changePasswordPage',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Cambiando Contraseña']);
     isLoggedIn2(this);
   }
@@ -243,12 +272,17 @@ Router.route('/addRestaurant', {
   waitOn: function () {
     return [
       Meteor.subscribe('restaurantImage.all'),
-      Meteor.subscribe('restaurant.all')
+      Meteor.subscribe('restaurant.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Agregar Restaurante']);
     Session.set('rating', undefined);
+    Session.set('ShowChatFixed', true);
     Session.set('price', undefined);
     isOperator(this);
   }
@@ -258,7 +292,13 @@ Router.route('/consult-restaurant', {
   name: 'consult-restaurant',
   template: 'consultRestaurant',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Consulta de Restaurante']);
     Session.set('findRestaurantRating', undefined);
     isConsultant(this);
@@ -271,10 +311,14 @@ Router.route('/listRestaurants', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     return [
-      Meteor.subscribe('restaurant.one')
+      Meteor.subscribe('restaurant.one'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Tabla de Restaurantes']);
     isOperator(this);
   }
@@ -309,12 +353,16 @@ Router.route('/show-restaurant/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('restaurant.one', id),
       Meteor.subscribe('restaurant.all', id),
       Meteor.subscribe('restaurantImage.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     const { id } = this.params;
     const restaurant = Restaurants.findOne({ _id: id });
     Session.set('idRestaurant', id);
@@ -342,10 +390,14 @@ Router.route('/edit-restaurant/:id', {
     return [
       Meteor.subscribe('restaurant.one', id),
       Meteor.subscribe('restaurant.all', id),
-      Meteor.subscribe('restaurantImage.all')
+      Meteor.subscribe('restaurantImage.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Listar Restaurantes', 'Actualizando Información de Restaurante']);
     Session.set('editRestaurantRating', undefined);
     isOperator(this);
@@ -369,10 +421,14 @@ Router.route('/branch-restaurant/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('restaurant.one', id),
-      Meteor.subscribe('restaurantImage.all')
+      Meteor.subscribe('restaurantImage.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     const { id } = this.params;
     const restaurant = Restaurants.findOne({ _id: id });
     listBreadcrumb(['Listar Restaurantes', `Agregar sucursal a ${restaurant.name}`]);
@@ -394,7 +450,13 @@ Router.route('/show-restaurantResult', {
   name: 'listRestaurantResults',
   template: 'listRestaurantResults',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Formulario Consulta Restaurante', 'Resultado Consulta Restaurante']);
     Session.set('categorization', undefined);
     isConsultant(this);
@@ -409,9 +471,15 @@ Router.route('/add-renters', {
   template: 'addRenters',
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
-    return Meteor.subscribe('renter.all');
+    return [
+      Meteor.subscribe('renter.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Agregar Arrendadora']);
     Session.set('categorization', undefined);
     isOperator(this);
@@ -428,10 +496,14 @@ Router.route('/list-renters', {
   waitOn: function () {
     return [
       Meteor.subscribe('FleetRenterImage.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('renter.one')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Tabla de Arrendadoras']);
     isOperator(this);
   }
@@ -446,6 +518,9 @@ Router.route('/filter-fleet-renters', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('renter.all'),
       Meteor.subscribe('renter.one'),
       Meteor.subscribe('FleetRenterImage.all'),
@@ -453,6 +528,7 @@ Router.route('/filter-fleet-renters', {
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Filtrar flotas']);
     isLoggedIn2(this);
   }
@@ -483,7 +559,13 @@ Router.route('/find-renters', {
   name: 'findRenters',
   template: 'findRenters',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Consulta Arrendadora']);
     Session.set('categorization', undefined);
     isConsultant(this);
@@ -497,7 +579,13 @@ Router.route('/show-renterQuary/', {
   name: 'showRenters',
   template: 'showRenters',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Resultado Consulta Arrendadora']);
     isConsultant(this);
   }
@@ -510,7 +598,13 @@ Router.route('/add-transportation-establishment', {
   name: 'addTransportationEstablishments',
   template: 'addTransportationEstablishments',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Agregar Transporte']);
     Session.set('transportCategorization', undefined);
     isOperator(this);
@@ -524,7 +618,13 @@ Router.route('/list-transportation-establishment', {
   name: 'listTransportationEstablishments',
   template: 'listTransportationEstablishments',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Tabla Transporte']);
     isOperator(this);
   }
@@ -558,10 +658,14 @@ Router.route('/filter-route-transportation-establishment', {
   waitOn: function () {
     return [
       Meteor.subscribe('transport.all'),
-      Meteor.subscribe('Routes.all')
+      Meteor.subscribe('Routes.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Filtrar rutas']);
     isLoggedIn2(this);
   }
@@ -576,9 +680,15 @@ Router.route('/show-TransportationEstablishment/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('TransportationEstablishment.one', id);
+    return [
+      Meteor.subscribe('TransportationEstablishment.one', id),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     const { id } = this.params;
     const TransportationEstablishment = TransportationEstablishments.findOne({ _id: id });
     Session.set('idTransportationEstablishment', id);
@@ -603,9 +713,15 @@ Router.route('/edit-TransportationEstablishment/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('TransportationEstablishment.one', id);
+    return [
+      Meteor.subscribe('TransportationEstablishment.one', id),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Lista de transportes', 'Actualizando Información de Transporte']);
     Session.set('editTransportationEstablishmentCategorization', undefined);
     isOperator(this);
@@ -625,7 +741,13 @@ Router.route('/report-transportation-establishment', {
   name: 'reportTransportationEstablishments',
   template: 'reportTransportationEstablishments',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Reportar transportes']);
     isLoggedIn2(this);
   }
@@ -638,7 +760,13 @@ Router.route('/report-renters', {
   name: 'reportRenters',
   template: 'reportRenters',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Reportar arrendadoras']);
     isLoggedIn2(this);
   }
@@ -651,7 +779,13 @@ Router.route('/report-hotels', {
   name: 'reportHotels',
   template: 'reportHotels',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Reportar hoteles']);
     isLoggedIn2(this);
   }
@@ -664,7 +798,13 @@ Router.route('/report-guides', {
   name: 'reportGuides',
   template: 'reportGuides',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Reportar guías']);
     isLoggedIn2(this);
   }
@@ -677,7 +817,13 @@ Router.route('/report-attractions', {
   name: 'reportAttractions',
   template: 'reportAttractions',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Reportar atracciones']);
     isLoggedIn2(this);
   }
@@ -690,7 +836,13 @@ Router.route('/report-restaurants', {
   name: 'reportRestaurants',
   template: 'reportRestaurants',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Reportar restaurantes']);
     isLoggedIn2(this);
   }
@@ -703,7 +855,13 @@ Router.route('/report-packages', {
   name: 'reportPackages',
   template: 'reportPackages',
   layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Reportar paquetes']);
     isLoggedIn2(this);
   }
@@ -717,13 +875,17 @@ Router.route('/add-hotels', {
   template: 'addHotels',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Agregar hoteles']);
     Session.set('hotelCategorization', undefined);
     isOperator(this);
   },
   waitOn: function () {
     return [
-      Meteor.subscribe('hotelImage.all')
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
     ];
   }
 });
@@ -739,10 +901,14 @@ Router.route('/edit-renter/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('renter.one', id),
-      Meteor.subscribe('renter.all', id)
+      Meteor.subscribe('renter.all', id),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Listar Arrendadoras', 'Actualizando Información de Arrendadora']);
     Session.set('editRenterCategorization', undefined);
     isOperator(this);
@@ -765,10 +931,14 @@ Router.route('/branch-renter/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
-      Meteor.subscribe('renter.one', id)
+      Meteor.subscribe('renter.one', id),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     const { id } = this.params;
     const renter = Renters.findOne({ _id: id });
     listBreadcrumb(['Listar Arrendadoras', `Agregar sucursal a ${renter.name}`]);
@@ -791,8 +961,16 @@ Router.route('/list-hotels', {
   template: 'listHotels',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Tabla de Hoteles']);
     isOperator(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
   }
 });
 
@@ -803,10 +981,14 @@ Router.route('/branch-hotel/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
-      Meteor.subscribe('hotel.one', id)
+      Meteor.subscribe('hotel.one', id),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     const { id } = this.params;
     const hotel = Hotels.findOne({ _id: id });
     listBreadcrumb(['Listar Hoteles', `Agregar sucursal a ${hotel.name}`]);
@@ -830,12 +1012,16 @@ Router.route('/filter-room-hotel', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('hotels.all'),
       Meteor.subscribe('hotelImage.all'),
       Meteor.subscribe('RoomHotel.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Filtrar habitaciones']);
     isLoggedIn2(this);
   }
@@ -853,10 +1039,14 @@ Router.route('/show-renter/:id', {
     return [
       Meteor.subscribe('renter.one', id),
       Meteor.subscribe('renter.all', id),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('FleetRenterImage.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     const { id } = this.params;
     const renter = Renters.findOne({ _id: id });
     Session.set('idRenter', id);
@@ -883,10 +1073,14 @@ Router.route('/edit-hotel/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('hotel.one', id),
-      Meteor.subscribe('hotelImage.all')
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Listar Hoteles', 'Actualizando Información de Hotel']);
     Session.set('editHotelCategorization', undefined);
     isOperator(this);
@@ -907,7 +1101,15 @@ Router.route('/add-guide', {
   name: 'addGuide',
   template: 'addGuide',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
+  },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Agregar Guía']);
     Session.set('guideCategorization', undefined);
     isOperator(this);
@@ -925,10 +1127,14 @@ Router.route('/show-hotel/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('hotel.one', id),
-      Meteor.subscribe('hotelImage.all')
+      Meteor.subscribe('hotelImage.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     const { id } = this.params;
     const hotel = Hotels.findOne({ _id: id });
     Session.set('idHotel', id);
@@ -968,9 +1174,17 @@ Router.route('/hotel-query', {
   template: 'hotelQuery',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Consulta de hoteles']);
     Session.set('hotelQCategorization', undefined);
     isConsultant(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
   }
 });
 
@@ -978,7 +1192,15 @@ Router.route('/show-query-hotel', {
   name: 'showQueryHotel',
   template: 'showQueryHotel',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
+  },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Consulta de hoteles']);
     isConsultant(this);
   },
@@ -998,11 +1220,15 @@ Router.route('/filter-attractions', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('attractions.all'),
       Meteor.subscribe('attractionImage.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Filtrar atracciones']);
     isLoggedIn2(this);
   }
@@ -1016,12 +1242,16 @@ Router.route('/add-attractions', {
   template: 'addAttractions',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Agregar atracciones']);
     Session.set('attractionCategorization', undefined);
     isOperator(this);
   },
   waitOn: function () {
     return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('guide.all'),
       Meteor.subscribe('attractionImage.all')
     ];
@@ -1035,7 +1265,15 @@ Router.route('/list-attractions', {
   name: 'listAttractions',
   template: 'listAttractions',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
+  },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Listar Atracciones']);
     isOperator(this);
   }
@@ -1052,10 +1290,14 @@ Router.route('/edit-attractions/:id', {
     return [
       Meteor.subscribe('attraction.one', this.params.id),
       Meteor.subscribe('guide.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('attractionImage.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Listar Atracciones', 'Actualizando Información de Atraccion']);
     Session.set('editAttractionCategorization', undefined);
     isOperator(this);
@@ -1079,11 +1321,15 @@ Router.route('/show-attraction/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('attraction.one', id),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('guide.all'),
       Meteor.subscribe('attractionImage.all')
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     const { id } = this.params;
     const attraction = Attractions.findOne({ _id: id });
     Session.set('idAttraction', id);
@@ -1103,12 +1349,18 @@ Router.route('/attraction-query', {
   template: 'attractionQuery',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Consulta de Atracciones']);
     Session.set('attractionQCategorization', undefined);
     isConsultant(this);
   },
   waitOn: function () {
-    return [Meteor.subscribe('guide.all')];
+    return [
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
   }
 });
 
@@ -1117,6 +1369,7 @@ Router.route('/show-query-attraction', {
   template: 'showQueryAttraction',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Consulta de atracciones']);
     isConsultant(this);
   },
@@ -1126,7 +1379,12 @@ Router.route('/show-query-attraction', {
     };
   },
   waitOn: function () {
-    return [Meteor.subscribe('guide.all')];
+    return [
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
   }
 });
 
@@ -1138,8 +1396,17 @@ Router.route('/list-guide', {
   template: 'listGuide',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Tabla de Guías']);
     isOperator(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
   }
 });
 
@@ -1149,9 +1416,15 @@ Router.route('/edit-guide/:id', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     const { id } = this.params;
-    return Meteor.subscribe('guide.one', id);
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('guide.one', id)
+    ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Listar Guías', 'Actualizando Información de Guías']);
     Session.set('editGuideCategorization', undefined);
     isOperator(this);
@@ -1172,9 +1445,17 @@ Router.route('/find-guide', {
   template: 'findGuide',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Formulario Consulta Guía']);
     Session.set('findGuideCategorization', undefined);
     isLoggedIn2(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
   }
 });
 /**
@@ -1185,8 +1466,16 @@ Router.route('/result-find-guide', {
   template: 'resultGuide',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Formulario Consulta Guía', 'Resultado Consulta Guía']);
     isConsultant(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
   }
 });
 
@@ -1198,9 +1487,17 @@ Router.route('/find-transport', {
   template: 'findTransport',
   layoutTemplate: 'bodyAdmin',
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Formulario Consulta Transporte']);
     Session.set('findTransportCategorization', undefined);
     isConsultant(this);
+  },
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
   }
 });
 
@@ -1211,7 +1508,15 @@ Router.route('/result-find-transport', {
   name: 'resultTransport',
   template: 'resultTransport',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
+  },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Formulario Consulta Transporte', 'Resultado Consulta Transporte']);
     isConsultant(this);
   }
@@ -1226,6 +1531,9 @@ Router.route('/add-packages', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('hotels.all'),
       Meteor.subscribe('hotelImage.all'),
       Meteor.subscribe('RoomHotel.all'),
@@ -1239,6 +1547,7 @@ Router.route('/add-packages', {
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Agregar Paquetes']);
     isOperator(this);
   }
@@ -1251,7 +1560,15 @@ Router.route('/list-packages', {
   name: 'listPackages',
   template: 'listPackages',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
+  },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Tabla de Paquetes']);
     Session.set('listPackages', undefined);
     isOperator(this);
@@ -1268,6 +1585,9 @@ Router.route('/edit-package/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('hotels.all'),
       Meteor.subscribe('hotelImage.all'),
       Meteor.subscribe('RoomHotel.all'),
@@ -1282,6 +1602,7 @@ Router.route('/edit-package/:id', {
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Listar Paquetes', 'Actualizando Información de Paquetes']);
     isOperator(this);
   },
@@ -1303,6 +1624,9 @@ Router.route('/show-package/:id', {
   waitOn: function () {
     const { id } = this.params;
     return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('hotels.all'),
       Meteor.subscribe('attractions.all'),
       Meteor.subscribe('guide.all'),
@@ -1316,6 +1640,7 @@ Router.route('/show-package/:id', {
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Listar Paquetes', 'Mostrando Información de Paquetes']);
     isLoggedIn2(this);
   },
@@ -1336,6 +1661,9 @@ Router.route('/find-packages', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('hotels.all'),
       Meteor.subscribe('attractions.all'),
       Meteor.subscribe('guide.all'),
@@ -1348,6 +1676,7 @@ Router.route('/find-packages', {
     ];
   },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Formulario Consulta Paquetes']);
     isConsultant(this);
   }
@@ -1360,9 +1689,36 @@ Router.route('/result-find-packages', {
   name: 'resultPackages',
   template: 'resultPackages',
   layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all')
+    ];
+  },
   onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
     listBreadcrumb(['Formulario Consulta Paquetes', 'Resultado Consulta Paquetes']);
     isConsultant(this);
+  }
+});
+
+/**
+ * Ruta para página de chat
+ */
+Router.route('/ChatPage', {
+  name: 'ChatPage',
+  template: 'chatPage',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
+  onBeforeAction: function () {
+    Session.set('ShowChatFixed', false);
+    listBreadcrumb(['Mensajes']);
+    isLoggedIn(this);
   }
 });
 
@@ -1425,6 +1781,7 @@ Router.route('/activities', {
     isAdmin(this);
   }
 });
+
 /**
  * Ruta para filtrar Paquetes
  */
