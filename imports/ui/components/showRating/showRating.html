@@ -1,0 +1,9 @@
+<template name="showStarRating" >
+  <div>
+    <p>
+      {{#each (list rating)}}
+        <i style="font-size: 1.3rem;  pointer-events: none;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
+  </div>
+</template>

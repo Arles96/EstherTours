@@ -1,6 +1,7 @@
 import './showInfoRenter.html';
 import '../../components/addFleetRenter/addFleetRenter';
 import '../../components/infoFleetRenter/infoFleetRenter';
+import '../../components/showRating/showRating';
 import './editFleetRenter';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
@@ -8,6 +9,7 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
 import { Renters } from '../../../api/renters/renters';
+import { packageRenter, unpackageRenter } from '../../../startup/client/packageFunction';
 
 Template.showInfoRenter.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -62,6 +64,10 @@ Template.showInfoRenter.helpers({
       return url;
     }
     return `https://${url}`;
+  },
+  textCategorization: function (text) {
+    Session.set('showRenterRating', text);
+    return 'Categorización';
   }
 });
 
@@ -88,6 +94,15 @@ Template.showButtonFleetRenters.events({
   },
   'click .infoFleetRenter': function () {
     Session.set('fleetRenter', FleetRenter.findOne({ _id: this._id }));
+  },
+  'click .packageEntity': function () {
+    const { idRenter, _id } = FleetRenter.findOne({ _id: this._id });
+    packageRenter(idRenter, _id);
+    toastr.success('Se ha empaquetado la flota exitosamente');
+  },
+  'click .unPackageEntity': function () {
+    unpackageRenter();
+    toastr.info('Se ha desempaquetado la flota exitosamente');
   }
 });
 

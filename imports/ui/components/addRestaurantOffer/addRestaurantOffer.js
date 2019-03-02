@@ -2,6 +2,7 @@ import './addRestaurantOffer.html';
 import { Session } from 'meteor/session';
 import toastr from 'toastr';
 import { restaurantOffersSchema } from '../../../api/restaurants/restaurantOffers';
+import '../../components/toDecimal/toDecimal';
 
 Template.addRestaurantOffer.helpers({
   restaurantOffersSchema: () => restaurantOffersSchema,

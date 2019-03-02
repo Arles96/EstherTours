@@ -1,4 +1,5 @@
 import './infoRateHotel.html';
+import '../../components/toDecimal/toDecimal';
 import { Session } from 'meteor/session';
 
 Template.infoRateHotel.helpers({

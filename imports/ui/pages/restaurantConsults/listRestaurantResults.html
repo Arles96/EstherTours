@@ -181,7 +181,12 @@
                   <label for="">
                     <b>Categorización:</b>
                     {{#if rating}}
-                      {{rating}} estrellas
+                      <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                          <div class="form-group mt-1">
+                            <b>Categorización:</b>
+                              {{>showStarRating rating=categorization}}
+                          </div>
+                      </div>
                     {{else}}
                       No ingresó dato.
                     {{/if}}

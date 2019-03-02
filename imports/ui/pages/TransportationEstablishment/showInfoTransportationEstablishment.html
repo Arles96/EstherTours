@@ -38,6 +38,12 @@
             </ul>
           </div>
         </div>
+        <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="form-group mt-1">
+            <label class="mb-3"><b>{{textCategorization categorization }}</b></label>
+            {{>showStarTransportation rating=categorization}}
+          </div>
+        </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           <div class="form-group">
             <label for="">
@@ -79,12 +85,6 @@
           </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          <div class="form-group">
-            <label for="">
-              <b>Categorización:</b>
-            </label>
-            <p>{{categorization}} estrellas </p>
-          </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           <div class="form-group">
@@ -209,15 +209,37 @@
 </template>
 
 <template name="showButtonRouteTransportationEstablishments" >
-    <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
-      <i style="cursor: pointer;" data-id="{{_id}}" class="infoRouteTransportationEstablishment far fa-eye mr-2" data-toggle="modal" data-target="#infoRouteTransportationEstablishment" ></i>
-    </span>
-    {{#if isOperator}}
-      <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
-        <i style="cursor: pointer;" data-id="{{_id}}" class="infoRouteTransportationEstablishment far fa-edit mr-2" data-toggle="modal" data-target="#editRouteTransportationEstablishment"></i>
+  {{#if isCreatePackage}}
+    {{#if (isEqual _id packageRouteTransport )}}
+      <span class="text-success" data-toggle="tooltip" data-placement="top" title="Desempaquetar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="unPackageEntity fas fa-box"></i>
       </span>
-      <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
-        <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRouteTransportationEstablishment far fa-trash-alt"></i>
+    {{else}}
+      <span data-toggle="tooltip" data-placement="top" title="Empaquetar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="packageEntity fas fa-box"></i>
       </span>
     {{/if}}
+  {{/if}}
+  <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar más información" >
+    <i style="cursor: pointer;" data-id="{{_id}}" class="infoRouteTransportationEstablishment far fa-eye mr-2" data-toggle="modal" data-target="#infoRouteTransportationEstablishment" ></i>
+  </span>
+  {{#if isOperator}}
+    <span  class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="infoRouteTransportationEstablishment far fa-edit mr-2" data-toggle="modal" data-target="#editRouteTransportationEstablishment"></i>
+    </span>
+    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRouteTransportationEstablishment far fa-trash-alt"></i>
+    </span>
+  {{/if}}
+  </template>
+
+
+  <template name="showStarTransportation" >
+    <div>
+      <p>
+        {{#each (list rating)}}
+          <i style="font-size: 1.3rem;  pointer-events: none;" id="{{id}}" class="{{class}}"></i>
+        {{/each}}
+      </p>
+    </div>
   </template>

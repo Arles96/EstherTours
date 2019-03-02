@@ -107,6 +107,9 @@ FleetRenterSchema.messageBox.messages(messages);
 FleetRenter.helpers({
   getRenterName: function () {
     return Renters.findOne({ _id: this.idRenter }).name;
+  },
+  textRate: function() {
+    return this.rate.toFixed(2);
   }
 });
 

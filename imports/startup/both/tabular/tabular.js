@@ -212,7 +212,7 @@ TabularTables.FleetsRenter = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['menage', 'idRenter', 'models', 'brands', 'images'],
+  extraFields: ['menage', 'idRenter', 'models', 'brands', 'images', 'rate'],
   columns: [
     {
       class: 'text-center',
@@ -226,7 +226,7 @@ TabularTables.FleetsRenter = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'rate',
+      data: 'textRate()',
       title: 'Tarifa'
     },
     {
@@ -344,7 +344,7 @@ TabularTables.restaurantOffers = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['idRestaurant'],
+  extraFields: ['idRestaurant', 'price'],
   columns: [
     {
       class: 'text-center',
@@ -358,7 +358,7 @@ TabularTables.restaurantOffers = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'price',
+      data: 'textPriceRestaurant()',
       title: 'Precio'
     },
     {
@@ -536,11 +536,11 @@ TabularTables.RoomHotel = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['menage', 'idHotel'],
+  extraFields: ['menage', 'idHotel', 'price'],
   columns: [
     {
       class: 'text-center',
-      data: 'price',
+      data: 'textPrice()',
       title: 'Precio'
     },
     {
@@ -580,11 +580,11 @@ TabularTables.RateHotel = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['idHotel'],
+  extraFields: ['idHotel', 'price'],
   columns: [
     {
       class: 'text-center',
-      data: 'price',
+      data: 'textPrice()',
       title: 'Precio'
     },
     {
@@ -614,6 +614,7 @@ TabularTables.Attractions = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
+  extraFields: ['price'],
   columns: [
     {
       class: 'text-center',
@@ -627,13 +628,8 @@ TabularTables.Attractions = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'price',
+      data: 'textPrice()',
       title: 'Costo'
-    },
-    {
-      class: 'text-center',
-      data: 'street',
-      title: 'Calle'
     },
     {
       class: 'text-center',
@@ -820,7 +816,7 @@ TabularTables.FleetTransportationEstablishment = new Tabular.Table({
     smart: true,
     onEnterOnly: false
   },
-  extraFields: ['idTransportationEstablishment'],
+  extraFields: ['idTransportationEstablishment', 'rate'],
   columns: [
     {
       class: 'text-center',
@@ -829,7 +825,7 @@ TabularTables.FleetTransportationEstablishment = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'rate',
+      data: 'textRate()',
       title: 'Tarifa'
     },
     {
@@ -911,7 +907,7 @@ TabularTables.Guides = new Tabular.Table({
     onEnterOnly: false
   },
   extraFields: [
-    'email', 'street', 'telephone',
+    'email', 'street', 'telephone', 'website',
     'license', 'categorization', 'services',
     'paymentMethods', 'money', 'languages', 'creditCards'
   ],
@@ -968,6 +964,7 @@ TabularTables.Packages = new Tabular.Table({
     'license', 'categorization', 'services',
     'paymentMethods', 'money', 'languages', 'creditCards'
   ], */
+  extraFields: ['price'],
   columns: [
     {
       class: 'text-center',
@@ -976,7 +973,7 @@ TabularTables.Packages = new Tabular.Table({
     },
     {
       class: 'text-center',
-      data: 'price',
+      data: 'textPrice()',
       title: 'Precio'
     },
     {

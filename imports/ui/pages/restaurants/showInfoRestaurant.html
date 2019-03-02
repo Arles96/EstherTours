@@ -19,7 +19,7 @@
                 <label for="">
                   <b>Sitio web:</b>
                     {{#if website}}
-                      <a href="{{urlTag(website)}}">{{website}}</a>
+                      <a target="_blank" href="{{website}}">{{website}}</a>
                     {{else}}
                       No tiene
                     {{/if}}
@@ -34,6 +34,12 @@
                 {{#each telephone }}
                   <li>{{this}}</li>
                 {{/each}}
+              </div>
+            </div>
+            <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+              <div class="form-group mt-1">
+                <b>Categorización:</b>
+                  {{>showStarRating}}
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -136,14 +142,6 @@
                 </label>
               </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <div class="form-group">
-                  <label for="">
-                    <b>Categorización:</b>
-                  </label>
-                  <p>{{rating}} estrellas</p>
-                </div>
-              </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <div class="form-group">
                 <label for="">
@@ -249,17 +247,6 @@
               {{>editRestaurantOffer}}
             {{/if}}
           </div>
-          {{#if showBranches isOperator}}
-            <div class="col-12 mt-3 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <h4 class="text-center mt-3">Sucursales de {{restaurant.name}}</h4>
-                <div>
-                  <a class="btn btn-outline-primary ml-3" href="/branch-restaurant/{{restaurant._id}}" >
-                    Agregar
-                  </a>
-                </div>
-              {{> tabular table=TabularTables.restaurantBranches selector=(branchSelector restaurant._id) class="table table-hover table-bordered"}}
-            </div>
-          {{/if}}
         </div>
       </div>
     </div>
@@ -279,17 +266,3 @@
       </span>
     {{/if}}
   </template>
-
-<template name="showButtonRestaurantBranches" >
-  <a style="text-decoration: none;" href="/show-restaurant/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
-    <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
-  </a>
-  {{#if isOperator}}
-    <a style="text-decoration: none;" href="/edit-restaurant/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
-      <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
-    </a>
-    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
-      <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRestaurant far fa-trash-alt"></i>
-    </span>
-  {{/if}}
-</template>
