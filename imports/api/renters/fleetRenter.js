@@ -59,13 +59,11 @@ const FleetRenterSchema = new SimpleSchema({
   },
   vehicleTypes: {
     type: String,
-    label: 'Tipo de Vehículo',
-    regEx: RegExObj.names
+    label: 'Tipo de Vehículo'
   },
   brands: {
     type: String,
-    label: 'Marca de Vehículo',
-    regEx: RegExObj.names
+    label: 'Marca de Vehículo'
   },
   models: {
     type: String,

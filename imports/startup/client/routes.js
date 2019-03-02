@@ -1551,7 +1551,7 @@ Router.route('/add-packages', {
   onBeforeAction: function () {
     Session.set('ShowChatFixed', true);
     listBreadcrumb(['Agregar Paquetes']);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 
@@ -1573,7 +1573,7 @@ Router.route('/list-packages', {
     Session.set('ShowChatFixed', true);
     listBreadcrumb(['Tabla de Paquetes']);
     Session.set('listPackages', undefined);
-    isOperator(this);
+    isLoggedIn2(this);
   }
 });
 

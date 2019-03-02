@@ -32,7 +32,11 @@ AutoForm.addHooks('editHotelForm', {
     Router.go('/list-hotels');
   },
   onError: function (formtype, error) {
-    toastr.error(error);
+    if (error.error === 'Repeated Branch') {
+      toastr.error(new Error('Ya existe un hotel con esas direcciones!'));
+    } else {
+      toastr.error(error);
+    }
   }
 });
 
