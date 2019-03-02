@@ -89,7 +89,7 @@ Meteor.methods({
 
     if (doc.contact) {
       const arr = doc.contact.map(Element => new RegExp(`.*${Element}.*`, 'i'));
-      doc.contact = { $in: arr };
+      doc.contact = { $in: arr }; // eslint-disable-line
     } else {
       docVals.contact = ['No definido.'];
     }

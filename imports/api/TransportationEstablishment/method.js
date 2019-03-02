@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
-import { TransportationEstablishments, TransportationEstablishmentSchema } from './TransportationEstablishment';
+import XLSX from 'xlsx';
+import { TransportationEstablishments, TransportationEstablishmentSchema, transportToExcel } from './TransportationEstablishment';
 import { FleetTransportationEstablishment, FleetTransportationEstablishmentSchema } from './FleetTransportationEstablishment';
-import { RouteTransportationEstablishment, RouteTransportationEstablishmentSchema } from './RouteTransportationEstablishment';
+import { RouteTransportationEstablishment, RouteTransportationEstablishmentSchema, routeTransportToExcel } from './RouteTransportationEstablishment';
 import { operator, consultant, admin } from '../roles/roles';
 import TransportConsultSchema from './transportConsult';
 import { userActivities } from '../userActivities/userActivities';
@@ -334,5 +335,26 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
+  },
+  exportTransportsToExcel: function () {
+    // workbook
+    const wb = XLSX.utils.book_new();
+    const data = [];
+
+    TransportationEstablishments.find({}).forEach(doc => {
+      const transportRes = transportToExcel(doc._id, doc, false);
+      data.push(...transportRes);
+
+      RouteTransportationEstablishment
+        .find({ idTransportationEstablishment: doc._id })
+        .forEach(routeDoc => {
+          const routeRes = routeTransportToExcel(routeDoc._id, routeDoc, false);
+          data.push(...routeRes);
+        });
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Establecimientos de transporte');
+    return wb;
   }
 });
