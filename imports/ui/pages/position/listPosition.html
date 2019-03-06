@@ -13,12 +13,12 @@
           {{> tabular table=TabularTables.Position selector=selector class="table table-hover table-bordered"}}
         </div>
       </div>
-    {{>PositionModal}}
+    {{>positionModal positionId=positionId }}
   </div>
 </template>
 
 
-<template name="PositionModal" >
+<template name="positionModal" >
   <div class="modal fade" id="PositionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -37,7 +37,7 @@
           <div class="modal-body">
             {{#if positionId }}
               {{#autoForm
-                id="AddPositionForm"
+                id="updatePositionForm"
                 schema=PositionSchema
                 type="method-update"
                 meteormethod="updatePosition"
@@ -68,10 +68,10 @@
 </template>
 
 <template name="showButtonPosition" >
-  <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
-    <i style="cursor: pointer;" class="far fa-edit mr-2"  data-toggle="modal" data-target="#PositionModal" ></i>
+  <span class="text-dark updatePosition" data-toggle="tooltip" data-placement="top" title="Editar" >
+    <i style="cursor: pointer;" class="far fa-edit mr-2" ></i>
   </span>
   <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
-    <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRestaurant far fa-trash-alt"></i>
+    <i style="cursor: pointer;" data-id="{{_id}}" class="deletePosition far fa-trash-alt"></i>
   </span>
 </template>
