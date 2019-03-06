@@ -34,6 +34,7 @@ const RestaurantSchema = new SimpleSchema({
   email: {
     type: String,
     label: 'Correo',
+    optional: true,
     regEx: RegExObj.email
   },
   website: {
@@ -186,7 +187,8 @@ const RestaurantSchema = new SimpleSchema({
   },
   numbersTables: {
     type: Number,
-    label: 'N. de Mesas',
+    label: 'N. de Mesas (Opcional)',
+    optional: true,
     regEx: RegExObj.isNumber,
     custom: function () {
       if (this.value < 0) {
@@ -197,7 +199,8 @@ const RestaurantSchema = new SimpleSchema({
   },
   numbersChairs: {
     type: Number,
-    label: 'N. de Sillas',
+    optional: true,
+    label: 'N. de Sillas (Opcional)',
     regEx: RegExObj.isNumber,
     custom: function () {
       if (this.value < 0) {
@@ -208,7 +211,8 @@ const RestaurantSchema = new SimpleSchema({
   },
   numbersChairsBabies: {
     type: Number,
-    label: 'N. de Sillas para Bebés',
+    optional: true,
+    label: 'N. de Sillas para Bebés (Opcional)',
     regEx: RegExObj.isNumber,
     custom: function () {
       if (this.value < 0) {
@@ -219,7 +223,8 @@ const RestaurantSchema = new SimpleSchema({
   },
   maxPersonCapacity: {
     type: Number,
-    label: 'Capacidad Máxima de Personas',
+    optional: true,
+    label: 'Capacidad Máxima de Personas (Opcional)',
     regEx: RegExObj.isNumber,
     custom: function () {
       if (this.value < 0) {
@@ -273,7 +278,114 @@ Restaurants.helpers({
   }
 });
 
+function restaurantToExcel (id, doc = null, headers = true) {
+  let restaurant;
+
+  if (doc) {
+    restaurant = doc;
+  } else {
+    restaurant = Restaurants.findOne({ _id: id });
+  }
+
+  const res = [];
+  if (restaurant) {
+    // headers
+    if (headers) {
+      res.push(['Restaurante']);
+    }
+    res.push([
+      'Nombre',
+      'Sucursal',
+      'Departamento',
+      'Municipio',
+      'Ciudad',
+      'Calle',
+      'Estrellas',
+      'Mesas',
+      'Sillas',
+      'Sillas para bebes',
+      'Capacidad',
+      'Facilidades para discapacitados',
+      'Barra',
+      'Sala de espera',
+      'Monedas aceptadas',
+      'Telefonos',
+      'Servicios',
+      'Metodos de pago',
+      'Menu',
+      'Ambiente',
+      'Menajes'
+    ]);
+
+    // datos que no son arreglos
+    res.push([
+      restaurant.name,
+      restaurant.branchOffice ? 'Si' : 'No',
+      restaurant.department,
+      restaurant.municipality,
+      restaurant.city,
+      restaurant.street,
+      restaurant.rating,
+      restaurant.numbersTables,
+      restaurant.numbersChairs,
+      restaurant.numbersChairsBabies,
+      restaurant.maxPersonCapacity,
+      restaurant.facilityPeople ? 'Si' : 'No',
+      restaurant.bar ? 'Si' : 'No',
+      restaurant.waitingRoom ? 'Si' : 'No',
+      restaurant.money[0] ? restaurant.money[0] : '',
+      restaurant.telephone[0] ? restaurant.telephone[0] : '',
+      restaurant.services[0] ? restaurant.services[0] : '',
+      restaurant.paymentMethods[0] ? restaurant.paymentMethods[0] : '',
+      restaurant.menu[0] ? restaurant.menu[0] : '',
+      restaurant.ambience[0] ? restaurant.ambience[0] : '',
+      restaurant.menages[0] ? restaurant.menages[0] : ''
+    ]);
+
+    // datos que son arreglos
+    const max = Math.max(...[
+      restaurant.money.length,
+      restaurant.telephone.length,
+      restaurant.services.length,
+      restaurant.paymentMethods.length,
+      restaurant.menu.length,
+      restaurant.ambience.length,
+      restaurant.menages.length
+    ]);
+
+    for (let i = 1; i < max; i += 1) {
+      res.push([
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        restaurant.money[i] ? restaurant.money[i] : '',
+        restaurant.telephone[i] ? restaurant.telephone[i] : '',
+        restaurant.services[i] ? restaurant.services[i] : '',
+        restaurant.paymentMethods[i] ? restaurant.paymentMethods[i] : '',
+        restaurant.menu[i] ? restaurant.menu[i] : '',
+        restaurant.ambience[i] ? restaurant.ambience[i] : '',
+        restaurant.menages[i] ? restaurant.menages[i] : ''
+      ]);
+    }
+
+    res.push([]);
+  }
+  return res;
+}
+
 export {
   RestaurantSchema,
-  Restaurants
+  Restaurants,
+  restaurantToExcel
 };

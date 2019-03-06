@@ -72,4 +72,46 @@ RoomHotel.helpers({
   }
 });
 
-export { RoomHotel, RoomHotelSchema };
+function roomToExcel (id, doc = null, headers = true) {
+  let room;
+
+  if (doc) {
+    room = doc;
+  } else {
+    room = RoomHotel.findOne({ _id: id });
+  }
+
+  const res = [];
+  if (room) {
+    // headers
+    if (headers) {
+      res.push(['Cuarto de Hotel']);
+    }
+    res.push(['Tipo de habitacion', 'Tamaño', 'Precio', 'Camas extra', 'Menajes']);
+
+    // datos que no son arreglos
+    res.push([
+      room.type,
+      room.roomSize,
+      room.price,
+      room.extraBed,
+      room.menage[0] ? room.menage[0] : ''
+    ]);
+
+    // datos que son arreglos
+    for (let i = 1; i < room.menage.length; i += 1) {
+      res.push([
+        '',
+        '',
+        '',
+        '',
+        room.menage[i] ? room.menage[i] : ''
+      ]);
+    }
+
+    res.push([]);
+  }
+  return res;
+}
+
+export { RoomHotel, RoomHotelSchema, roomToExcel };

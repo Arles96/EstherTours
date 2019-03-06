@@ -1,4 +1,6 @@
 import './filterPackage.html';
+import './emailPackage';
+import '../../components/sellPackageModal/sellPackageModal';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
@@ -84,6 +86,9 @@ Template.filterPackage.helpers({
 });
 
 Template.filterPackage.events({
+  'click .emailPackage' (event, templateInstance) {
+    Session.set('emailPackageId', this._id);
+  },
   'input #sliderMax' (event, templateInstance) {
     templateInstance.precioMax.set(event.currentTarget.value);
   },
@@ -102,5 +107,15 @@ Template.filterPackage.events({
   },
   'change #municipality' (event, templateInstance) {
     templateInstance.municipality.set(event.currentTarget.value);
+  }
+});
+
+Template.filterResultPackage.events({
+  'click .sellPackage': function () {
+    const { _id, name, price } = this;
+    Session.set('soldPackagePrice', price);
+    Session.set('soldPackageName', name);
+    Session.set('soldPackageId', _id);
+    $('#sellPackageModal').modal('show');
   }
 });

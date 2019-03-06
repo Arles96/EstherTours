@@ -1,4 +1,4 @@
-<template name="dashboardNavbar" >
+<template name="dashboardNavbar">
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
     <a class="navbar-brand mr-1" href="/dashboard">Esther Tours</a>
@@ -21,32 +21,65 @@
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
+      {{#if isOperator}}
+        <li class="nav-item dropdown no-arrow mx-1">
+          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-box"></i>
+            {{#if isCreatePackage}}
+              <span class="badge badge-danger">.</span>
+            {{/if}}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+            {{#if isCreatePackage}}
+              <a class="dropdown-item" href="/adding-package">Ver Paquete</a>
+              <a id="deletePackage" class="dropdown-item" href="#">Eliminar Paquete</a>
+            {{else}}
+              <a id="createPackage" class="dropdown-item" href="#">Iniciar empaquetado</a>
+            {{/if}}
+          </div>
+        </li>
+      {{/if}}
+      <!-- {{#if isConsultant}}
+        <li class="nav-item dropdown no-arrow mx-1">
+          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-box"></i>
+            {{#if isCreatePackage}}
+              <span class="badge badge-danger">.</span>
+            {{/if}}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+            {{#if isCreatePackage}}
+              <a class="dropdown-item" href="/adding-package">Ver Paquete</a>
+              <a id="deletePackage" class="dropdown-item" href="#">Eliminar Paquete</a>
+            {{else}}
+              <a id="createPackage" class="dropdown-item" href="#">Iniciar empaquetado</a>
+            {{/if}}
+          </div>
+        </li>
+      {{/if}} -->
       <li class="nav-item dropdown no-arrow mx-1">
-        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-bell fa-fw"></i>
-          <span class="badge badge-danger">9+</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown no-arrow mx-1">
-        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-envelope fa-fw"></i>
-          <span class="badge badge-danger">7</span>
+          {{#if hasNotifications}}
+          <span class="badge badge-danger">{{cantNotifications}}</span>
+          {{/if}}
         </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+        <div id="ChatNotifications" class="dropdown-menu dropdown-menu-right chatNotificationMenu" aria-labelledby="messagesDropdown">
+          {{#each noti in getNotifications}}
+          <a id={{noti.idIssuer}} class="dropdown-item chatWithNotification chatNotificationItem" href="#">
+            <span class="badge badge-pill badge-dark">{{noti.amount}}</span>
+            {{getIssuer noti.idIssuer }}:
+            <small><i>{{noti.lastMessage}}</i></small>
+          </a>
+          {{else}}
+          <i>No hay notificaciones</i>
+          {{/each}}
         </div>
       </li>
       <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user-circle fa-fw"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -58,4 +91,5 @@
       </li>
     </ul>
   </nav>
+  {{>namePackageModal title="Agregando Nombre Paquete" }}
 </template>

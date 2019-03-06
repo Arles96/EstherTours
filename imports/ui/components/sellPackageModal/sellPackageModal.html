@@ -1,0 +1,35 @@
+<template name="sellPackageModal" >
+<!-- Modal -->
+<div class="modal fade" id="sellPackageModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Venta de Paquete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{#autoForm
+          id="addSoldPackageForm"
+          schema=SoldPackageSchema
+          type="method"
+          meteormethod="addSoldPackage"
+        }}
+          {{>afQuickField type="hidden" name="price" value=price }}
+          {{>afQuickField type="hidden" name="namePackage" value=namePackage }}
+          {{>afQuickField type="hidden" name="idPackage" value=idPackage }}
+          {{>afQuickField name="feedback" }}
+          {{>afQuickField name="sold" }}
+          <div class="text-center mt-4">
+            <button class="btn btn-primary w-75" type="submit">Agregar</button>
+          </div>
+        {{/autoForm}}
+      </div>
+    </div>
+  </div>
+</div>
+{{#if isConsultant}}
+  {{>addSubscription}}
+{{/if}}
+</template>

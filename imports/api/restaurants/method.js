@@ -1,13 +1,24 @@
 import { Meteor } from 'meteor/meteor';
-import { RestaurantSchema, Restaurants } from './restaurants';
+import XLSX from 'xlsx';
+import { RestaurantSchema, Restaurants, restaurantToExcel } from './restaurants';
 import { restaurantOffers, restaurantOffersSchema } from './restaurantOffers';
 import RestaurantConsultSchema from './restaurantConsult';
-import { operator, consultant, admin } from '../roles/roles';
+import { userActivities } from '../userActivities/userActivities';
+import { operator } from '../roles/roles';
 
 Meteor.methods({
   addRestaurant: function (doc) {
     RestaurantSchema.validate(doc);
     Restaurants.insert(doc);
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      activity: 'agregó',
+      collection: 'restaurantes',
+      registerId: 'N/D',
+      register: doc.name,
+      date: new Date()
+    });
   },
   addRestaurantBranch: function (doc) {
     RestaurantSchema.validate(doc);
@@ -29,13 +40,22 @@ Meteor.methods({
       mainOffice: doc.mainOffice
     };
 
-    const parentCheck = Restaurants.find(queryP).map(d => d);
-    const siblingCheck = Restaurants.find(queryS).map(d => d);
+    const parentCheck = Restaurants.findOne(queryP);
+    const siblingCheck = Restaurants.findOne(queryS);
 
-    if (parentCheck.length > 0 || siblingCheck.length > 0) {
+    if (parentCheck || siblingCheck) {
       throw new Meteor.Error('Repeated Branch');
     } else {
       Restaurants.insert(doc);
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregó sucursal',
+        collection: 'restaurantes',
+        registerId: 'N/D',
+        register: doc.name,
+        date: new Date()
+      });
     }
   },
   consultRestaurant: function (doc) {
@@ -105,7 +125,18 @@ Meteor.methods({
       const { _id } = doc;
       RestaurantSchema.validate(data);
 
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'editó',
+        collection: 'restaurantes',
+        registerId: _id,
+        register: doc.name,
+        date: new Date()
+      });
+
       const query = {
+        _id: { $ne: _id },
         street: data.street,
         municipality: data.municipality,
         city: data.city,
@@ -114,9 +145,9 @@ Meteor.methods({
         mainOffice: data.mainOffice
       };
 
-      const repeatedCheck = Restaurants.find(query).map(d => d);
+      const repeatedCheck = Restaurants.findOne(query);
 
-      if (repeatedCheck.length > 0) {
+      if (repeatedCheck) {
         throw new Meteor.Error('Repeated Branch');
       } else {
         Restaurants.update({ _id: _id }, {
@@ -131,6 +162,15 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       restaurantOffersSchema.validate(doc);
       restaurantOffers.insert(doc);
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'agregó',
+        collection: 'restaurantOffers',
+        registerId: 'N/D',
+        register: doc.dishName,
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
@@ -145,6 +185,15 @@ Meteor.methods({
         });
       Restaurants.remove({ _id: id });
       restaurantOffers.remove({ idRestaurant: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'restaurantes',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
@@ -152,6 +201,15 @@ Meteor.methods({
   deleteRestaurantOffer: function (id) {
     if (Roles.userIsInRole(Meteor.userId(), operator)) {
       restaurantOffers.remove({ _id: id });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'eliminó',
+        collection: 'restaurantOffers',
+        registerId: 'N/D',
+        register: 'N/D',
+        date: new Date()
+      });
     } else {
       throw new Meteor.Error('Permiso Denegado.');
     }
@@ -168,6 +226,15 @@ Meteor.methods({
         Restaurants.update({ _id: _id }, {
           $set: data
         });
+        userActivities.insert({
+          userId: Meteor.userId(),
+          user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+          activity: 'editó',
+          collection: 'restaurantOffers',
+          registerId: 'N/D',
+          register: doc.dishName,
+          date: new Date()
+        });
       } else {
         throw new Meteor.Error('No se permiten valores repetidos en telefonos.');
       }
@@ -176,20 +243,27 @@ Meteor.methods({
     }
   },
   reportRestaurants: function (year) {
-    if (Roles.userIsInRole(Meteor.userId(), operator) ||
-      Roles.userIsInRole(Meteor.userId(), consultant) ||
-      Roles.userIsInRole(Meteor.userId(), admin)
-    ) {
-      const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-      Restaurants.find().fetch().forEach(item => {
-        const date = new Date(item.createAt);
-        if (date.getFullYear() === year.year) {
-          monthsCount[date.getMonth()] += 1;
-        }
-      });
-      return monthsCount;
-    } else {
-      throw new Meteor.Error('Permiso Denegado');
-    }
+    const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    Restaurants.find().fetch().forEach(item => {
+      const date = new Date(item.createAt);
+      if (date.getFullYear() === year.year) {
+        monthsCount[date.getMonth()] += 1;
+      }
+    });
+    return monthsCount;
+  },
+  exportRestaurantsToExcel: function () {
+    // workbook
+    const wb = XLSX.utils.book_new();
+    const data = [];
+
+    Restaurants.find({}).forEach(doc => {
+      const restaurantRes = restaurantToExcel(doc._id, doc, false);
+      data.push(...restaurantRes);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Restaurantes');
+    return wb;
   }
 });

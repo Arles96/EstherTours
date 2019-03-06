@@ -1,10 +1,12 @@
 import './listRestaurants.html';
 import '../../components/addRestaurantOffer/addRestaurantOffer';
+import XLSX from 'xlsx';
 import { Session } from 'meteor/session';
 import toastr from 'toastr';
 import { Meteor } from 'meteor/meteor';
 import Swal from 'sweetalert2';
 import { Restaurants } from '../../../api/restaurants/restaurants';
+import { packageRestaurant, unpackageRestaurant } from '../../../startup/client/packageFunction';
 
 Template.listRestaurants.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -39,6 +41,30 @@ Template.listRestaurants.helpers({
   selector: () => ({ branchOffice: false })
 });
 
+Template.listRestaurants.events({
+  'click #export-excel': function () {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: '¿Está seguro de exportar los restaurantes a Excel?',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('exportRestaurantsToExcel', (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            const filename = `Restaurantes ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filename);
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
+  }
+});
+
 Template.showButtonRestaurant.events({
   'click .addRestaurantOffer': function () {
     Session.set('idRestaurant', this._id);
@@ -63,5 +89,15 @@ Template.showButtonRestaurant.events({
         });
       }
     });
+  },
+  'click .packageEntity': function () {
+    const { _id, name } = Restaurants.findOne({ _id: this._id });
+    packageRestaurant(_id);
+    toastr.success(`Se ha empaquetado el restaurante ${name} exitosamente.`);
+  },
+  'click .unPackageEntity': function () {
+    const { name } = Restaurants.findOne({ _id: this._id });
+    unpackageRestaurant();
+    toastr.info(`Se ha desempaquetado el restaurante ${name} exitosamente`);
   }
 });
