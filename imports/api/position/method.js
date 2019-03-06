@@ -32,6 +32,8 @@ Meteor.methods({
       Roles.userIsInRole(Meteor.userId(), supervisor)) {
       if (!Meteor.users.findOne({ 'profile.position': _id })) {
         Position.remove({ _id });
+      } else {
+        throw Meteor.Error('No se puede eliminar este cargo porque esta siendo utilizado para un usuario');
       }
     } else {
       throw Meteor.Error('Permiso Denegado');

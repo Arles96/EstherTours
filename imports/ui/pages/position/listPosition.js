@@ -34,17 +34,25 @@ Template.listPosition.onCreated(() => {
   });
 });
 
-Template.listPosition.helpers({
-  positionId: () => Session.get('positionId')
+Template.positionModal.onRendered(() => {
+  $('#PositionModal').on('hide.bs.modal', () => {
+    Session.set('positionId', undefined);
+  });
 });
 
-Template.positionModal.onDestroyed(() => {
-  Session.set('positionId', undefined);
+Template.listPosition.helpers({
+  positionId: () => Session.get('positionId')
 });
 
 Template.positionModal.helpers({
   PositionSchema: () => PositionSchema,
   position: _id => Position.findOne({ _id })
+});
+
+Template.positionModal.events({
+  'click #closeModal': function () {
+    Session.set('positionId', undefined);
+  }
 });
 
 AutoForm.addHooks('updatePositionForm', {
@@ -69,6 +77,7 @@ AutoForm.addHooks('AddPositionForm', {
 Template.showButtonPosition.events({
   'click .updatePosition': function () {
     Session.set('positionId', this._id);
+    $('#PositionModal').modal('show');
   },
   'click .deletePosition': function () {
     const { _id } = this;

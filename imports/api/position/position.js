@@ -22,7 +22,7 @@ const PositionSchema = new SimpleSchema({
   createAt: {
     type: Date,
     optional: true,
-    autoValue: () => Meteor.userId()
+    autoValue: () => new Date()
   }
 }, { check: check, tracker: Tracker });
 
