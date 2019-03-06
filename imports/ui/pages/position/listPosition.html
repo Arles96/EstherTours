@@ -1,0 +1,77 @@
+<template name="listPosition" >
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i> Tabla de Cargos
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <button class="btn btn-success" data-toggle="modal" data-target="#PositionModal" >
+            Agregar
+          </button>
+        </div>
+        <div class="table-responsive">
+          {{> tabular table=TabularTables.Position selector=selector class="table table-hover table-bordered"}}
+        </div>
+      </div>
+    {{>PositionModal}}
+  </div>
+</template>
+
+
+<template name="PositionModal" >
+  <div class="modal fade" id="PositionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              {{#if positionId}}
+                Actualizar Cargo
+              {{else}}
+                Agregar Cargo
+              {{/if}}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{#if positionId }}
+              {{#autoForm
+                id="AddPositionForm"
+                schema=PositionSchema
+                type="method-update"
+                meteormethod="updatePosition"
+                doc=(position positionId )
+              }}
+                {{>afQuickField name="name" }}
+                <div class="text-center">
+                  <button class="btn btn-primary btn-block w-75" type="submit">Actualizar</button>
+                </div>
+              {{/autoForm}}
+            {{else}}
+              {{#autoForm
+                id="AddPositionForm"
+                schema=PositionSchema
+                type="method"
+                meteormethod="insertPosition"
+              }}
+                {{>afQuickField name="name" }}
+                <div class="text-center">
+                  <button class="btn btn-primary btn-block w-75" type="submit">Agregar</button>
+                </div>
+              {{/autoForm}}
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+</template>
+
+<template name="showButtonPosition" >
+  <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+    <i style="cursor: pointer;" class="far fa-edit mr-2"  data-toggle="modal" data-target="#PositionModal" ></i>
+  </span>
+  <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+    <i style="cursor: pointer;" data-id="{{_id}}" class="deleteRestaurant far fa-trash-alt"></i>
+  </span>
+</template>

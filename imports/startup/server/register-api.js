@@ -52,3 +52,7 @@ import '../../api/Chats/server/publication';
 // Api de Notificaciones
 import '../../api/Notifications/method';
 import '../../api/Notifications/server/publication';
+
+// Api de Cargos
+import '../../api/position/server/publication';
+import '../../api/position/method';
