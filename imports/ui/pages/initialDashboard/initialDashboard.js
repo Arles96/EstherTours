@@ -62,12 +62,8 @@ Template.initialDashboard.helpers({
   CantNotifications: () => Notifications.find({ idReceiver: Meteor.userId() }).count(),
   CantActivity: () => {
     moment.locale('es');
-    const date = new Date().toISOString().split('T');
     const counts = userActivities.find({
-      userId: Meteor.userId(),
-      date: {
-        $gte: new Date(`${date[0]}T00:00:00`)
-      }
+      userId: Meteor.userId()
     });
     return counts.count();
   }
