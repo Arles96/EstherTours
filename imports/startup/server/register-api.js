@@ -37,6 +37,7 @@ import '../../api/attractions/server/publications';
 
 // Api de actividades
 import '../../api/userActivities/method';
+import '../../api/userActivities/server/publications';
 
 // Api de imagenes de perfil
 import '../../api/profileImage/publication';

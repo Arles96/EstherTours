@@ -5,6 +5,12 @@ import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
 import Chart from 'chart.js';
 import toastr from 'toastr';
+import { Notifications } from '../../../api/Notifications/Notification';
+import { userActivities } from '../../../api/userActivities/userActivities';
+
+const moment = require('moment');
+
+require('moment/min/locales.min');
 
 Template.initialDashboard.onCreated(function createVars () {
   const date = new Date();
@@ -21,6 +27,7 @@ Template.initialDashboard.onCreated(function createVars () {
   this.renterChart = new ReactiveVar('none');
   this.transportChart = new ReactiveVar('none');
   this.packageChart = new ReactiveVar('none');
+  this.personalActivitiesCount = new ReactiveVar(0);
 });
 
 Template.initialDashboard.onRendered(() => {
@@ -51,7 +58,19 @@ Template.initialDashboard.helpers({
       default: return null;
     }
   },
-  maxYear: () => Template.instance().maxYear.get()
+  maxYear: () => Template.instance().maxYear.get(),
+  CantNotifications: () => Notifications.find({ idReceiver: Meteor.userId() }).count(),
+  CantActivity: () => {
+    moment.locale('es');
+    const date = new Date().toISOString().split('T');
+    const counts = userActivities.find({
+      userId: Meteor.userId(),
+      date: {
+        $gte: new Date(`${date[0]}T00:00:00`)
+      }
+    });
+    return counts.count();
+  }
 });
 
 Template.initialDashboard.events({
