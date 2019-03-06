@@ -14,11 +14,7 @@ Template.addUserModal.helpers({
   branchOffices: () => (branchOffices.find().map(doc => ({
     label: `${doc.departament}`,
     value: doc._id
-  }))),
-  prueba: function () {
-    console.log(branchOffices.find().fetch());
-    return 'prueba';
-  }
+  })))
 });
 
 AutoForm.addHooks('editUserForm', {

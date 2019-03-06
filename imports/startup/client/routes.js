@@ -195,7 +195,8 @@ Router.route('/users', {
     return [
       Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('branchOffices.all'),
-      Meteor.subscribe('chats.all')
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('position.all')
     ];
   },
   onBeforeAction: function () {
@@ -1887,8 +1888,7 @@ Router.route('/activities-filtered', {
     return [
       Meteor.subscribe('users.all'),
       Meteor.subscribe('notifications.all'),
-      Meteor.subscribe('chats.all'),
-      Meteor.subscribe('allUsers.all')
+      Meteor.subscribe('chats.all')
     ];
   }
 });
@@ -1901,6 +1901,9 @@ Router.route('/list-positions', {
   layoutTemplate: 'bodyAdmin',
   waitOn: function () {
     return [
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('branchOffices.all'),
+      Meteor.subscribe('chats.all'),
       Meteor.subscribe('position.all')
     ];
   },
