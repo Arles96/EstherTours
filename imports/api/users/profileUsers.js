@@ -8,7 +8,6 @@ import {
   supervisor
 } from '../roles/roles';
 import { messages, RegExObj } from '../regEx';
-import { Position } from '../position/position';
 
 SimpleSchema.extendOptions(['autoform']);
 
@@ -30,16 +29,7 @@ const ProfileUserSchema = new SimpleSchema({
   },
   position: {
     type: String,
-    label: 'Cargo',
-    autoform: {
-      firstOption: '(Seleccione Uno)',
-      options: function () {
-        return Position.find().fetch().map(doc => ({
-          label: doc.name,
-          value: doc._id
-        }));
-      }
-    }
+    label: 'Cargo'
   },
   role: {
     type: String,

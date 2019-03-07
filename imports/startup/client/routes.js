@@ -1902,7 +1902,6 @@ Router.route('/list-positions', {
   waitOn: function () {
     return [
       Meteor.subscribe('allUsers.all'),
-      Meteor.subscribe('branchOffices.all'),
       Meteor.subscribe('chats.all'),
       Meteor.subscribe('position.all')
     ];
