@@ -5,10 +5,17 @@
     </div>
     <div class="card-body">
       <select class = "form-control col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" id = "userSelector">
-          <option value = '-1'>(Seleccione uno)</option>
+          <option value = '0'>(Seleccione uno)</option>
           {{#each Users}}
             <option value = {{value}}>{{label}}</option>
           {{/each}}
+      </select>
+
+      <select class = "form-control col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" id = "roleSelector">
+        <option value = ''>(Seleccione uno)</option>
+        {{#each Roles}}
+          <option value = {{value}}>{{value}}</option>
+        {{/each}}
       </select>
 
       <div class="table-responsive">

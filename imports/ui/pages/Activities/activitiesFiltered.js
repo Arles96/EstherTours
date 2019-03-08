@@ -35,6 +35,8 @@ Template.userActivitiesFiltered.onCreated(function createVar () {
     }
   });
   this.myChart = new ReactiveVar(null);
+  Session.set('selectedUserActivities',{});
+  Session.set('selectedRoleActivities',{});
 });
 
 Template.userActivitiesFiltered.helpers({
@@ -42,17 +44,22 @@ Template.userActivitiesFiltered.helpers({
     label: `${doc.profile.firstName} ${doc.profile.lastName}, ${doc.roles[0]}`,
     value: doc._id
   }))),
-  selector: () => ({
-    userId: Session.get('selectedUserActivities')
-  })
+  Roles: () => ([{ value: 'Administrador' }, { value: 'Operador' }, { value: 'Consultor' }, { value: 'Supervisor' }]),
+  selector: () => (
+    // userId: Session.get('selectedUserActivities'), 
+    Session.get('selectedRoleActivities')
+    )
 });
 
 Template.userActivitiesFiltered.events({
   'change #userSelector' (event) {
-    Session.set('selectedUserActivities', event.currentTarget.value);
+    Session.set('selectedUserActivities', (event.currentTarget.value)?{userId: event.currentTarget.value}:{});
     Session.set('selectedUserActivitiesName', event.currentTarget.label);
     Template.instance().myChart.get().destroy();
     drawChart(Template.instance());
+  },
+  'change #roleSelector' (event) {
+    Session.set('selectedRoleActivities', (event.currentTarget.value)?{role: event.currentTarget.value}:{});
   }
 });
 

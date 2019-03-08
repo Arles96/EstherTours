@@ -16,6 +16,7 @@ Meteor.methods({
         userActivities.insert({
           userId: Meteor.userId(),
           user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+          role: Meteor.user().roles[0],
           activity: 'agregó',
           collection: 'hoteles',
           registerId: docId,
@@ -77,6 +78,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'editó',
         collection: 'hoteles',
         registerId: _id,
@@ -97,6 +99,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'hoteles',
         registerId: 'N/D',
@@ -115,6 +118,7 @@ Meteor.methods({
         userActivities.insert({
           userId: Meteor.userId(),
           user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+          role: Meteor.user().roles[0],
           activity: 'agregó',
           collection: 'habitaciones de hoteles',
           registerId: doc.idHotel,
@@ -138,6 +142,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'editó',
         collection: 'habitaciones de hoteles',
         registerId: [doc.idHotel, _id],
@@ -154,6 +159,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'habitaciones de hoteles',
         registerId: 'N/D',
@@ -173,6 +179,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'agregó',
         collection: 'tarifas de hoteles',
         registerId: doc.idHotel,
@@ -195,6 +202,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'editó',
         collection: 'tarifas de hoteles',
         registerId: [doc.idHotel, _id],
@@ -211,6 +219,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'tarifas de hoteles',
         registerId: 'N/D',
