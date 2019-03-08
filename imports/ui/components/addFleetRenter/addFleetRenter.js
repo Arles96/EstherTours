@@ -24,15 +24,19 @@ import FleetRenterImage from '../../../api/renters/fleetRenterImage';
 window.FleetRenterImage = FleetRenterImage;
 
 Template.addFleetRenter.onCreated(() => {
-  Session.set('firstOptionVehicleTypesRenter', '(Seleccione uno)');
-  Session.set('firstOptionBrandsRenter', '(Seleccione uno)');
-  Session.set('firstOptionModelsRenter', '(Seleccione uno)');
+  Session.set('valueType', null);
+  Session.set('valueVehicleType', null);
+  Session.set('valueBrand', null);
+  Session.set('firstOptionVehicleTypesRenter', '(Seleccione Tipo de Flota)');
+  Session.set('firstOptionBrandsRenter', '(Seleccione Tipo de Vehículo)');
+  Session.set('firstOptionModelsRenter', '(Seleccione Marca)');
 });
 
 Template.addFleetRenter.helpers({
   FleetRenterSchema: () => FleetRenterSchema,
   idRenter: () => Session.get('idRenter'),
-  vehicleTypes: type => {
+  vehicleTypes: () => {
+    const type = Session.get('valueType');
     if (type) {
       Session.set('firstOptionVehicleTypesRenter', '(Seleccione uno)');
       return vehicleTypes[type];
@@ -42,7 +46,8 @@ Template.addFleetRenter.helpers({
     }
   },
   vehicleTypeFirstOption: () => Session.get('firstOptionVehicleTypesRenter'),
-  brands: vehicleType => {
+  brands: () => {
+    const vehicleType = Session.get('valueVehicleType');
     if (vehicleType) {
       Session.set('firstOptionBrandsRenter', '(Seleccione uno)');
       return brands[vehicleType];
@@ -52,7 +57,9 @@ Template.addFleetRenter.helpers({
     }
   },
   brandsfirstOption: () => Session.get('firstOptionBrandsRenter'),
-  models: (brand, variable) => {
+  models: () => {
+    const brand = Session.get('valueBrand');
+    const variable = Session.get('valueVehicleType');
     if (!brand) {
       Session.set('firstOptionModelsRenter', '(Seleccione Marca)');
       return [];
@@ -109,9 +116,27 @@ Template.addFleetRenter.helpers({
   modelsfirstOption: () => Session.get('firstOptionModelsRenter')
 });
 
-AutoForm.addHooks('addFleetForm', {
+Template.addFleetRenter.events({
+  'input .SelectType': event => {
+    Session.set('valueType', event.currentTarget.value);
+    Session.set('valueVehicleType', null);
+    Session.set('valueBrand', null);
+  },
+  'input .SelectVehicleType': event => {
+    Session.set('valueVehicleType', event.currentTarget.value);
+    Session.set('valueBrand', null);
+  },
+  'input .SelectBrand': event => {
+    Session.set('valueBrand', event.currentTarget.value);
+  }
+});
+
+AutoForm.addHooks('addFleetRenterForm', {
   onSuccess: function (formtype, result) {
     toastr.success('Se ha agregado la flota exitosamente.');
+    Session.set('valueType', null);
+    Session.set('valueVehicleType', null);
+    Session.set('valueBrand', null);
   },
   onError: function (formtype, error) {
     toastr.error(error);
