@@ -7,12 +7,29 @@
 html {
   position: relative;
   min-height: 100%;
-  overflow: hidden;
 }
 
 body {
   height: 100%;
-  overflow: hidden;
+}
+
+.disable-scrollbars {
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.scrollable{
+  height: 100px;
+  overflow-y: scroll;
+  scrollbar-width: 10px;
+  -ms-overflow-style: scrollbar;
+  width: 225px;
+}
+
+.disable-scrollbars::-webkit-scrollbar { /* WebKit */
+  width: 0;
+  height: 0;
 }
 
 #wrapper {
@@ -23,7 +40,6 @@ body {
 
 #wrapper #content-wrapper {
   overflow-x: hidden;
-  overflow: hidden;
   width: 100%;
   padding-top: 1rem;
   padding-bottom: 80px;
@@ -111,15 +127,6 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   content: '\f107';
 }
 
-.disable-scrollbars {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE 10+ */
-  &::-webkit-scrollbar {
-    width: 0px;
-    background: transparent; /* Chrome/Safari/Webkit */
-  }
-}
-
 .navbar-nav .nav-item.dropdown.no-arrow .dropdown-toggle::after {
   display: none;
 }
@@ -146,7 +153,6 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   width: 90px !important;
   background-color: #212529;
   min-height: calc(100vh - 56px);
-  overflow: scroll;
 }
 
 .sidebar .nav-item:last-child {
@@ -170,6 +176,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   transform: none !important;
   left: calc(90px + 0.5rem) !important;
   margin: 0;
+  overflow-y: scroll;
 }
 
 .sidebar .nav-item .dropdown-menu.dropup {
@@ -191,9 +198,16 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 
 .sidebar.toggled {
   width: 0 !important;
+  overflow: hidden;
 }
 
 @media (min-width: 768px) {
+  .disable-scrollbars {
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+  }
+
   .sidebar {
     width: 225px !important;
   }
