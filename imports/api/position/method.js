@@ -28,15 +28,15 @@ Meteor.methods({
     }
   },
   removePosition: function (_id) {
-    if (Meteor.userIsInRole(Meteor.userId(), admin) ||
+    if (Roles.userIsInRole(Meteor.userId(), admin) ||
       Roles.userIsInRole(Meteor.userId(), supervisor)) {
       if (!Meteor.users.findOne({ 'profile.position': _id })) {
         Position.remove({ _id });
       } else {
-        throw Meteor.Error('No se puede eliminar este cargo porque esta siendo utilizado para un usuario');
+        throw new Meteor.Error('No se puede eliminar este cargo porque esta siendo utilizado para un usuario');
       }
     } else {
-      throw Meteor.Error('Permiso Denegado');
+      throw new Meteor.Error('Permiso Denegado');
     }
   }
 });
