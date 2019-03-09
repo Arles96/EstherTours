@@ -77,12 +77,12 @@ Meteor.methods({
     }
     return { doc, query };
   },
-  exportToExcel: function () {
+  exportToExcel: function (query = {}) {
     // workbook
     const wb = XLSX.utils.book_new();
 
     // por cada paquete existente creamos un worksheet
-    Packages.find({}).forEach(doc => {
+    Packages.find(query).forEach(doc => {
       const data = [];
 
       const renterRes = renterToExcel(doc.idRenter);
@@ -115,6 +115,88 @@ Meteor.methods({
       XLSX.utils.book_append_sheet(wb, ws, doc.name);
     });
 
+    return wb;
+  },
+  exportFilteredToExcel: function (queries) {
+    const { queryE, queryP } = queries;
+    const filterHotel = Hotels.find(queryE).map(element => element);
+    const filterRenters = Renters.find(queryE).map(element => element);
+    const fitlerRestaurant = Restaurants.find(queryE).map(element => element);
+    const fitlerTransportation = TransportationEstablishments.find(queryE).map(element => (
+      element
+    ));
+    const or = [];
+    if (filterHotel) {
+      const idHotel = {
+        $in: filterHotel.map(element => element._id)
+      };
+      or.push({ idHotel });
+    }
+    if (filterRenters) {
+      const idRenter = {
+        $in: filterRenters.map(element => element._id)
+      };
+      or.push({ idRenter });
+    }
+    if (fitlerRestaurant) {
+      const idRestaurant = {
+        $in: fitlerRestaurant.map(element => element._id)
+      };
+      or.push({ idRestaurant });
+    }
+    if (fitlerTransportation) {
+      const idTransport = {
+        $in: fitlerTransportation.map(element => element._id)
+      };
+      or.push({ idTransport });
+    }
+    if (or.length > 0) {
+      queryP.$or = or;
+    }
+
+    // workbook
+    const wb = XLSX.utils.book_new();
+
+    // por cada paquete existente creamos un worksheet
+    let empty = true;
+    Packages.find(queryP).forEach(doc => {
+      const data = [];
+
+      const renterRes = renterToExcel(doc.idRenter);
+      const fleetRenterRes = fleetRenterToExcel(doc.idFleetRenter);
+      const hotelRes = hotelsToExcel(doc.idHotel);
+      const roomRes = roomToExcel(doc.idRoom);
+      const transportRes = transportToExcel(doc.idTransport);
+      const routeRes = routeTransportToExcel(doc.idTransportRoute);
+      const restaurantRes = restaurantToExcel(doc.idRestaurant);
+
+      data.push(['Nombre del paquete', 'Precio', 'Observaciones']);
+      data.push([
+        doc.name,
+        doc.price,
+        doc.observation
+      ]);
+      data.push([]);
+
+      data.push(
+        ...renterRes,
+        ...fleetRenterRes,
+        ...hotelRes,
+        ...roomRes,
+        ...transportRes,
+        ...routeRes,
+        ...restaurantRes
+      );
+
+      const ws = XLSX.utils.aoa_to_sheet(data);
+      XLSX.utils.book_append_sheet(wb, ws, doc.name);
+      empty = false;
+    });
+
+    if (empty) {
+      const ws = XLSX.utils.aoa_to_sheet([[]]);
+      XLSX.utils.book_append_sheet(wb, ws, 'Vacio');
+    }
     return wb;
   },
   reportPackages: function (year) {

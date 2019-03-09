@@ -1,4 +1,7 @@
 import './filterRestaurants.html';
+import Swal from 'sweetalert2';
+import XLSX from 'xlsx';
+import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Restaurants } from '../../../api/restaurants/restaurants';
@@ -178,6 +181,83 @@ Template.filterRestaurants.events({
   },
   'change #municipality' (event, templateInstance) {
     templateInstance.municipality.set(event.currentTarget.value);
+  },
+  'click #export-filtered' (event, templateInstance) {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: '¿Está seguro de exportar los restaurantes a Excel?',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        const name = templateInstance.name.get();
+        const street = templateInstance.street.get();
+        const city = templateInstance.city.get();
+        const department = templateInstance.department.get();
+        const municipality = templateInstance.municipality.get();
+        const numbersTables = templateInstance.numbersTables.get();
+        const numbersChairs = templateInstance.numbersChairs.get();
+        const numbersChairsBabies = templateInstance.numbersChairsBabies.get();
+        const maxPersonCapacity = templateInstance.maxPersonCapacity.get();
+        const facilityPeople = templateInstance.facilityPeople.get();
+        const bar = templateInstance.bar.get();
+        const waitingRoom = templateInstance.waitingRoom.get();
+
+        const query = {
+          numbersTables: {
+            $lte: parseInt(numbersTables, 10)
+          },
+          numbersChairs: {
+            $lte: parseInt(numbersChairs, 10)
+          },
+          numbersChairsBabies: {
+            $lte: parseInt(numbersChairsBabies, 10)
+          },
+          maxPersonCapacity: {
+            $lte: parseInt(maxPersonCapacity, 10)
+          }
+        };
+
+        if (facilityPeople === 'true') {
+          query.facilityPeople = true;
+        }
+        if (bar === 'true') {
+          query.bar = true;
+        }
+        if (waitingRoom === 'true') {
+          query.waitingRoom = true;
+        }
+        if (Session.get('filterRestaurantStars')) {
+          query.rating = Session.get('filterRestaurantStars');
+        }
+        if (name) {
+          query.name = new RegExp(`.*${name}.*`, 'i');
+        }
+        if (street) {
+          query.street = new RegExp(`.*${street}.*`, 'i');
+        }
+        if (city) {
+          query.city = new RegExp(`.*${city}.*`, 'i');
+        }
+        if (department) {
+          query.department = department;
+        }
+        if (municipality) {
+          query.municipality = municipality;
+        }
+
+        Meteor.call('exportRestaurantsToExcel', query, (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            const filename = `Restaurantes ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filename);
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
   }
 });
 
