@@ -8,6 +8,7 @@ Template.officeEdit.onCreated(() => {
   Meteor.subscribe('branchOffices.all');
   Meteor.subscribe('allUsers.all');
   Meteor.subscribe('chats.all');
+  Meteor.subscribe('position.all');
 });
 
 Template.officeEdit.helpers({
