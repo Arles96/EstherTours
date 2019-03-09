@@ -92,6 +92,7 @@ import '../../ui/pages/shoppingPackage/shoppingPackage';
 import '../../ui/pages/ChatPage/ChatPage';
 import '../../ui/pages/Activities/activities';
 import '../../ui/pages/Activities/activitiesFiltered';
+import '../../ui/pages/position/listPosition';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -195,7 +196,8 @@ Router.route('/users', {
     return [
       Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('branchOffices.all'),
-      Meteor.subscribe('chats.all')
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('position.all')
     ];
   },
   onBeforeAction: function () {
@@ -1888,8 +1890,26 @@ Router.route('/activities-filtered', {
     return [
       Meteor.subscribe('users.all'),
       Meteor.subscribe('notifications.all'),
-      Meteor.subscribe('chats.all'),
-      Meteor.subscribe('allUsers.all')
+      Meteor.subscribe('chats.all')
     ];
+  }
+});
+
+/**
+ * Rutas para cargos
+ */
+Router.route('/list-positions', {
+  template: 'listPosition',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('position.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de Cargos']);
+    isSupervisorOrAdmin(this);
   }
 });
