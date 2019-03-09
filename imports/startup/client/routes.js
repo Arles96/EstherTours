@@ -130,6 +130,7 @@ Router.route('/dashboard', {
   layoutTemplate: 'bodyAdmin',
   template: 'initialDashboard',
   waitOn: () => [
+    Meteor.subscribe('activities.one', Meteor.userId()),
     Meteor.subscribe('notifications.all'),
     Meteor.subscribe('chats.all'),
     Meteor.subscribe('allUsers.all')
@@ -1733,6 +1734,7 @@ Router.route('/filter-packages', {
   waitOn: function () {
     return [
       Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
       Meteor.subscribe('chats.all'),
       Meteor.subscribe('allUsers.all')
     ];
