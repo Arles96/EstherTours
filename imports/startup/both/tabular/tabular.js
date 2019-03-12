@@ -18,6 +18,7 @@ import { branchOffices } from '../../../api/branchOffices/Offices';
 import { SoldPackage } from '../../../api/packages/soldPackage';
 import { Subscriptions } from '../../../api/subscriptions/subscriptions';
 import { userActivities } from '../../../api/userActivities/userActivities';
+import { Position } from '../../../api/position/position';
 
 const TabularTables = {};
 
@@ -1104,6 +1105,35 @@ TabularTables.Subscriptions = new Tabular.Table({
       class: 'text-center',
       createdCell: Meteor.isClient && function showButtonsSubs (cell, cellData, rowData) {
         return Blaze.renderWithData(Template.showButtonSubscriptions, {
+          _id: rowData._id,
+          slug: rowData.slug,
+          subscribed: rowData.subscribed
+        }, cell);
+      }
+    }
+  ]
+});
+
+TabularTables.Position = new Tabular.Table({
+  name: 'Position',
+  collection: Position,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  columns: [
+    {
+      class: 'text-center',
+      data: 'name',
+      title: 'Nombre del Cargo'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsSubs (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonPosition, {
           _id: rowData._id,
           slug: rowData.slug,
           subscribed: rowData.subscribed

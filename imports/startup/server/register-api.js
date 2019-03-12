@@ -37,6 +37,7 @@ import '../../api/attractions/server/publications';
 
 // Api de actividades
 import '../../api/userActivities/method';
+import '../../api/userActivities/server/publications';
 
 // Api de imagenes de perfil
 import '../../api/profileImage/publication';
@@ -52,3 +53,7 @@ import '../../api/Chats/server/publication';
 // Api de Notificaciones
 import '../../api/Notifications/method';
 import '../../api/Notifications/server/publication';
+
+// Api de Cargos
+import '../../api/position/server/publication';
+import '../../api/position/method';
