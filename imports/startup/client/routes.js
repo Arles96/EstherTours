@@ -93,6 +93,7 @@ import '../../ui/pages/ChatPage/ChatPage';
 import '../../ui/pages/Activities/activities';
 import '../../ui/pages/Activities/activitiesFiltered';
 import '../../ui/pages/position/listPosition';
+import '../../ui/pages/tours/listTours';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -1911,5 +1912,18 @@ Router.route('/list-positions', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Cargos']);
     isSupervisorOrAdmin(this);
+  }
+});
+
+/**
+ * Rutas para Excursiones
+ */
+Router.route('/list-tours', {
+  name: 'listTours',
+  template: 'listTours',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de Excursiones']);
+    isLoggedIn2(this);
   }
 });
