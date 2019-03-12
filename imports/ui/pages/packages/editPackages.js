@@ -44,6 +44,10 @@ AutoForm.addHooks('editPackagesForm', {
     Router.go('listPackages');
   },
   onError: function (formtype, error) {
-    toastr.error(error);
+    if (error.error) {
+      toastr.error(error.error);
+    } else {
+      toastr.error(error);
+    }
   }
 });

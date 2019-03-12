@@ -209,7 +209,7 @@ Template.packageResultRestaurant.events({
     toastr.info('Se guardo el restaurante al paquete!');
   },
   'click #packageRemoveRestaurant' () {
-    Session.set('packageRestaurantId', '');
+    Session.set('packageRestaurantId', null);
     toastr.info('Se quito el restaurante del paquete!');
   }
 });

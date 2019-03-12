@@ -170,8 +170,8 @@ Template.packageResultFleetRenter.events({
     toastr.info('Se guardo la flota al paquete!');
   },
   'click #packageRemoveFleet' () {
-    Session.set('packageRenterId', '');
-    Session.set('packageFleetId', '');
+    Session.set('packageRenterId', null);
+    Session.set('packageFleetId', null);
     toastr.info('Se quito la flota del paquete!');
   }
 });

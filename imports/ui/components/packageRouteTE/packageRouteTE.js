@@ -142,8 +142,8 @@ Template.packageResultRouteTE.events({
     toastr.info('Se guardo la ruta al paquete!');
   },
   'click #packageRemoveRoute' () {
-    Session.set('packageTEId', '');
-    Session.set('packageRouteId', '');
+    Session.set('packageTEId', null);
+    Session.set('packageRouteId', null);
     toastr.info('Se quito la ruta del paquete!');
   }
 });

@@ -139,8 +139,8 @@ Template.packageResultRoomHotel.events({
     toastr.info('Se guardo la habitacion al paquete!');
   },
   'click #packageRemoveRoom' () {
-    Session.set('packageHotelId', '');
-    Session.set('packageRoomId', '');
+    Session.set('packageHotelId', null);
+    Session.set('packageRoomId', null);
     toastr.info('Se quito la habitacion del paquete!');
   }
 });

@@ -35,21 +35,25 @@ Meteor.methods({
     }
   },
   updatePackages: function (doc) {
-    const data = doc.modifier.$set;
+    const data = { ...doc.modifier.$set, ...doc.modifier.$unset };
     const { _id } = doc;
-    PackagesSchema.validate(data);
-    Packages.update({ _id: _id }, {
-      $set: data
-    });
-    userActivities.insert({
-      userId: Meteor.userId(),
-      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
-      activity: 'editó',
-      collection: 'paquetes',
-      registerId: _id,
-      register: doc.name,
-      date: new Date()
-    });
+    if (data.idRenter || data.idGuide || data.idTransport || data.idRestaurant || data.idHotel) {
+      PackagesSchema.validate(data);
+      Packages.update({ _id }, {
+        $set: data
+      });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        activity: 'editó',
+        collection: 'paquetes',
+        registerId: _id,
+        register: doc.name,
+        date: new Date()
+      });
+    } else {
+      throw new Meteor.Error('Debe contener al menos un registro de las entidades');
+    }
   },
   deletePackage: function (id) {
     if (!SoldPackage.find({ idPackage: id })) {
