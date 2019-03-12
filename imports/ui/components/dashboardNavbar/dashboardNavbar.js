@@ -14,8 +14,20 @@ Template.dashboardNavbar.onCreated(() => {
 
 Template.dashboardNavbar.helpers({
   getNotifications: () => Notifications.find({ idReceiver: Meteor.userId() }),
-  hasNotifications: () => Notifications.find({ idReceiver: Meteor.userId() }).fetch().length > 0,
-  cantNotifications: () => Notifications.find({ idReceiver: Meteor.userId() }).fetch().length,
+  hasNotifications: () => {
+    const query = Notifications.find({ idReceiver: Meteor.userId() });
+    if (query) {
+      return query.count() > 0;
+    }
+    return false;
+  },
+  cantNotifications: () => {
+    const query = Notifications.find({ idReceiver: Meteor.userId() });
+    if (query) {
+      return query.count();
+    }
+    return 0;
+  },
   getIssuer: function (id) {
     const issuer = Meteor.users.findOne({ _id: id });
     if (issuer) {
