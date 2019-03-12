@@ -2,7 +2,7 @@ import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import { Mongo } from 'meteor/mongo';
-import { messages } from '../regEx';
+import { RegExObj, messages } from '../regEx';
 import { Guide } from '../guide/guide';
 import { Hotels } from '../hotels/hotels';
 import { RoomHotel } from '../hotels/roomhotel';
@@ -79,10 +79,6 @@ const PackagesSchema = new SimpleSchema({
     label: 'Restaurante',
     optional: true
   },
-  price: {
-    type: Number,
-    label: 'Precio'
-  },
   idHotel: {
     type: String,
     label: 'Hotel',
@@ -105,6 +101,50 @@ const PackagesSchema = new SimpleSchema({
       } else {
         return 1;
       }
+    }
+  },
+  price: {
+    type: Number,
+    label: 'Precio',
+    regEx: RegExObj.isNumber,
+    custom: function () {
+      if (this.value < 0) {
+        return 'lessZero';
+      }
+      return 1;
+    }
+  },
+  numAdults: {
+    type: Number,
+    label: 'Numero de adultos',
+    regEx: RegExObj.isNumber,
+    custom: function () {
+      if (this.value < 0) {
+        return 'lessZero';
+      }
+      return 1;
+    }
+  },
+  numChildren: {
+    type: Number,
+    label: 'Numero de niños',
+    regEx: RegExObj.isNumber,
+    custom: function () {
+      if (this.value < 0) {
+        return 'lessZero';
+      }
+      return 1;
+    }
+  },
+  numNights: {
+    type: Number,
+    label: 'Numero de noches',
+    regEx: RegExObj.isNumber,
+    custom: function () {
+      if (this.value < 0) {
+        return 'lessZero';
+      }
+      return 1;
     }
   },
   observation: {

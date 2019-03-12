@@ -16,34 +16,43 @@
             {{>afQuickField name="name"}}
           </div>
           <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="numAdults"}}
+          </div>
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="numChildren"}}
+          </div>
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="numNights"}}
+          </div>
+          <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-12">
             {{>afQuickField name="price"}}
           </div>
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {{>afQuickField name="observation"}}
           </div>
-          <div hidden class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRenter" value=renter}}
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField type="hidden" name="idRenter" value=renter}}
           </div>
-          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idFleetRenter" value=fleet}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField type="hidden" name="idFleetRenter" value=fleet}}
           </div>
-          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idTransport" value=TE}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField type="hidden" name="idTransport" value=TE}}
           </div>
-          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idTransportRoute" value=route}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField type="hidden" name="idTransportRoute" value=route}}
           </div>
-          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idHotel" value=hotel}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField type="hidden" name="idHotel" value=hotel}}
           </div>
-          <div hidden class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRoom" value=room}}
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField type="hidden" name="idRoom" value=room}}
           </div>
-          <div hidden class="col col-lg-6 col-md-6 col-sm-12 col-12">
-            {{>afQuickField name="idGuide"}}
+          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+            {{>afQuickField type="hidden" name="idGuide"}}
           </div>
-          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRestaurant" value=restaurant}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField type="hidden" name="idRestaurant" value=restaurant}}
           </div>
         </div>
         <div class="text-center mt-4">
