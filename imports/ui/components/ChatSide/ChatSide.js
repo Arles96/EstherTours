@@ -42,11 +42,23 @@ Template.chatSide.helpers({
     });
     return result;
   },
-  hasNotifications: id => Notifications.find({ idIssuer: id }).fetch().length > 0,
-  cantNotifications: id => Notifications.findOne({
-    idIssuer: id,
-    idReceiver: Meteor.userId()
-  }).amount,
+  hasNotifications: id => {
+    const query = Notifications.find({ idIssuer: id });
+    if (query) {
+      return query.count() > 0;
+    }
+    return false;
+  },
+  cantNotifications: id => {
+    const query = Notifications.findOne({
+      idIssuer: id,
+      idReceiver: Meteor.userId()
+    });
+    if (query) {
+      return query.amount;
+    }
+    return 0;
+  },
   maxOpenChats: () => {
     if (Object.keys(Session.get('chatWith')).length > 2) {
       return true;
