@@ -204,9 +204,13 @@ Template.packageResultRestaurant.helpers({
 });
 
 Template.packageResultRestaurant.events({
-  'click #packageAddRestaurant' (event, templateInstance) {
+  'click #packageAddRestaurant' () {
     Session.set('packageRestaurantId', this._id);
     toastr.info('Se guardo el restaurante al paquete!');
+  },
+  'click #packageRemoveRestaurant' () {
+    Session.set('packageRestaurantId', '');
+    toastr.info('Se quito el restaurante del paquete!');
   }
 });
 

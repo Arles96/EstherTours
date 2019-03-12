@@ -133,10 +133,15 @@ Template.packageResultRoomHotel.helpers({
 });
 
 Template.packageResultRoomHotel.events({
-  'click #packageAddRoom' (event, templateInstance) {
+  'click #packageAddRoom' () {
     Session.set('packageHotelId', this.idHotel);
     Session.set('packageRoomId', this._id);
     toastr.info('Se guardo la habitacion al paquete!');
+  },
+  'click #packageRemoveRoom' () {
+    Session.set('packageHotelId', '');
+    Session.set('packageRoomId', '');
+    toastr.info('Se quito la habitacion del paquete!');
   }
 });
 

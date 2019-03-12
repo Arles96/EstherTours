@@ -164,10 +164,15 @@ Template.packageResultFleetRenter.helpers({
 });
 
 Template.packageResultFleetRenter.events({
-  'click #packageAddFleet' (event, templateInstance) {
+  'click #packageAddFleet' () {
     Session.set('packageRenterId', this.idRenter);
     Session.set('packageFleetId', this._id);
     toastr.info('Se guardo la flota al paquete!');
+  },
+  'click #packageRemoveFleet' () {
+    Session.set('packageRenterId', '');
+    Session.set('packageFleetId', '');
+    toastr.info('Se quito la flota del paquete!');
   }
 });
 
