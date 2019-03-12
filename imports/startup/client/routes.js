@@ -13,6 +13,7 @@ import { Attractions } from '../../api/attractions/attractions';
 import { FleetRenter } from '../../api/renters/fleetRenter';
 import { RouteTransportationEstablishment } from '../../api/TransportationEstablishment/RouteTransportationEstablishment';
 import { RoomHotel } from '../../api/hotels/roomhotel';
+import { Tours } from '../../api/tours/tours';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -95,6 +96,7 @@ import '../../ui/pages/Activities/activitiesFiltered';
 import '../../ui/pages/position/listPosition';
 import '../../ui/pages/tours/listTours';
 import '../../ui/pages/tours/addTours';
+import '../../ui/pages/tours/editTours';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -1945,5 +1947,36 @@ Router.route('/add-tours', {
   onBeforeAction: function () {
     listBreadcrumb(['Agregando Excursión']);
     isOperator(this);
+  }
+});
+
+/**
+ * Ruta para actualizar los datos de excursión
+ */
+Router.route('/edit-tour/:id', {
+  name: 'editTours',
+  template: 'editTours',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('tours.one', this.params.id),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('toursImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
+    listBreadcrumb(['Tabla de Excursión', 'Actualizando Información de Excursion']);
+    Session.set('editAttractionCategorization', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      tour: Tours.findOne({ _id: id })
+    };
   }
 });

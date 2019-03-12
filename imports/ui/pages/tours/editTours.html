@@ -1,0 +1,84 @@
+<template name="editTours" >
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Editar Excursión
+    </div>
+    <div class="card-body">
+      {{#autoForm
+        id="editToursForm"
+        schema=ToursSchema
+        type="method-update"
+        meteormethod="editTours"
+        doc = tour
+      }}
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="title"}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="price"}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          {{>afQuickField name="description"}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="guide" options=data}}
+        </div>
+        <div class="col-12 cl-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="numberPersons" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="duration"}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="typeDuration"}}
+        </div>
+        <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="form-group mt-1">
+            <label class="mb-3">{{textCategorization attractions.categorization}}</label>
+            {{>updateStarTour}}
+          </div>
+          {{#if categorization}}
+            {{>afQuickField name="categorization" value=categorization }}
+          {{/if}}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="street" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="city" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="department" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="municipality" firstOption=firstOption options=(municipalities (afFieldValue name="department") ) }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="coin" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          {{>afQuickField name="paymentsMethod" }}
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {{>afQuickField name="images" }}
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <button type="submit" class="btn mx-auto btn-primary w-75" >Agregar</button>
+      </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>
+
+<template name="updateStarTour" >
+  <div>
+    <p>
+      {{#each list}}
+        <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+      {{/each}}
+    </p>
+  </div>
+</template>
