@@ -1032,7 +1032,7 @@ TabularTables.userActivities = new Tabular.Table({
     onEnterOnly: false
   },
   extraFields: [
-    'userId', 'registerId'
+    'userId', 'registerId', 'date'
   ],
   columns: [
     {
