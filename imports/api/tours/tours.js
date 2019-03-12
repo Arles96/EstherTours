@@ -3,6 +3,8 @@ import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import SimpleSchema from 'simpl-schema';
 import { RegExObj, messages } from '../regEx';
+import departments from '../departments/departments';
+import { paymentMethods, money } from '../money/money';
 
 const Tours = new Mongo.Collection('tours');
 
@@ -15,7 +17,10 @@ const ToursSchema = new SimpleSchema({
   },
   description: {
     type: String,
-    label: 'Descripción'
+    label: 'Descripción',
+    autoform: {
+      type: 'textarea'
+    }
   },
   price: {
     type: Number,
@@ -23,22 +28,55 @@ const ToursSchema = new SimpleSchema({
   },
   guide: {
     type: String,
-    label: 'Guía (Opcional)'
+    label: 'Guía (Opcional)',
+    optional: true
+  },
+  categorization: {
+    type: String,
+    label: 'Categorización',
+    autoform: {
+      readonly: true,
+      omit: true,
+      afFieldInput: {
+        type: 'hidden'
+      },
+      afFormGroup: {
+        label: false
+      }
+    }
   },
   duration: {
-    type: String,
+    type: Number,
     regEx: RegExObj.isNumber,
     label: 'Duración'
   },
-  typeDuraction: {
+  typeDuration: {
     type: String,
-    label: 'Tipo de Duración'
+    label: 'Tipo de Duración',
+    autoform: {
+      options: function () {
+        return [
+          {
+            label: 'Meses',
+            value: 'Meses'
+          },
+          {
+            label: 'Semanas',
+            value: 'Semanas'
+          },
+          {
+            label: 'Días',
+            value: 'Días'
+          }
+        ];
+      }
+    }
   },
   numberPersons: {
     type: Number,
     label: 'Cantidad de Personas'
   },
-  stree: {
+  street: {
     type: String,
     label: 'Calle'
   },
@@ -52,11 +90,16 @@ const ToursSchema = new SimpleSchema({
   },
   department: {
     type: String,
-    label: 'Departamento'
+    label: 'Departamento',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => departments
+    }
   },
   images: {
     type: Array,
-    label: 'Imagenes (Opcional)'
+    label: 'Imagenes (Opcional)',
+    optional: true
   },
   'images.$': {
     type: String,
@@ -66,6 +109,30 @@ const ToursSchema = new SimpleSchema({
         collection: 'ToursImages'
       }
     }
+  },
+  coin: {
+    type: Array,
+    label: 'Monedas aceptadas',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => money
+    }
+  },
+  'coin.$': {
+    type: String,
+    label: 'Moneda'
+  },
+  paymentsMethod: {
+    type: Array,
+    label: 'Metodos de pago',
+    autoform: {
+      firstOption: '(Seleccione Uno)',
+      options: () => paymentMethods
+    }
+  },
+  'paymentsMethod.$': {
+    type: String,
+    label: 'Metodos de pago'
   }
 }, { check: check, tracker: Tracker });
 

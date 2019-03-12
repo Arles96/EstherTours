@@ -1145,8 +1145,8 @@ TabularTables.Tours = new Tabular.Table({
   columns: [
     {
       class: 'text-center',
-      data: 'name',
-      title: 'Nombre'
+      data: 'title',
+      title: 'Título'
     },
     {
       class: 'text-center',

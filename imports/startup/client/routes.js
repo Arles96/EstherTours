@@ -94,6 +94,7 @@ import '../../ui/pages/Activities/activities';
 import '../../ui/pages/Activities/activitiesFiltered';
 import '../../ui/pages/position/listPosition';
 import '../../ui/pages/tours/listTours';
+import '../../ui/pages/tours/addTours';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -1925,5 +1926,24 @@ Router.route('/list-tours', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Excursiones']);
     isLoggedIn2(this);
+  }
+});
+
+Router.route('/add-tours', {
+  name: 'addTours',
+  template: 'addTours',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('toursImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregando Excursión']);
+    isOperator(this);
   }
 });
