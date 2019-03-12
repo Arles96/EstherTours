@@ -13,18 +13,38 @@ body {
   height: 100%;
 }
 
-.disable-scrollbars {
-  overflow-y: scroll;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE 10+ */
+.sidebar {
+  width: 225px !important;
 }
 
-.scrollable{
-  height: 100px;
+.disable-scrollbars {
   overflow-y: scroll;
-  scrollbar-width: 10px;
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important;  /* IE 10+ */
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 0px;
+  }
+
+::-webkit-scrollbar-track-piece  {
+  background-color: #C2D2E4;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  height: 30px;
+  background-color: rgb(48, 111, 184);
+}
+
+
+.scrollable {
+  height: 100px;
+  overflow-y: auto !important;
+  scrollbar-width: 8px;
   -ms-overflow-style: scrollbar;
-  width: 225px;
+  -ms-scroll-limit-x-max: 0 !important;
+  scrollbar-color: light;
 }
 
 .disable-scrollbars::-webkit-scrollbar { /* WebKit */
@@ -175,8 +195,8 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   -webkit-transform: none !important;
   transform: none !important;
   left: calc(90px + 0.5rem) !important;
+  width: 195px;
   margin: 0;
-  overflow-y: scroll;
 }
 
 .sidebar .nav-item .dropdown-menu.dropup {
@@ -201,6 +221,8 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   overflow: hidden;
 }
 
+
+
 @media (min-width: 768px) {
   .disable-scrollbars {
     overflow-y: scroll;
@@ -210,7 +232,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 
   .sidebar {
     width: 225px !important;
-  }
+  } 
   .sidebar .nav-item .nav-link {
     display: block;
     width: 100%;
