@@ -35,8 +35,9 @@ Template.userActivitiesFiltered.onCreated(function createVar () {
     }
   });
   this.myChart = new ReactiveVar(null);
-  Session.set('selectedUserActivities',{});
-  Session.set('selectedRoleActivities',{});
+  Session.set('selectedUserActivities','');
+  Session.set('selectedRoleActivities','');
+  Session.set('selectedActivityActivities','');
 });
 
 Template.userActivitiesFiltered.helpers({
@@ -45,21 +46,35 @@ Template.userActivitiesFiltered.helpers({
     value: doc._id
   }))),
   Roles: () => ([{ value: 'Administrador' }, { value: 'Operador' }, { value: 'Consultor' }, { value: 'Supervisor' }]),
-  selector: () => (
-    // userId: Session.get('selectedUserActivities'), 
-    Session.get('selectedRoleActivities')
-    )
+  Activities: () => ([{ value: 'agregó' }, { value: 'editó' }, { value: 'eliminó' }, { value: 'Inició sesión' }, { value: 'Cerró sesión' }]),
+  selector: function () {
+    var query = {};
+
+    if(Session.get('selectedUserActivities'))
+      query['userId'] = Session.get('selectedUserActivities');
+
+    if(Session.get('selectedRoleActivities') !== '')
+      query['role'] = Session.get('selectedRoleActivities');
+
+    if(Session.get('selectedActivityActivities') !== '')
+      query['activity'] = Session.get('selectedActivityActivities');
+
+    return query;
+  }
 });
 
 Template.userActivitiesFiltered.events({
   'change #userSelector' (event) {
-    Session.set('selectedUserActivities', (event.currentTarget.value)?{userId: event.currentTarget.value}:{});
+    Session.set('selectedUserActivities', event.currentTarget.value);
     Session.set('selectedUserActivitiesName', event.currentTarget.label);
     Template.instance().myChart.get().destroy();
     drawChart(Template.instance());
   },
   'change #roleSelector' (event) {
-    Session.set('selectedRoleActivities', (event.currentTarget.value)?{role: event.currentTarget.value}:{});
+    Session.set('selectedRoleActivities', event.currentTarget.value);
+  },
+  'change #activitySelector' (event) {
+    Session.set('selectedActivityActivities', event.currentTarget.value);
   }
 });
 

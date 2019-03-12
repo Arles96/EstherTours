@@ -1,22 +1,50 @@
 <template name="userActivitiesFiltered">
   <div class="card mb-3">
     <div class="card-header">
-      <i class="fas fa-table"></i> Lista de actividades
+      <i class="fas fa-search-location"></i>
+      <b>Lista de actividades</b>
     </div>
     <div class="card-body">
-      <select class = "form-control col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" id = "userSelector">
-          <option value = '0'>(Seleccione uno)</option>
-          {{#each Users}}
-            <option value = {{value}}>{{label}}</option>
-          {{/each}}
-      </select>
-
-      <select class = "form-control col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" id = "roleSelector">
-        <option value = ''>(Seleccione uno)</option>
-        {{#each Roles}}
-          <option value = {{value}}>{{value}}</option>
-        {{/each}}
-      </select>
+      <div class="row">
+        <div class = "form-group col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+          <label>
+            <b>Nombre del usuario:</b>
+          </label>
+          <br>
+          <select class = "form-control" id = "userSelector">
+            <option value = ''>(Seleccione uno)</option>
+            {{#each Users}}
+              <option value = {{value}}>{{label}}</option>
+            {{/each}}
+          </select>
+        </div>
+  
+        <div class = "form-group col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+          <label>
+            <b>Rol:</b>
+          </label>
+          <br>
+          <select class = "form-control" id = "roleSelector">
+              <option value = ''>(Seleccione uno)</option>
+              {{#each Roles}}
+                <option value = {{value}}>{{value}}</option>
+              {{/each}}
+            </select>
+        </div>
+  
+        <div class = "form-group col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+          <label>
+            <b>Actividad:</b>
+          </label>
+          <br>
+          <select class = "form-control" id = "activitySelector">
+              <option value = ''>(Seleccione uno)</option>
+              {{#each Activities}}
+                <option value = {{value}}>{{value}}</option>
+              {{/each}}
+            </select>
+        </div>
+      </div>
 
       <div class="table-responsive">
         {{> tabular table=TabularTables.userActivities selector=selector class="table table-hover table-bordered"}}
