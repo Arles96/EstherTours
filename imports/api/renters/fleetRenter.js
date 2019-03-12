@@ -2,7 +2,7 @@ import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import SimpleSchema from 'simpl-schema';
 import { Mongo } from 'meteor/mongo';
-import { messages, RegExObj } from '../regEx';
+import { messages } from '../regEx';
 import { Renters } from './renters';
 
 const FleetRenter = new Mongo.Collection('renterFleet');
@@ -53,21 +53,33 @@ const FleetRenterSchema = new SimpleSchema({
     type: String,
     label: 'Tipo de Flota',
     autoform: {
+      class: 'SelectType',
       firstOption: '(Seleccione Uno)',
       options: () => types
     }
   },
   vehicleTypes: {
     type: String,
-    label: 'Tipo de Vehículo'
+    label: 'Tipo de Vehículo',
+    autoform: {
+      class: 'SelectVehicleType',
+      firstOption: '(Seleccione Uno)'
+    }
   },
   brands: {
     type: String,
-    label: 'Marca de Vehículo'
+    label: 'Marca de Vehículo',
+    autoform: {
+      class: 'SelectBrand',
+      firstOption: '(Seleccione Uno)'
+    }
   },
   models: {
     type: String,
-    label: 'Modelo de Vehículo'
+    label: 'Modelo de Vehículo',
+    autoform: {
+      firstOption: '(Seleccione Uno)'
+    }
   },
   rate: {
     type: Number,
@@ -108,7 +120,7 @@ FleetRenter.helpers({
   getRenterName: function () {
     return Renters.findOne({ _id: this.idRenter }).name;
   },
-  textRate: function() {
+  textRate: function () {
     return this.rate.toFixed(2);
   }
 });
@@ -166,6 +178,8 @@ function fleetRenterToExcel (id, doc = null, headers = true) {
   }
   return res;
 }
+
+FleetRenter.attachSchema(FleetRenterSchema);
 
 export {
   FleetRenter,
