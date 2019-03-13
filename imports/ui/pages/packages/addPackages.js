@@ -2,6 +2,7 @@ import '../../components/packageRoomHotel/packageRoomHotel';
 import '../../components/packageRouteTE/packageRouteTE';
 import '../../components/packageFleetRenters/packageFleetRenters';
 import '../../components/packageRestaurants/packageRestaurants';
+import '../../components/packageAttractions/packageAttractions';
 import './addPackages.html';
 import { Session } from 'meteor/session';
 import toastr from 'toastr';
@@ -9,6 +10,7 @@ import { PackagesSchema } from '../../../api/packages/packages';
 import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
 import { restaurantOffers } from '../../../api/restaurants/restaurantOffers';
+import { Attractions } from '../../../api/attractions/attractions';
 
 Template.addPackages.onCreated(() => {
   Session.set('packageHotelId', undefined);
@@ -34,16 +36,27 @@ Template.addPackages.helpers({
   fleetSelected: () => Session.get('packageRenterId') && Session.get('packageFleetId'),
   restaurant: () => Session.get('packageRestaurantId'),
   attraction: () => Session.get('packageAttractionId'),
+  initNum: function (fieldValue) {
+    if (!fieldValue) {
+      return 0;
+    }
+    return fieldValue;
+  },
   calcPrice: function (numAdults, numChildren, numNights) {
     let price = 0.0;
 
     const packageRoomId = Session.get('packageRoomId');
     const packageFleetId = Session.get('packageFleetId');
     const packageRestaurantId = Session.get('packageRestaurantId');
+    const packageAttractionId = Session.get('packageAttractionId');
 
     // Precio habitacion
     if (packageRoomId) {
       price += RoomHotel.findOne({ _id: packageRoomId }).price;
+    }
+    // Precio atraccion
+    if (packageAttractionId) {
+      price += Attractions.findOne({ _id: packageAttractionId }).price * (numAdults + numChildren);
     }
     // Tarifa flota de arrendadora
     if (packageFleetId) {
@@ -60,7 +73,7 @@ Template.addPackages.helpers({
           count += 1;
         });
       if (count !== 0) {
-        price += (total / count) * numAdults * numChildren * numNights;
+        price += (total / count) * (numAdults + numChildren) * numNights;
       }
     }
     return price;

@@ -1565,7 +1565,9 @@ Router.route('/add-packages', {
       Meteor.subscribe('fleetRenter.all'),
       Meteor.subscribe('restaurantOffers.all'),
       Meteor.subscribe('restaurant.all'),
-      Meteor.subscribe('restaurantImage.all')
+      Meteor.subscribe('restaurantImage.all'),
+      Meteor.subscribe('attractions.all'),
+      Meteor.subscribe('attractionImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -1621,6 +1623,8 @@ Router.route('/edit-package/:id', {
       Meteor.subscribe('restaurantOffers.all'),
       Meteor.subscribe('restaurant.all'),
       Meteor.subscribe('restaurantImage.all'),
+      Meteor.subscribe('attractions.all'),
+      Meteor.subscribe('attractionImage.all'),
       Meteor.subscribe('OnePackage', id)
     ];
   },

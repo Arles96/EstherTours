@@ -16,13 +16,19 @@
             {{>afQuickField name="name"}}
           </div>
           <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="numAdults"}}
+            {{>afQuickField name="numAdults" value=(initNum
+              (afFieldValue name="numAdults")
+            )}}
           </div>
           <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="numChildren"}}
+            {{>afQuickField name="numChildren" value=(initNum
+              (afFieldValue name="numChildren")
+            )}}
           </div>
           <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="numNights"}}
+            {{>afQuickField name="numNights" value=(initNum
+              (afFieldValue name="numNights")
+            )}}
           </div>
           <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-12">
             {{>afQuickField name="price" value=(calcPrice
@@ -76,6 +82,12 @@
           <i class="fas fa-2x fa-check-square"></i>
         {{/if}}
       </a>
+      <a class="nav-item nav-link" id="nav-attraction-tab" data-toggle="tab" href="#nav-attraction" role="tab" aria-controls="nav-attraction" title="Atracción" aria-selected="false">
+        <i class="fas fa-2x fa-mosque"></i>
+        {{#if attraction}}
+          <i class="fas fa-2x fa-check-square"></i>
+        {{/if}}
+      </a>
     </div>
   </nav>
   <br >
@@ -91,6 +103,9 @@
     </div>
     <div class="tab-pane fade" id="nav-restaurant" role="tabpanel" aria-labelledby="nav-restaurant-tab">
       {{>packageRestaurants}}
+    </div>
+    <div class="tab-pane fade" id="nav-attraction" role="tabpanel" aria-labelledby="nav-attraction-tab">
+      {{>packageAttractions}}
     </div>
   </div>
 </template>

@@ -11,6 +11,7 @@ import { FleetRenter } from '../renters/fleetRenter';
 import { Restaurants } from '../restaurants/restaurants';
 import { TransportationEstablishments } from '../TransportationEstablishment/TransportationEstablishment';
 import { RouteTransportationEstablishment } from '../TransportationEstablishment/RouteTransportationEstablishment';
+import { Attractions } from '../attractions/attractions';
 
 const Packages = new Mongo.Collection('packages');
 
@@ -199,6 +200,10 @@ Packages.helpers({
   textRestaurant: function () {
     const restaurant = Restaurants.findOne({ _id: this.idRestaurant });
     return `${restaurant.name}, ${restaurant.municipality}, ${restaurant.department}`;
+  },
+  textAttraction: function () {
+    const attraction = Attractions.findOne({ _id: this.idAttraction });
+    return `${attraction.name}, ${attraction.type}, L. ${attraction.price}`;
   },
   textGuide: function () {
     const guide = Guide.findOne({ _id: this.idGuide });
