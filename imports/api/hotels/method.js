@@ -319,12 +319,12 @@ Meteor.methods({
     });
     return monthsCount;
   },
-  exportHotelsToExcel: function () {
+  exportHotelsToExcel: function (query = {}) {
     // workbook
     const wb = XLSX.utils.book_new();
     const data = [];
 
-    Hotels.find({}).forEach(doc => {
+    Hotels.find(query).forEach(doc => {
       const hotelRes = hotelsToExcel(doc._id, doc, false);
       data.push(...hotelRes);
 

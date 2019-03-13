@@ -59,13 +59,22 @@ Template.initialDashboard.helpers({
     }
   },
   maxYear: () => Template.instance().maxYear.get(),
-  CantNotifications: () => Notifications.find({ idReceiver: Meteor.userId() }).count(),
+  CantNotifications: () => {
+    const query = Notifications.find({ idReceiver: Meteor.userId() });
+    if (query) {
+      return query.count();
+    }
+    return 0;
+  },
   CantActivity: () => {
     moment.locale('es');
     const counts = userActivities.find({
       userId: Meteor.userId()
     });
-    return counts.count();
+    if (counts) {
+      return counts.count();
+    }
+    return 0;
   }
 });
 

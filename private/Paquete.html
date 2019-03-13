@@ -1,86 +1,810 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
-  <meta charset="utf-8" />
+  <title> Say hello to RealEstate </title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Paquete: {{package.name}}.</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <style>
-    body {
-      display: flex;
-      align-content: center;
-      width: 100vw;
-      height: 100vh;
+  <style type="text/css">
+    #outlook a {
+      padding: 0;
     }
 
-    .confrimEmailTable {
-      margin: auto;
-      width: 60vw;
-      background: #162169;
+    .ReadMsgBody {
+      width: 100%;
+    }
+
+    .ExternalClass {
+      width: 100%;
+    }
+
+    .ExternalClass * {
+      line-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    table,
+    td {
+      border-collapse: collapse;
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+
+    img {
       border: 0;
+      height: auto;
+      line-height: 100%;
+      outline: none;
+      text-decoration: none;
+      -ms-interpolation-mode: bicubic;
+    }
+
+    p {
+      display: block;
+      margin: 13px 0;
+    }
+  </style>
+  <style type="text/css">
+    @media only screen and (max-width:480px) {
+      @-ms-viewport {
+        width: 320px;
+      }
+      @viewport {
+        width: 320px;
+      }
+    }
+  </style>
+  
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Alice" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+    @import url(https://fonts.googleapis.com/css?family=Alice);
+  </style>
+  <style type="text/css">
+    @media only screen and (min-width:480px) {
+      .mj-column-per-100 {
+        width: 100% !important;
+        max-width: 100%;
+      }
+      .mj-column-px-570 {
+        width: 570px !important;
+        max-width: 570px;
+      }
+      .mj-column-px-300 {
+        width: 300px !important;
+        max-width: 300px;
+      }
+      .mj-column-px-260 {
+        width: 260px !important;
+        max-width: 260px;
+      }
+      .mj-column-per-60 {
+        width: 60% !important;
+        max-width: 60%;
+      }
+      .mj-column-per-40 {
+        width: 40% !important;
+        max-width: 40%;
+      }
+      .mj-column-per-55 {
+        width: 55% !important;
+        max-width: 55%;
+      }
+      .mj-column-per-45 {
+        width: 45% !important;
+        max-width: 45%;
+      }
+      .mj-column-per-33 {
+        width: 33% !important;
+        max-width: 33%;
+      }
+      .mj-column-per-34 {
+        width: 34% !important;
+        max-width: 34%;
+      }
+    }
+  </style>
+  <style type="text/css">
+    @media only screen and (max-width:480px) {
+      table.full-width-mobile {
+        width: 100% !important;
+      }
+      td.full-width-mobile {
+        width: auto !important;
+      }
     }
   </style>
 </head>
 
-<body>
-
-  <table class="confrimEmailTable">
-    <tbody>
-      <tr style="background: #ffffff">
-        <td style="padding: 0px 40px 0px 40px">
-          <h2 style="font-weight:bold">¡Hola, te presentamos el paquete {{package.name}}!</h2>
-          <p><b>Precio:</b> L. {{package.price}}</p>
-          {{#if hotel}}
-            <p>
-              <b>Hotel:</b>
-              {{hotel.name}}, {{hotel.municipality}}, {{hotel.departament}}
-            </p>
-          {{/if}}
-          {{#if room}}
-            <p>
-              <b>Cuarto de hotel:</b>
-              {{room.type}}, L. {{room.price}}
-            </p>
-          {{/if}}
-          {{#if renter}}
-            <p>
-              <b>Arrendadora:</b>
-              {{renter.name}}, {{renter.municipality}}, {{renter.department}}
-            </p>
-          {{/if}}
-          {{#if fleetRenter}}
-            <p>
-              <b>Flota:</b>
-              {{fleetRenter.type}}, L. {{fleetRenter.rate}}
-            </p>
-          {{/if}}
-          {{#if transport}}
-            <p>
-              <b>Transporte:</b>
-              {{transport.name}}, {{transport.town}}, {{transport.department}}
-            </p>
-          {{/if}}
-          {{#if route}}
-            <p>
-              <b>Ruta de transporte:</b>
-              {{route.city}}, {{route.type}}
-            </p>
-          {{/if}}
-          {{#if restaurant}}
-            <p>
-              <b>Restaurante:</b>
-              {{restaurant.name}}, {{restaurant.municipality}}, {{restaurant.department}}
-            </p>
-          {{/if}}
-          <p>
-            <b>Observaciones:</b> {{package.observation}}
-          </p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
+<body style="background-color:#EAE8E5;">
+  <div style="background-color:#EAE8E5;">
+    
+    <div style="Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0 0 0;text-align:center;vertical-align:top;">
+              
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
+                              <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                  <tr>
+                                    <td style="width:600px;"> <img alt="" height="auto" src="http://nimus.de/share/tpl-realestate/box-head.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="600" /> </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#FFFFFF;background-color:#FFFFFF;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:0px;padding-top:40px;text-align:center;vertical-align:top;">
+  
+              <div class="mj-column-px-570 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="left" style="font-size:0px;padding:0 20px;word-break:break-word;">
+                              <div style="font-family:Alice, Helvetica, Arial, sans-serif;font-size:36px;font-weight:400;line-height:40px;text-align:left;color:#1D83A8;"> ¡Hola, te presentamos el paquete {{package.name}}! </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="left" style="font-size:0px;padding:0 20px;word-break:break-word;">
+                              <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:21px;text-align:left;color:#000000;"> <strong><span style="font-size: 40px;">⚊</span></strong><br /><br /> </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#FFFFFF;background-color:#FFFFFF;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:0px;text-align:center;vertical-align:top;">
+              <div class="mj-column-px-300 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="left" style="font-size:0px;padding:0 20px 30px 20px;word-break:break-word;">
+                              <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:21px;text-align:left;color:#000000;">
+                                 <strong>Precio: </strong> L. {{package.price}}
+                                </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mj-column-px-260 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0px;padding-bottom:30px;word-break:break-word;">
+                              <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                  <tr>
+                                    <td style="width:260px;"> <img alt="" height="auto" src="http://nimus.de/share/tpl-realestate/icon-1.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="260" /> </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:url(http://nimus.de/share/tpl-realestate/img-1.png) top center / cover no-repeat;Margin:0px auto;max-width:600px;">
+      <div style="line-height:0;font-size:0;">
+        <table align="center" background="http://nimus.de/share/tpl-realestate/img-1.png" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:url(http://nimus.de/share/tpl-realestate/img-1.png) top center / cover no-repeat;width:100%;">
+          <tbody>
+            <tr>
+              <td style="direction:ltr;font-size:0px;padding:30px;text-align:center;vertical-align:middle;">
+               
+                <div class="mj-column-per-60 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:middle;width:100%;">
+                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                    <tbody>
+                      <tr>
+                        <td style="vertical-align:middle;padding:0px;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                            <tr>
+                              <td align="center" style="font-size:0px;padding:40px 30px;word-break:break-word;">
+                                <div style="font-family:Alice, Helvetica, Arial, sans-serif;font-size:42px;font-weight:400;line-height:48px;text-align:center;color:#FFFFFF;"> Villa Semperin </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="mj-column-per-40 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:middle;width:100%;">
+                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                    <tbody>
+                      <tr>
+                        <td style="background-color:#FFFFFF;vertical-align:middle;padding:0px;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                            <tr>
+                              <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                  <tbody>
+                                    <tr>
+                                      <td style="width:216px;"> <img alt="" height="auto" src="http://nimus.de/share/tpl-realestate/box-top.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="216" /> </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="center" style="font-size:0px;padding:20px 20px 0 20px;word-break:break-word;">
+                                <div style="font-family:Alice, Helvetica, Arial, sans-serif;font-size:26px;font-weight:400;line-height:30px;text-align:center;color:#1D83A8;"> – first offer – </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="center" style="font-size:0px;padding:10px 20px;word-break:break-word;">
+                                <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:22px;font-weight:400;line-height:30px;text-align:center;color:#000000;"> 340,000 $ </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="center" style="font-size:0px;padding:0 20px;word-break:break-word;">
+                                <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:21px;text-align:center;color:#000000;"> Nascetur ridiculus mus. Donec quam felis, ultricies nec </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="center" vertical-align="middle" style="font-size:0px;padding:20px 20px 30px 20px;word-break:break-word;">
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
+                                  <tr>
+                                    <td align="center" bgcolor="#F44E3C" role="presentation" style="border:none;border-radius:20px;cursor:auto;padding:10px 25px;background:#F44E3C;" valign="middle">
+                                      <p style="background:#F44E3C;color:white;font-family:Roboto, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"> view details </p>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div style="background:#FFFFFF;background-color:#FFFFFF;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:30px;text-align:center;vertical-align:top;">
+              <div class="mj-column-per-60 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0px;padding-bottom:20px;word-break:break-word;">
+                              <div style="font-family:Alice, Helvetica, Arial, sans-serif;font-size:26px;font-weight:400;line-height:30px;text-align:center;color:#000000;"> Lorem Ipsum </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0 40px;word-break:break-word;">
+                              <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:21px;text-align:center;color:#000000;"> Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Lorem Ipsum </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:30px 0 10px 0;word-break:break-word;">
+                              <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                  <tr>
+                                    <td style="width:50px;"> <img alt="" height="auto" src="http://nimus.de/share/tpl-realestate/icon-2.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="50" /> </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mj-column-per-40 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="background-color:#FFFFFF;vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
+                              <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                  <tr>
+                                    <td style="width:216px;"> <img alt="" height="auto" src="http://nimus.de/share/tpl-realestate/img-2.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="216" /> </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#FFFFFF;background-color:#FFFFFF;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px;text-align:center;vertical-align:top;">
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="left" style="font-size:0px;padding:0px;word-break:break-word;">
+                              <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                  <tr>
+                                    <td style="width:292px;"> <img alt="" height="auto" src="http://nimus.de/share/tpl-realestate/symbol-1.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="292" /> </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#FFFFFF;background-color:#FFFFFF;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:0 20px;text-align:center;vertical-align:top;">
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
+                              <div style="font-family:Alice, Helvetica, Arial, sans-serif;font-size:26px;font-weight:400;line-height:30px;text-align:center;color:#000000;"> Lorem Ipsum </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="font-size:0px;padding:20px 0;word-break:break-word;">
+                              <p style="border-top:solid 2px #000000;font-size:1;margin:0px auto;width:20px;"> </p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0 40px;word-break:break-word;">
+                              <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:21px;text-align:center;color:#000000;"> Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Lorem Ipsum </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center" vertical-align="middle" style="font-size:0px;padding:20px 20px 10px 20px;word-break:break-word;">
+                              <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
+                                <tr>
+                                  <td align="center" bgcolor="#F44E3C" role="presentation" style="border:none;border-radius:20px;cursor:auto;padding:10px 25px;background:#F44E3C;" valign="middle">
+                                    <p style="background:#F44E3C;color:white;font-family:Roboto, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"> Call to action </p>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#FFFFFF;background-color:#FFFFFF;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px;text-align:center;vertical-align:top;">
+             
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="right" style="font-size:0px;padding:0px;word-break:break-word;">
+                              <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                  <tr>
+                                    <td style="width:213px;"> <img alt="" height="auto" src="http://nimus.de/share/tpl-realestate/symbol-2.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="213" /> </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#FFFFFF;background-color:#FFFFFF;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:0 30px 30px;text-align:center;vertical-align:top;">
+             
+              <div class="mj-column-per-55 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0px;padding-bottom:20px;word-break:break-word;">
+                              <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                  <tr>
+                                    <td style="width:280px;"> <img alt="" height="auto" src="http://nimus.de/share/tpl-realestate/img-3.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="280" /> </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            
+              <div class="mj-column-per-45 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="background-color:#FFFFFF;vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0px;padding-bottom:20px;word-break:break-word;">
+                              <div style="font-family:Alice, Helvetica, Arial, sans-serif;font-size:26px;font-weight:400;line-height:30px;text-align:center;color:#000000;"> Lorem Ipsum </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0 40px;word-break:break-word;">
+                              <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:21px;text-align:center;color:#000000;"> Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:30px 0 10px 0;word-break:break-word;">
+                              <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                  <tr>
+                                    <td style="width:50px;"> <img alt="" height="auto" src="http://nimus.de/share/tpl-realestate/icon-3.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="50" /> </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#FFFFFF;background-color:#FFFFFF;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:0 20px;text-align:center;vertical-align:top;">
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
+                              <div style="font-family:Alice, Helvetica, Arial, sans-serif;font-size:26px;font-weight:400;line-height:30px;text-align:center;color:#000000;"> Nullam dictum felis eu pede </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="font-size:0px;padding:20px 0;word-break:break-word;">
+                              <p style="border-top:solid 2px #000000;font-size:1;margin:0px auto;width:20px;"> </p>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#FFFFFF;background-color:#FFFFFF;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:0 20px 30px;text-align:center;vertical-align:top;">
+              <div class="mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="left" style="font-size:0px;padding:0 15px 15px;word-break:break-word;">
+                              <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:21px;text-align:left;color:#000000;"> <strong>Aliquam lorem ante,</strong> dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Lorem Ipsum </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mj-column-per-34 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="left" style="font-size:0px;padding:0 15px 15px;word-break:break-word;">
+                              <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:21px;text-align:left;color:#000000;"> <strong>Phasellus viverra null aliquam lorem ante</strong>, dapibus in, viverra quis, feugiat a, tellus ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Lorem Ipsum </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mj-column-per-33 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="left" style="font-size:0px;padding:0 15px 15px;word-break:break-word;">
+                              <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:21px;text-align:left;color:#000000;"> <strong>Quisque rutrum.</strong> Aenean imperdiet viverra nulla ut metus varius laoreet. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Lorem Ipsum </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:url(http://nimus.de/share/tpl-realestate/img-4.png) top center / cover no-repeat;Margin:0px auto;max-width:600px;">
+      <div style="line-height:0;font-size:0;">
+        <table align="center" background="http://nimus.de/share/tpl-realestate/img-4.png" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:url(http://nimus.de/share/tpl-realestate/img-4.png) top center / cover no-repeat;width:100%;">
+          <tbody>
+            <tr>
+              <td style="direction:ltr;font-size:0px;padding:30px;text-align:center;vertical-align:middle;">
+                <div class="mj-column-per-40 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:middle;width:100%;">
+                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                    <tbody>
+                      <tr>
+                        <td style="background-color:#FFFFFF;vertical-align:middle;padding:0px;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                            <tr>
+                              <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                  <tbody>
+                                    <tr>
+                                      <td style="width:216px;"> <img alt="" height="auto" src="http://nimus.de/share/tpl-realestate/box-top.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="216" /> </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="center" style="font-size:0px;padding:20px 20px 0 20px;word-break:break-word;">
+                                <div style="font-family:Alice, Helvetica, Arial, sans-serif;font-size:26px;font-weight:400;line-height:30px;text-align:center;color:#1D83A8;"> – 2. offer – </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="center" style="font-size:0px;padding:10px 20px;word-break:break-word;">
+                                <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:22px;font-weight:400;line-height:30px;text-align:center;color:#000000;"> 198,700 $ </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="center" style="font-size:0px;padding:0 20px;word-break:break-word;">
+                                <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:14px;font-weight:400;line-height:21px;text-align:center;color:#000000;"> Donec quam felis, ultricies Nascetur ridiculus mus. </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="center" vertical-align="middle" style="font-size:0px;padding:20px 20px 30px 20px;word-break:break-word;">
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
+                                  <tr>
+                                    <td align="center" bgcolor="#F44E3C" role="presentation" style="border:none;border-radius:20px;cursor:auto;padding:10px 25px;background:#F44E3C;" valign="middle">
+                                      <p style="background:#F44E3C;color:white;font-family:Roboto, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"> view details </p>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="mj-column-per-60 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:middle;width:100%;">
+                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                    <tbody>
+                      <tr>
+                        <td style="vertical-align:middle;padding:0px;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                            <tr>
+                              <td align="center" style="font-size:0px;padding:40px 30px;word-break:break-word;">
+                                <div style="font-family:Alice, Helvetica, Arial, sans-serif;font-size:42px;font-weight:400;line-height:48px;text-align:center;color:#FFFFFF;"> Window House 23 </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div style="background:#FFFFFF;background-color:#FFFFFF;Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:40px 20px;text-align:center;vertical-align:top;">
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
+                              <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                  <tr>
+                                    <td style="width:130px;"> <img alt="" height="auto" src="http://nimus.de/share/tpl-realestate/icon-1.png" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;" width="130" /> </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="Margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:10px 0 20px 0;text-align:center;vertical-align:top;">
+              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
+                          <tr>
+                            <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
+                              <div style="font-family:Roboto, Helvetica, Arial, sans-serif;font-size:11px;font-weight:400;line-height:21px;text-align:center;color:#9B9B9B;"> <a href="#" style="color: #9B9B9B;">Unsubscribe</a> from this newsletter<br/>Icon made by Freepik from <a href="http://www.flaticon.com" target="_blank" style="color: #9B9B9B; text-decoration: none;">www.flaticon.com</a><br/>                                <a href="http://svenhaustein.de" style="color: #9B9B9B; text-decoration:none;">Made by svenhaustein.de</a> </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
 
 </html>
