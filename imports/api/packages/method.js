@@ -286,7 +286,9 @@ Meteor.methods({
           transport: transport,
           route: route,
           restaurant: restaurant,
-          tour: {}
+          tour: {},
+          cantStars: num => '★'.repeat(parseInt(num, 10)),
+          noZero: num => num > 0
         });
         Email.send({
           from: 'aulio.maldonado@gmail.com',
