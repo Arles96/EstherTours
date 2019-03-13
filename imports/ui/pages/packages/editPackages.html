@@ -26,35 +26,24 @@
             {{>afQuickField name="numNights"}}
           </div>
           <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-12">
-            {{>afQuickField name="price"}}
+            {{>afQuickField name="price" value=(calcPrice
+              (afFieldValue name="numAdults")
+              (afFieldValue name="numChildren")
+              (afFieldValue name="numNights")
+            )}}
           </div>
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {{>afQuickField name="observation"}}
           </div>
-          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField type="hidden" name="idRenter" value=renter}}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField type="hidden" name="idFleetRenter" value=fleet}}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField type="hidden" name="idTransport" value=TE}}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField type="hidden" name="idTransportRoute" value=route}}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField type="hidden" name="idHotel" value=hotel}}
-          </div>
-          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField type="hidden" name="idRoom" value=room}}
-          </div>
-          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
-            {{>afQuickField type="hidden" name="idGuide"}}
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField type="hidden" name="idRestaurant" value=restaurant}}
-          </div>
+          {{>afQuickField type="hidden" name="idRenter" value=renter}}
+          {{>afQuickField type="hidden" name="idFleetRenter" value=fleet}}
+          {{>afQuickField type="hidden" name="idTransport" value=TE}}
+          {{>afQuickField type="hidden" name="idTransportRoute" value=route}}
+          {{>afQuickField type="hidden" name="idHotel" value=hotel}}
+          {{>afQuickField type="hidden" name="idRoom" value=room}}
+          {{>afQuickField type="hidden" name="idAttraction" value=attraction}}
+          {{>afQuickField type="hidden" name="idGuide"}}
+          {{>afQuickField type="hidden" name="idRestaurant" value=restaurant}}
         </div>
         <div class="text-center mt-4">
           <button type="submit" class="btn mx-auto btn-primary w-75" >Actualizar Paquete</button>

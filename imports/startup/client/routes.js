@@ -1618,6 +1618,7 @@ Router.route('/edit-package/:id', {
       Meteor.subscribe('renter.all'),
       Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('restaurantOffers.all'),
       Meteor.subscribe('restaurant.all'),
       Meteor.subscribe('restaurantImage.all'),
       Meteor.subscribe('OnePackage', id)

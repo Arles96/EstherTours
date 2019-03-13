@@ -18,6 +18,7 @@ Template.addPackages.onCreated(() => {
   Session.set('packageRenterId', undefined);
   Session.set('packageFleetId', undefined);
   Session.set('packageRestaurantId', undefined);
+  Session.set('packageAttractionId', undefined);
 });
 
 Template.addPackages.helpers({
@@ -32,21 +33,20 @@ Template.addPackages.helpers({
   fleet: () => Session.get('packageFleetId'),
   fleetSelected: () => Session.get('packageRenterId') && Session.get('packageFleetId'),
   restaurant: () => Session.get('packageRestaurantId'),
+  attraction: () => Session.get('packageAttractionId'),
   calcPrice: function (numAdults, numChildren, numNights) {
     let price = 0.0;
 
-    const packageHotelId = Session.get('packageHotelId');
     const packageRoomId = Session.get('packageRoomId');
-    const packageRenterId = Session.get('packageRenterId');
     const packageFleetId = Session.get('packageFleetId');
     const packageRestaurantId = Session.get('packageRestaurantId');
 
     // Precio habitacion
-    if (packageHotelId && packageRoomId) {
+    if (packageRoomId) {
       price += RoomHotel.findOne({ _id: packageRoomId }).price;
     }
     // Tarifa flota de arrendadora
-    if (packageRenterId && packageFleetId) {
+    if (packageFleetId) {
       price += FleetRenter.findOne({ _id: packageFleetId }).rate;
     }
     // Promedio ofertas de restaurante
@@ -77,6 +77,7 @@ AutoForm.addHooks('addPackagesForm', {
     Session.set('packageRenterId', undefined);
     Session.set('packageFleetId', undefined);
     Session.set('packageRestaurantId', undefined);
+    Session.set('packageAttractionId', undefined);
   },
   onError: function (formtype, error) {
     if (error.error) {

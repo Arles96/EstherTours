@@ -103,6 +103,11 @@ const PackagesSchema = new SimpleSchema({
       }
     }
   },
+  idAttraction: {
+    type: String,
+    label: 'Atracción',
+    optional: true
+  },
   price: {
     type: Number,
     label: 'Precio',
