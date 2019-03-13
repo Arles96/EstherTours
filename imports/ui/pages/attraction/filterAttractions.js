@@ -1,4 +1,7 @@
 import './filterAttractions.html';
+import Swal from 'sweetalert2';
+import XLSX from 'xlsx';
+import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Attractions } from '../../../api/attractions/attractions';
@@ -102,6 +105,58 @@ Template.filterAttractions.events({
   },
   'change #municipality' (event, templateInstance) {
     templateInstance.municipality.set(event.currentTarget.value);
+  },
+  'click #export-filtered' (event, templateInstance) {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: '¿Está seguro de exportar las atracciones a Excel?',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        const precioMax = templateInstance.precioMax.get();
+        const name = templateInstance.name.get();
+        const street = templateInstance.street.get();
+        const city = templateInstance.city.get();
+        const department = templateInstance.department.get();
+        const municipality = templateInstance.municipality.get();
+        const query = {};
+        if (name) {
+          query.name = new RegExp(`.*${name}.*`, 'i');
+        }
+        if (precioMax) {
+          query.price = {
+            $lt: parseInt(precioMax, 10)
+          };
+        }
+        if (Session.get('filterAttractionStars')) {
+          query.categorization = Session.get('filterAttractionStars');
+        }
+        if (department) {
+          query.departament = department;
+        }
+        if (municipality) {
+          query.municipality = municipality;
+        }
+        if (street) {
+          query.street = new RegExp(`.*${street}.*`, 'i');
+        }
+        if (city) {
+          query.city = new RegExp(`.*${city}.*`, 'i');
+        }
+
+        Meteor.call('exportAttractionsToExcel', query, (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            const filename = `Atracciones ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filename);
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
   }
 });
 
