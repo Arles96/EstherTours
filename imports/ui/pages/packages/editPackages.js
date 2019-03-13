@@ -41,7 +41,7 @@ Template.editPackages.helpers({
     }
     return fieldValue;
   },
-  calcPrice: function (numAdults, numChildren, numNights) {
+  calcPriceLabel: function (numAdults, numChildren, numNights) {
     let price = 0.0;
 
     const packageRoomId = Session.get('packageRoomId');
@@ -51,7 +51,7 @@ Template.editPackages.helpers({
 
     // Precio habitacion
     if (packageRoomId) {
-      price += RoomHotel.findOne({ _id: packageRoomId }).price;
+      price += RoomHotel.findOne({ _id: packageRoomId }).price * numNights;
     }
     // Precio atraccion
     if (packageAttractionId) {
@@ -75,7 +75,7 @@ Template.editPackages.helpers({
         price += (total / count) * (numAdults + numChildren) * numNights;
       }
     }
-    return price;
+    return `Precio (Calculado en Lps. ${price})`;
   }
 });
 
