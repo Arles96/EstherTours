@@ -19,6 +19,7 @@ Template.editPackages.onRendered(function createVars () {
   Session.set('packageRenterId', this.data.package.idRenter);
   Session.set('packageFleetId', this.data.package.idFleetRenter);
   Session.set('packageRestaurantId', this.data.package.idRestaurant);
+  Session.set('packageAttractionId', this.data.package.idAttraction);
 });
 
 Template.editPackages.helpers({
