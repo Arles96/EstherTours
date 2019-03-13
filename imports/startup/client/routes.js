@@ -98,6 +98,7 @@ import '../../ui/pages/tours/listTours';
 import '../../ui/pages/tours/addTours';
 import '../../ui/pages/tours/editTours';
 import '../../ui/pages/tours/showTour';
+import '../../ui/pages/tours/reportTour/reportTour';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -2008,5 +2009,21 @@ Router.route('/show-tour/:id', {
     return {
       tour: Tours.findOne({ _id: id })
     };
+  }
+});
+
+Router.route('/report-tours', {
+  name: 'reportTour',
+  template: 'reportTour',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
+  onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
+    listBreadcrumb(['Reportar Excursiones']);
+    isLoggedIn2(this);
   }
 });

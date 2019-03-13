@@ -5,6 +5,7 @@ import SimpleSchema from 'simpl-schema';
 import { RegExObj, messages } from '../regEx';
 import departments from '../departments/departments';
 import { paymentMethods, money } from '../money/money';
+import TourImage from './toursImage';
 
 const Tours = new Mongo.Collection('tours');
 
@@ -133,11 +134,23 @@ const ToursSchema = new SimpleSchema({
   'paymentsMethod.$': {
     type: String,
     label: 'Metodos de pago'
+  },
+  createAt: {
+    type: Date,
+    optional: true,
+    autoValue: () => new Date()
   }
 }, { check: check, tracker: Tracker });
 
 ToursSchema.messageBox.messages(messages);
+
 Tours.attachSchema(ToursSchema);
+
+Tours.helpers({
+  tourImages: function () {
+    return this.images.map(_id => TourImage.findOne({ _id }));
+  }
+});
 
 export {
   Tours,

@@ -29,5 +29,15 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
+  },
+  reportTour: function (year) {
+    const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    Tours.find().fetch().forEach(item => {
+      const date = new Date(item.createAt);
+      if (date.getFullYear() === year.year) {
+        monthsCount[date.getMonth()] += 1;
+      }
+    });
+    return monthsCount;
   }
 });
