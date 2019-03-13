@@ -285,7 +285,8 @@ Meteor.methods({
           fleetRenter: fleetRenter,
           transport: transport,
           route: route,
-          restaurant: restaurant
+          restaurant: restaurant,
+          tour: {}
         });
         Email.send({
           from: 'aulio.maldonado@gmail.com',
