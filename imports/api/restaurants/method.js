@@ -259,12 +259,12 @@ Meteor.methods({
     });
     return monthsCount;
   },
-  exportRestaurantsToExcel: function () {
+  exportRestaurantsToExcel: function (query = {}) {
     // workbook
     const wb = XLSX.utils.book_new();
     const data = [];
 
-    Restaurants.find({}).forEach(doc => {
+    Restaurants.find(query).forEach(doc => {
       const restaurantRes = restaurantToExcel(doc._id, doc, false);
       data.push(...restaurantRes);
     });

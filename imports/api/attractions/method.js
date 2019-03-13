@@ -154,12 +154,12 @@ Meteor.methods({
     });
     return monthsCount;
   },
-  exportAttractionsToExcel: function () {
+  exportAttractionsToExcel: function (query = {}) {
     // workbook
     const wb = XLSX.utils.book_new();
     const data = [];
 
-    Attractions.find({}).forEach(doc => {
+    Attractions.find(query).forEach(doc => {
       const attractionRes = attractionToExcel(doc._id, doc, false);
       data.push(...attractionRes);
     });
