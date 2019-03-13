@@ -1563,6 +1563,7 @@ Router.route('/add-packages', {
       Meteor.subscribe('renter.all'),
       Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('restaurantOffers.all'),
       Meteor.subscribe('restaurant.all'),
       Meteor.subscribe('restaurantImage.all')
     ];

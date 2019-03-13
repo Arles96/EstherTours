@@ -25,7 +25,11 @@
             {{>afQuickField name="numNights"}}
           </div>
           <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-12">
-            {{>afQuickField name="price"}}
+            {{>afQuickField name="price" value=(calcPrice
+              (afFieldValue name="numAdults")
+              (afFieldValue name="numChildren")
+              (afFieldValue name="numNights")
+            )}}
           </div>
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {{>afQuickField name="observation"}}
