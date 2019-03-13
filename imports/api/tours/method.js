@@ -22,5 +22,12 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('Permiso Denegado');
     }
+  },
+  removeTour: function (_id) {
+    if (Roles.userIsInRole(Meteor.userId(), operator)) {
+      Tours.remove({ _id });
+    } else {
+      throw new Meteor.Error('Permiso Denegado');
+    }
   }
 });

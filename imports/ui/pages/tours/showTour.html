@@ -1,0 +1,128 @@
+<template name="showTour" >
+  <div class="card mb-3" >
+    <div class="card-header" >
+        <i class="fas fa-home"></i> Mostrando datos de <b>{{tour.name}}</b>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        {{#with tour}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Título:</b>
+                {{title}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Precio:</b>
+                {{price}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Guia:</b>
+                {{#if guide}}
+                  {{guideInfo(guide)}}
+                {{else}}
+                  No posee.
+                {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Calle:</b>
+                {{street}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Ciudad:</b>
+                {{city}}
+              </label>
+            </div>
+          </div>
+          <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="form-group mt-1">
+              <label class="mb-3">
+                <b>Categorización:</b>
+              </label>
+                {{>showStarRating rating=categorization}}
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Municipio:</b>
+                {{municipality}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Departamento:</b>
+                {{departament}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Teléfonos:</b>
+              </label>
+              {{#each telephone }}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Métodos de Pago:</b>
+              </label>
+              <ul>
+                {{#each paymentsMethod}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Monedas aceptadas:</b>
+              </label>
+              <ul>
+                {{#each coin}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          {{#if images}}
+            <br>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              <h2 class="mt-4 text-center" >Imágenes</h2>
+              <div class="row">
+                {{#each attractionImages }}
+                  <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <img class="img-thumbnail" src="{{link}}" alt="{{name}}">
+                  </div>
+                {{/each}}
+              </div>
+            </div>
+          {{/if}}
+        {{/with}}
+      </div>
+    </div>
+  </div>
+</template>

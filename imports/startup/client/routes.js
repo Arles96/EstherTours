@@ -97,6 +97,7 @@ import '../../ui/pages/position/listPosition';
 import '../../ui/pages/tours/listTours';
 import '../../ui/pages/tours/addTours';
 import '../../ui/pages/tours/editTours';
+import '../../ui/pages/tours/showTour';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -1972,6 +1973,35 @@ Router.route('/edit-tour/:id', {
     listBreadcrumb(['Tabla de Excursión', 'Actualizando Información de Excursion']);
     Session.set('editAttractionCategorization', undefined);
     isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      tour: Tours.findOne({ _id: id })
+    };
+  }
+});
+
+Router.route('/show-tour/:id', {
+  name: 'showTour',
+  template: 'showTour',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('tours.one', id),
+      Meteor.subscribe('toursImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
+    const { id } = this.params;
+    const tour = Tours.findOne({ _id: id });
+    listBreadcrumb(['Tabla de Excursión', `Mostrando Información de ${tour.title}`]);
+    isLoggedIn2(this);
   },
   data: function () {
     const { id } = this.params;

@@ -1,4 +1,6 @@
 import './listTours.html';
+import { Meteor } from 'meteor/meteor';
+import toastr from 'toastr';
 
 Template.listTours.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -27,4 +29,16 @@ Template.listTours.onCreated(() => {
       }
     }
   });
+});
+
+Template.showButtonTours.events({
+  'click .deleteTour': function () {
+    Meteor.call('removeTour', this._id, error => {
+      if (!error) {
+        toastr.error('Se elimino el registro exitosamente.');
+      } else {
+        toastr.error(error.error);
+      }
+    });
+  }
 });
