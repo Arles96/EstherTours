@@ -286,9 +286,9 @@ Meteor.methods({
           transport: transport,
           route: route,
           restaurant: restaurant,
-          tour: {},
           cantStars: num => '★'.repeat(parseInt(num, 10)),
-          noZero: num => num > 0
+          noZero: num => num > 0,
+          getImage: url => Meteor.absoluteUrl(`/img/${url}`)
         });
         Email.send({
           from: 'aulio.maldonado@gmail.com',
