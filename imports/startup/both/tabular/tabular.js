@@ -1154,7 +1154,7 @@ TabularTables.userPersonalActivities = new Tabular.Table({
     onEnterOnly: false
   },
   extraFields: [
-    'user', 'userId', 'registerId'
+    'user', 'userId', 'registerId', 'date'
   ],
   columns: [
     {
