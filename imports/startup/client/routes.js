@@ -99,6 +99,7 @@ import '../../ui/pages/tours/addTours';
 import '../../ui/pages/tours/editTours';
 import '../../ui/pages/tours/showTour';
 import '../../ui/pages/tours/reportTour/reportTour';
+import '../../ui/pages/tours/filterTours';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -1868,6 +1869,9 @@ Router.route('/adding-package', {
   }
 });
 
+/**
+ * Ruta para mostrar todas las actividades de los usuarios
+ */
 Router.route('/activities', {
   name: 'userActivities',
   template: 'userActivities',
@@ -2024,6 +2028,26 @@ Router.route('/report-tours', {
   onBeforeAction: function () {
     Session.set('ShowChatFixed', true);
     listBreadcrumb(['Reportar Excursiones']);
+    isLoggedIn2(this);
+  }
+});
+
+Router.route('/filter-tours', {
+  name: 'filterTours',
+  template: 'filterTours',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('tours.all'),
+      Meteor.subscribe('toursImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
+    listBreadcrumb(['Filtrar excursiones']);
     isLoggedIn2(this);
   }
 });
