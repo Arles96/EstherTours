@@ -13,10 +13,6 @@ body {
   height: 100%;
 }
 
-.sidebar {
-  width: 225px !important;
-}
-
 .disable-scrollbars {
   overflow-y: scroll;
   scrollbar-width: none !important; /* Firefox */
@@ -124,7 +120,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   z-index: 1;
 }
 
-.navbar-nav .form-inline .input-group {
+.navbar-nav .form-inline .input-group{
   width: 100%;
 }
 
@@ -253,7 +249,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
     display: block;
   }
   .sidebar.toggled {
-    overflow: visible;
+    overflow: visible !important;
     width: 90px !important;
   }
   .sidebar.toggled .nav-item:last-child {
@@ -266,7 +262,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   }
   .sidebar.toggled .nav-item .nav-link span {
     font-size: 0.65rem;
-    display: block;
+    display: block !important;
   }
   .sidebar.toggled .nav-item .dropdown-menu {
     position: absolute !important;
