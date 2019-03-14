@@ -41,7 +41,7 @@ export const isAdmin = self => {
     self.next();
   } else {
     self.layout('App_body');
-    self.render('App_notFound');
+    self.render('appNotFound');
   }
 };
 
@@ -56,7 +56,7 @@ export const isSupervisor = self => {
     self.next();
   } else {
     self.layout('App_body');
-    self.render('App_notFound');
+    self.render('appNotFound');
   }
 };
 
@@ -69,7 +69,7 @@ export const isSupervisorOrAdmin = self => {
     self.next();
   } else {
     self.layout('App_body');
-    self.render('App_notFound');
+    self.render('appNotFound');
   }
 };
 
@@ -84,7 +84,7 @@ export const isOperator = self => {
     self.next();
   } else {
     self.layout('App_body');
-    self.render('App_notFound');
+    self.render('appNotFound');
   }
 };
 
@@ -99,7 +99,7 @@ export const isConsultant = self => {
     self.next();
   } else {
     self.layout('App_body');
-    self.render('App_notFound');
+    self.render('appNotFound');
   }
 };
 
@@ -113,6 +113,6 @@ export const isLoggedIn2 = self => {
     self.next();
   } else {
     self.layout('App_body');
-    self.render('App_notFound');
+    self.render('appNotFound');
   }
 };
