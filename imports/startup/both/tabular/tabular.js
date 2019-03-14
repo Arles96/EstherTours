@@ -1025,14 +1025,26 @@ TabularTables.SoldPackage = new Tabular.Table({
 TabularTables.userActivities = new Tabular.Table({
   name: 'UserActivities',
   collection: userActivities,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
   extraFields: [
-    'userId', 'registerId'
+    'userId', 'registerId', 'date'
   ],
   columns: [
     {
       class: 'text-center',
       data: 'user',
       title: 'Usuario'
+    },
+    {
+      class: 'text-center',
+      data: 'role',
+      title: 'Rol'
     },
     {
       class: 'text-center',
