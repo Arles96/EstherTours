@@ -108,7 +108,7 @@ function listBreadcrumb (list) {
  */
 Router.configure({
   layoutTemplate: 'App_body',
-  notFoundTemplate: 'App_notFound'
+  notFoundTemplate: 'appNotFound'
 });
 
 /**
