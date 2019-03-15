@@ -6,6 +6,7 @@ import { RegExObj, messages } from '../regEx';
 import departments from '../departments/departments';
 import { paymentMethods, money } from '../money/money';
 import TourImage from './toursImage';
+import { Guide } from '../guide/guide';
 
 const Tours = new Mongo.Collection('tours');
 
@@ -175,7 +176,89 @@ Tours.helpers({
   }
 });
 
+function toursToExcel (id, doc = null, headers = true) {
+  let tours;
+
+  if (doc) {
+    tours = doc;
+  } else {
+    tours = Tours.findOne({ _id: id });
+  }
+
+  const res = [];
+  if (tours) {
+    // headers
+    if (headers) {
+      res.push(['Excursiones']);
+    }
+    res.push([
+      'Titulo',
+      'Descripción',
+      'Guía',
+      'Categorización',
+      'Duración',
+      'Tipo de Duración',
+      'Cantidad de Personas',
+      'Calle',
+      'Ciudad',
+      'Municipio',
+      'Departamento',
+      'Monedas aceptadas',
+      'Metodos de pago',
+      'Telefonos'
+    ]);
+
+    // datos que no son arreglos
+    res.push([
+      tours.title,
+      tours.description,
+      tours.guide ? Guide.findOne({ _id: tours.guide }).name : 'No tiene',
+      tours.categorization,
+      tours.duration,
+      tours.typeDuration,
+      tours.numberPersons,
+      tours.street,
+      tours.city,
+      tours.municipality,
+      tours.department,
+      tours.coin[0] ? tours.coin[0] : '',
+      tours.paymentsMethod[0] ? tours.paymentsMethod[0] : '',
+      tours.telephone[0] ? tours.telephone[0] : ''
+    ]);
+
+    // datos que son arreglos
+    const max = Math.max(...[
+      tours.coin.length,
+      tours.paymentsMethod.length,
+      tours.telephone.length
+    ]);
+
+    for (let i = 1; i < max; i += 1) {
+      res.push([
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        tours.coin[i] ? tours.coin[i] : '',
+        tours.paymentsMethod[i] ? tours.paymentsMethod[i] : '',
+        tours.telephone[i] ? tours.telephone[i] : ''
+      ]);
+    }
+
+    res.push([]);
+  }
+  return res;
+}
+
 export {
   Tours,
-  ToursSchema
+  ToursSchema,
+  toursToExcel
 };

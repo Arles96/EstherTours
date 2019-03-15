@@ -1,5 +1,6 @@
 import './listTours.html';
 import { Meteor } from 'meteor/meteor';
+import XLSX from 'xlsx';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
 import { Tours } from '../../../api/tours/tours';
@@ -31,6 +32,30 @@ Template.listTours.onCreated(() => {
       }
     }
   });
+});
+
+Template.listTours.events({
+  'click #export-excel': function (event, templateInstance) {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: '¿Está seguro de exportar las atracciones a Excel?',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        Meteor.call('exportToursToExcel', (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            const filetitle = `Tours ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filetitle);
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
+  }
 });
 
 Template.showButtonTours.events({

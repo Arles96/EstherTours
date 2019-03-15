@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import { Tours, ToursSchema } from './tours';
+import XLSX from 'xlsx';
+import { Tours, ToursSchema, toursToExcel } from './tours';
 import { operator } from '../roles/roles';
 
 Meteor.methods({
@@ -39,5 +40,19 @@ Meteor.methods({
       }
     });
     return monthsCount;
+  },
+  exportToursToExcel: function (query = {}) {
+    // workbook
+    const wb = XLSX.utils.book_new();
+    const data = [];
+
+    Tours.find(query).forEach(doc => {
+      const toursRes = toursToExcel(doc._id, doc, false);
+      data.push(...toursRes);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Tours');
+    return wb;
   }
 });
