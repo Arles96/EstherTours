@@ -24,6 +24,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'agregó',
         collection: 'paquetes',
         registerId: 'N/D',
@@ -44,6 +45,7 @@ Meteor.methods({
     userActivities.insert({
       userId: Meteor.userId(),
       user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      role: Meteor.user().roles[0],
       activity: 'editó',
       collection: 'paquetes',
       registerId: _id,
@@ -57,6 +59,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'paquetes',
         registerId: 'N/D',
@@ -285,7 +288,10 @@ Meteor.methods({
           fleetRenter: fleetRenter,
           transport: transport,
           route: route,
-          restaurant: restaurant
+          restaurant: restaurant,
+          cantStars: num => '★'.repeat(parseInt(num, 10)),
+          noZero: num => num > 0,
+          getImage: url => Meteor.absoluteUrl(`img/${url}`)
         });
         Email.send({
           from: 'aulio.maldonado@gmail.com',

@@ -167,5 +167,27 @@ Template.filterResultPackage.events({
     Session.set('soldPackageName', name);
     Session.set('soldPackageId', _id);
     $('#sellPackageModal').modal('show');
+  },
+  'click #export-single': function () {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: '¿Está seguro de exportar los paquetes a Excel?',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        const query = { _id: this._id };
+        Meteor.call('exportToExcel', query, (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            const filename = `Paquetes ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filename);
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
   }
 });

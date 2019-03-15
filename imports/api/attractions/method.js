@@ -15,6 +15,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'agregó',
         collection: 'atracciones',
         registerId: 'N/D',
@@ -115,6 +116,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'editó',
         collection: 'atracciones',
         registerId: _id,
@@ -131,6 +133,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'atracciones',
         registerId: 'N/D',
