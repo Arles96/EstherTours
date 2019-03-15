@@ -7,6 +7,20 @@
         <span>Página Inicial</span>
       </a>
     </li>
+    {{#if isLoggedIn}}
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Perfil</span>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <a class="dropdown-item" href="/update-profile">Actualizar Perfil</a>
+        <a class="dropdown-item" href="/change-password">Cambiar Contraseña</a>
+        <a class="dropdown-item" href="/ChatPage">Mensajes</a>
+      </div>
+    </li>
+    {{/if}}
     {{#if isSupervisorOrAdmin}}
     <li class="nav-item">
       <a class="nav-link" href="/list-positions">
@@ -63,22 +77,6 @@
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
         <a class="dropdown-item" href="/sold-package">Tabla de Vendidos</a>
         <a class="dropdown-item" href="/filter-packages">Filtrar Paquetes</a>
-      </div>
-    </li>
-    {{/if}}
-    {{#if isAdmin}}
-    {{/if}}
-    {{#if isLoggedIn}}
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-fw fa-folder"></i>
-        <span>Perfil</span>
-      </a>
-      <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-        <a class="dropdown-item" href="/update-profile">Actualizar Perfil</a>
-        <a class="dropdown-item" href="/change-password">Cambiar Contraseña</a>
-        <a class="dropdown-item" href="/ChatPage">Mensajes</a>
       </div>
     </li>
     {{/if}}

@@ -1661,8 +1661,10 @@ Router.route('/show-package/:id', {
     ];
   },
   onBeforeAction: function () {
+    const { id } = this.params;
+    const pack = Packages.findOne({ _id: id });
     Session.set('ShowChatFixed', true);
-    listBreadcrumb(['Listar Paquetes', 'Mostrando Información de Paquetes']);
+    listBreadcrumb(['Listar Paquetes', `Mostrando Información de ${pack.name}`]);
     isLoggedIn2(this);
   },
   data: function () {

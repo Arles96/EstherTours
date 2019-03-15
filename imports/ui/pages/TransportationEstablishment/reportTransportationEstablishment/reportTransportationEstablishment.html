@@ -8,7 +8,9 @@
     </div>
     <div class="card-footer">
       <label id="label-rangeControl" for="rangeControl">Resultado del año {{currentYear}}</label>
-      <input type="range" id="rangeControl" class="custom-range" min="2010" max={{maxYear}} value={{currentYear}} step="1"/>
+      <div class="mx-auto" style="width:85%">
+          <input type="range" id="rangeControl" class="custom-range" min="2010" max={{maxYear}} value={{currentYear}} step="1"/>
+        </div>
     </div>
   </div>
 </template>

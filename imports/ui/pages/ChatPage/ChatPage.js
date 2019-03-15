@@ -6,7 +6,7 @@ import { Session } from 'meteor/session';
 import { Notifications } from '../../../api/Notifications/Notification';
 import { Chats, ChatSchema } from '../../../api/Chats/Chats';
 
-Template.chatPage.onCreated(function createVars () {
+Template.chatPage.onCreated(function createVars() {
   this.currentIssuerId = new ReactiveVar('none');
 });
 
@@ -134,7 +134,10 @@ Template.chatPage.helpers({
         }
       }
     ).fetch().pop();
-    return query.idIssuer;
+    if (query) {
+      return query.idIssuer;
+    }
+    return null;
   },
   getStatus: id => {
     const query = Chats.find(

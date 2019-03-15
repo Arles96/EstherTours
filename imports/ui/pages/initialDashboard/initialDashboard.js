@@ -3,6 +3,7 @@ import '../../components/breadcrumb/breadcrumb';
 import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { Session } from 'meteor/session';
 import Chart from 'chart.js';
 import toastr from 'toastr';
 import { Notifications } from '../../../api/Notifications/Notification';
@@ -13,6 +14,12 @@ const moment = require('moment');
 require('moment/min/locales.min');
 
 Template.initialDashboard.onCreated(function createVars () {
+  Session.set('Data-hotel', true);
+  Session.set('Data-restaurant', true);
+  Session.set('Data-attraction', true);
+  Session.set('Data-renter', true);
+  Session.set('Data-transport', true);
+  Session.set('Data-package', true);
   const date = new Date();
   this.maxYear = new ReactiveVar(date.getFullYear());
   this.currentYear_hotel = new ReactiveVar(date.getFullYear());
@@ -75,7 +82,8 @@ Template.initialDashboard.helpers({
       return counts.count();
     }
     return 0;
-  }
+  },
+  hasGraphicData: entity => !Session.get(`Data-${entity}`)
 });
 
 Template.initialDashboard.events({
@@ -126,10 +134,15 @@ function draw (selectedYear, instance, entity, name, meteorMethod, currentYear) 
           backgroundColor: ['#34495E', '#98A4A4', '#5CACE1', '#47C9AF', '#16A086', '#AE7AC4', '#8D44AD', '#F1C40F', '#F39C11', '#D25400', '#E84C3D', '#C1372A']
         }]
       };
-      instance.set(new Chart(ctx, {
-        type: 'pie',
-        data: data
-      }));
+      if (result.reduce((total, num) => total + num) > 0) {
+        Session.set(`Data-${entity}`, true);
+        instance.set(new Chart(ctx, {
+          type: 'pie',
+          data: data
+        }));
+      } else {
+        Session.set(`Data-${entity}`, false);
+      }
     }
   });
 }

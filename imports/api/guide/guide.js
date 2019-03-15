@@ -51,7 +51,8 @@ const GuideSchema = new SimpleSchema({
   email: {
     type: String,
     label: 'Correo',
-    regEx: RegExObj.email
+    regEx: RegExObj.email,
+    optional: true
   },
   website: {
     type: String,
