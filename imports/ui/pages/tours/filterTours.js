@@ -1,7 +1,7 @@
 import './filterTours.html';
-/* import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import XLSX from 'xlsx';
-import toastr from 'toastr'; */
+import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Tours } from '../../../api/tours/tours';
@@ -104,7 +104,7 @@ Template.filterTours.events({
   },
   'change #municipality' (event, templateInstance) {
     templateInstance.municipality.set(event.currentTarget.value);
-  }/* ,
+  },
   'click #export-filtered' (event, templateInstance) {
     Swal({
       title: 'Exportar datos a Excel',
@@ -143,24 +143,49 @@ Template.filterTours.events({
         if (city) {
           query.city = new RegExp(`.*${city}.*`, 'i');
         }
-        Meteor.call('exportAttractionsToExcel', query, (error, result) => {
+        Meteor.call('exportToursToExcel', query, (error, result) => {
           if (error) {
             toastr.error('Error al exportar a Excel.');
           } else {
             const date = new Date();
-            const filetitle = `Atracciones ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            const filetitle = `Tours ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
             XLSX.writeFile(result, filetitle);
             toastr.success('Se ha exportado a Excel exitosamente.');
           }
         });
       }
     });
-  } */
+  }
 });
 
 Template.filterResultTours.helpers({
   first (index) {
     return index === 0;
+  }
+});
+
+Template.filterResultTours.events({
+  'click #export-single' () {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: '¿Está seguro de exportar las atracciones a Excel?',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        const query = { _id: this._id };
+        Meteor.call('exportToursToExcel', query, (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            const filetitle = `Tours ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filetitle);
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
   }
 });
 
