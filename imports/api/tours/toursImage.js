@@ -11,8 +11,8 @@ if (Meteor.isServer) {
   );
 }
 
-const RestaurantImages = new FilesCollection({
-  collectionName: 'RestaurantImages',
+const ToursImages = new FilesCollection({
+  collectionName: 'ToursImages',
   onBeforeUpload: function (file) {
     if (file.size <= 10485760 && /png|jpg|jpeg/i.test(file.ext)) {
       return true;
@@ -66,4 +66,4 @@ const RestaurantImages = new FilesCollection({
   }
 });
 
-export default RestaurantImages;
+export default ToursImages;

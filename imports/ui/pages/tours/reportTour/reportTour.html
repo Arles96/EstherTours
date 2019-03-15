@@ -1,0 +1,14 @@
+<template name="reportTour" >
+  <div class="card mb-3">
+    <div id="label-reportChart" class="card-header">
+      <i class="fas fa-table"></i> Creación de excursiones del {{currentYear}}
+    </div>
+    <div class="card-body">
+      <canvas id="reportChart" width="400"></canvas>
+    </div>
+    <div class="card-footer">
+      <label id="label-rangeControl" for="rangeControl">Resultado del año {{currentYear}}</label>
+      <input type="range" id="rangeControl" class="custom-range" min="2010" max={{maxYear}} value={{currentYear}} step="1">
+    </div>
+  </div>
+</template>
