@@ -14,6 +14,8 @@ import { TransportationEstablishments, transportToExcel } from '../Transportatio
 import { RouteTransportationEstablishment, routeTransportToExcel } from '../TransportationEstablishment/RouteTransportationEstablishment';
 import { SoldPackage, SoldPackageSchema } from './soldPackage';
 import { userActivities } from '../userActivities/userActivities';
+import { attractionToExcel } from '../attractions/attractions';
+import { toursToExcel } from '../tours/tours';
 
 Meteor.methods({
   insertPackages: function (doc) {
@@ -96,6 +98,8 @@ Meteor.methods({
       const transportRes = transportToExcel(doc.idTransport);
       const routeRes = routeTransportToExcel(doc.idTransportRoute);
       const restaurantRes = restaurantToExcel(doc.idRestaurant);
+      const attractionRes = attractionToExcel(doc.idAttraction);
+      const tourRes = toursToExcel(doc.idTour);
 
       data.push(['Nombre del paquete', 'Precio', 'Observaciones']);
       data.push([
@@ -112,7 +116,9 @@ Meteor.methods({
         ...roomRes,
         ...transportRes,
         ...routeRes,
-        ...restaurantRes
+        ...restaurantRes,
+        ...attractionRes,
+        ...tourRes
       );
 
       const ws = XLSX.utils.aoa_to_sheet(data);
@@ -173,6 +179,8 @@ Meteor.methods({
       const transportRes = transportToExcel(doc.idTransport);
       const routeRes = routeTransportToExcel(doc.idTransportRoute);
       const restaurantRes = restaurantToExcel(doc.idRestaurant);
+      const attractionRes = attractionToExcel(doc.idAttraction);
+      const tourRes = toursToExcel(doc.idTour);
 
       data.push(['Nombre del paquete', 'Precio', 'Observaciones']);
       data.push([
@@ -189,7 +197,9 @@ Meteor.methods({
         ...roomRes,
         ...transportRes,
         ...routeRes,
-        ...restaurantRes
+        ...restaurantRes,
+        ...attractionRes,
+        ...tourRes
       );
 
       const ws = XLSX.utils.aoa_to_sheet(data);

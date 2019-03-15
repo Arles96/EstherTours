@@ -3,6 +3,7 @@ import '../../components/packageRouteTE/packageRouteTE';
 import '../../components/packageFleetRenters/packageFleetRenters';
 import '../../components/packageRestaurants/packageRestaurants';
 import '../../components/packageAttractions/packageAttractions';
+import '../../components/packageTours/packageTours';
 import './addPackages.html';
 import { Session } from 'meteor/session';
 import toastr from 'toastr';
@@ -11,6 +12,7 @@ import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
 import { restaurantOffers } from '../../../api/restaurants/restaurantOffers';
 import { Attractions } from '../../../api/attractions/attractions';
+import { Tours } from '../../../api/tours/tours';
 
 Template.addPackages.onCreated(() => {
   Session.set('packageHotelId', undefined);
@@ -21,6 +23,7 @@ Template.addPackages.onCreated(() => {
   Session.set('packageFleetId', undefined);
   Session.set('packageRestaurantId', undefined);
   Session.set('packageAttractionId', undefined);
+  Session.set('packageToursId', undefined);
 });
 
 Template.addPackages.helpers({
@@ -36,6 +39,7 @@ Template.addPackages.helpers({
   fleetSelected: () => Session.get('packageRenterId') && Session.get('packageFleetId'),
   restaurant: () => Session.get('packageRestaurantId'),
   attraction: () => Session.get('packageAttractionId'),
+  tour: () => Session.get('packageToursId'),
   initNum: function (fieldValue) {
     if (!fieldValue) {
       return 0;
@@ -49,7 +53,12 @@ Template.addPackages.helpers({
     const packageFleetId = Session.get('packageFleetId');
     const packageRestaurantId = Session.get('packageRestaurantId');
     const packageAttractionId = Session.get('packageAttractionId');
+    const packageToursId = Session.get('packageToursId');
 
+    // Precio tour
+    if (packageToursId) {
+      price += Tours.findOne({ _id: packageToursId }).price * (numAdults + numChildren);
+    }
     // Precio habitacion
     if (packageRoomId) {
       price += RoomHotel.findOne({ _id: packageRoomId }).price * numNights;
@@ -91,6 +100,7 @@ AutoForm.addHooks('addPackagesForm', {
     Session.set('packageFleetId', undefined);
     Session.set('packageRestaurantId', undefined);
     Session.set('packageAttractionId', undefined);
+    Session.set('packageToursId', undefined);
   },
   onError: function (formtype, error) {
     if (error.error) {

@@ -44,6 +44,7 @@
           {{>afQuickField type="hidden" name="idAttraction" value=attraction}}
           {{>afQuickField type="hidden" name="idGuide"}}
           {{>afQuickField type="hidden" name="idRestaurant" value=restaurant}}
+          {{>afQuickField type="hidden" name="idTour" value=tour}}
         </div>
         <div class="text-center mt-4">
           <button type="submit" class="btn mx-auto btn-primary w-75" >Actualizar Paquete</button>
@@ -83,6 +84,12 @@
           <i class="fas fa-2x fa-check-square"></i>
         {{/if}}
       </a>
+      <a class="nav-item nav-link" id="nav-tour-tab" data-toggle="tab" href="#nav-tour" role="tab" aria-controls="nav-tour" title="Excursiones" aria-selected="false">
+        <i class="fas fa-2x fa-bus"></i>
+        {{#if tour}}
+          <i class="fas fa-2x fa-check-square"></i>
+        {{/if}}
+      </a>
     </div>
   </nav>
   <br >
@@ -101,6 +108,9 @@
     </div>
     <div class="tab-pane fade" id="nav-attraction" role="tabpanel" aria-labelledby="nav-attraction-tab">
       {{>packageAttractions}}
+    </div>
+    <div class="tab-pane fade" id="nav-tour" role="tabpanel" aria-labelledby="nav-tour-tab">
+      {{>packageTours}}
     </div>
   </div>
 </template>
