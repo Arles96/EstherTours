@@ -91,6 +91,7 @@ import '../../ui/pages/soldPackage/listSoldPackage';
 import '../../ui/pages/subscriptions/listSubscriptions';
 import '../../ui/pages/shoppingPackage/shoppingPackage';
 import '../../ui/pages/ChatPage/ChatPage';
+import '../../ui/pages/ChatMobilePage/ChatMobilePage';
 import '../../ui/pages/Activities/activities';
 import '../../ui/pages/Activities/activitiesFiltered';
 import '../../ui/pages/Activities/activitiesPersonal';
@@ -1571,8 +1572,13 @@ Router.route('/add-packages', {
       Meteor.subscribe('renter.all'),
       Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('restaurantOffers.all'),
       Meteor.subscribe('restaurant.all'),
-      Meteor.subscribe('restaurantImage.all')
+      Meteor.subscribe('restaurantImage.all'),
+      Meteor.subscribe('attractions.all'),
+      Meteor.subscribe('attractionImage.all'),
+      Meteor.subscribe('tours.all'),
+      Meteor.subscribe('toursImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -1625,8 +1631,13 @@ Router.route('/edit-package/:id', {
       Meteor.subscribe('renter.all'),
       Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('restaurantOffers.all'),
       Meteor.subscribe('restaurant.all'),
       Meteor.subscribe('restaurantImage.all'),
+      Meteor.subscribe('attractions.all'),
+      Meteor.subscribe('attractionImage.all'),
+      Meteor.subscribe('tours.all'),
+      Meteor.subscribe('toursImage.all'),
       Meteor.subscribe('OnePackage', id)
     ];
   },
@@ -1665,12 +1676,15 @@ Router.route('/show-package/:id', {
       Meteor.subscribe('Routes.all'),
       Meteor.subscribe('fleetRenter.all'),
       Meteor.subscribe('RoomHotel.all'),
+      Meteor.subscribe('tours.all'),
       Meteor.subscribe('OnePackage', id)
     ];
   },
   onBeforeAction: function () {
+    const { id } = this.params;
+    const pack = Packages.findOne({ _id: id });
     Session.set('ShowChatFixed', true);
-    listBreadcrumb(['Listar Paquetes', 'Mostrando Información de Paquetes']);
+    listBreadcrumb(['Listar Paquetes', `Mostrando Información de ${pack.name}`]);
     isLoggedIn2(this);
   },
   data: function () {
@@ -1798,11 +1812,14 @@ Router.route('/list-subscriptions', {
 });
 
 /**
+  landscape: () => window.innerWidth > 780 && window.innerWidth > window.innerHeight
  * Ruta para página de chat
  */
 Router.route('/ChatPage', {
   name: 'ChatPage',
-  template: 'chatPage',
+  template: window.innerWidth > 780 && window.innerWidth > window.innerHeight
+    ? 'chatPage'
+    : 'chatMobilePage',
   layoutTemplate: 'bodyAdmin',
   waitOn: () => [
     Meteor.subscribe('notifications.all'),

@@ -17,6 +17,30 @@
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group">
               <label for="">
+                <b>Numero de noches:</b>
+                {{numNights}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Numero de adultos:</b>
+                {{numAdults}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Numero de niños:</b>
+                {{numChildren}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
                 <b>Precio:</b>
                 {{>convertDecimal}}
               </label>
@@ -100,6 +124,30 @@
                 <b>Restaurante:</b>
                 {{#if idRestaurant}}
                   {{textRestaurant}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Atracción:</b>
+                {{#if idAttraction}}
+                  {{textAttraction}}
+                {{else}}
+                  No posee
+                {{/if}}
+              </label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+              <label for="">
+                <b>Excursion:</b>
+                {{#if idTour}}
+                  {{textTour}}
                 {{else}}
                   No posee
                 {{/if}}

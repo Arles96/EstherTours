@@ -1,10 +1,16 @@
 <template name="chatUserMenu">
   <div class="card" style="background: #343a40; max-width: fit-content;">
     <div class="card-header" style="background: #343a40">
-      <a class="card-link mx-auto" data-toggle="collapse" href="#chat-user-menu" style="color: white">
+      {{#if isUsing}}
+      <a class="card-link mx-auto Menu_Chat_Text" data-toggle="collapse" href="#chat-user-menu" style="color: white">
         Usuarios <small style="color:rgba(209, 121, 121, 0)"> -</small>
-        <i class="fas fa-plus-circle"></i>
+        <i class="fas fa-comments"></i>
       </a>
+      {{else}}
+      <a class="card-link mx-auto Menu_Chat_Text" data-toggle="collapse" href="#chat-user-menu" style="color: white">
+        <i class="far fa-comments"></i>
+      </a>
+      {{/if}}
     </div>
     <div id="chat-user-menu" class="collapse hidde" data-parent="#accordion">
       <div class="card-body" style="max-height: 60vh; background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto; padding: 0;">

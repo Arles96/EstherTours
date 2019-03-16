@@ -1,19 +1,19 @@
-import './filterRoomHotel.html';
+import './packageAttractions.html';
+import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { RoomHotel } from '../../../api/hotels/roomhotel';
-import { Hotels } from '../../../api/hotels/hotels';
+import { Attractions } from '../../../api/attractions/attractions';
 import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
-import HotelImages from '../../../api/hotels/hotelImage';
+import AttractionImages from '../../../api/attractions/attractionImage';
 
 const sliderVals = {
   max: 5000,
   step: 100
 };
 
-Template.filterRoomHotel.onCreated(function createVars () {
-  const maxVal = RoomHotel.findOne({}, { sort: { price: -1 } });
+Template.packageAttractions.onCreated(function createVars () {
+  const maxVal = Attractions.findOne({}, { sort: { price: -1 } });
   if (maxVal) {
     sliderVals.max = Math.round(maxVal.price * 1.2);
     sliderVals.step = Math.round((maxVal.price * 1.2) / 10);
@@ -25,10 +25,10 @@ Template.filterRoomHotel.onCreated(function createVars () {
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterRoomHotelStars', '');
+  Session.set('packageAttractionStars', '');
 });
 
-Template.filterRoomHotel.helpers({
+Template.packageAttractions.helpers({
   sliderVals () {
     return sliderVals;
   },
@@ -62,56 +62,43 @@ Template.filterRoomHotel.helpers({
     return department !== '';
   },
   buscar () {
-    // filtrar por hotel primero
     const precioMax = Template.instance().precioMax.get();
     const name = Template.instance().name.get();
     const street = Template.instance().street.get();
     const city = Template.instance().city.get();
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
-    const queryH = {};
+    const query = {};
     if (name) {
-      queryH.name = new RegExp(`.*${name}.*`, 'i');
+      query.name = new RegExp(`.*${name}.*`, 'i');
     }
-    if (Session.get('filterRoomHotelStars')) {
-      queryH.categorization = Session.get('filterRoomHotelStars');
-    }
-    if (street) {
-      queryH.street = new RegExp(`.*${street}.*`, 'i');
-    }
-    if (city) {
-      queryH.city = new RegExp(`.*${city}.*`, 'i');
-    }
-    if (department) {
-      queryH.departament = department;
-    }
-    if (municipality) {
-      queryH.municipality = municipality;
-    }
-    const filteredHotels = Hotels
-      .find(queryH)
-      .map(doc => doc);
-    // con los hoteles obtenidos, filtrar por habitacion
-    const query = {
-      price: {
-        $lte: parseInt(precioMax, 10)
-      }
-    };
-    if (filteredHotels) {
-      query.idHotel = {
-        $in: filteredHotels.map(doc => doc._id)
+    if (precioMax) {
+      query.price = {
+        $lt: parseInt(precioMax, 10)
       };
     }
-    // unir documentos del documento con los cuartos encontrados
-    const filteredRooms = RoomHotel
+    if (Session.get('packageAttractionStars')) {
+      query.categorization = Session.get('packageAttractionStars');
+    }
+    if (department) {
+      query.departament = department;
+    }
+    if (municipality) {
+      query.municipality = municipality;
+    }
+    if (street) {
+      query.street = new RegExp(`.*${street}.*`, 'i');
+    }
+    if (city) {
+      query.city = new RegExp(`.*${city}.*`, 'i');
+    }
+    return Attractions
       .find(query, { sort: { price: 1 } })
-      .map(doc => ({ ...filteredHotels.find(({ _id }) => doc.idHotel === _id), ...doc }));
-
-    return filteredRooms;
+      .map(doc => doc);
   }
 });
 
-Template.filterRoomHotel.events({
+Template.packageAttractions.events({
   'input #sliderMax' (event, templateInstance) {
     templateInstance.precioMax.set(event.currentTarget.value);
   },
@@ -133,20 +120,34 @@ Template.filterRoomHotel.events({
   }
 });
 
-Template.filterResultRoomHotel.helpers({
+Template.packageResultAttraction.helpers({
+  selected (id) {
+    return id === Session.get('packageAttractionId');
+  },
   findImg (_id) {
-    return HotelImages.findOne({ _id });
+    return AttractionImages.find({ _id }).map(doc => doc)[0];
   },
   first (index) {
     return index === 0;
   }
 });
 
-Template.filterStarRoomHotel.helpers({
+Template.packageResultAttraction.events({
+  'click #packageAddAttraction' () {
+    Session.set('packageAttractionId', this._id);
+    toastr.info('Se guardo la atraccion al paquete!');
+  },
+  'click #packageRemoveAttraction' () {
+    Session.set('packageAttractionId', null);
+    toastr.info('Se quito la atraccion del paquete!');
+  }
+});
+
+Template.packageStarAttraction.helpers({
   list: () => {
     const list = [];
     for (let index = 1; index <= 5; index += 1) {
-      if (index <= parseInt(Session.get('filterRoomHotelStars'), 10)) {
+      if (index <= parseInt(Session.get('packageAttractionStars'), 10)) {
         list.push({
           class: 'fas fa-star colorOrange',
           id: `star${index}`
@@ -162,20 +163,20 @@ Template.filterStarRoomHotel.helpers({
   }
 });
 
-Template.filterStarRoomHotel.events({
+Template.packageStarAttraction.events({
   'click #star1': function () {
-    Session.set('filterRoomHotelStars', '1');
+    Session.set('packageAttractionStars', '1');
   },
   'click #star2': function () {
-    Session.set('filterRoomHotelStars', '2');
+    Session.set('packageAttractionStars', '2');
   },
   'click #star3': function () {
-    Session.set('filterRoomHotelStars', '3');
+    Session.set('packageAttractionStars', '3');
   },
   'click #star4': function () {
-    Session.set('filterRoomHotelStars', '4');
+    Session.set('packageAttractionStars', '4');
   },
   'click #star5': function () {
-    Session.set('filterRoomHotelStars', '5');
+    Session.set('packageAttractionStars', '5');
   }
 });

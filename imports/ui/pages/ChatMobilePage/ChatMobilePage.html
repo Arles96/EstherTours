@@ -1,0 +1,103 @@
+<template name="chatMobilePage">
+  <div id="chatPage" class="mb-3 d-inline-flex justify-content-center" style="width: 100%; height: 100%; font-size: 0.8rem">
+    {{#if isChatting}}
+    <div class="card align-self-stretch flex-grow-1">
+      <div class="card-header d-flex justify-content-between">
+        <i class="fas fa-angle-left pointer BackChatWith" style="width: auto"></i>
+        <div style="text-align: center;">
+          {{getIssuer "firstName"}} {{getIssuer "lastName"}}
+          {{#if (getIssuer "status")}}
+          : <small><i style="color: #52BE80">En línea</i></small>
+          {{/if}}
+        </div>
+        <div></div>
+      </div>
+      <div id="ChatBody"
+        style="height: 100%; background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto !important; text-align: center; padding: 1rem;">
+        {{#if moreMessages}}
+        <a class="pointer moreMessages_Label mb-2"><i>-- Cargar más mensajes --</i></a>
+        <br>
+        {{/if}}
+        {{#each message in messages}}
+        {{#if (isReceiver message.idReceiver ) }}
+        <div class="alert alert-secondary" style="text-align: left; max-width: max-content;">
+          <strong>{{getIssuer "firstName"}}: </strong>{{message.message}}
+        </div>
+        {{else}}
+        <div class="alert alert-info " style="text-align: left; max-width: max-content;">
+          <strong>Tú: </strong>{{message.message}}
+          {{#if (isSent message.status)}}
+          <i class="fas fa-check fa-xs float-sm-right" style="margin-left: 1rem;"></i>
+          {{/if}}
+          {{#if (isReceived message.status)}}
+          <i class="fas fa-check-double fa-xs float-sm-right" style="margin-left: 1rem;"></i>
+          {{/if}}
+          {{#if (isRead message.status)}}
+          <i class="fas fa-check-double fa-xs fa-xs float-sm-right" style="color: orange; margin-left: 1rem;"></i>
+          {{/if}}
+        </div>
+        {{/if}}
+        {{else}}
+        <br><i>-- No hay mensajes --</i>
+        {{/each}}
+      </div>
+      <div class="card-footer">
+        <form>
+          <div class="input-group d-inline-fle flex-nowrap" style="width: 100% !important">
+            <textarea autocomplete="off" class="form-control" placeholder="Mensaje..." type="text" name="message"
+              id="ChatPage-message" required data-schema-key="message" rows="1.5"
+              style="resize: none; width: max-content;"></textarea>
+            <div class="input-group-append">
+              <div class="btn btn-dark sendMessage"><i class="fas fa-chevron-circle-right" style="width: auto;"></i>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    {{else}}
+    <div class="card align-self-stretch flex-grow-1">
+      <div class="card-header" style="text-align: center;">
+        <label for="#searchChatWith">Usuarios</label>
+        <div id="searchChatWith" class="" style="background: #ececec;">
+          <div class="input-group d-inline-fle flex-nowrap" style="width: 100% !important">
+            <input type="input" class="searchChatWith form-control" placeholder="Buscar..." rows="1" />
+            <div class="input-group-append">
+              <button class="btn btn-dark"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto; padding: 0;">
+        <div class="list-group">
+          {{#each user in listUsers }}
+          <div id="{{user._id}}"
+            class="chatWith list-group-item list-group-item-action d-flex flex-column textEllipsis pointer">
+            <div class="flex-row flex-grow-1">
+              {{#if user.status.online}}
+              <i class="fas fa-circle fa-xs mr-auto pointer" style="color: #52BE80"></i>
+              {{/if}}
+              {{user.profile.firstName}} {{user.profile.lastName}}
+              <span class="ml-auto badge badge-pill badge-dark">{{cantNotifications user._id}}</span>
+            </div>
+            <small class="flex-row textEllipsis" style="max-width: 100%"><i>{{lastMessage user._id}}
+                {{#if (isReceiver (lastMessageId user._id))}}
+                {{#if (isSent (getStatus user._id))}}
+                <i class="fas fa-check fa-xs float-sm-right"></i>
+                {{/if}}
+                {{#if (isReceived (getStatus user._id))}}
+                <i class="fas fa-check-double fa-xs float-sm-right"></i>
+                {{/if}}
+                {{#if (isRead (getStatus user._id))}}
+                <i class="fas fa-check-double fa-xs fa-xs float-sm-right" style="color: orange;"></i>
+                {{/if}}
+                {{/if}}
+              </i></small>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+</template>

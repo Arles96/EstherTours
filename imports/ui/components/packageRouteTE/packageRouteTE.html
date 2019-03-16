@@ -130,13 +130,15 @@
         </div>
       </div>
       <div class="card-footer small text-muted">
-        <button class="btn btn-outline-primary ml-3" id="packageAddRoute">
-          {{#if selected _id}}
-            <i class="fas fa-check-square"></i> Seleccionado
-          {{else}}
+        {{#if selected _id}}
+          <button class="btn btn-outline-danger ml-3" id="packageRemoveRoute">
+            <i class="fas fa-minus-square"></i> Quitar
+          </button>
+        {{else}}
+          <button class="btn btn-outline-primary ml-3" id="packageAddRoute">
             <i class="fas fa-plus-square"></i> Agregar
-          {{/if}}
-        </button>
+          </button>
+        {{/if}}
       </div>
     </div>
   {{/with}}

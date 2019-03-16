@@ -7,16 +7,52 @@ import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 import RestaurantImages from '../../../api/restaurants/restaurantImage';
 
+const sliderVals = {
+  tablesMax: 50,
+  tablesStep: 10,
+  chairsMax: 200,
+  chairsStep: 10,
+  babiesMax: 50,
+  babiesStep: 5,
+  personMax: 300,
+  personStep: 10
+};
+
 Template.packageRestaurants.onCreated(function createVars () {
+  const maxNumbersTables = Restaurants.findOne({}, { sort: { numbersTables: -1 } });
+  const maxNumbersChairs = Restaurants.findOne({}, { sort: { numbersChairs: -1 } });
+  const maxNumbersChairsBabies = Restaurants.findOne({}, { sort: { numbersChairsBabies: -1 } });
+  const maxPersonCapacity = Restaurants.findOne({}, { sort: { maxPersonCapacity: -1 } });
+
+  if (maxNumbersTables) {
+    sliderVals.tablesMax = Math.round(maxNumbersTables.numbersTables * 1.2);
+    sliderVals.tablesStep = Math.round((maxNumbersTables.numbersTables * 1.2) / 10);
+  }
+
+  if (maxNumbersChairs) {
+    sliderVals.chairsMax = Math.round(maxNumbersChairs.numbersChairs * 1.2);
+    sliderVals.chairsStep = Math.round((maxNumbersChairs.numbersChairs * 1.2) / 10);
+  }
+
+  if (maxNumbersChairsBabies) {
+    sliderVals.babiesMax = Math.round(maxNumbersChairsBabies.numbersChairsBabies * 1.2);
+    sliderVals.babiesStep = Math.round((maxNumbersChairsBabies.numbersChairsBabies * 1.2) / 10);
+  }
+
+  if (maxPersonCapacity) {
+    sliderVals.personMax = Math.round(maxPersonCapacity.maxPersonCapacity * 1.2);
+    sliderVals.personStep = Math.round((maxPersonCapacity.maxPersonCapacity * 1.2) / 10);
+  }
+
+  this.numbersTables = new ReactiveVar(Math.round(sliderVals.tablesMax / 4));
+  this.numbersChairs = new ReactiveVar(Math.round(sliderVals.chairsMax / 4));
+  this.numbersChairsBabies = new ReactiveVar(Math.round(sliderVals.babiesMax / 4));
+  this.maxPersonCapacity = new ReactiveVar(Math.round(sliderVals.personMax / 4));
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  this.numbersTables = new ReactiveVar(50);
-  this.numbersChairs = new ReactiveVar(50);
-  this.numbersChairsBabies = new ReactiveVar(50);
-  this.maxPersonCapacity = new ReactiveVar(50);
   this.facilityPeople = new ReactiveVar('');
   this.bar = new ReactiveVar('');
   this.waitingRoom = new ReactiveVar('');
@@ -24,6 +60,9 @@ Template.packageRestaurants.onCreated(function createVars () {
 });
 
 Template.packageRestaurants.helpers({
+  sliderVals () {
+    return sliderVals;
+  },
   name () {
     return Template.instance().name.get();
   },
@@ -204,9 +243,13 @@ Template.packageResultRestaurant.helpers({
 });
 
 Template.packageResultRestaurant.events({
-  'click #packageAddRestaurant' (event, templateInstance) {
+  'click #packageAddRestaurant' () {
     Session.set('packageRestaurantId', this._id);
     toastr.info('Se guardo el restaurante al paquete!');
+  },
+  'click #packageRemoveRestaurant' () {
+    Session.set('packageRestaurantId', null);
+    toastr.info('Se quito el restaurante del paquete!');
   }
 });
 

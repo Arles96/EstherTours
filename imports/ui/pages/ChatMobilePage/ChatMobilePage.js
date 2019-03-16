@@ -1,4 +1,4 @@
-import './ChatPage.html';
+import './ChatMobilePage.html';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Template } from 'meteor/templating';
@@ -6,14 +6,14 @@ import { Session } from 'meteor/session';
 import { Notifications } from '../../../api/Notifications/Notification';
 import { Chats, ChatSchema } from '../../../api/Chats/Chats';
 
-Template.chatPage.onCreated(function createVars () {
+Template.chatMobilePage.onCreated(function createVars() {
   Session.set('limitChatPage', 10);
   Session.set('skipChatPage', 1);
-  Session.set('countChatPage', 0);
   this.currentIssuerId = new ReactiveVar('none');
 });
 
-Template.chatPage.helpers({
+Template.chatMobilePage.helpers({
+  isChatting: () => Template.instance().currentIssuerId.get() !== 'none',
   listUsers: () => {
     const result = Meteor.users.find({
       _id: { $not: Meteor.userId() },
@@ -66,14 +66,6 @@ Template.chatPage.helpers({
       Meteor.call('lookMessage', query);
     }
     return Meteor.userId() === id;
-  },
-  isStartPage: () => {
-    const context = Session.get('ChatPage-context');
-    if (context !== 'none') {
-      Session.set('ChatPage-context', 'none');
-      Template.instance().currentIssuerId.set(context);
-    }
-    return Template.instance().currentIssuerId.get() === 'none';
   },
   getReceiver: () => Meteor.user(),
   getIssuer: function (option) {
@@ -194,7 +186,7 @@ Template.chatPage.helpers({
   isRead: status => status === 3
 });
 
-Template.chatPage.events({
+Template.chatMobilePage.events({
   'click .sendMessage': function (event) {
     const message = document.getElementById('ChatPage-message').value;
     const query = {
@@ -256,5 +248,8 @@ Template.chatPage.events({
   },
   'click .moreMessages_Label': function (event) {
     Session.set('skipChatPage', Session.get('skipChatPage') + 1);
+  },
+  'click .BackChatWith': function (event) {
+    Template.instance().currentIssuerId.set('none');
   }
 });

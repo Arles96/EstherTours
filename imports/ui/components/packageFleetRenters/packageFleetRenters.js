@@ -8,9 +8,29 @@ import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 import RenterImages from '../../../api/renters/fleetRenterImage';
 
+const sliderVals = {
+  rateMax: 5000,
+  rateStep: 100,
+  totalMax: 5000,
+  totalStep: 100
+};
+
 Template.packageFleetRenters.onCreated(function createVars () {
-  this.tarifaMax = new ReactiveVar(10000);
-  this.total = new ReactiveVar(500);
+  const maxRate = FleetRenter.findOne({}, { sort: { rate: -1 } });
+  const maxTotal = FleetRenter.findOne({}, { sort: { total: -1 } });
+
+  if (maxRate) {
+    sliderVals.rateMax = Math.round(maxRate.rate * 1.2);
+    sliderVals.rateStep = Math.round((maxRate.rate * 1.2) / 10);
+  }
+
+  if (maxTotal) {
+    sliderVals.totalMax = Math.round(maxTotal.total * 1.2);
+    sliderVals.totalStep = Math.round((maxTotal.total * 1.2) / 10);
+  }
+
+  this.tarifaMax = new ReactiveVar(Math.round(sliderVals.rateMax / 4));
+  this.total = new ReactiveVar(Math.round(sliderVals.totalMax / 4));
   this.type = new ReactiveVar('');
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
@@ -21,6 +41,9 @@ Template.packageFleetRenters.onCreated(function createVars () {
 });
 
 Template.packageFleetRenters.helpers({
+  sliderVals () {
+    return sliderVals;
+  },
   tarifaMax () {
     return Template.instance().tarifaMax.get();
   },
@@ -164,10 +187,15 @@ Template.packageResultFleetRenter.helpers({
 });
 
 Template.packageResultFleetRenter.events({
-  'click #packageAddFleet' (event, templateInstance) {
+  'click #packageAddFleet' () {
     Session.set('packageRenterId', this.idRenter);
     Session.set('packageFleetId', this._id);
     toastr.info('Se guardo la flota al paquete!');
+  },
+  'click #packageRemoveFleet' () {
+    Session.set('packageRenterId', null);
+    Session.set('packageFleetId', null);
+    toastr.info('Se quito la flota del paquete!');
   }
 });
 

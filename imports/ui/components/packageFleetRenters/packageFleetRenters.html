@@ -69,16 +69,18 @@
             <option value="Marítima">Marítima</option>
           </select>
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>Total de flota:</b> {{total}}</label>
-          <br >
-          <input type="range" id="sliderMaxTotal" min="0" max="1000" step="10" value="{{total}}" class="slider" style="width: 100%;">
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>Tarifa de flota máxima:</b> Lps. {{tarifaMax}}</label>
-          <br >
-          <input type="range" id="sliderMaxRate" min="0" max="20000" step="1000" value="{{tarifaMax}}" class="slider" style="width: 100%;">
-        </div>
+        {{#with sliderVals}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+            <label for="slider"><b>Total de flota:</b> {{total}}</label>
+            <br >
+            <input type="range" id="sliderMaxTotal" min="0" max="{{totalMax}}" step="{{totalStep}}" value="{{total}}" class="slider" style="width: 100%;">
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+            <label for="slider"><b>Tarifa de flota máxima:</b> Lps. {{tarifaMax}}</label>
+            <br >
+            <input type="range" id="sliderMaxRate" min="0" max="{{rateMax}}" step="{{rateStep}}" value="{{tarifaMax}}" class="slider" style="width: 100%;">
+          </div>
+        {{/with}}
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group mt-1">
           <label>
             <b>Categorizacion:</b>
@@ -202,13 +204,15 @@
         </div>
       </div>
       <div class="card-footer small text-muted">
-        <button class="btn btn-outline-primary ml-3" id="packageAddFleet">
-          {{#if selected _id}}
-            <i class="fas fa-check-square"></i> Seleccionado
-          {{else}}
+        {{#if selected _id}}
+          <button class="btn btn-outline-danger ml-3" id="packageRemoveFleet">
+            <i class="fas fa-minus-square"></i> Quitar
+          </button>
+        {{else}}
+          <button class="btn btn-outline-primary ml-3" id="packageAddFleet">
             <i class="fas fa-plus-square"></i> Agregar
-          {{/if}}
-        </button>
+          </button>
+        {{/if}}
       </div>
     </div>
   {{/with}}

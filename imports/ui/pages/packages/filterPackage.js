@@ -11,8 +11,22 @@ import { Template } from 'meteor/templating';
 import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 
+const sliderVals = {
+  max: 50000,
+  step: 1000
+};
+
 Template.filterPackage.onCreated(function createVars () {
-  this.precioMax = new ReactiveVar(2500);
+  let tempMax = 0;
+  Meteor.call('maxValuesPackages', (error, result) => {
+    if (!error && result) {
+      sliderVals.max = Math.round(result.price * 1.2);
+      sliderVals.step = Math.round((result.price * 1.2) / 10);
+      tempMax = Math.round(sliderVals.max / 4);
+    }
+  });
+
+  this.precioMax = new ReactiveVar(tempMax);
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
@@ -22,6 +36,9 @@ Template.filterPackage.onCreated(function createVars () {
 });
 
 Template.filterPackage.helpers({
+  sliderVals () {
+    return sliderVals;
+  },
   precioMax () {
     return Template.instance().precioMax.get();
   },

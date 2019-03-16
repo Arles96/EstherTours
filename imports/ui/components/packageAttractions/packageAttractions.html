@@ -1,17 +1,17 @@
-<template name="filterTours">
+<template name="packageAttractions">
   <div class="card mb-3">
     <div class="card-header">
       <i class="fas fa-search-location"></i>
-      Filtrar Excursiones
+      Filtrar Atracciones
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
           <label>
-            <b>Título:</b>
+            <b>Nombre:</b>
           </label>
           <br >
-          <input type="text" id="title" value="{{title}}" class="form-control">
+          <input type="text" id="name" value="{{name}}" class="form-control">
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
           <label>
@@ -62,7 +62,7 @@
             <b>Categorizacion:</b>
           </label>
           <br >
-          {{>filterStarTours}}
+          {{>packageStarAttraction}}
         </div>
         {{#with sliderVals}}
           <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
@@ -71,24 +71,20 @@
             <input type="range" id="sliderMax" min="0" max="{{max}}" step="{{step}}" value="{{precioMax}}" class="slider" style="width: 100%;">
           </div>
         {{/with}}
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 form-group">
-          <br >
-          <button class="btn btn-info" style="width: 100%;" id="export-filtered">Exportar a Excel con filtros</button>
-        </div>
       </div>
     </div>
   </div>
   {{#each buscar}}
-    {{>filterResultTours tour=this}}
+    {{>packageResultAttraction attraction=this}}
   {{/each}}
 </template>
 
-<template name="filterResultTours">
-  {{#with tour}}
+<template name="packageResultAttraction">
+  {{#with attraction}}
     <div class="card mb-3">
       <div class="card-header">
         <i class="fas fa-mosque"></i>
-        <b>{{title}}</b>
+        <b>{{name}}</b>
       </div>
       <div class="card-body">
         <div class="row">
@@ -96,7 +92,7 @@
             {{#if images}}
               <div id="contrCarous{{_id}}" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                  {{#each tourImages}}
+                  {{#each attractionImages}}
                     {{#if first @index}}
                       <div class="carousel-item active">
                         <img class="d-block" src="{{link}}" alt="{{name}}" width="256" height="256">
@@ -130,18 +126,18 @@
           <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <div class="form-group">
               <label>
-                <b>
-                  Descripción
-                </b>
-              </label>
-              <p>{{description}}</p>
-            </div>
-            <div class="form-group">
-              <label>
                 <b>Teléfonos:</b>
               </label>
               {{#each telephone}}
                 <li>{{this}}</li>
+              {{/each}}
+            </div>
+            <div class="form-group">
+              <label>
+                <b>Contactos:</b>
+              </label>
+              {{#each branchContacts}}
+                <li>{{name}}, {{role}}</li>
               {{/each}}
             </div>
             <div class="form-group">
@@ -162,27 +158,38 @@
                 <li>{{this}}</li>
               {{/each}}
             </div>
+            <div class="form-group">
+              <label>
+                <b>Tipo de atraccion:</b>
+              </label>
+              {{#each type}}
+                <li>{{this}}</li>
+              {{/each}}
+            </div>
           </div>
         </div>
       </div>
       <div class="card-footer small text-muted">
-        <a style="text-decoration: none;" href="/show-tour/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
-          <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
-        </a>
-        <span style="text-decoration: none;" class="text-dark" data-toggle="tooltip" data-placement="top" id="export-single" title="Exportar a Excel" >
-          <i style="cursor: pointer;" class="far fa-file-excel mr-2"></i>
-        </span>
+        {{#if selected _id}}
+          <button class="btn btn-outline-danger ml-3" id="packageRemoveAttraction">
+            <i class="fas fa-minus-square"></i> Quitar
+          </button>
+        {{else}}
+          <button class="btn btn-outline-primary ml-3" id="packageAddAttraction">
+            <i class="fas fa-plus-square"></i> Agregar
+          </button>
+        {{/if}}
       </div>
     </div>
   {{/with}}
 </template>
 
-<template name="filterStarTours">
-  <div>
-    <p>
-      {{#each list}}
-        <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
-      {{/each}}
-    </p>
-  </div>
-</template>
+<template name="packageStarAttraction">
+    <div>
+      <p>
+        {{#each list}}
+          <i style="font-size: 1.3rem; cursor: pointer;" id="{{id}}" class="{{class}}"></i>
+        {{/each}}
+      </p>
+    </div>
+  </template>

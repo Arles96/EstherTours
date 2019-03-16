@@ -1,4 +1,4 @@
-<template name="filterTours">
+<template name="packageTours">
   <div class="card mb-3">
     <div class="card-header">
       <i class="fas fa-search-location"></i>
@@ -62,7 +62,7 @@
             <b>Categorizacion:</b>
           </label>
           <br >
-          {{>filterStarTours}}
+          {{>packageStarTours}}
         </div>
         {{#with sliderVals}}
           <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
@@ -71,19 +71,15 @@
             <input type="range" id="sliderMax" min="0" max="{{max}}" step="{{step}}" value="{{precioMax}}" class="slider" style="width: 100%;">
           </div>
         {{/with}}
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 form-group">
-          <br >
-          <button class="btn btn-info" style="width: 100%;" id="export-filtered">Exportar a Excel con filtros</button>
-        </div>
       </div>
     </div>
   </div>
   {{#each buscar}}
-    {{>filterResultTours tour=this}}
+    {{>packageResultTours tour=this}}
   {{/each}}
 </template>
 
-<template name="filterResultTours">
+<template name="packageResultTours">
   {{#with tour}}
     <div class="card mb-3">
       <div class="card-header">
@@ -166,18 +162,21 @@
         </div>
       </div>
       <div class="card-footer small text-muted">
-        <a style="text-decoration: none;" href="/show-tour/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
-          <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
-        </a>
-        <span style="text-decoration: none;" class="text-dark" data-toggle="tooltip" data-placement="top" id="export-single" title="Exportar a Excel" >
-          <i style="cursor: pointer;" class="far fa-file-excel mr-2"></i>
-        </span>
+        {{#if selected _id}}
+          <button class="btn btn-outline-danger ml-3" id="packageRemoveTours">
+            <i class="fas fa-minus-square"></i> Quitar
+          </button>
+        {{else}}
+          <button class="btn btn-outline-primary ml-3" id="packageAddTours">
+            <i class="fas fa-plus-square"></i> Agregar
+          </button>
+        {{/if}}
       </div>
     </div>
   {{/with}}
 </template>
 
-<template name="filterStarTours">
+<template name="packageStarTours">
   <div>
     <p>
       {{#each list}}
