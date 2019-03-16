@@ -186,7 +186,7 @@ Attractions.helpers({
   attractionImages: function () {
     return this.images.map(_id => AttractionImages.findOne({ _id }));
   },
-  textPrice: function() {
+  textPrice: function () {
     return this.price.toFixed(2);
   }
 });

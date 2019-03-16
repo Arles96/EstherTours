@@ -13,6 +13,7 @@ import { Attractions } from '../../api/attractions/attractions';
 import { FleetRenter } from '../../api/renters/fleetRenter';
 import { RouteTransportationEstablishment } from '../../api/TransportationEstablishment/RouteTransportationEstablishment';
 import { RoomHotel } from '../../api/hotels/roomhotel';
+import { Tours } from '../../api/tours/tours';
 
 // Import layouts
 import '../../ui/layouts/body/body';
@@ -93,6 +94,12 @@ import '../../ui/pages/ChatPage/ChatPage';
 import '../../ui/pages/Activities/activities';
 import '../../ui/pages/Activities/activitiesFiltered';
 import '../../ui/pages/position/listPosition';
+import '../../ui/pages/tours/listTours';
+import '../../ui/pages/tours/addTours';
+import '../../ui/pages/tours/editTours';
+import '../../ui/pages/tours/showTour';
+import '../../ui/pages/tours/reportTour/reportTour';
+import '../../ui/pages/tours/filterTours';
 
 /**
  *Función para listar en el componente breadcrumb
@@ -107,7 +114,7 @@ function listBreadcrumb (list) {
  */
 Router.configure({
   layoutTemplate: 'App_body',
-  notFoundTemplate: 'App_notFound'
+  notFoundTemplate: 'appNotFound'
 });
 
 /**
@@ -1862,6 +1869,9 @@ Router.route('/adding-package', {
   }
 });
 
+/**
+ * Ruta para mostrar todas las actividades de los usuarios
+ */
 Router.route('/activities', {
   name: 'userActivities',
   template: 'userActivities',
@@ -1911,5 +1921,134 @@ Router.route('/list-positions', {
   onBeforeAction: function () {
     listBreadcrumb(['Tabla de Cargos']);
     isSupervisorOrAdmin(this);
+  }
+});
+
+/**
+ * Rutas para Excursiones
+ */
+Router.route('/list-tours', {
+  name: 'listTours',
+  template: 'listTours',
+  layoutTemplate: 'bodyAdmin',
+  onBeforeAction: function () {
+    listBreadcrumb(['Tabla de Excursiones']);
+    isLoggedIn2(this);
+  }
+});
+
+Router.route('/add-tours', {
+  name: 'addTours',
+  template: 'addTours',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('toursImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    listBreadcrumb(['Agregando Excursión']);
+    isOperator(this);
+  }
+});
+
+/**
+ * Ruta para actualizar los datos de excursión
+ */
+Router.route('/edit-tour/:id', {
+  name: 'editTours',
+  template: 'editTours',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('tours.one', this.params.id),
+      Meteor.subscribe('guide.all'),
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('toursImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
+    listBreadcrumb(['Tabla de Excursión', 'Actualizando Información de Excursion']);
+    Session.set('editAttractionCategorization', undefined);
+    isOperator(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      tour: Tours.findOne({ _id: id })
+    };
+  }
+});
+
+Router.route('/show-tour/:id', {
+  name: 'showTour',
+  template: 'showTour',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    const { id } = this.params;
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('tours.one', id),
+      Meteor.subscribe('toursImage.all'),
+      Meteor.subscribe('guide.all')
+    ];
+  },
+  onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
+    const { id } = this.params;
+    const tour = Tours.findOne({ _id: id });
+    listBreadcrumb(['Tabla de Excursión', `Mostrando Información de ${tour.title}`]);
+    isLoggedIn2(this);
+  },
+  data: function () {
+    const { id } = this.params;
+    return {
+      tour: Tours.findOne({ _id: id })
+    };
+  }
+});
+
+Router.route('/report-tours', {
+  name: 'reportTour',
+  template: 'reportTour',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
+  onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
+    listBreadcrumb(['Reportar Excursiones']);
+    isLoggedIn2(this);
+  }
+});
+
+Router.route('/filter-tours', {
+  name: 'filterTours',
+  template: 'filterTours',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('notifications.all'),
+      Meteor.subscribe('chats.all'),
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('tours.all'),
+      Meteor.subscribe('toursImage.all')
+    ];
+  },
+  onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
+    listBreadcrumb(['Filtrar excursiones']);
+    isLoggedIn2(this);
   }
 });
