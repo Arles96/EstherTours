@@ -60,7 +60,7 @@ Meteor.methods({
     }
   },
   deletePackage: function (id) {
-    if (!SoldPackage.find({ idPackage: id })) {
+    if (!SoldPackage.findOne({ idPackage: id })) {
       Packages.remove({ _id: id });
       userActivities.insert({
         userId: Meteor.userId(),
