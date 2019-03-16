@@ -22,8 +22,7 @@ Template.emailPackage.events({
     const id = Session.get('emailPackageId');
     Meteor.call('sendEmailPackage', id, email, (error, result) => {
       if (error) {
-        console.log(error);
-        toastr.error('Error al eliminar enviar el correo.');
+        toastr.error('Error al enviar el correo.');
       } else {
         toastr.success('Se envío el correo!');
       }

@@ -94,6 +94,7 @@ import '../../ui/pages/ChatPage/ChatPage';
 import '../../ui/pages/ChatMobilePage/ChatMobilePage';
 import '../../ui/pages/Activities/activities';
 import '../../ui/pages/Activities/activitiesFiltered';
+import '../../ui/pages/Activities/activitiesPersonal';
 import '../../ui/pages/position/listPosition';
 import '../../ui/pages/tours/listTours';
 import '../../ui/pages/tours/addTours';
@@ -1856,7 +1857,9 @@ Router.route('/adding-package', {
       Meteor.subscribe('restaurantImage.all'),
       Meteor.subscribe('notifications.all'),
       Meteor.subscribe('chats.all'),
-      Meteor.subscribe('allUsers.all')
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('tours.all'),
+      Meteor.subscribe('toursImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -1873,6 +1876,7 @@ Router.route('/adding-package', {
     const roomHotel = RoomHotel.findOne({ _id: Session.get('packageRoomHotel') });
     const routeTransport = RouteTransportationEstablishment.findOne({ _id: Session.get('packageRouteTransport') });
     const attraction = Attractions.findOne({ _id: Session.get('packageAttraction') });
+    const tour = Tours.findOne({ _id: Session.get('packageTour') });
     return {
       hotel,
       attraction,
@@ -1881,7 +1885,8 @@ Router.route('/adding-package', {
       routeTransport,
       restaurant,
       renter,
-      transportationEstablishment
+      transportationEstablishment,
+      tour
     };
   }
 });
@@ -1919,6 +1924,22 @@ Router.route('/activities-filtered', {
       Meteor.subscribe('notifications.all'),
       Meteor.subscribe('chats.all')
     ];
+  }
+});
+
+Router.route('/user-activities', {
+  name: 'userPersonalActivities',
+  template: 'userPersonalActivities',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
+  onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
+    listBreadcrumb(['Tabla de actividades']);
+    isLoggedIn2(this);
   }
 });
 
