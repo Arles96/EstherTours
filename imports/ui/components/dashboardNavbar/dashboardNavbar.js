@@ -14,6 +14,20 @@ Template.dashboardNavbar.onCreated(() => {
 });
 
 Template.dashboardNavbar.helpers({
+  username: () => {
+    const query = Meteor.user();
+    if (query) {
+      return `${query.profile.firstName} ${query.profile.lastName}`;
+    }
+    return null;
+  },
+  role: () => {
+    const query = Meteor.user();
+    if (query) {
+      return query.roles;
+    }
+    return null;
+  },
   getNotifications: () => Notifications.find({ idReceiver: Meteor.userId() }),
   hasNotifications: () => {
     const query = Notifications.find({ idReceiver: Meteor.userId() });
