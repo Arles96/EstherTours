@@ -5,6 +5,7 @@ import '../../components/cardRoomHotel/cardRoomHotel';
 import '../../components/cardRouteTransport/cardRouteTransport';
 import '../../components/cardAttraction/cardAttraction';
 import '../../components/addSubscription/addSubscription';
+import '../../components/cardTour/cardTour';
 import Swal from 'sweetalert2';
 import toastr from 'toastr';
 import { PackagesSchema } from '../../../api/packages/packages';
@@ -12,7 +13,13 @@ import { clearValues } from '../../../startup/client/packageFunction';
 import { consultant } from '../../../api/roles/roles';
 
 Template.shoppingPackage.helpers({
-  PackagesSchema: () => PackagesSchema
+  PackagesSchema: () => PackagesSchema,
+  initNum: function (fieldValue) {
+    if (!fieldValue) {
+      return 0;
+    }
+    return fieldValue;
+  }
 });
 
 AutoForm.addHooks('addingPackagesForm', {
