@@ -47,12 +47,11 @@ Template.dashboardNavbar.helpers({
 });
 
 Template.dashboardNavbar.events({
-  'click #logout': function () {
+  'click #exit': function () {
     const userId = Meteor.userId();
     Meteor.call('userLogout2', userId, (error, result) => {
       if (!error) {
         Accounts.logout();
-        window.location = '/';
       }
     });
   },

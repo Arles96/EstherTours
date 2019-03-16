@@ -12,6 +12,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'agregó',
         collection: 'guías',
         registerId: 'N/D',
@@ -34,6 +35,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'editó',
         collection: 'guías',
         registerId: 'N/D',
@@ -50,6 +52,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'guías',
         registerId: 'N/D',

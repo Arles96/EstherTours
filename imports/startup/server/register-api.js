@@ -57,3 +57,7 @@ import '../../api/Notifications/server/publication';
 // Api de Cargos
 import '../../api/position/server/publication';
 import '../../api/position/method';
+
+// Api de Excursiones
+import '../../api/tours/server/publication';
+import '../../api/tours/method';

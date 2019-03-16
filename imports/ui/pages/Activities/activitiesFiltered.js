@@ -35,6 +35,9 @@ Template.userActivitiesFiltered.onCreated(function createVar () {
     }
   });
   this.myChart = new ReactiveVar(null);
+  Session.set('selectedUserActivities','');
+  Session.set('selectedRoleActivities','');
+  Session.set('selectedActivityActivities','');
 });
 
 Template.userActivitiesFiltered.helpers({
@@ -42,9 +45,22 @@ Template.userActivitiesFiltered.helpers({
     label: `${doc.profile.firstName} ${doc.profile.lastName}, ${doc.roles[0]}`,
     value: doc._id
   }))),
-  selector: () => ({
-    userId: Session.get('selectedUserActivities')
-  })
+  Roles: () => ([{ value: 'Administrador' }, { value: 'Operador' }, { value: 'Consultor' }, { value: 'Supervisor' }]),
+  Activities: () => ([{ value: 'agregó' }, { value: 'editó' }, { value: 'eliminó' }, { value: 'Inició sesión' }, { value: 'Cerró sesión' }]),
+  selector: function () {
+    var query = {};
+
+    if(Session.get('selectedUserActivities'))
+      query['userId'] = Session.get('selectedUserActivities');
+
+    if(Session.get('selectedRoleActivities') !== '')
+      query['role'] = Session.get('selectedRoleActivities');
+
+    if(Session.get('selectedActivityActivities') !== '')
+      query['activity'] = Session.get('selectedActivityActivities');
+
+    return query;
+  }
 });
 
 Template.userActivitiesFiltered.events({
@@ -53,6 +69,12 @@ Template.userActivitiesFiltered.events({
     Session.set('selectedUserActivitiesName', event.currentTarget.label);
     Template.instance().myChart.get().destroy();
     drawChart(Template.instance());
+  },
+  'change #roleSelector' (event) {
+    Session.set('selectedRoleActivities', event.currentTarget.value);
+  },
+  'change #activitySelector' (event) {
+    Session.set('selectedActivityActivities', event.currentTarget.value);
   }
 });
 

@@ -7,6 +7,7 @@ Meteor.methods({
     userActivities.insert({
       userId: Meteor.userId(),
       user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      role: Meteor.user().roles[0],
       activity: 'Cerró sesión',
       collection: 'N/D',
       registerId: 'N/D',
@@ -19,6 +20,7 @@ Meteor.methods({
     userActivities.insert({
       userId: doc,
       user: `${firstName} ${lastName}`,
+      role: Meteor.user().roles[0],
       activity: 'Cerró sesión',
       collection: 'N/D',
       registerId: 'N/D',
@@ -30,6 +32,7 @@ Meteor.methods({
     userActivities.insert({
       userId: Meteor.userId(),
       user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      role: Meteor.user().roles[0],
       activity: 'Inició sesión',
       collection: 'N/D',
       registerId: 'N/D',

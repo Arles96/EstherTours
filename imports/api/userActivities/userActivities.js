@@ -27,6 +27,10 @@ const userActivitiesSchema = new SimpleSchema({
     type: String,
     label: 'Usuario'
   },
+  role: {
+    type: String,
+    label: 'Rol'
+  },
   activity: {
     type: String,
     label: 'Actividad'

@@ -1,30 +1,29 @@
-import './filterAttractions.html';
+import './filterTours.html';
 import Swal from 'sweetalert2';
 import XLSX from 'xlsx';
 import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { Attractions } from '../../../api/attractions/attractions';
+import { Tours } from '../../../api/tours/tours';
 import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
-import AttractionImages from '../../../api/attractions/attractionImage';
 
-Template.filterAttractions.onCreated(function createVars () {
+Template.filterTours.onCreated(function createVars () {
   this.precioMax = new ReactiveVar(2500);
-  this.name = new ReactiveVar('');
+  this.title = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('filterAttractionStars', '');
+  Session.set('filterTourStars', '');
 });
 
-Template.filterAttractions.helpers({
+Template.filterTours.helpers({
   precioMax () {
     return Template.instance().precioMax.get();
   },
-  name () {
-    return Template.instance().name.get();
+  title () {
+    return Template.instance().title.get();
   },
   street () {
     return Template.instance().street.get();
@@ -51,22 +50,22 @@ Template.filterAttractions.helpers({
   },
   buscar () {
     const precioMax = Template.instance().precioMax.get();
-    const name = Template.instance().name.get();
+    const title = Template.instance().title.get();
     const street = Template.instance().street.get();
     const city = Template.instance().city.get();
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
     const query = {};
-    if (name) {
-      query.name = new RegExp(`.*${name}.*`, 'i');
+    if (title) {
+      query.title = new RegExp(`.*${title}.*`, 'i');
     }
     if (precioMax) {
       query.price = {
         $lt: parseInt(precioMax, 10)
       };
     }
-    if (Session.get('filterAttractionStars')) {
-      query.categorization = Session.get('filterAttractionStars');
+    if (Session.get('filterTourStars')) {
+      query.categorization = Session.get('filterTourStars');
     }
     if (department) {
       query.departament = department;
@@ -80,18 +79,18 @@ Template.filterAttractions.helpers({
     if (city) {
       query.city = new RegExp(`.*${city}.*`, 'i');
     }
-    return Attractions
+    return Tours
       .find(query, { sort: { price: 1 } })
       .map(doc => doc);
   }
 });
 
-Template.filterAttractions.events({
+Template.filterTours.events({
   'input #sliderMax' (event, templateInstance) {
     templateInstance.precioMax.set(event.currentTarget.value);
   },
-  'input #name' (event, templateInstance) {
-    templateInstance.name.set(event.currentTarget.value);
+  'input #title' (event, templateInstance) {
+    templateInstance.title.set(event.currentTarget.value);
   },
   'input #street' (event, templateInstance) {
     templateInstance.street.set(event.currentTarget.value);
@@ -115,22 +114,22 @@ Template.filterAttractions.events({
     }).then(res => {
       if (res.value) {
         const precioMax = templateInstance.precioMax.get();
-        const name = templateInstance.name.get();
+        const title = templateInstance.title.get();
         const street = templateInstance.street.get();
         const city = templateInstance.city.get();
         const department = templateInstance.department.get();
         const municipality = templateInstance.municipality.get();
         const query = {};
-        if (name) {
-          query.name = new RegExp(`.*${name}.*`, 'i');
+        if (title) {
+          query.title = new RegExp(`.*${title}.*`, 'i');
         }
         if (precioMax) {
           query.price = {
             $lt: parseInt(precioMax, 10)
           };
         }
-        if (Session.get('filterAttractionStars')) {
-          query.categorization = Session.get('filterAttractionStars');
+        if (Session.get('filterTourStars')) {
+          query.categorization = Session.get('filterTourStars');
         }
         if (department) {
           query.departament = department;
@@ -144,14 +143,13 @@ Template.filterAttractions.events({
         if (city) {
           query.city = new RegExp(`.*${city}.*`, 'i');
         }
-
-        Meteor.call('exportAttractionsToExcel', query, (error, result) => {
+        Meteor.call('exportToursToExcel', query, (error, result) => {
           if (error) {
             toastr.error('Error al exportar a Excel.');
           } else {
             const date = new Date();
-            const filename = `Atracciones ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
-            XLSX.writeFile(result, filename);
+            const filetitle = `Tours ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filetitle);
             toastr.success('Se ha exportado a Excel exitosamente.');
           }
         });
@@ -160,16 +158,13 @@ Template.filterAttractions.events({
   }
 });
 
-Template.filterResult.helpers({
-  findImg (_id) {
-    return AttractionImages.find({ _id }).map(doc => doc)[0];
-  },
+Template.filterResultTours.helpers({
   first (index) {
     return index === 0;
   }
 });
 
-Template.filterResult.events({
+Template.filterResultTours.events({
   'click #export-single' () {
     Swal({
       title: 'Exportar datos a Excel',
@@ -179,13 +174,13 @@ Template.filterResult.events({
     }).then(res => {
       if (res.value) {
         const query = { _id: this._id };
-        Meteor.call('exportAttractionsToExcel', query, (error, result) => {
+        Meteor.call('exportToursToExcel', query, (error, result) => {
           if (error) {
             toastr.error('Error al exportar a Excel.');
           } else {
             const date = new Date();
-            const filename = `Atracciones ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
-            XLSX.writeFile(result, filename);
+            const filetitle = `Tours ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filetitle);
             toastr.success('Se ha exportado a Excel exitosamente.');
           }
         });
@@ -194,11 +189,11 @@ Template.filterResult.events({
   }
 });
 
-Template.filterStarAttraction.helpers({
+Template.filterStarTours.helpers({
   list: () => {
     const list = [];
     for (let index = 1; index <= 5; index += 1) {
-      if (index <= parseInt(Session.get('filterAttractionStars'), 10)) {
+      if (index <= parseInt(Session.get('filterTourStars'), 10)) {
         list.push({
           class: 'fas fa-star colorOrange',
           id: `star${index}`
@@ -214,20 +209,20 @@ Template.filterStarAttraction.helpers({
   }
 });
 
-Template.filterStarAttraction.events({
+Template.filterStarTours.events({
   'click #star1': function () {
-    Session.set('filterAttractionStars', '1');
+    Session.set('filterTourStars', '1');
   },
   'click #star2': function () {
-    Session.set('filterAttractionStars', '2');
+    Session.set('filterTourStars', '2');
   },
   'click #star3': function () {
-    Session.set('filterAttractionStars', '3');
+    Session.set('filterTourStars', '3');
   },
   'click #star4': function () {
-    Session.set('filterAttractionStars', '4');
+    Session.set('filterTourStars', '4');
   },
   'click #star5': function () {
-    Session.set('filterAttractionStars', '5');
+    Session.set('filterTourStars', '5');
   }
 });
