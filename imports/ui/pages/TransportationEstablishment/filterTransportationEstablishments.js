@@ -161,6 +161,31 @@ Template.filterResultTE.helpers({
   }
 });
 
+Template.filterResultTE.events({
+  'click #export-single' () {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: '¿Está seguro de exportar los establecimientos de transporte a Excel?',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        const query = { _id: this._id };
+        Meteor.call('exportTransportsToExcel', query, (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            const filename = `Transporte ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filename);
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
+  }
+});
+
 Template.filterStarTE.helpers({
   list: () => {
     const list = [];

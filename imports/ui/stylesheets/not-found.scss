@@ -1,35 +1,180 @@
-#not-found {
-  width: 700px;
-  margin: 0 auto;
-  .not-found-image {
-    width: 25%;
-    float: left;
-  }
-  .not-found-title {
-    width: 70%;
-    float: right;
-    background: url(/img/bg-footer.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    min-height: 400px;
-    h1 {
-      font-size: 30px;
-      color: #1f2128;
-      margin-bottom: 20px;
-      margin-top: 155px;
-    }
-    a.gotohomepage {
-      background-color: #de4f4f;
-      color: #fff;
-      width: 180px;
-      line-height: 40px;
-      display: block;
-      text-align: center;
-      font-size: 14px;
-      text-decoration: none;
-      text-transform: uppercase;
-      height: 40px;
-    }
-  }
+#gbody {
+  background: #010413;
+  height: 100vh;
+  width: 100vw;
+}
+
+.flex-container {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.graphics {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  padding: auto;
+  border: auto;
+}
+
+.sky {
+  position: fixed;
+  background: rgba(1, 4, 19, 1);
+  background: -moz-linear-gradient(top, rgba(1, 4, 19, 1) 0%, rgba(1, 5, 19, 1) 17%, rgba(249, 195, 113, 1) 22%, rgba(25, 101, 159, 1) 26%, rgba(25, 101, 159, 1) 53%, rgba(1, 5, 19, 1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(1, 4, 19, 1)), color-stop(17%, rgba(1, 5, 19, 1)), color-stop(22%, rgba(249, 195, 113, 1)), color-stop(26%, rgba(25, 101, 159, 1)), color-stop(53%, rgba(25, 101, 159, 1)), color-stop(100%, rgba(1, 5, 19, 1)));
+  background: -webkit-linear-gradient(top, rgba(1, 4, 19, 1) 0%, rgba(1, 5, 19, 1) 17%, rgba(249, 195, 113, 1) 22%, rgba(25, 101, 159, 1) 26%, rgba(25, 101, 159, 1) 53%, rgba(1, 5, 19, 1) 100%);
+  background: -o-linear-gradient(top, rgba(1, 4, 19, 1) 0%, rgba(1, 5, 19, 1) 17%, rgba(249, 195, 113, 1) 22%, rgba(25, 101, 159, 1) 26%, rgba(25, 101, 159, 1) 53%, rgba(1, 5, 19, 1) 100%);
+  background: -ms-linear-gradient(top, rgba(1, 4, 19, 1) 0%, rgba(1, 5, 19, 1) 17%, rgba(249, 195, 113, 1) 22%, rgba(25, 101, 159, 1) 26%, rgba(25, 101, 159, 1) 53%, rgba(1, 5, 19, 1) 100%);
+  background: linear-gradient(to bottom, rgba(1, 4, 19, 1) 0%, rgba(1, 5, 19, 1) 17%, rgba(249, 195, 113, 1) 22%, rgba(25, 101, 159, 1) 26%, rgba(25, 101, 159, 1) 53%, rgba(1, 5, 19, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#010413', endColorstr='#010513', GradientType=0);
+  width: 100vw;
+  height: 1000%;
+  z-index: 0;
+}
+
+.screen {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.ground {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 25vh;
+  background: #6a9124;
+  z-index: 2;
+}
+
+.mountains {
+  position: fixed;
+  bottom: 12vh;
+  width: 102vw;
+  height: 70vh;
+  z-index: 1;
+}
+
+.background {
+  position: fixed;
+  bottom: 25vh;
+  width: 100vw;
+  height: 3vh;
+  background: #415916ff;
+  z-index: 2;
+}
+
+.street {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 12vh;
+  background: #9b9678;
+  z-index: 3;
+}
+
+.street_border {
+  position: fixed;
+  bottom: 11vh;
+  width: 100vw;
+  height: 2vh;
+  background: #535142ff;
+  z-index: 7;
+}
+
+.chair {
+  position: fixed;
+  bottom: 16vh;
+  left: 37%;
+  height: 23vh;
+  z-index: 4;
+}
+
+.tree {
+  position: fixed;
+  height: 55vh;
+  z-index: 3;
+}
+
+.bush {
+  position: fixed;
+  height: 12vh;
+  z-index: 5;
+  bottom: 14vh;
+}
+
+.back_bush {
+  position: fixed;
+  height: 8vh;
+  z-index: 1;
+  bottom: 26%;
+}
+
+.lamp {
+  position: fixed;
+  height: 70vh;
+  z-index: 8;
+  bottom: 6%;
+  left: 70%;
+}
+
+.flex-container_cloud {
+  position: fixed;
+  top: 3vh;
+  right: 0vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh;
+  width: 30vw;
+  z-index: 10;
+}
+
+.cloud {
+  height: 25vh;
+  z-index: 0;
+}
+
+.cloud:hover {
+  cursor: pointer;
+}
+
+.e404 {
+  position: fixed;
+  height: 25vh;
+  z-index: 0;
+  top: 0;
+  left: 5vw;
+}
+
+.eContent {
+  font-family: 'Segoe UI';
+  position: fixed;
+  bottom: -2vh;
+  left: 5vw;
+  font-size: 7vmin;
+  color: white;
+  z-index: 11;
+}
+
+.goBack {
+  font-family: 'Segoe UI';
+  margin: 2vh;
+  font-size: 7vmin;
+  color: grey;
+  z-index: 11;
+}
+
+.goBack:hover {
+  cursor: pointer;
+  color: rgb(68, 65, 65);
 }

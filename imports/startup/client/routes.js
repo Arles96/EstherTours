@@ -114,7 +114,7 @@ function listBreadcrumb (list) {
  */
 Router.configure({
   layoutTemplate: 'App_body',
-  notFoundTemplate: 'App_notFound'
+  notFoundTemplate: 'appNotFound'
 });
 
 /**
@@ -2009,7 +2009,8 @@ Router.route('/show-tour/:id', {
       Meteor.subscribe('chats.all'),
       Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('tours.one', id),
-      Meteor.subscribe('toursImage.all')
+      Meteor.subscribe('toursImage.all'),
+      Meteor.subscribe('guide.all')
     ];
   },
   onBeforeAction: function () {

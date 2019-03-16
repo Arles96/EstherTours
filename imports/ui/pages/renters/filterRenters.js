@@ -149,6 +149,31 @@ Template.filterResultRenter.helpers({
   }
 });
 
+Template.filterResultRenter.events({
+  'click #export-single' () {
+    Swal({
+      title: 'Exportar datos a Excel',
+      text: '¿Está seguro de exportar las arrendadoras a Excel?',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true
+    }).then(res => {
+      if (res.value) {
+        const query = { _id: this._id };
+        Meteor.call('exportRentersToExcel', query, (error, result) => {
+          if (error) {
+            toastr.error('Error al exportar a Excel.');
+          } else {
+            const date = new Date();
+            const filename = `Arrendadoras ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getMinutes()}:${date.getSeconds()}.xlsx`;
+            XLSX.writeFile(result, filename);
+            toastr.success('Se ha exportado a Excel exitosamente.');
+          }
+        });
+      }
+    });
+  }
+});
+
 Template.filterStarRenter.helpers({
   list: () => {
     const list = [];
