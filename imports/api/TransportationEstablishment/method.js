@@ -14,6 +14,7 @@ Meteor.methods({
     userActivities.insert({
       userId: Meteor.userId(),
       user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      role: Meteor.user().roles[0],
       activity: 'agregó',
       collection: 'Establecimiento de transporte',
       registerId: 'N/D',
@@ -112,6 +113,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'editó',
         collection: 'Establecimiento de transporte',
         registerId: _id,
@@ -129,6 +131,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'agregó',
         collection: 'Flotas de establecimiento de transporte',
         registerId: 'N/D',
@@ -151,6 +154,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'Establecimiento de transporte',
         registerId: 'N/D',
@@ -167,6 +171,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'Flotas de establecimiento de transporte',
         registerId: 'N/D',
@@ -188,6 +193,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'editó',
         collection: 'Flotas de establecimiento de transporte',
         registerId: _id,
@@ -205,6 +211,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'agregó',
         collection: 'Rutas de establecimiento de transporte',
         registerId: 'N/D',
@@ -221,6 +228,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'Rutas de establecimiento de transporte',
         registerId: 'N/D',
@@ -242,6 +250,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'editó',
         collection: 'Rutas de establecimiento de transporte',
         registerId: doc.name,
@@ -277,6 +286,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'agregó sucursal',
         collection: 'Establecimiento de transporte',
         registerId: 'N/D',
@@ -293,6 +303,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'Establecimiento de transporte',
         registerId: 'N/D',
@@ -314,6 +325,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'editó',
         collection: 'Establecimiento de transporte',
         registerId: _id,

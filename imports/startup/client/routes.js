@@ -114,7 +114,7 @@ function listBreadcrumb (list) {
  */
 Router.configure({
   layoutTemplate: 'App_body',
-  notFoundTemplate: 'App_notFound'
+  notFoundTemplate: 'appNotFound'
 });
 
 /**
@@ -1574,7 +1574,9 @@ Router.route('/add-packages', {
       Meteor.subscribe('restaurant.all'),
       Meteor.subscribe('restaurantImage.all'),
       Meteor.subscribe('attractions.all'),
-      Meteor.subscribe('attractionImage.all')
+      Meteor.subscribe('attractionImage.all'),
+      Meteor.subscribe('tours.all'),
+      Meteor.subscribe('toursImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -1632,6 +1634,8 @@ Router.route('/edit-package/:id', {
       Meteor.subscribe('restaurantImage.all'),
       Meteor.subscribe('attractions.all'),
       Meteor.subscribe('attractionImage.all'),
+      Meteor.subscribe('tours.all'),
+      Meteor.subscribe('toursImage.all'),
       Meteor.subscribe('OnePackage', id)
     ];
   },
@@ -1670,6 +1674,7 @@ Router.route('/show-package/:id', {
       Meteor.subscribe('Routes.all'),
       Meteor.subscribe('fleetRenter.all'),
       Meteor.subscribe('RoomHotel.all'),
+      Meteor.subscribe('tours.all'),
       Meteor.subscribe('OnePackage', id)
     ];
   },
@@ -2004,7 +2009,8 @@ Router.route('/show-tour/:id', {
       Meteor.subscribe('chats.all'),
       Meteor.subscribe('allUsers.all'),
       Meteor.subscribe('tours.one', id),
-      Meteor.subscribe('toursImage.all')
+      Meteor.subscribe('toursImage.all'),
+      Meteor.subscribe('guide.all')
     ];
   },
   onBeforeAction: function () {

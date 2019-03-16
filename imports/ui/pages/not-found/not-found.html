@@ -1,11 +1,54 @@
-<template name="App_notFound">
-  <div id="not-found">
-    <div class="not-found-image">
-      <img src="/img/404.svg" alt="" />
-    </div>
-    <div class="not-found-title">
-      <h1>Sorry, that page doesn't exist</h1>
-      <a href="/" class="gotohomepage">Go to home</a>
+<template name="appNotFound">
+  <div id="gbody">
+    <div id="gContainer" class="flex-container">
+      {{#if landscape}}
+      <div class="graphics">
+        <div class="sky"></div>
+        <img src="/img/Mountains.png" alt="mountains" class="mountains" style="left: -1vw;">
+        <div class="ground"></div>
+        <div class="background"></div>
+        <img src="/img/Bush2.png" alt="back_bush" class="back_bush" style="left: 60%;">
+        <img src="/img/Bush2.png" alt="back_bush" class="back_bush" style="left: 20%;">
+        <img src="/img/Chair.png" alt="chair" class="chair">
+        <img src="/img/Tree1.png" alt="tree" class="tree" style="left: 15%;bottom: 20%;">
+        <img src="/img/Tree2.png" alt="tree" class="tree" style="left: 60%;bottom: 17%;">
+        <img src="/img/Bush1.png" alt="bush" class="bush" style="left: 5%;">
+        <img src="/img/Bush1.png" alt="bush" class="bush" style="left: 80%;">
+        <img src="/img/Lamp.png" alt="lamp" class="lamp">
+        <div class="street"></div>
+        <div class="street_border"></div>
+        <img src="/img/e404.png" alt="e404" class="e404">
+        <p class="eContent">Página no encontrada...</p>
+        <div class="flex-container_cloud">
+          <img src="/img/Cloud.png" alt="cloud" class="cloud">
+        </div>
+        <div class="flex-container_cloud">
+          <a class="goBack" href="/">Volver</a>
+        </div>
+      </div>
+      {{else}}
+      <div class="graphics">
+        <div class="sky"></div>
+        <img src="/img/Mountains.png" alt="mountains" class="mountains" style="right: 0;width: auto;">
+        <div class="ground"></div>
+        <div class="background"></div>
+        <img src="/img/Bush2.png" alt="back_bush" class="back_bush" style="left: 60%;">
+        <img src="/img/Chair.png" alt="chair" class="chair" style="left: 25%;height: 20vh;">
+        <img src="/img/Tree1.png" alt="tree" class="tree" style="left: -3%;bottom: 20%;height: 40vh;">
+        <img src="/img/Bush1.png" alt="bush" class="bush" style="left: -5%;height: 8vh;">
+        <img src="/img/Lamp.png" alt="lamp" class="lamp" style="left: 45%;height: 50vh;">
+        <div class="street"></div>
+        <div class="street_border"></div>
+        <img src="/img/e404.png" alt="e404" class="e404" style="left: 5%;height: 20vh;">
+        <p class="eContent" style="font-size: x-large;">Página no encontrada...</p>
+        <div class="flex-container_cloud" style="top: 20vh;height: 20vh;">
+          <img src="/img/Cloud.png" alt="cloud" class="cloud">
+        </div>
+        <div class="flex-container_cloud" style="top: 20vh;height: 20vh;">
+          <a class="goBack" href="/">Volver</a>
+        </div>
+      </div>
+      {{/if}}
     </div>
   </div>
 </template>

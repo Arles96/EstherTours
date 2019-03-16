@@ -12,6 +12,7 @@ import { Restaurants } from '../restaurants/restaurants';
 import { TransportationEstablishments } from '../TransportationEstablishment/TransportationEstablishment';
 import { RouteTransportationEstablishment } from '../TransportationEstablishment/RouteTransportationEstablishment';
 import { Attractions } from '../attractions/attractions';
+import { Tours } from '../tours/tours';
 
 const Packages = new Mongo.Collection('packages');
 
@@ -78,6 +79,11 @@ const PackagesSchema = new SimpleSchema({
   idRestaurant: {
     type: String,
     label: 'Restaurante',
+    optional: true
+  },
+  idTour: {
+    type: String,
+    label: 'Excursión',
     optional: true
   },
   idHotel: {
@@ -204,6 +210,10 @@ Packages.helpers({
   textAttraction: function () {
     const attraction = Attractions.findOne({ _id: this.idAttraction });
     return `${attraction.name}, ${attraction.type}, L. ${attraction.price}`;
+  },
+  textTour: function () {
+    const tour = Tours.findOne({ _id: this.idTour });
+    return `${tour.title}, ${tour.municipality}, ${tour.department}, L. ${tour.price}`;
   },
   textGuide: function () {
     const guide = Guide.findOne({ _id: this.idGuide });

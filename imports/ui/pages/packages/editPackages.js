@@ -10,6 +10,7 @@ import { RoomHotel } from '../../../api/hotels/roomhotel';
 import { FleetRenter } from '../../../api/renters/fleetRenter';
 import { restaurantOffers } from '../../../api/restaurants/restaurantOffers';
 import { Attractions } from '../../../api/attractions/attractions';
+import { Tours } from '../../../api/tours/tours';
 
 Template.editPackages.onRendered(function createVars () {
   Session.set('packageHotelId', this.data.package.idHotel);
@@ -20,6 +21,7 @@ Template.editPackages.onRendered(function createVars () {
   Session.set('packageFleetId', this.data.package.idFleetRenter);
   Session.set('packageRestaurantId', this.data.package.idRestaurant);
   Session.set('packageAttractionId', this.data.package.idAttraction);
+  Session.set('packageToursId', this.data.package.idTour);
 });
 
 Template.editPackages.helpers({
@@ -35,6 +37,7 @@ Template.editPackages.helpers({
   fleetSelected: () => Session.get('packageRenterId') && Session.get('packageFleetId'),
   restaurant: () => Session.get('packageRestaurantId'),
   attraction: () => Session.get('packageAttractionId'),
+  tour: () => Session.get('packageToursId'),
   initNum: function (fieldValue) {
     if (!fieldValue) {
       return 0;
@@ -48,7 +51,12 @@ Template.editPackages.helpers({
     const packageFleetId = Session.get('packageFleetId');
     const packageRestaurantId = Session.get('packageRestaurantId');
     const packageAttractionId = Session.get('packageAttractionId');
+    const packageToursId = Session.get('packageToursId');
 
+    // Precio tour
+    if (packageToursId) {
+      price += Tours.findOne({ _id: packageToursId }).price * (numAdults + numChildren);
+    }
     // Precio habitacion
     if (packageRoomId) {
       price += RoomHotel.findOne({ _id: packageRoomId }).price * numNights;
@@ -89,6 +97,7 @@ AutoForm.addHooks('editPackagesForm', {
     Session.set('packageRenterId', undefined);
     Session.set('packageFleetId', undefined);
     Session.set('packageRestaurantId', undefined);
+    Session.set('packageToursId', undefined);
     Router.go('listPackages');
   },
   onError: function (formtype, error) {

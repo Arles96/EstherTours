@@ -14,6 +14,8 @@ import { TransportationEstablishments, transportToExcel } from '../Transportatio
 import { RouteTransportationEstablishment, routeTransportToExcel } from '../TransportationEstablishment/RouteTransportationEstablishment';
 import { SoldPackage, SoldPackageSchema } from './soldPackage';
 import { userActivities } from '../userActivities/userActivities';
+import { attractionToExcel } from '../attractions/attractions';
+import { toursToExcel } from '../tours/tours';
 
 Meteor.methods({
   insertPackages: function (doc) {
@@ -24,6 +26,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'agregó',
         collection: 'paquetes',
         registerId: 'N/D',
@@ -45,6 +48,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'editó',
         collection: 'paquetes',
         registerId: _id,
@@ -56,11 +60,12 @@ Meteor.methods({
     }
   },
   deletePackage: function (id) {
-    if (!SoldPackage.find({ idPackage: id })) {
+    if (!SoldPackage.findOne({ idPackage: id })) {
       Packages.remove({ _id: id });
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'paquetes',
         registerId: 'N/D',
@@ -96,6 +101,8 @@ Meteor.methods({
       const transportRes = transportToExcel(doc.idTransport);
       const routeRes = routeTransportToExcel(doc.idTransportRoute);
       const restaurantRes = restaurantToExcel(doc.idRestaurant);
+      const attractionRes = attractionToExcel(doc.idAttraction);
+      const tourRes = toursToExcel(doc.idTour);
 
       data.push(['Nombre del paquete', 'Precio', 'Observaciones']);
       data.push([
@@ -112,7 +119,9 @@ Meteor.methods({
         ...roomRes,
         ...transportRes,
         ...routeRes,
-        ...restaurantRes
+        ...restaurantRes,
+        ...attractionRes,
+        ...tourRes
       );
 
       const ws = XLSX.utils.aoa_to_sheet(data);
@@ -173,6 +182,8 @@ Meteor.methods({
       const transportRes = transportToExcel(doc.idTransport);
       const routeRes = routeTransportToExcel(doc.idTransportRoute);
       const restaurantRes = restaurantToExcel(doc.idRestaurant);
+      const attractionRes = attractionToExcel(doc.idAttraction);
+      const tourRes = toursToExcel(doc.idTour);
 
       data.push(['Nombre del paquete', 'Precio', 'Observaciones']);
       data.push([
@@ -189,7 +200,9 @@ Meteor.methods({
         ...roomRes,
         ...transportRes,
         ...routeRes,
-        ...restaurantRes
+        ...restaurantRes,
+        ...attractionRes,
+        ...tourRes
       );
 
       const ws = XLSX.utils.aoa_to_sheet(data);
@@ -289,7 +302,10 @@ Meteor.methods({
           fleetRenter: fleetRenter,
           transport: transport,
           route: route,
-          restaurant: restaurant
+          restaurant: restaurant,
+          cantStars: num => '★'.repeat(parseInt(num, 10)),
+          noZero: num => num > 0,
+          getImage: url => Meteor.absoluteUrl(`img/${url}`)
         });
         Email.send({
           from: 'aulio.maldonado@gmail.com',

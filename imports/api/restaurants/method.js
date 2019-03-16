@@ -13,6 +13,7 @@ Meteor.methods({
     userActivities.insert({
       userId: Meteor.userId(),
       user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      role: Meteor.user().roles[0],
       activity: 'agregó',
       collection: 'restaurantes',
       registerId: 'N/D',
@@ -50,6 +51,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'agregó sucursal',
         collection: 'restaurantes',
         registerId: 'N/D',
@@ -128,6 +130,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'editó',
         collection: 'restaurantes',
         registerId: _id,
@@ -165,6 +168,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'agregó',
         collection: 'restaurantOffers',
         registerId: 'N/D',
@@ -188,6 +192,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'restaurantes',
         registerId: 'N/D',
@@ -204,6 +209,7 @@ Meteor.methods({
       userActivities.insert({
         userId: Meteor.userId(),
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
         activity: 'eliminó',
         collection: 'restaurantOffers',
         registerId: 'N/D',
@@ -229,6 +235,7 @@ Meteor.methods({
         userActivities.insert({
           userId: Meteor.userId(),
           user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+          role: Meteor.user().roles[0],
           activity: 'editó',
           collection: 'restaurantOffers',
           registerId: 'N/D',
