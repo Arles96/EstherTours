@@ -31,16 +31,16 @@ export const clearValues = () => {
   Session.set('packageRouteTransport', undefined);
   Session.set('packageTransport', undefined);
   Session.set('namePackage', undefined);
-  localStorage.setItem('namePackage', undefined);
-  localStorage.setItem('createPackage', undefined);
-  localStorage.setItem('packageAttraction', undefined);
-  localStorage.setItem('packageRoomHotel', undefined);
-  localStorage.setItem('packageHotel', undefined);
-  localStorage.setItem('packageFleetRenter', undefined);
-  localStorage.setItem('packageRenter', undefined);
-  localStorage.setItem('packageRestaurant', undefined);
-  localStorage.setItem('packageRouteTransport', undefined);
-  localStorage.setItem('packageTransport', undefined);
+  localStorage.removeItem('namePackage');
+  localStorage.removeItem('createPackage');
+  localStorage.removeItem('packageAttraction');
+  localStorage.removeItem('packageRoomHotel');
+  localStorage.removeItem('packageHotel');
+  localStorage.removeItem('packageFleetRenter');
+  localStorage.removeItem('packageRenter');
+  localStorage.removeItem('packageRestaurant');
+  localStorage.removeItem('packageRouteTransport');
+  localStorage.removeItem('packageTransport');
 };
 
 export const packageAttraction = id => {
@@ -103,4 +103,14 @@ export const unpackageTransport = () => {
   localStorage.setItem('packageTransport', undefined);
   Session.set('packageRouteTransport', undefined);
   Session.set('packageTransport', undefined);
+};
+
+export const packageTour = id => {
+  localStorage.setItem('packageTour', id);
+  Session.set('packageTour', id);
+};
+
+export const unpackageTour = () => {
+  localStorage.setItem('packageTour', undefined);
+  Session.set('packageTour', undefined);
 };

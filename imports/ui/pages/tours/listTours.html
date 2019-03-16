@@ -19,7 +19,7 @@
 
 <template name="showButtonTours" >
   {{#if isCreatePackage}}
-    {{#if (isEqual _id packageAttraction)}}
+    {{#if (isEqual _id packageTour)}}
       <span class="text-success" data-toggle="tooltip" data-placement="top" title="Desempaquetar" >
         <i style="cursor: pointer;" data-id="{{_id}}" class="unPackageEntity fas fa-box"></i>
       </span>

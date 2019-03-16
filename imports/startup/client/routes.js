@@ -1850,7 +1850,9 @@ Router.route('/adding-package', {
       Meteor.subscribe('restaurantImage.all'),
       Meteor.subscribe('notifications.all'),
       Meteor.subscribe('chats.all'),
-      Meteor.subscribe('allUsers.all')
+      Meteor.subscribe('allUsers.all'),
+      Meteor.subscribe('tours.all'),
+      Meteor.subscribe('toursImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -1867,6 +1869,7 @@ Router.route('/adding-package', {
     const roomHotel = RoomHotel.findOne({ _id: Session.get('packageRoomHotel') });
     const routeTransport = RouteTransportationEstablishment.findOne({ _id: Session.get('packageRouteTransport') });
     const attraction = Attractions.findOne({ _id: Session.get('packageAttraction') });
+    const tour = Tours.findOne({ _id: Session.get('packageTour') });
     return {
       hotel,
       attraction,
@@ -1875,7 +1878,8 @@ Router.route('/adding-package', {
       routeTransport,
       restaurant,
       renter,
-      transportationEstablishment
+      transportationEstablishment,
+      tour
     };
   }
 });
