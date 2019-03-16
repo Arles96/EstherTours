@@ -106,6 +106,13 @@
               </label>
             </div>
           {{/with}}
+          {{#with attraction}}
+            <div class="form-group">
+              <label>
+                <b>Atracción:</b> {{name}}
+              </label>
+            </div>
+          {{/with}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           {{#with renter }}
@@ -129,6 +136,13 @@
               </label>
             </div>
           {{/with}}
+          {{#with tour}}
+            <div class="form-group">
+              <label>
+                <b>Tour:</b> {{title}}
+              </label>
+            </div>
+          {{/with}}
         </div>
       </div>
     </div>
@@ -136,13 +150,13 @@
       <a style="text-decoration: none; cursor: pointer;" href="/show-package/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
         <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
       </a>
-      <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Enviar por correo">
-        <i style="cursor: pointer;" data-id="{{_id}}" class="emailPackage fas fa-share-square mr-2" data-toggle="modal" data-target="#emailPackage"></i>
-      </span>
       <span style="text-decoration: none;" class="text-dark" data-toggle="tooltip" data-placement="top" id="export-single" title="Exportar a Excel" >
         <i style="cursor: pointer;" class="far fa-file-excel mr-2"></i>
       </span>
       {{#if isConsultant}}
+        <span class="text-dark" data-toggle="tooltip" data-placement="top" title="Enviar por correo">
+          <i style="cursor: pointer;" data-id="{{_id}}" class="emailPackage fas fa-share-square mr-2" data-toggle="modal" data-target="#emailPackage"></i>
+        </span>
         <span style="cursor: pointer;" class="text-dark sellPackage" data-toggle="tooltip" data-placement="top" title="Vender">
           <i class="fas fa-money-bill-alt"></i>
         </span>
