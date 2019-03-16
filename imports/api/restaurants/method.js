@@ -170,7 +170,7 @@ Meteor.methods({
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         role: Meteor.user().roles[0],
         activity: 'agregó',
-        collection: 'restaurantOffers',
+        collection: 'Ofertas de restaurantes',
         registerId: 'N/D',
         register: doc.dishName,
         date: new Date()
@@ -211,7 +211,7 @@ Meteor.methods({
         user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
         role: Meteor.user().roles[0],
         activity: 'eliminó',
-        collection: 'restaurantOffers',
+        collection: 'Ofertas de restaurantes',
         registerId: 'N/D',
         register: 'N/D',
         date: new Date()
@@ -237,7 +237,7 @@ Meteor.methods({
           user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
           role: Meteor.user().roles[0],
           activity: 'editó',
-          collection: 'restaurantOffers',
+          collection: 'Ofertas de restaurantes',
           registerId: 'N/D',
           register: doc.dishName,
           date: new Date()
@@ -271,6 +271,18 @@ Meteor.methods({
 
     const ws = XLSX.utils.aoa_to_sheet(data);
     XLSX.utils.book_append_sheet(wb, ws, 'Restaurantes');
+
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      role: Meteor.user().roles[0],
+      activity: 'exportó',
+      collection: 'restaurantes',
+      registerId: 'N/D',
+      register: doc.name,
+      date: new Date()
+    });
+
     return wb;
   }
 });
