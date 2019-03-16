@@ -18,6 +18,9 @@
       <div class="card-body" style="max-height: 30vh; background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto !important; text-align: center;">
         {{#if isOpen}}
         {{/if}}
+        {{#if moreMessages}}
+        <a class="pointer moreMessages_Label"><i>---- Cargar más mensajes ----</i></a>
+        {{/if}}
         {{#each message in messages}}
         {{#if (isReceiver message.idReceiver ) }}
         <div class="alert alert-secondary" style="text-align: left; max-width: max-content;">

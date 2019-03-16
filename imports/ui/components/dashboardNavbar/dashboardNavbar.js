@@ -10,6 +10,7 @@ import { clearValues, setValues } from '../../../startup/client/packageFunction'
 
 Template.dashboardNavbar.onCreated(() => {
   Session.set('ChatPage-context', 'none');
+  setValues();
 });
 
 Template.dashboardNavbar.helpers({
@@ -41,11 +42,8 @@ Template.dashboardNavbar.helpers({
       return `${issuer.profile.firstName} ${issuer.profile.lastName}`;
     }
     return null;
-  }
-});
-
-Template.dashboardNavbar.onCreated(() => {
-  setValues();
+  },
+  landscape: () => window.innerWidth > 780 && window.innerWidth > window.innerHeight
 });
 
 Template.dashboardNavbar.events({
@@ -59,6 +57,9 @@ Template.dashboardNavbar.events({
     });
   },
   'click .chatWithNotification': function (event) {
+    Session.set('limitChatPage', 10);
+    Session.set('skipChatPage', 1);
+
     if (event.currentTarget.id) {
       if (document.getElementById('chatPage')) {
         Session.set('ChatPage-context', event.currentTarget.id);

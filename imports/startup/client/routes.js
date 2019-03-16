@@ -90,6 +90,7 @@ import '../../ui/pages/soldPackage/listSoldPackage';
 import '../../ui/pages/subscriptions/listSubscriptions';
 import '../../ui/pages/shoppingPackage/shoppingPackage';
 import '../../ui/pages/ChatPage/ChatPage';
+import '../../ui/pages/ChatMobilePage/ChatMobilePage';
 import '../../ui/pages/Activities/activities';
 import '../../ui/pages/Activities/activitiesFiltered';
 import '../../ui/pages/position/listPosition';
@@ -1792,11 +1793,14 @@ Router.route('/list-subscriptions', {
 });
 
 /**
+  landscape: () => window.innerWidth > 780 && window.innerWidth > window.innerHeight
  * Ruta para página de chat
  */
 Router.route('/ChatPage', {
   name: 'ChatPage',
-  template: 'chatPage',
+  template: window.innerWidth > 780 && window.innerWidth > window.innerHeight
+    ? 'chatPage'
+    : 'chatMobilePage',
   layoutTemplate: 'bodyAdmin',
   waitOn: () => [
     Meteor.subscribe('notifications.all'),

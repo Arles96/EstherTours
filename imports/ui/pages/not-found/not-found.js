@@ -12,7 +12,5 @@ Template.appNotFound.onRendered(() => {
 });
 
 Template.appNotFound.helpers({
-  landscape: () => {
-    return window.innerWidth > 780;
-  }
+  landscape: () => window.innerWidth > 780
 });

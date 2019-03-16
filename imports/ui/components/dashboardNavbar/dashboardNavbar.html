@@ -57,11 +57,19 @@
         </a>
         <div id="ChatNotifications" class="dropdown-menu dropdown-menu-right chatNotificationMenu" aria-labelledby="messagesDropdown">
           {{#each noti in getNotifications}}
+          {{#if landscape}}
           <a id={{noti.idIssuer}} class="dropdown-item chatWithNotification chatNotificationItem" href="#">
             <span class="badge badge-pill badge-dark">{{noti.amount}}</span>
             {{getIssuer noti.idIssuer }}:
             <small><i>{{noti.lastMessage}}</i></small>
           </a>
+          {{else}}
+          <a id={{noti.idIssuer}} class="dropdown-item chatWithNotification chatNotificationItem" href="/ChatPage">
+              <span class="badge badge-pill badge-dark">{{noti.amount}}</span>
+              {{getIssuer noti.idIssuer }}:
+              <small><i>{{noti.lastMessage}}</i></small>
+            </a>
+          {{/if}}
           {{else}}
           <i>No hay notificaciones</i>
           {{/each}}

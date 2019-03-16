@@ -6,6 +6,9 @@ import './Chat.html';
 import { Notifications } from '../../../api/Notifications/Notification';
 
 Template.chat.onCreated(() => {
+  Session.set(`limitChat${Template.currentData().contextData.Issuer._id}`, 10);
+  Session.set(`skipChat${Template.currentData().contextData.Issuer._id}`, 1);
+  Session.set(`countChat${Template.currentData().contextData.Issuer._id}`, 0);
 });
 
 Template.chat.helpers({
@@ -14,16 +17,41 @@ Template.chat.helpers({
   messages:
     () => {
       if (Template.currentData().contextData.Issuer) {
-        return Chats.find({
-          $or: [{
-            idReceiver: Meteor.userId(),
-            idIssuer: Template.currentData().contextData.Issuer._id
-          },
+        const query = Chats.find(
           {
-            idIssuer: Meteor.userId(),
-            idReceiver: Template.currentData().contextData.Issuer._id
-          }]
-        });
+            $or: [{
+              idReceiver: Meteor.userId(),
+              idIssuer: Template.currentData().contextData.Issuer._id
+            },
+            {
+              idIssuer: Meteor.userId(),
+              idReceiver: Template.currentData().contextData.Issuer._id
+            }]
+          }
+        );
+        if (query) {
+          Session.set(`countChat${Template.currentData().contextData.Issuer._id}`, query.count());
+        }
+        const skip = Session.get(`countChat${Template.currentData().contextData.Issuer._id}`) - (Session.get(`skipChat${Template.currentData().contextData.Issuer._id}`) * Session.get(`limitChat${Template.currentData().contextData.Issuer._id}`));
+        return Chats.find(
+          {
+            $or: [{
+              idReceiver: Meteor.userId(),
+              idIssuer: Template.currentData().contextData.Issuer._id
+            },
+            {
+              idIssuer: Meteor.userId(),
+              idReceiver: Template.currentData().contextData.Issuer._id
+            }]
+          }, {
+            sort: { createAt: 0 },
+            skip: (
+              skip >= Session.get(`limitChat${Template.currentData().contextData.Issuer._id}`)
+                ? skip
+                : 0
+            )
+          }
+        );
       }
       return null;
     },
@@ -40,6 +68,25 @@ Template.chat.helpers({
       }
     }
     return Template.currentData().contextData.Receiver._id === id;
+  },
+  moreMessages: () => {
+    const query = Chats.find(
+      {
+        $or: [{
+          idReceiver: Meteor.userId(),
+          idIssuer: Template.currentData().contextData.Issuer._id
+        },
+        {
+          idIssuer: Meteor.userId(),
+          idReceiver: Template.currentData().contextData.Issuer._id
+        }]
+      }
+    );
+    if (query) {
+      Session.set(`countChat${Template.currentData().contextData.Issuer._id}`, query.count());
+      return Session.get(`skipChat${Template.currentData().contextData.Issuer._id}`) * Session.get(`limitChat${Template.currentData().contextData.Issuer._id}`) < Session.get(`countChat${Template.currentData().contextData.Issuer._id}`);
+    }
+    return false;
   },
   isSent: status => status === 1,
   isReceived: status => status === 2,
@@ -96,5 +143,8 @@ Template.chat.events({
       return false;
     }
     return true;
+  },
+  'click .moreMessages_Label': function (event) {
+    Session.set(`skipChat${Template.currentData().contextData.Issuer._id}`, Session.get(`skipChat${Template.currentData().contextData.Issuer._id}`) + 1);
   }
 });

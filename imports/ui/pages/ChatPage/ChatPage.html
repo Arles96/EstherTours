@@ -4,7 +4,7 @@
       <div class="card-header" style="text-align: center;">
         <label for="#searchChatWith">Usuarios</label>
         <div id="searchChatWith" class="" style="background: #ececec;">
-          <div class="input-group">
+          <div class="input-group align-self-stretch flex-grow-1">
             <input type="input" class="searchChatWith form-control" placeholder="Buscar..." rows="1" />
             <div class="input-group-append">
               <button class="btn btn-dark"><i class="fas fa-search"></i></button>
@@ -15,7 +15,8 @@
       <div class="card-body" style="background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto; padding: 0;">
         <div class="list-group">
           {{#each user in listUsers }}
-          <div id="{{user._id}}" class="chatWith list-group-item list-group-item-action d-flex flex-column textEllipsis pointer">
+          <div id="{{user._id}}"
+            class="chatWith list-group-item list-group-item-action d-flex flex-column textEllipsis pointer">
             <div class="flex-row flex-grow-1">
               {{#if user.status.online}}
               <i class="fas fa-circle fa-xs mr-auto pointer" style="color: #52BE80"></i>
@@ -56,7 +57,12 @@
         : <small><i style="color: #52BE80">En línea</i></small>
         {{/if}}
       </div>
-      <div id="ChatBody" style="height: 100%; background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto !important; text-align: center; padding: 1rem;">
+      <div id="ChatBody"
+        style="height: 100%; background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto !important; text-align: center; padding: 1rem;">
+        {{#if moreMessages}}
+        <br>
+        <a class="pointer moreMessages_Label"><i>---- Cargar más mensajes ----</i></a>
+        {{/if}}
         {{#each message in messages}}
         {{#if (isReceiver message.idReceiver ) }}
         <div class="alert alert-secondary" style="text-align: left; max-width: max-content;">
@@ -82,11 +88,13 @@
       </div>
       <div class="card-footer">
         <form>
-          <div class="input-group" style="width: 100% !important">
-            <textarea autocomplete="off" class="form-control" placeholder="Mensaje..." type="text" name="message" id="ChatPage-message"
-              required data-schema-key="message" rows="1.5" style="resize: none; width: max-content;"></textarea>
+          <div class="input-group d-inline-fle flex-nowrap" style="width: 100% !important">
+            <textarea autocomplete="off" class="form-control" placeholder="Mensaje..." type="text" name="message"
+              id="ChatPage-message" required data-schema-key="message" rows="1.5"
+              style="resize: none; width: max-content;"></textarea>
             <div class="input-group-append">
-              <div class="btn btn-dark sendMessage"><i class="fas fa-chevron-circle-right" style="width: auto;"></i></div>
+              <div class="btn btn-dark sendMessage"><i class="fas fa-chevron-circle-right" style="width: auto;"></i>
+              </div>
             </div>
           </div>
         </form>
