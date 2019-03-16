@@ -60,8 +60,8 @@
       <div id="ChatBody"
         style="height: 100%; background: #fcfcfc; color: rgb(94, 94, 94); overflow: auto !important; text-align: center; padding: 1rem;">
         {{#if moreMessages}}
-        <br>
         <a class="pointer moreMessages_Label mb-2"><i>---- Cargar más mensajes ----</i></a>
+        <br>
         {{/if}}
         {{#each message in messages}}
         {{#if (isReceiver message.idReceiver ) }}

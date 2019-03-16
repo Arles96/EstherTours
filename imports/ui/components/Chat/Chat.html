@@ -20,6 +20,7 @@
         {{/if}}
         {{#if moreMessages}}
         <a class="pointer moreMessages_Label mb-2"><i>---- Cargar más mensajes ----</i></a>
+        <br>
         {{/if}}
         {{#each message in messages}}
         {{#if (isReceiver message.idReceiver ) }}
