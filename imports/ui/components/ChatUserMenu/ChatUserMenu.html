@@ -1,13 +1,13 @@
 <template name="chatUserMenu">
   <div class="card" style="background: #343a40; max-width: fit-content;">
-    <div class="card-header" style="background: #343a40">
+    <div class="card-header Menu_Chat_Text pointer" data-toggle="collapse" href="#chat-user-menu" style="background: #343a40">
       {{#if isUsing}}
-      <a class="card-link mx-auto Menu_Chat_Text" data-toggle="collapse" href="#chat-user-menu" style="color: white">
+      <a class="card-link mx-auto" style="color: white">
         Usuarios <small style="color:rgba(209, 121, 121, 0)"> -</small>
         <i class="fas fa-comments"></i>
       </a>
       {{else}}
-      <a class="card-link mx-auto Menu_Chat_Text" data-toggle="collapse" href="#chat-user-menu" style="color: white">
+      <a class="card-link mx-auto" style="color: white">
         <i class="far fa-comments"></i>
       </a>
       {{/if}}
@@ -51,7 +51,7 @@
         </div>
       </div>
       <div class="card-footer" style="background: #ececec;">
-        <div class="input-group">
+        <div class="input-group align-self-stretch flex-grow-1">
           <input type="input" class="searchChatWith form-control" placeholder="Buscar..." rows="1" />
           <div class="input-group-append">
             <button class="btn btn-dark"><i class="fas fa-search"></i></button>
