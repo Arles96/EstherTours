@@ -124,3 +124,5 @@ Template.registerHelper('packageTransport', () => Session.get('packageTransport'
  * Obtener el nombre del paquete
  */
 Template.registerHelper('namePackage', () => Session.get('namePackage'));
+
+Template.registerHelper('packageTour', () => Session.get('packageTour'));

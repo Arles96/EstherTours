@@ -14,8 +14,9 @@ import { TransportationEstablishments, transportToExcel } from '../Transportatio
 import { RouteTransportationEstablishment, routeTransportToExcel } from '../TransportationEstablishment/RouteTransportationEstablishment';
 import { SoldPackage, SoldPackageSchema } from './soldPackage';
 import { userActivities } from '../userActivities/userActivities';
-import { attractionToExcel } from '../attractions/attractions';
-import { toursToExcel } from '../tours/tours';
+import { attractionToExcel, Attractions } from '../attractions/attractions';
+import { toursToExcel, Tours } from '../tours/tours';
+import { Guide } from '../guide/guide';
 
 Meteor.methods({
   insertPackages: function (doc) {
@@ -236,7 +237,6 @@ Meteor.methods({
       register: 'N/D',
       date: new Date()
     });
-        
     return wb;
   },
   reportPackages: function (year) {
@@ -297,7 +297,9 @@ Meteor.methods({
         transport: TransportationEstablishments.findOne({ _id: element.idTransport }),
         route: RouteTransportationEstablishment.findOne({ _id: element.idTransportRoute }),
         restaurant: Restaurants.findOne({ _id: element.idRestaurant }),
-        observation: element.observation
+        observation: element.observation,
+        attraction: Attractions.findOne({ _id: element.idAttraction }),
+        tour: Tours.findOne({ _id: element.idTour })
       }));
     } else {
       return [];
@@ -314,6 +316,11 @@ Meteor.methods({
       const transport = TransportationEstablishments.findOne({ _id: pkg.idTransport });
       const route = RouteTransportationEstablishment.findOne({ _id: pkg.idTransportRoute });
       const restaurant = Restaurants.findOne({ _id: pkg.idRestaurant });
+      const tour = Tours.findOne({ _id: pkg.idTour });
+      let guideName;
+      if (tour) {
+        guideName = Guide.findOne({ _id: tour.guide }).name;
+      }
 
       setTimeout(Meteor.bindEnvironment(() => {
         SSR.compileTemplate('emailPackage', Assets.getText('Paquete.html'));
@@ -326,6 +333,8 @@ Meteor.methods({
           transport: transport,
           route: route,
           restaurant: restaurant,
+          tour: tour,
+          guideName: guideName,
           cantStars: num => '★'.repeat(parseInt(num, 10)),
           noZero: num => num > 0,
           getImage: url => Meteor.absoluteUrl(`img/${url}`)
