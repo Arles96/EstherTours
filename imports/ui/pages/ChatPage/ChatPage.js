@@ -42,43 +42,21 @@ Template.chatPage.helpers({
   ChatSchema: () => ChatSchema,
   idReceiver: Meteor.userId(),
   messages:
-    () => {
-      const query = Chats.find(
+    () => Chats.find(
+      {
+        $or: [{
+          idReceiver: Meteor.userId(),
+          idIssuer: Template.instance().currentIssuerId.get()
+        },
         {
-          $or: [{
-            idReceiver: Meteor.userId(),
-            idIssuer: Template.instance().currentIssuerId.get()
-          },
-          {
-            idIssuer: Meteor.userId(),
-            idReceiver: Template.instance().currentIssuerId.get()
-          }]
-        }
-      );
-      if (query) {
-        Session.set('countChatPage', query.count());
+          idIssuer: Meteor.userId(),
+          idReceiver: Template.instance().currentIssuerId.get()
+        }]
+      },
+      {
+        skip: Session.get('skipChatPage') * Session.get('limitChatPage') * -1
       }
-      const skip = Session.get('countChatPage') - (Session.get('skipChatPage') * Session.get('limitChatPage'));
-      return Chats.find(
-        {
-          $or: [{
-            idReceiver: Meteor.userId(),
-            idIssuer: Template.instance().currentIssuerId.get()
-          },
-          {
-            idIssuer: Meteor.userId(),
-            idReceiver: Template.instance().currentIssuerId.get()
-          }]
-        }, {
-          sort: { createAt: 0 },
-          skip: (
-            skip >= Session.get('limitChatPage')
-              ? skip
-              : 0
-          )
-        }
-      );
-    },
+    ),
   isReceiver: id => {
     const query = {
       idReceiver: Meteor.userId(),
@@ -233,7 +211,6 @@ Template.chatPage.events({
     });
   },
   'click .chatWith': function (event) {
-    Session.set('limitChatPage', 10);
     Session.set('skipChatPage', 1);
     if (event.currentTarget.id) {
       Template.instance().currentIssuerId.set(event.currentTarget.id);

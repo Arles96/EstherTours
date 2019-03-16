@@ -15,46 +15,20 @@ Template.chat.helpers({
   ChatSchema: () => ChatSchema,
   idReceiver: Meteor.userId(),
   messages:
-    () => {
-      if (Template.currentData().contextData.Issuer) {
-        const query = Chats.find(
-          {
-            $or: [{
-              idReceiver: Meteor.userId(),
-              idIssuer: Template.currentData().contextData.Issuer._id
-            },
-            {
-              idIssuer: Meteor.userId(),
-              idReceiver: Template.currentData().contextData.Issuer._id
-            }]
-          }
-        );
-        if (query) {
-          Session.set(`countChat${Template.currentData().contextData.Issuer._id}`, query.count());
-        }
-        const skip = Session.get(`countChat${Template.currentData().contextData.Issuer._id}`) - (Session.get(`skipChat${Template.currentData().contextData.Issuer._id}`) * Session.get(`limitChat${Template.currentData().contextData.Issuer._id}`));
-        return Chats.find(
-          {
-            $or: [{
-              idReceiver: Meteor.userId(),
-              idIssuer: Template.currentData().contextData.Issuer._id
-            },
-            {
-              idIssuer: Meteor.userId(),
-              idReceiver: Template.currentData().contextData.Issuer._id
-            }]
-          }, {
-            sort: { createAt: 0 },
-            skip: (
-              skip >= Session.get(`limitChat${Template.currentData().contextData.Issuer._id}`)
-                ? skip
-                : 0
-            )
-          }
-        );
+    () => Chats.find(
+      {
+        $or: [{
+          idReceiver: Meteor.userId(),
+          idIssuer: Template.currentData().contextData.Issuer._id
+        },
+        {
+          idIssuer: Meteor.userId(),
+          idReceiver: Template.currentData().contextData.Issuer._id
+        }]
+      }, {
+        skip: Session.get(`skipChat${Template.currentData().contextData.Issuer._id}`) * Session.get(`limitChat${Template.currentData().contextData.Issuer._id}`) * -1
       }
-      return null;
-    },
+    ),
   isReceiver: id => {
     if (document.getElementById(`ChatHeader${Template.currentData().contextData.Issuer._id}`)) {
       if (document.getElementById(`ChatHeader${Template.currentData().contextData.Issuer._id}`).getAttribute('aria-expanded') === 'true') {
