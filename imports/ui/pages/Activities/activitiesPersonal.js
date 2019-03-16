@@ -1,13 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-import { Session } from 'meteor/session';
-import { ReactiveVar } from 'meteor/reactive-var';
-import Chart from 'chart.js';
-import toastr from 'toastr';
 
 import './activitiesPersonal.html';
 
-Template.userActivitiesFiltered.onCreated(function createVar () {
+Template.userPersonalActivities.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
       sLengthMenu: 'Mostrar _MENU_ registros',
@@ -34,7 +30,6 @@ Template.userActivitiesFiltered.onCreated(function createVar () {
       }
     }
   });
-  // this.myChart = new ReactiveVar(null);
 });
 
 Template.userPersonalActivities.helpers({

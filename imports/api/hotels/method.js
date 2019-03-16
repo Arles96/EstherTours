@@ -353,7 +353,7 @@ Meteor.methods({
       activity: 'exportó',
       collection: 'hoteles',
       registerId: 'N/D',
-      register: doc.name,
+      register: 'N/D',
       date: new Date()
     });
     return wb;
