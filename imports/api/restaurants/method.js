@@ -279,7 +279,7 @@ Meteor.methods({
       activity: 'exportó',
       collection: 'restaurantes',
       registerId: 'N/D',
-      register: doc.name,
+      register: 'N/D',
       date: new Date()
     });
 

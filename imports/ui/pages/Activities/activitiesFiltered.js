@@ -46,7 +46,7 @@ Template.userActivitiesFiltered.helpers({
     value: doc._id
   }))),
   Roles: () => ([{ value: 'Administrador' }, { value: 'Operador' }, { value: 'Consultor' }, { value: 'Supervisor' }]),
-  Activities: () => ([{ value: 'agregó' }, { value: 'editó' }, { value: 'eliminó' }, { value: 'Inició sesión' }, { value: 'Cerró sesión' }]),
+  Activities: () => ([{ value: 'agregó' }, { value: 'editó' }, { value: 'eliminó' }, { value: 'exportó' }, { value: 'Inició sesión' }, { value: 'Cerró sesión' }]),
   selector: function () {
     var query = {};
 
