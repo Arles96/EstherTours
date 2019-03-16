@@ -9,8 +9,19 @@ import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 import AttractionImages from '../../../api/attractions/attractionImage';
 
+const sliderVals = {
+  max: 5000,
+  step: 100
+};
+
 Template.filterAttractions.onCreated(function createVars () {
-  this.precioMax = new ReactiveVar(2500);
+  const maxVal = Attractions.findOne({}, { sort: { price: -1 } });
+  if (maxVal) {
+    sliderVals.max = Math.round(maxVal.price * 1.2);
+    sliderVals.step = Math.round((maxVal.price * 1.2) / 10);
+  }
+
+  this.precioMax = new ReactiveVar(Math.round(sliderVals.max / 4));
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
@@ -20,6 +31,9 @@ Template.filterAttractions.onCreated(function createVars () {
 });
 
 Template.filterAttractions.helpers({
+  sliderVals () {
+    return sliderVals;
+  },
   precioMax () {
     return Template.instance().precioMax.get();
   },

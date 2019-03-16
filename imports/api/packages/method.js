@@ -331,5 +331,8 @@ Meteor.methods({
       }
     });
     return monthsCount;
+  },
+  maxValuesPackages: function () {
+    return Packages.findOne({}, { sort: { price: -1 } });
   }
 });

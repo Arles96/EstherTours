@@ -8,8 +8,19 @@ import { Tours } from '../../../api/tours/tours';
 import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 
+const sliderVals = {
+  max: 5000,
+  step: 100
+};
+
 Template.filterTours.onCreated(function createVars () {
-  this.precioMax = new ReactiveVar(2500);
+  const maxVal = Tours.findOne({}, { sort: { price: -1 } });
+  if (maxVal) {
+    sliderVals.max = Math.round(maxVal.price * 1.2);
+    sliderVals.step = Math.round((maxVal.price * 1.2) / 10);
+  }
+
+  this.precioMax = new ReactiveVar(Math.round(sliderVals.max / 4));
   this.title = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
@@ -19,6 +30,9 @@ Template.filterTours.onCreated(function createVars () {
 });
 
 Template.filterTours.helpers({
+  sliderVals () {
+    return sliderVals;
+  },
   precioMax () {
     return Template.instance().precioMax.get();
   },
