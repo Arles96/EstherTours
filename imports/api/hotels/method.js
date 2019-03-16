@@ -345,6 +345,17 @@ Meteor.methods({
 
     const ws = XLSX.utils.aoa_to_sheet(data);
     XLSX.utils.book_append_sheet(wb, ws, 'Hoteles');
+
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      role: Meteor.user().roles[0],
+      activity: 'exportó',
+      collection: 'hoteles',
+      registerId: 'N/D',
+      register: doc.name,
+      date: new Date()
+    });
     return wb;
   }
 });

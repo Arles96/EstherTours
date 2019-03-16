@@ -1,0 +1,43 @@
+<template name="listTours" >
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i> Tabla de Excursiones
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <a type="button" id="export-excel" class="export-csv btn btn-outline-success">
+            Exportar a Excel
+          </a>
+        </div>
+        <div class="table-responsive">
+          {{> tabular table=TabularTables.Tours selector=selector class="table table-hover table-bordered"}}
+        </div>
+      </div>
+    <div class="card-footer small text-muted">Actualizado ayer a las 11:59 PM</div>
+  </div>
+</template>
+
+<template name="showButtonTours" >
+  {{#if isCreatePackage}}
+    {{#if (isEqual _id packageAttraction)}}
+      <span class="text-success" data-toggle="tooltip" data-placement="top" title="Desempaquetar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="unPackageEntity fas fa-box"></i>
+      </span>
+    {{else}}
+      <span data-toggle="tooltip" data-placement="top" title="Empaquetar" >
+        <i style="cursor: pointer;" data-id="{{_id}}" class="packageEntity fas fa-box"></i>
+      </span>
+    {{/if}}
+  {{/if}}
+  <a style="text-decoration: none;" href="/show-tour/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+    <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
+  </a>
+  {{#if isOperator}}
+    <a style="text-decoration: none;" href="/edit-tour/{{_id}}" data-id="{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Editar" >
+      <i style="cursor: pointer;" class="far fa-edit mr-2"></i>
+    </a>
+    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" >
+      <i style="cursor: pointer;" data-id="{{_id}}" class="deleteTour far fa-trash-alt"></i>
+    </span>
+  {{/if}}
+</template>

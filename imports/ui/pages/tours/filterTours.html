@@ -1,17 +1,17 @@
-<template name="filterAttractions">
+<template name="filterTours">
   <div class="card mb-3">
     <div class="card-header">
       <i class="fas fa-search-location"></i>
-      Filtrar Atracciones
+      Filtrar Excursiones
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
           <label>
-            <b>Nombre:</b>
+            <b>Título:</b>
           </label>
           <br >
-          <input type="text" id="name" value="{{name}}" class="form-control">
+          <input type="text" id="title" value="{{title}}" class="form-control">
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
           <label>
@@ -62,12 +62,12 @@
             <b>Categorizacion:</b>
           </label>
           <br >
-          {{>filterStarAttraction}}
+          {{>filterStarTours}}
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
           <label for="slider"><b>Precio maximo:</b> Lps. {{precioMax}}</label>
           <br >
-          <input type="range" id="sliderMax" min="0" max="5000" step="100" value="{{precioMax}}" class="slider" style="width: 100%;">
+          <input type="range" id="sliderMax" min="0" max="50000" step="100" value="{{precioMax}}" class="slider" style="width: 100%;">
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 form-group">
           <br >
@@ -77,16 +77,16 @@
     </div>
   </div>
   {{#each buscar}}
-    {{>filterResult attraction=this}}
+    {{>filterResultTours tour=this}}
   {{/each}}
 </template>
 
-<template name="filterResult">
-  {{#with attraction}}
+<template name="filterResultTours">
+  {{#with tour}}
     <div class="card mb-3">
       <div class="card-header">
         <i class="fas fa-mosque"></i>
-        <b>{{name}}</b>
+        <b>{{title}}</b>
       </div>
       <div class="card-body">
         <div class="row">
@@ -94,7 +94,7 @@
             {{#if images}}
               <div id="contrCarous{{_id}}" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                  {{#each attractionImages}}
+                  {{#each tourImages}}
                     {{#if first @index}}
                       <div class="carousel-item active">
                         <img class="d-block" src="{{link}}" alt="{{name}}" width="256" height="256">
@@ -128,18 +128,18 @@
           <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <div class="form-group">
               <label>
+                <b>
+                  Descripción
+                </b>
+              </label>
+              <p>{{description}}</p>
+            </div>
+            <div class="form-group">
+              <label>
                 <b>Teléfonos:</b>
               </label>
               {{#each telephone}}
                 <li>{{this}}</li>
-              {{/each}}
-            </div>
-            <div class="form-group">
-              <label>
-                <b>Contactos:</b>
-              </label>
-              {{#each branchContacts}}
-                <li>{{name}}, {{role}}</li>
               {{/each}}
             </div>
             <div class="form-group">
@@ -160,19 +160,11 @@
                 <li>{{this}}</li>
               {{/each}}
             </div>
-            <div class="form-group">
-              <label>
-                <b>Tipo de atraccion:</b>
-              </label>
-              {{#each type}}
-                <li>{{this}}</li>
-              {{/each}}
-            </div>
           </div>
         </div>
       </div>
       <div class="card-footer small text-muted">
-        <a style="text-decoration: none;" href="/show-attraction/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
+        <a style="text-decoration: none;" href="/show-tour/{{_id}}" class="text-dark" data-toggle="tooltip" data-placement="top" title="Mostrar" >
           <i style="cursor: pointer;" class="far fa-eye mr-2"></i>
         </a>
         <span style="text-decoration: none;" class="text-dark" data-toggle="tooltip" data-placement="top" id="export-single" title="Exportar a Excel" >
@@ -183,7 +175,7 @@
   {{/with}}
 </template>
 
-<template name="filterStarAttraction">
+<template name="filterStarTours">
   <div>
     <p>
       {{#each list}}

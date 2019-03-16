@@ -19,6 +19,7 @@ import { SoldPackage } from '../../../api/packages/soldPackage';
 import { Subscriptions } from '../../../api/subscriptions/subscriptions';
 import { userActivities } from '../../../api/userActivities/userActivities';
 import { Position } from '../../../api/position/position';
+import { Tours } from '../../../api/tours/tours';
 
 const TabularTables = {};
 
@@ -1146,13 +1147,6 @@ TabularTables.Position = new Tabular.Table({
 TabularTables.userPersonalActivities = new Tabular.Table({
   name: 'UserActivities',
   collection: userActivities,
-  responsive: true,
-  autoWidth: false,
-  search: {
-    caseInsesitive: true,
-    smart: true,
-    onEnterOnly: false
-  },
   extraFields: [
     'user', 'userId', 'registerId', 'date'
   ],
@@ -1176,6 +1170,41 @@ TabularTables.userPersonalActivities = new Tabular.Table({
       class: 'text-center',
       data: 'fecha()',
       title: 'Fecha'
+    }
+  ]
+});
+
+  
+TabularTables.Tours = new Tabular.Table({
+  name: 'Tours',
+  collection: Tours,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  columns: [
+    {
+      class: 'text-center',
+      data: 'title',
+      title: 'Título'
+    },
+    {
+      class: 'text-center',
+      data: 'price',
+      title: 'Precio'
+    },
+    {
+      class: 'text-center',
+      createdCell: Meteor.isClient && function showButtonsSubs (cell, cellData, rowData) {
+        return Blaze.renderWithData(Template.showButtonTours, {
+          _id: rowData._id,
+          slug: rowData.slug,
+          subscribed: rowData.subscribed
+        }, cell);
+      }
     }
   ]
 });
