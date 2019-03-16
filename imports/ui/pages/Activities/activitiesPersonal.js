@@ -37,7 +37,7 @@ Template.userActivitiesFiltered.onCreated(function createVar () {
   // this.myChart = new ReactiveVar(null);
 });
 
-Template.userActivitiesFiltered.helpers({
+Template.userPersonalActivities.helpers({
   selector: () => ({
     userId: Meteor.userId()
   })

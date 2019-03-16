@@ -1145,8 +1145,15 @@ TabularTables.Position = new Tabular.Table({
 });
 
 TabularTables.userPersonalActivities = new Tabular.Table({
-  name: 'UserActivities',
+  name: 'userPersonalActivities',
   collection: userActivities,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
   extraFields: [
     'user', 'userId', 'registerId', 'date'
   ],
