@@ -62,7 +62,10 @@ Template.chatUserMenu.helpers({
     return result;
   },
   hasNotifications: id => {
-    const query = Notifications.find({ idIssuer: id });
+    const query = Notifications.find({
+      idIssuer: id,
+      idReceiver: Meteor.userId()
+    });
     if (query) {
       return query.count() > 0;
     }
