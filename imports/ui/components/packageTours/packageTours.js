@@ -1,29 +1,27 @@
-import './packageRoomHotel.html';
+import './packageTours.html';
+import toastr from 'toastr';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
-import toastr from 'toastr';
-import { RoomHotel } from '../../../api/hotels/roomhotel';
-import { Hotels } from '../../../api/hotels/hotels';
+import { Tours } from '../../../api/tours/tours';
 import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
-import HotelImages from '../../../api/hotels/hotelImage';
 
-Template.packageRoomHotel.onCreated(function createVars () {
-  this.precioMax = new ReactiveVar(10000);
-  this.name = new ReactiveVar('');
+Template.packageTours.onCreated(function createVars () {
+  this.precioMax = new ReactiveVar(2500);
+  this.title = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
-  Session.set('packageRoomHotelStars', undefined);
+  Session.set('packageTourStars', '');
 });
 
-Template.packageRoomHotel.helpers({
+Template.packageTours.helpers({
   precioMax () {
     return Template.instance().precioMax.get();
   },
-  name () {
-    return Template.instance().name.get();
+  title () {
+    return Template.instance().title.get();
   },
   street () {
     return Template.instance().street.get();
@@ -49,61 +47,48 @@ Template.packageRoomHotel.helpers({
     return department !== '';
   },
   buscar () {
-    // filtrar por hotel primero
     const precioMax = Template.instance().precioMax.get();
-    const name = Template.instance().name.get();
+    const title = Template.instance().title.get();
     const street = Template.instance().street.get();
     const city = Template.instance().city.get();
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
-
-    const queryH = {
-      name: new RegExp(`.*${name}.*`, 'i'),
-      street: new RegExp(`.*${street}.*`, 'i'),
-      city: new RegExp(`.*${city}.*`, 'i')
-    };
-
-    if (Session.get('packageRoomHotelStars')) {
-      queryH.categorization = Session.get('packageRoomHotelStars');
+    const query = {};
+    if (title) {
+      query.title = new RegExp(`.*${title}.*`, 'i');
     }
-
+    if (precioMax) {
+      query.price = {
+        $lt: parseInt(precioMax, 10)
+      };
+    }
+    if (Session.get('packageTourStars')) {
+      query.categorization = Session.get('packageTourStars');
+    }
     if (department) {
-      queryH.departament = department;
+      query.departament = department;
     }
-
     if (municipality) {
-      queryH.municipality = municipality;
+      query.municipality = municipality;
     }
-
-    const filteredHotels = Hotels
-      .find(queryH)
-      .map(doc => doc);
-
-    // con los hoteles obtenidos, filtrar por habitacion
-    const query = {
-      idHotel: {
-        $in: filteredHotels.map(doc => doc._id)
-      },
-      price: {
-        $lte: parseInt(precioMax, 10)
-      }
-    };
-
-    // unir documentos del documento con los cuartos encontrados
-    const filteredRooms = RoomHotel
+    if (street) {
+      query.street = new RegExp(`.*${street}.*`, 'i');
+    }
+    if (city) {
+      query.city = new RegExp(`.*${city}.*`, 'i');
+    }
+    return Tours
       .find(query, { sort: { price: 1 } })
-      .map(doc => ({ ...filteredHotels.find(({ _id }) => doc.idHotel === _id), ...doc }));
-
-    return filteredRooms;
+      .map(doc => doc);
   }
 });
 
-Template.packageRoomHotel.events({
+Template.packageTours.events({
   'input #sliderMax' (event, templateInstance) {
     templateInstance.precioMax.set(event.currentTarget.value);
   },
-  'input #name' (event, templateInstance) {
-    templateInstance.name.set(event.currentTarget.value);
+  'input #title' (event, templateInstance) {
+    templateInstance.title.set(event.currentTarget.value);
   },
   'input #street' (event, templateInstance) {
     templateInstance.street.set(event.currentTarget.value);
@@ -120,36 +105,31 @@ Template.packageRoomHotel.events({
   }
 });
 
-Template.packageResultRoomHotel.helpers({
-  selected (id) {
-    return id === Session.get('packageRoomId');
-  },
-  findImg (_id) {
-    return HotelImages.findOne({ _id });
-  },
+Template.packageResultTours.helpers({
   first (index) {
     return index === 0;
-  }
-});
-
-Template.packageResultRoomHotel.events({
-  'click #packageAddRoom' () {
-    Session.set('packageHotelId', this.idHotel);
-    Session.set('packageRoomId', this._id);
-    toastr.info('Se guardo la habitacion al paquete!');
   },
-  'click #packageRemoveRoom' () {
-    Session.set('packageHotelId', null);
-    Session.set('packageRoomId', null);
-    toastr.info('Se quito la habitacion del paquete!');
+  selected (id) {
+    return id === Session.get('packageToursId');
   }
 });
 
-Template.packageStarRoomHotel.helpers({
+Template.packageResultTours.events({
+  'click #packageAddTours' () {
+    Session.set('packageToursId', this._id);
+    toastr.info('Se guardo el restaurante al paquete!');
+  },
+  'click #packageRemoveTours' () {
+    Session.set('packageToursId', null);
+    toastr.info('Se quito el restaurante del paquete!');
+  }
+});
+
+Template.packageStarTours.helpers({
   list: () => {
     const list = [];
     for (let index = 1; index <= 5; index += 1) {
-      if (index <= parseInt(Session.get('packageRoomHotelStars'), 10)) {
+      if (index <= parseInt(Session.get('packageTourStars'), 10)) {
         list.push({
           class: 'fas fa-star colorOrange',
           id: `star${index}`
@@ -165,20 +145,20 @@ Template.packageStarRoomHotel.helpers({
   }
 });
 
-Template.packageStarRoomHotel.events({
+Template.packageStarTours.events({
   'click #star1': function () {
-    Session.set('packageRoomHotelStars', '1');
+    Session.set('packageTourStars', '1');
   },
   'click #star2': function () {
-    Session.set('packageRoomHotelStars', '2');
+    Session.set('packageTourStars', '2');
   },
   'click #star3': function () {
-    Session.set('packageRoomHotelStars', '3');
+    Session.set('packageTourStars', '3');
   },
   'click #star4': function () {
-    Session.set('packageRoomHotelStars', '4');
+    Session.set('packageTourStars', '4');
   },
   'click #star5': function () {
-    Session.set('packageRoomHotelStars', '5');
+    Session.set('packageTourStars', '5');
   }
 });

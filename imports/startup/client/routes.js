@@ -1571,8 +1571,13 @@ Router.route('/add-packages', {
       Meteor.subscribe('renter.all'),
       Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('restaurantOffers.all'),
       Meteor.subscribe('restaurant.all'),
-      Meteor.subscribe('restaurantImage.all')
+      Meteor.subscribe('restaurantImage.all'),
+      Meteor.subscribe('attractions.all'),
+      Meteor.subscribe('attractionImage.all'),
+      Meteor.subscribe('tours.all'),
+      Meteor.subscribe('toursImage.all')
     ];
   },
   onBeforeAction: function () {
@@ -1625,8 +1630,13 @@ Router.route('/edit-package/:id', {
       Meteor.subscribe('renter.all'),
       Meteor.subscribe('FleetRenterImage.all'),
       Meteor.subscribe('fleetRenter.all'),
+      Meteor.subscribe('restaurantOffers.all'),
       Meteor.subscribe('restaurant.all'),
       Meteor.subscribe('restaurantImage.all'),
+      Meteor.subscribe('attractions.all'),
+      Meteor.subscribe('attractionImage.all'),
+      Meteor.subscribe('tours.all'),
+      Meteor.subscribe('toursImage.all'),
       Meteor.subscribe('OnePackage', id)
     ];
   },
@@ -1665,6 +1675,7 @@ Router.route('/show-package/:id', {
       Meteor.subscribe('Routes.all'),
       Meteor.subscribe('fleetRenter.all'),
       Meteor.subscribe('RoomHotel.all'),
+      Meteor.subscribe('tours.all'),
       Meteor.subscribe('OnePackage', id)
     ];
   },

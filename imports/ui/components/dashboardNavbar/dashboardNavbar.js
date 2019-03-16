@@ -66,6 +66,7 @@ Template.dashboardNavbar.events({
     Meteor.call('userLogout2', userId, (error, result) => {
       if (!error) {
         Accounts.logout();
+        Router.redirect('/');
       }
     });
   },

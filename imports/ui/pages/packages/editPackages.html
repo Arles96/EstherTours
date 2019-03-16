@@ -17,35 +17,34 @@
             {{>afQuickField name="name"}}
           </div>
           <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="price"}}
+            {{>afQuickField name="numAdults"}}
+          </div>
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="numChildren"}}
+          </div>
+          <div class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
+            {{>afQuickField name="numNights"}}
+          </div>
+          <div class="col-12 col-ms-12 col-md-12 col-lg-12 col-xl-12">
+            {{>afQuickField name="price" label=(calcPriceLabel
+              (afFieldValue name="numAdults")
+              (afFieldValue name="numChildren")
+              (afFieldValue name="numNights")
+            )}}
           </div>
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {{>afQuickField name="observation"}}
           </div>
-          <div hidden class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRenter" value=renter}}
-          </div>
-          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idFleetRenter" value=fleet}}
-          </div>
-          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idTransport" value=TE}}
-          </div>
-          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idTransportRoute" value=route}}
-          </div>
-          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idHotel" value=hotel}}
-          </div>
-          <div hidden class="col-12 col-ms-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRoom" value=room}}
-          </div>
-          <div hidden class="col col-lg-6 col-md-6 col-sm-12 col-12">
-            {{>afQuickField name="idGuide"}}
-          </div>
-          <div hidden class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            {{>afQuickField name="idRestaurant" value=restaurant}}
-          </div>
+          {{>afQuickField type="hidden" name="idRenter" value=renter}}
+          {{>afQuickField type="hidden" name="idFleetRenter" value=fleet}}
+          {{>afQuickField type="hidden" name="idTransport" value=TE}}
+          {{>afQuickField type="hidden" name="idTransportRoute" value=route}}
+          {{>afQuickField type="hidden" name="idHotel" value=hotel}}
+          {{>afQuickField type="hidden" name="idRoom" value=room}}
+          {{>afQuickField type="hidden" name="idAttraction" value=attraction}}
+          {{>afQuickField type="hidden" name="idGuide"}}
+          {{>afQuickField type="hidden" name="idRestaurant" value=restaurant}}
+          {{>afQuickField type="hidden" name="idTour" value=tour}}
         </div>
         <div class="text-center mt-4">
           <button type="submit" class="btn mx-auto btn-primary w-75" >Actualizar Paquete</button>
@@ -79,6 +78,18 @@
           <i class="fas fa-2x fa-check-square"></i>
         {{/if}}
       </a>
+      <a class="nav-item nav-link" id="nav-attraction-tab" data-toggle="tab" href="#nav-attraction" role="tab" aria-controls="nav-attraction" title="Atracción" aria-selected="false">
+        <i class="fas fa-2x fa-mosque"></i>
+        {{#if attraction}}
+          <i class="fas fa-2x fa-check-square"></i>
+        {{/if}}
+      </a>
+      <a class="nav-item nav-link" id="nav-tour-tab" data-toggle="tab" href="#nav-tour" role="tab" aria-controls="nav-tour" title="Excursiones" aria-selected="false">
+        <i class="fas fa-2x fa-bus"></i>
+        {{#if tour}}
+          <i class="fas fa-2x fa-check-square"></i>
+        {{/if}}
+      </a>
     </div>
   </nav>
   <br >
@@ -94,6 +105,12 @@
     </div>
     <div class="tab-pane fade" id="nav-restaurant" role="tabpanel" aria-labelledby="nav-restaurant-tab">
       {{>packageRestaurants}}
+    </div>
+    <div class="tab-pane fade" id="nav-attraction" role="tabpanel" aria-labelledby="nav-attraction-tab">
+      {{>packageAttractions}}
+    </div>
+    <div class="tab-pane fade" id="nav-tour" role="tabpanel" aria-labelledby="nav-tour-tab">
+      {{>packageTours}}
     </div>
   </div>
 </template>
