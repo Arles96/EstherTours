@@ -373,7 +373,7 @@ Meteor.methods({
       activity: 'exportó',
       collection: 'Establecimiento de transporte',
       registerId: 'N/D',
-      register: doc.name,
+      register: 'N/D',
       date: new Date()
     });
     return wb;

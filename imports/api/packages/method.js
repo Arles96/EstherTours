@@ -136,7 +136,7 @@ Meteor.methods({
       activity: 'exportó',
       collection: 'paquetes',
       registerId: 'N/D',
-      register: doc.name,
+      register: 'N/D',
       date: new Date()
     });
 
@@ -234,10 +234,9 @@ Meteor.methods({
       activity: 'exportó',
       collection: 'paquetes',
       registerId: 'N/D',
-      register: doc.name,
+      register: 'N/D',
       date: new Date()
     });
-        
     return wb;
   },
   reportPackages: function (year) {
