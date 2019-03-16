@@ -94,26 +94,28 @@
           <br >
           {{>packageStarRestaurant}}
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>No. de mesas:</b> {{numbersTables}}</label>
-          <br >
-          <input type="range" id="sliderNumbersTables" min="0" max="200" step="10" value="{{numbersTables}}" class="slider" style="width: 100%;">
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>No. de sillas:</b> {{numbersChairs}}</label>
-          <br >
-          <input type="range" id="sliderNumbersChairs" min="0" max="200" step="10" value="{{numbersChairs}}" class="slider" style="width: 100%;">
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>No. de sillas para bebes:</b> {{numbersChairsBabies}}</label>
-          <br >
-          <input type="range" id="sliderNumbersChairsBabies" min="0" max="200" step="10" value="{{numbersChairsBabies}}" class="slider" style="width: 100%;">
-        </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>Capacidad maxima:</b> {{maxPersonCapacity}}</label>
-          <br >
-          <input type="range" id="sliderMaxPersonCapacity" min="0" max="200" step="10" value="{{maxPersonCapacity}}" class="slider" style="width: 100%;">
-        </div>
+        {{#with sliderVals}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+            <label for="slider"><b>No. de mesas:</b> {{numbersTables}}</label>
+            <br >
+            <input type="range" id="sliderNumbersTables" min="0" max="{{tablesMax}}" step="{{tablesStep}}" value="{{numbersTables}}" class="slider" style="width: 100%;">
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+            <label for="slider"><b>No. de sillas:</b> {{numbersChairs}}</label>
+            <br >
+            <input type="range" id="sliderNumbersChairs" min="0" max="{{chairsMax}}" step="{{chairsStep}}" value="{{numbersChairs}}" class="slider" style="width: 100%;">
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+            <label for="slider"><b>No. de sillas para bebes:</b> {{numbersChairsBabies}}</label>
+            <br >
+            <input type="range" id="sliderNumbersChairsBabies" min="0" max="{{babiesMax}}" step="{{babiesStep}}" value="{{numbersChairsBabies}}" class="slider" style="width: 100%;">
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+            <label for="slider"><b>Capacidad maxima:</b> {{maxPersonCapacity}}</label>
+            <br >
+            <input type="range" id="sliderMaxPersonCapacity" min="0" max="{{personMax}}" step="{{personStep}}" value="{{maxPersonCapacity}}" class="slider" style="width: 100%;">
+          </div>
+        {{/with}}
       </div>
     </div>
   </div>

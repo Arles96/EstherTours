@@ -64,11 +64,13 @@
           <br >
           {{>filterStarRoomHotel}}
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>Precio maximo:</b> Lps. {{precioMax}}</label>
-          <br >
-          <input type="range" id="sliderMax" min="0" max="5000" step="100" value="{{precioMax}}" class="slider" style="width: 100%;">
-        </div>
+        {{#with sliderVals}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+            <label for="slider"><b>Precio maximo:</b> Lps. {{precioMax}}</label>
+            <br >
+            <input type="range" id="sliderMax" min="0" max="{{max}}" step="{{step}}" value="{{precioMax}}" class="slider" style="width: 100%;">
+          </div>
+        {{/with}}
       </div>
     </div>
   </div>

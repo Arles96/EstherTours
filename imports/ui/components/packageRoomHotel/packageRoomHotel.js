@@ -8,8 +8,19 @@ import departments from '../../../api/departments/departments';
 import municipalities from '../../../api/municipalities/municipality';
 import HotelImages from '../../../api/hotels/hotelImage';
 
+const sliderVals = {
+  max: 5000,
+  step: 100
+};
+
 Template.packageRoomHotel.onCreated(function createVars () {
-  this.precioMax = new ReactiveVar(10000);
+  const maxVal = RoomHotel.findOne({}, { sort: { price: -1 } });
+  if (maxVal) {
+    sliderVals.max = Math.round(maxVal.price * 1.2);
+    sliderVals.step = Math.round((maxVal.price * 1.2) / 10);
+  }
+
+  this.precioMax = new ReactiveVar(Math.round(sliderVals.max / 4));
   this.name = new ReactiveVar('');
   this.street = new ReactiveVar('');
   this.city = new ReactiveVar('');
@@ -19,6 +30,9 @@ Template.packageRoomHotel.onCreated(function createVars () {
 });
 
 Template.packageRoomHotel.helpers({
+  sliderVals () {
+    return sliderVals;
+  },
   precioMax () {
     return Template.instance().precioMax.get();
   },

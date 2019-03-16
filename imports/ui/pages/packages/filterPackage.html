@@ -57,11 +57,13 @@
           <br >
           <input type="text" id="street" value="{{street}}" class="form-control">
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
-          <label for="slider"><b>Precio maximo:</b> Lps. {{precioMax}}</label>
-          <br >
-          <input type="range" id="sliderMax" min="0" max="20000" step="100" value="{{precioMax}}" class="slider" style="width: 100%;">
-        </div>
+        {{#with sliderVals}}
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+            <label for="slider"><b>Precio maximo:</b> Lps. {{precioMax}}</label>
+            <br >
+            <input type="range" id="sliderMax" min="0" max="{{max}}" step="{{step}}" value="{{precioMax}}" class="slider" style="width: 100%;">
+          </div>
+        {{/with}}
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 form-group">
           <br >
           <button class="btn btn-info" style="width: 100%;" id="export-filtered">Exportar a Excel con filtros</button>
