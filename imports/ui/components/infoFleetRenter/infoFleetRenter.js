@@ -1,5 +1,5 @@
 import './infoFleetRenter.html';
-import '../../components/toDecimal/toDecimal';
+import '../toDecimal/toDecimal';
 import { Session } from 'meteor/session';
 import FleetRenterImage from '../../../api/renters/fleetRenterImage';
 

@@ -14,6 +14,8 @@ import { TransportationEstablishments, transportToExcel } from '../Transportatio
 import { RouteTransportationEstablishment, routeTransportToExcel } from '../TransportationEstablishment/RouteTransportationEstablishment';
 import { SoldPackage, SoldPackageSchema } from './soldPackage';
 import { userActivities } from '../userActivities/userActivities';
+import { attractionToExcel } from '../attractions/attractions';
+import { toursToExcel } from '../tours/tours';
 
 Meteor.methods({
   insertPackages: function (doc) {
@@ -36,25 +38,29 @@ Meteor.methods({
     }
   },
   updatePackages: function (doc) {
-    const data = doc.modifier.$set;
+    const data = { ...doc.modifier.$set, ...doc.modifier.$unset };
     const { _id } = doc;
-    PackagesSchema.validate(data);
-    Packages.update({ _id: _id }, {
-      $set: data
-    });
-    userActivities.insert({
-      userId: Meteor.userId(),
-      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
-      role: Meteor.user().roles[0],
-      activity: 'editó',
-      collection: 'paquetes',
-      registerId: _id,
-      register: doc.name,
-      date: new Date()
-    });
+    if (data.idRenter || data.idGuide || data.idTransport || data.idRestaurant || data.idHotel) {
+      PackagesSchema.validate(data);
+      Packages.update({ _id }, {
+        $set: data
+      });
+      userActivities.insert({
+        userId: Meteor.userId(),
+        user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+        role: Meteor.user().roles[0],
+        activity: 'editó',
+        collection: 'paquetes',
+        registerId: _id,
+        register: doc.name,
+        date: new Date()
+      });
+    } else {
+      throw new Meteor.Error('Debe contener al menos un registro de las entidades');
+    }
   },
   deletePackage: function (id) {
-    if (!SoldPackage.find({ idPackage: id })) {
+    if (!SoldPackage.findOne({ idPackage: id })) {
       Packages.remove({ _id: id });
       userActivities.insert({
         userId: Meteor.userId(),
@@ -95,6 +101,8 @@ Meteor.methods({
       const transportRes = transportToExcel(doc.idTransport);
       const routeRes = routeTransportToExcel(doc.idTransportRoute);
       const restaurantRes = restaurantToExcel(doc.idRestaurant);
+      const attractionRes = attractionToExcel(doc.idAttraction);
+      const tourRes = toursToExcel(doc.idTour);
 
       data.push(['Nombre del paquete', 'Precio', 'Observaciones']);
       data.push([
@@ -111,7 +119,9 @@ Meteor.methods({
         ...roomRes,
         ...transportRes,
         ...routeRes,
-        ...restaurantRes
+        ...restaurantRes,
+        ...attractionRes,
+        ...tourRes
       );
 
       const ws = XLSX.utils.aoa_to_sheet(data);
@@ -172,6 +182,8 @@ Meteor.methods({
       const transportRes = transportToExcel(doc.idTransport);
       const routeRes = routeTransportToExcel(doc.idTransportRoute);
       const restaurantRes = restaurantToExcel(doc.idRestaurant);
+      const attractionRes = attractionToExcel(doc.idAttraction);
+      const tourRes = toursToExcel(doc.idTour);
 
       data.push(['Nombre del paquete', 'Precio', 'Observaciones']);
       data.push([
@@ -188,7 +200,9 @@ Meteor.methods({
         ...roomRes,
         ...transportRes,
         ...routeRes,
-        ...restaurantRes
+        ...restaurantRes,
+        ...attractionRes,
+        ...tourRes
       );
 
       const ws = XLSX.utils.aoa_to_sheet(data);

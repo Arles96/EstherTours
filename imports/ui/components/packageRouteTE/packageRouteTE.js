@@ -136,10 +136,15 @@ Template.packageResultRouteTE.helpers({
 });
 
 Template.packageResultRouteTE.events({
-  'click #packageAddRoute' (event, templateInstance) {
+  'click #packageAddRoute' () {
     Session.set('packageTEId', this.idTransportationEstablishment);
     Session.set('packageRouteId', this._id);
     toastr.info('Se guardo la ruta al paquete!');
+  },
+  'click #packageRemoveRoute' () {
+    Session.set('packageTEId', null);
+    Session.set('packageRouteId', null);
+    toastr.info('Se quito la ruta del paquete!');
   }
 });
 
