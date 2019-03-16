@@ -94,6 +94,7 @@ import '../../ui/pages/ChatPage/ChatPage';
 import '../../ui/pages/ChatMobilePage/ChatMobilePage';
 import '../../ui/pages/Activities/activities';
 import '../../ui/pages/Activities/activitiesFiltered';
+import '../../ui/pages/Activities/activitiesPersonal';
 import '../../ui/pages/position/listPosition';
 import '../../ui/pages/tours/listTours';
 import '../../ui/pages/tours/addTours';
@@ -1923,6 +1924,22 @@ Router.route('/activities-filtered', {
       Meteor.subscribe('notifications.all'),
       Meteor.subscribe('chats.all')
     ];
+  }
+});
+
+Router.route('/user-activities', {
+  name: 'userPersonalActivities',
+  template: 'userPersonalActivities',
+  layoutTemplate: 'bodyAdmin',
+  waitOn: () => [
+    Meteor.subscribe('notifications.all'),
+    Meteor.subscribe('chats.all'),
+    Meteor.subscribe('allUsers.all')
+  ],
+  onBeforeAction: function () {
+    Session.set('ShowChatFixed', true);
+    listBreadcrumb(['Tabla de actividades']);
+    isLoggedIn2(this);
   }
 });
 

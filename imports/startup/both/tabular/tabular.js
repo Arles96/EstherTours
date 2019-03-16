@@ -1144,6 +1144,44 @@ TabularTables.Position = new Tabular.Table({
   ]
 });
 
+TabularTables.userPersonalActivities = new Tabular.Table({
+  name: 'userPersonalActivities',
+  collection: userActivities,
+  responsive: true,
+  autoWidth: false,
+  search: {
+    caseInsesitive: true,
+    smart: true,
+    onEnterOnly: false
+  },
+  extraFields: [
+    'user', 'userId', 'registerId', 'date'
+  ],
+  columns: [
+    {
+      class: 'text-center',
+      data: 'activity',
+      title: 'Actividad'
+    },
+    {
+      class: 'text-center',
+      data: 'collection',
+      title: 'Entidad'
+    },
+    {
+      class: 'text-center',
+      data: 'register',
+      title: 'Registro'
+    },
+    {
+      class: 'text-center',
+      data: 'fecha()',
+      title: 'Fecha'
+    }
+  ]
+});
+
+  
 TabularTables.Tours = new Tabular.Table({
   name: 'Tours',
   collection: Tours,

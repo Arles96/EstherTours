@@ -129,6 +129,17 @@ Meteor.methods({
       XLSX.utils.book_append_sheet(wb, ws, doc.name);
     });
 
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      role: Meteor.user().roles[0],
+      activity: 'exportó',
+      collection: 'paquetes',
+      registerId: 'N/D',
+      register: 'N/D',
+      date: new Date()
+    });
+
     return wb;
   },
   exportFilteredToExcel: function (queries) {
@@ -215,6 +226,17 @@ Meteor.methods({
       const ws = XLSX.utils.aoa_to_sheet([[]]);
       XLSX.utils.book_append_sheet(wb, ws, 'Vacio');
     }
+
+    userActivities.insert({
+      userId: Meteor.userId(),
+      user: `${Meteor.user().profile.firstName} ${Meteor.user().profile.lastName}`,
+      role: Meteor.user().roles[0],
+      activity: 'exportó',
+      collection: 'paquetes',
+      registerId: 'N/D',
+      register: 'N/D',
+      date: new Date()
+    });
     return wb;
   },
   reportPackages: function (year) {
