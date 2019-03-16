@@ -226,10 +226,10 @@ Meteor.methods({
       const { _id } = doc;
       restaurantOffersSchema.validate(data);
       const value = doc.telephone;
-      if (!Restaurants.findOne(
+      if (!restaurantOffers.findOne(
         { telephone: { $in: value } }
       )) {
-        Restaurants.update({ _id: _id }, {
+        restaurantOffers.update({ _id: _id }, {
           $set: data
         });
         userActivities.insert({

@@ -4,6 +4,10 @@ import { Session } from 'meteor/session';
 import { Notifications } from '../../../api/Notifications/Notification';
 import './ChatUserMenu.html';
 
+Template.chatUserMenu.onCreated(() => {
+  Session.set('isUsing', false);
+  Session.set('isOpen', false);
+});
 Template.chatUserMenu.helpers({
   connectedUsers: () => {
     const result = Meteor.users.find({
@@ -73,7 +77,8 @@ Template.chatUserMenu.helpers({
       return query.amount;
     }
     return 0;
-  }
+  },
+  isUsing: () => Session.get('isUsing') || Session.get('isOpen')
 });
 
 Template.chatUserMenu.events({
@@ -98,11 +103,20 @@ Template.chatUserMenu.events({
     const data = event.currentTarget.value.split(' ').filter(item => item.trim() !== '')
       .map(val => ({
         $or: [
-          { 'profile.firstName': { $regex: val.concat('.*') } },
-          { 'profile.lastName': { $regex: val.concat('.*') } }
+          { 'profile.firstName': { $regex: new RegExp(val.concat('.*'), 'i') } },
+          { 'profile.lastName': { $regex: new RegExp(val.concat('.*'), 'i') } }
         ]
       }));
     Session.set('searchChatWith', (data.length > 0 ? data : `undefined`));
     Session.set('searchChatWithString', event.currentTarget.value.split(' ').filter(item => item.trim() !== ''));
+  },
+  'click .Menu_Chat_Text': function (event) {
+    Session.set('isOpen', !Session.get('isOpen'));
+  },
+  'mouseenter .Menu_Chat_Text': function (event) {
+    Session.set('isUsing', true);
+  },
+  'mouseleave .Menu_Chat_Text': function (event) {
+    Session.set('isUsing', false);
   }
 });

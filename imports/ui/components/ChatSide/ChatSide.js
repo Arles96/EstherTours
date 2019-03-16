@@ -74,7 +74,8 @@ Template.chatSide.helpers({
   rightArrow: () => {
     const counter = Session.get('counter');
     return counter > 0;
-  }
+  },
+  landscape: () => window.innerWidth > 780 && window.innerWidth > window.innerHeight
 });
 
 Template.chatSide.events({

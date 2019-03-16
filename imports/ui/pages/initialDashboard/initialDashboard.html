@@ -1,4 +1,4 @@
-<template name="initialDashboard" >
+<template name="initialDashboard">
   <!-- Icon Cards-->
   <div class="row">
     <div class="col-xl-3 col-sm-6 mb-3">
@@ -73,11 +73,19 @@
       <i class="fas fa-table"></i> Creación de hoteles del "{{currentYear 'hotel'}}"
     </div>
     <div class="card-body">
-      <canvas id="hotel-reportChart" width="200"></canvas>
+      <canvas id="hotel-reportChart" width="200px" class="row"></canvas>
+      {{#if (hasGraphicData 'hotel')}}
+      <div class="row justify-content-md-center">
+        <i style="text-align: center" class="col mx-auto">---- No hay contenido ----</i>
+      </div>
+      {{/if}}
     </div>
     <div class="card-footer">
       <label id="label-rangeControl" for="rangeControl-hotel">Resultado del año "{{currentYear 'hotel'}}"</label>
-      <input type="range" id="rangeControl-hotel" class="custom-range" min="2010" max={{maxYear}} value="{{currentYear 'hotel'}}" step="1"/>
+      <div class="mx-auto" style="width:85%">
+        <input type="range" id="rangeControl-hotel" class="custom-range" min="2010" max={{maxYear}}
+          value="{{currentYear 'hotel'}}" step="1" />
+      </div>
     </div>
   </div>
 
@@ -87,11 +95,20 @@
       <i class="fas fa-table"></i> Creación de restaurantes del "{{currentYear 'restaurant'}}"
     </div>
     <div class="card-body">
-      <canvas id="restaurant-reportChart" width="200"></canvas>
+      <canvas id="restaurant-reportChart" width="200px" class="row"></canvas>
+      {{#if (hasGraphicData 'restaurant')}}
+      <div class="row justify-content-md-center">
+        <i style="text-align: center" class="col mx-auto">---- No hay contenido ----</i>
+      </div>
+      {{/if}}
     </div>
     <div class="card-footer">
-      <label id="label-rangeControl" for="rangeControl-restaurant">Resultado del año "{{currentYear 'restaurant'}}"</label>
-      <input type="range" id="rangeControl-restaurant" class="custom-range" min="2010" max={{maxYear}} value="{{currentYear 'restaurant'}}" step="1"/>
+      <label id="label-rangeControl" for="rangeControl-restaurant">Resultado del año
+        "{{currentYear 'restaurant'}}"</label>
+      <div class="mx-auto" style="width:85%">
+        <input type="range" id="rangeControl-restaurant" class="custom-range" min="2010" max={{maxYear}}
+          value="{{currentYear 'restaurant'}}" step="1" />
+      </div>
     </div>
   </div>
 
@@ -101,11 +118,20 @@
       <i class="fas fa-table"></i> Creación de atracciones del "{{currentYear 'attraction'}}"
     </div>
     <div class="card-body">
-      <canvas id="attraction-reportChart" width="200"></canvas>
+      <canvas id="attraction-reportChart" width="200px" class="row"></canvas>
+      {{#if (hasGraphicData 'attraction')}}
+      <div class="row justify-content-md-center">
+        <i style="text-align: center" class="col mx-auto">---- No hay contenido ----</i>
+      </div>
+      {{/if}}
     </div>
     <div class="card-footer">
-      <label id="label-rangeControl" for="rangeControl-attraction">Resultado del año "{{currentYear 'attraction'}}"</label>
-      <input type="range" id="rangeControl-attraction" class="custom-range" min="2010" max={{maxYear}} value="{{currentYear 'attraction'}}" step="1"/>
+      <label id="label-rangeControl" for="rangeControl-attraction">Resultado del año
+        "{{currentYear 'attraction'}}"</label>
+      <div class="mx-auto" style="width:85%">
+        <input type="range" id="rangeControl-attraction" class="custom-range" min="2010" max={{maxYear}}
+          value="{{currentYear 'attraction'}}" step="1" />
+      </div>
     </div>
   </div>
 
@@ -115,11 +141,19 @@
       <i class="fas fa-table"></i> Creación de arrendadoras del "{{currentYear 'renter'}}"
     </div>
     <div class="card-body">
-      <canvas id="renter-reportChart" width="200"></canvas>
+      <canvas id="renter-reportChart" width="200px" class="row"></canvas>
+      {{#if (hasGraphicData 'renter')}}
+      <div class="row justify-content-md-center">
+        <i style="text-align: center" class="col mx-auto">---- No hay contenido ----</i>
+      </div>
+      {{/if}}
     </div>
     <div class="card-footer">
       <label id="label-rangeControl" for="rangeControl-renter">Resultado del año "{{currentYear 'renter'}}"</label>
-      <input type="range" id="rangeControl-renter" class="custom-range" min="2010" max={{maxYear}} value="{{currentYear 'renter'}}" step="1"/>
+      <div class="mx-auto" style="width:85%">
+        <input type="range" id="rangeControl-renter" class="custom-range" min="2010" max={{maxYear}}
+          value="{{currentYear 'renter'}}" step="1" />
+      </div>
     </div>
   </div>
 
@@ -129,11 +163,20 @@
       <i class="fas fa-table"></i> Creación de transportes del "{{currentYear 'transport'}}"
     </div>
     <div class="card-body">
-      <canvas id="transport-reportChart" width="200"></canvas>
+      <canvas id="transport-reportChart" width="200px" class="row"></canvas>
+      {{#if (hasGraphicData 'transport')}}
+      <div class="row justify-content-md-center">
+        <i style="text-align: center" class="col mx-auto">---- No hay contenido ----</i>
+      </div>
+      {{/if}}
     </div>
     <div class="card-footer">
-      <label id="label-rangeControl" for="rangeControl-transport">Resultado del año "{{currentYear 'transport'}}"</label>
-      <input type="range" id="rangeControl-transport" class="custom-range" min="2010" max={{maxYear}} value="{{currentYear 'transport'}}" step="1"/>
+      <label id="label-rangeControl" for="rangeControl-transport">Resultado del año
+        "{{currentYear 'transport'}}"</label>
+      <div class="mx-auto" style="width:85%">
+        <input type="range" id="rangeControl-transport" class="custom-range" min="2010" max={{maxYear}}
+          value="{{currentYear 'transport'}}" step="1" />
+      </div>
     </div>
   </div>
 
@@ -143,11 +186,20 @@
       <i class="fas fa-table"></i> Paquetes más vendidos del "{{currentYear 'package'}}"
     </div>
     <div class="card-body">
-      <canvas id="package-reportChart" width="200"></canvas>
+      <canvas id="package-reportChart" width="200px" class="row"></canvas>
+      {{#if (hasGraphicData 'package')}}
+      <div class="row justify-content-md-center">
+        <i style="text-align: center" class="col mx-auto">---- No hay contenido ----</i>
+      </div>
+      {{/if}}
     </div>
     <div class="card-footer">
       <label id="label-rangeControl" for="rangeControl-package">Resultado del año "{{currentYear 'package'}}"</label>
-      <input type="range" id="rangeControl-package" class="custom-range" min="2010" max={{maxYear}} value="{{currentYear 'package'}}" step="1"/>
+      <div class="mx-auto" style="width:85%">
+        <input type="range" id="rangeControl-package" class="custom-range" min="2010" max={{maxYear}}
+          value="{{currentYear 'package'}}" step="1" />
+      </div>
     </div>
   </div>
+  <br>
 </template>

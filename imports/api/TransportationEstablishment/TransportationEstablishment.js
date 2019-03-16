@@ -77,7 +77,8 @@ const TransportationEstablishmentSchema = new SimpleSchema({
   email: {
     type: String,
     label: 'Correo Electrónico',
-    regEx: RegExObj.email
+    regEx: RegExObj.email,
+    optional: true
   },
   website: {
     type: String,

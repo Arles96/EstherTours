@@ -1,5 +1,5 @@
 <template name="chatSide">
-
+  {{#if landscape}}
   <div id="accordion" class="chat-menu">
     <div class="d-flex justify-content-end align-content-end align-items-end">
       {{#if maxOpenChats}}
@@ -46,5 +46,5 @@
       </div>
     </div>
   </div>
-
+  {{/if}}
 </template>
