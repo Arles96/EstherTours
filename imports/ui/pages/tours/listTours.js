@@ -4,6 +4,7 @@ import XLSX from 'xlsx';
 import toastr from 'toastr';
 import Swal from 'sweetalert2';
 import { Tours } from '../../../api/tours/tours';
+import { packageTour, unpackageTour } from '../../../startup/client/packageFunction';
 
 Template.listTours.onCreated(() => {
   $.extend(true, $.fn.dataTable.defaults, {
@@ -79,5 +80,13 @@ Template.showButtonTours.events({
         });
       }
     });
+  },
+  'click .packageEntity': function () {
+    packageTour(this._id);
+    toastr.success('Se ha empaquetado la excursión exitosamente');
+  },
+  'click .unPackageEntity': function () {
+    unpackageTour();
+    toastr.info('Se ha desempaquetado la excursión exitosamente');
   }
 });
