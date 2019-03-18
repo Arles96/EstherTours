@@ -297,6 +297,7 @@ Meteor.methods({
         transport: TransportationEstablishments.findOne({ _id: element.idTransport }),
         route: RouteTransportationEstablishment.findOne({ _id: element.idTransportRoute }),
         restaurant: Restaurants.findOne({ _id: element.idRestaurant }),
+        dateLimit: element.dateLimit,
         observation: element.observation,
         attraction: Attractions.findOne({ _id: element.idAttraction }),
         tour: Tours.findOne({ _id: element.idTour })

@@ -177,6 +177,17 @@ Template.filterPackage.events({
   }
 });
 
+Template.filterResultPackage.helpers({
+  localDate: function () {
+    return this.dateLimit.toLocaleDateString('es-ES', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+});
+
 Template.filterResultPackage.events({
   'click .sellPackage': function () {
     const { _id, name, price } = this;
