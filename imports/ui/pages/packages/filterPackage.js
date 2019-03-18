@@ -32,6 +32,7 @@ Template.filterPackage.onCreated(function createVars () {
   this.city = new ReactiveVar('');
   this.department = new ReactiveVar('');
   this.municipality = new ReactiveVar('');
+  this.dateLimit = new ReactiveVar(null);
   Session.set('filterPackages', []);
 });
 
@@ -57,6 +58,9 @@ Template.filterPackage.helpers({
   municipality () {
     return Template.instance().municipality.get();
   },
+  dateLimit () {
+    return Template.instance().dateLimit.get();
+  },
   listDepartment () {
     return departments;
   },
@@ -76,6 +80,7 @@ Template.filterPackage.helpers({
     const city = Template.instance().city.get();
     const department = Template.instance().department.get();
     const municipality = Template.instance().municipality.get();
+    const dateLimit = Template.instance().dateLimit.get();
     const queryE = {};
     const queryP = {};
     if (name) {
@@ -92,6 +97,9 @@ Template.filterPackage.helpers({
     }
     if (municipality) {
       queryE.municipality = municipality;
+    }
+    if (dateLimit) {
+      queryP.dateLimit = { $lte: new Date(dateLimit) };
     }
     queryP.price = {
       $lte: parseInt(precioMax, 10)
@@ -117,6 +125,9 @@ Template.filterPackage.events({
   },
   'input #street' (event, templateInstance) {
     templateInstance.street.set(event.currentTarget.value);
+  },
+  'input #dateLimit' (event, templateInstance) {
+    templateInstance.dateLimit.set(event.currentTarget.value);
   },
   'input #city' (event, templateInstance) {
     templateInstance.city.set(event.currentTarget.value);
@@ -173,6 +184,17 @@ Template.filterPackage.events({
           }
         });
       }
+    });
+  }
+});
+
+Template.filterResultPackage.helpers({
+  localDate: function () {
+    return this.dateLimit.toLocaleDateString('es-ES', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
   }
 });

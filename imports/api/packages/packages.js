@@ -159,6 +159,10 @@ const PackagesSchema = new SimpleSchema({
       return 1;
     }
   },
+  dateLimit: {
+    type: Date,
+    label: 'Fecha limite'
+  },
   observation: {
     type: String,
     label: 'Observación',

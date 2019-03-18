@@ -53,21 +53,46 @@ Template.editPackages.helpers({
     const packageAttractionId = Session.get('packageAttractionId');
     const packageToursId = Session.get('packageToursId');
 
+    const descripciones = [];
+
     // Precio tour
     if (packageToursId) {
-      price += Tours.findOne({ _id: packageToursId }).price * (numAdults + numChildren);
+      const priceTour = Tours.findOne({ _id: packageToursId }).price;
+      const totalPriceTour = priceTour * (numAdults + numChildren);
+      price += totalPriceTour;
+      descripciones.push({
+        label: 'Tour',
+        value: `L. ${priceTour} * ${(numAdults + numChildren)} personas = L. ${totalPriceTour}`
+      });
     }
     // Precio habitacion
     if (packageRoomId) {
-      price += RoomHotel.findOne({ _id: packageRoomId }).price * numNights;
+      const priceRoom = RoomHotel.findOne({ _id: packageRoomId }).price;
+      const totalPriceRoom = priceRoom * numNights;
+      price += totalPriceRoom;
+      descripciones.push({
+        label: 'Habitacion',
+        value: `L. ${priceRoom} * ${(numNights)} noches = L. ${totalPriceRoom}`
+      });
     }
     // Precio atraccion
     if (packageAttractionId) {
-      price += Attractions.findOne({ _id: packageAttractionId }).price * (numAdults + numChildren);
+      const priceAttr = Attractions.findOne({ _id: packageAttractionId }).price;
+      const totalPriceAttr = priceAttr * (numAdults + numChildren);
+      price += totalPriceAttr;
+      descripciones.push({
+        label: 'Atraccion',
+        value: `L. ${priceAttr} * ${(numAdults + numChildren)} personas = L. ${totalPriceAttr}`
+      });
     }
     // Tarifa flota de arrendadora
     if (packageFleetId) {
-      price += FleetRenter.findOne({ _id: packageFleetId }).rate;
+      const rateFleet = FleetRenter.findOne({ _id: packageFleetId }).rate;
+      price += rateFleet;
+      descripciones.push({
+        label: 'Flota',
+        value: `L. ${rateFleet} de tarifa`
+      });
     }
     // Promedio ofertas de restaurante
     if (packageRestaurantId) {
@@ -79,11 +104,23 @@ Template.editPackages.helpers({
           total += doc.price;
           count += 1;
         });
+      let division = 0;
+      let totalRest = 0;
       if (count !== 0) {
-        price += (total / count) * (numAdults + numChildren) * numNights;
+        division = (total / count);
+        totalRest = division * (numAdults + numChildren) * numNights;
+        price += totalRest;
       }
+      descripciones.push({
+        label: 'Restaurante',
+        value: `L. ${division} promedio de precio de menu * ${(numAdults + numChildren)} personas * ${numNights} noches = L. ${totalRest}`
+      });
     }
-    return `Precio (Calculado en Lps. ${price})`;
+    descripciones.push({
+      label: 'Total calculado en',
+      value: `L. ${price}`
+    });
+    return descripciones;
   }
 });
 
