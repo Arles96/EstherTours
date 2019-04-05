@@ -1181,7 +1181,6 @@ TabularTables.userPersonalActivities = new Tabular.Table({
   ]
 });
 
-  
 TabularTables.Tours = new Tabular.Table({
   name: 'Tours',
   collection: Tours,

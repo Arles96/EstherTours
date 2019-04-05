@@ -41,7 +41,7 @@ Meteor.methods({
           password: password
         });
         Email.send({
-          from: 'aulio.maldonado@gmail.com',
+          from: 'Info@esthertours.com',
           to: doc.email,
           subject: 'Creación de Usuario',
           html: html

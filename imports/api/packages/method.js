@@ -341,7 +341,7 @@ Meteor.methods({
           getImage: url => Meteor.absoluteUrl(`img/${url}`)
         });
         Email.send({
-          from: 'aulio.maldonado@gmail.com',
+          from: 'Info@esthertours.com',
           to: email,
           subject: `Paquete: ${pkg.name}`,
           html: html

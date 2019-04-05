@@ -1,7 +1,7 @@
 // Fill the DB with example data on startup
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import { consultant, admin } from '../../api/roles/roles';
+import { admin } from '../../api/roles/roles';
 
 Meteor.startup(() => {
   if (!Accounts.findUserByEmail('pruebaOperador@gmail.com')) {

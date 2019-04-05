@@ -1064,7 +1064,6 @@ Router.route('/show-renter/:id', {
     const { id } = this.params;
     return [
       Meteor.subscribe('renter.one', id),
-      Meteor.subscribe('renter.all', id),
       Meteor.subscribe('notifications.all'),
       Meteor.subscribe('chats.all'),
       Meteor.subscribe('allUsers.all'),
