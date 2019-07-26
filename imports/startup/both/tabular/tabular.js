@@ -206,7 +206,7 @@ TabularTables.renterBranches = new Tabular.Table({
 });
 
 TabularTables.FleetsRenter = new Tabular.Table({
-  name: 'FleetRenter',
+  name: 'fleetRenter',
   collection: FleetRenter,
   responsive: true,
   autoWidth: false,

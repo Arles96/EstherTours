@@ -93,7 +93,7 @@ Template.showButtonFleetRenters.events({
     });
   },
   'click .infoFleetRenter': function () {
-    Session.set('fleetRenter', FleetRenter.findOne({ _id: this._id }));
+    Session.set('fleetRenter', this._id);
   },
   'click .packageEntity': function () {
     const { idRenter, _id } = FleetRenter.findOne({ _id: this._id });
